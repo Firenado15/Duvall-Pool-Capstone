@@ -3,137 +3,144 @@
 ' Last modified by Matthew Estes
 
 Public Class frmOptions
-    Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
 
-        ' Close program
-        Close()
+	Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
 
-    End Sub
+		' Close program
+		Close()
 
-    Private Sub btnCustomerIntake_Click(sender As Object, e As EventArgs) Handles btnCustomerIntake.Click
+	End Sub
 
-        ' create a new instance of the customer intake form
-        Dim CustomerIntake As New frmCustomerIntake
+	Private Sub btnCustomerIntake_Click(sender As Object, e As EventArgs) Handles btnCustomerIntake.Click
 
-        ' show the new form so any past data is not still on the form
-        CustomerIntake.ShowDialog()
+		' create a new instance of the customer intake form
+		Dim CustomerIntake As New frmCustomerIntake
 
-    End Sub
+		' show the new form so any past data is not still on the form
+		CustomerIntake.ShowDialog()
 
-    Private Sub btnViewPreviousCustomer_Click(sender As Object, e As EventArgs) Handles btnViewPreviousCustomer.Click
+	End Sub
 
-        ' create a new instance of the previous customer form
-        Dim PreviousCustomer As New frmPreviousCustomer
+	Private Sub btnViewPreviousCustomer_Click(sender As Object, e As EventArgs) Handles btnViewPreviousCustomer.Click
 
-        ' show the new form so any past data is not still on the form
-        PreviousCustomer.ShowDialog()
+		' create a new instance of the previous customer form
+		Dim PreviousCustomer As New frmPreviousCustomer
 
-    End Sub
+		' show the new form so any past data is not still on the form
+		PreviousCustomer.ShowDialog()
 
-    Private Sub btnPartsOrdering_Click(sender As Object, e As EventArgs) Handles btnPartsOrdering.Click
+	End Sub
 
-        ' create a new instance of the parts ordering form
-        Dim PartsOrdering As New frmPartsOrdering
+	Private Sub btnPartsOrdering_Click(sender As Object, e As EventArgs) Handles btnPartsOrdering.Click
 
-        ' show the new form so any past data is not still on the form
-        PartsOrdering.ShowDialog()
+		' create a new instance of the parts ordering form
+		Dim PartsOrdering As New frmPartsOrdering
 
-    End Sub
+		' show the new form so any past data is not still on the form
+		PartsOrdering.ShowDialog()
 
-    Private Sub btnPreviousPartsOrders_Click(sender As Object, e As EventArgs) Handles btnPreviousPartsOrders.Click
+	End Sub
 
-        ' create a new instance of the previous orders form
-        Dim PreviousOrders As New frmPreviousOrders
+	Private Sub btnPreviousPartsOrders_Click(sender As Object, e As EventArgs) Handles btnPreviousPartsOrders.Click
 
-        ' show the new form so any past data is not still on the form
-        PreviousOrders.ShowDialog()
+		' create a new instance of the previous orders form
+		Dim PreviousOrders As New frmPreviousOrders
 
-    End Sub
+		' show the new form so any past data is not still on the form
+		PreviousOrders.ShowDialog()
 
-    Private Sub btnDispatchOrders_Click_1(sender As Object, e As EventArgs) Handles btnDispatchOrders.Click
+	End Sub
 
-        ' create a new instance of the dispatch orders form
-        Dim DispatchOrders As New frmDispatchOrders
+	Private Sub btnDispatchOrders_Click_1(sender As Object, e As EventArgs) Handles btnDispatchOrders.Click
 
-        ' show the new form so any past data is not still on the form
-        DispatchOrders.ShowDialog()
+		' create a new instance of the dispatch orders form
+		Dim DispatchOrders As New frmDispatchOrders
 
-    End Sub
+		' show the new form so any past data is not still on the form
+		DispatchOrders.ShowDialog()
 
-    Private Sub btnViewOrders_Click(sender As Object, e As EventArgs) Handles btnViewOrders.Click
+	End Sub
 
-        ' create a new instance of the view and update dispatched orders form
-        Dim ViewAndUpdateDispatchedOrders As New frmViewAndUpdateDispatchedOrders
+	Private Sub btnViewOrders_Click(sender As Object, e As EventArgs) Handles btnViewOrders.Click
 
-        ' show the new form so any past data is not still on the form
-        ViewAndUpdateDispatchedOrders.ShowDialog()
+		' create a new instance of the view and update dispatched orders form
+		Dim ViewAndUpdateDispatchedOrders As New frmViewAndUpdateDispatchedOrders
 
-    End Sub
+		' show the new form so any past data is not still on the form
+		ViewAndUpdateDispatchedOrders.ShowDialog()
 
-    Private Sub btnInventoryManagement_Click(sender As Object, e As EventArgs) Handles btnInventoryManagement.Click
+	End Sub
 
-        ' create a new instance of the inventory management form
-        Dim InventoryManagement As New frmInventoryManagement
+	Private Sub btnInventoryManagement_Click(sender As Object, e As EventArgs) Handles btnInventoryManagement.Click
 
-        ' show the new form so any past data is not still on the form
-        InventoryManagement.ShowDialog()
+		' create a new instance of the inventory management form
+		Dim InventoryManagement As New frmInventoryManagement
 
-    End Sub
+		' show the new form so any past data is not still on the form
+		InventoryManagement.ShowDialog()
 
-    Private Sub btnInvoicing_Click(sender As Object, e As EventArgs) Handles btnInvoicing.Click
+	End Sub
 
-        ' create a new instance of the invoicing form
-        Dim Invoicing As New frmInvoicing
+	Private Sub btnInvoicing_Click(sender As Object, e As EventArgs) Handles btnInvoicing.Click
 
-        ' show the new form so any past data is not still on the form
-        Invoicing.ShowDialog()
+		' create a new instance of the invoicing form
+		Dim Invoicing As New frmInvoicing
 
-    End Sub
+		' show the new form so any past data is not still on the form
+		Invoicing.ShowDialog()
 
-    Private Sub btnPreviousInvoices_Click(sender As Object, e As EventArgs) Handles btnPreviousInvoices.Click
+	End Sub
 
-        ' create a new instance of the previous invoices form
-        Dim PreviousInvoices As New frmPreviousInvoices
+	Private Sub btnPreviousInvoices_Click(sender As Object, e As EventArgs) Handles btnPreviousInvoices.Click
 
-        ' show the new form so any past data is not still on the form
-        PreviousInvoices.ShowDialog()
+		' create a new instance of the previous invoices form
+		Dim PreviousInvoices As New frmPreviousInvoices
 
-    End Sub
+		' show the new form so any past data is not still on the form
+		PreviousInvoices.ShowDialog()
 
-    Private Sub btnEditFinances_Click(sender As Object, e As EventArgs) Handles btnEditFinances.Click
+	End Sub
 
-        ' create a new instance of the edit finances form
-        Dim EditFinances As New frmEditFinances
+	Private Sub btnEditFinances_Click(sender As Object, e As EventArgs) Handles btnEditFinances.Click
 
-        ' show the new form so any past data is not still on the form
-        EditFinances.ShowDialog()
+		' create a new instance of the edit finances form
+		Dim EditFinances As New frmEditFinances
 
-    End Sub
+		' show the new form so any past data is not still on the form
+		EditFinances.ShowDialog()
 
-    Private Sub btnViewFinances_Click(sender As Object, e As EventArgs) Handles btnViewFinances.Click
+	End Sub
 
-        ' create a new instance of the view finances form
-        Dim ViewFinances As New frmViewFinances
+	Private Sub btnViewFinances_Click(sender As Object, e As EventArgs) Handles btnViewFinances.Click
 
-        ' show the new form so any past data is not still on the form
-        ViewFinances.ShowDialog()
+		' create a new instance of the view finances form
+		Dim ViewFinances As New frmViewFinances
 
-    End Sub
+		' show the new form so any past data is not still on the form
+		ViewFinances.ShowDialog()
 
-    Private Sub btnEditJobRecords_Click(sender As Object, e As EventArgs) Handles btnEditJobRecords.Click
+	End Sub
 
-        ' create a new instance of the edit job records form
-        Dim EditJobRecords As New frmEditJobRecords
+	Private Sub btnEditJobRecords_Click(sender As Object, e As EventArgs) Handles btnEditJobRecords.Click
 
-        ' show the new form so any past data is not still on the form
-        EditJobRecords.ShowDialog()
+		' create a new instance of the edit job records form
+		Dim EditJobRecords As New frmEditJobRecords
 
-    End Sub
+		' show the new form so any past data is not still on the form
+		EditJobRecords.ShowDialog()
 
-    Private Sub btnCustomerReviews_Click(sender As Object, e As EventArgs) Handles btnCustomerReviews.Click
+	End Sub
 
-        Dim webAddress As String = "https://www.womply.com/biz/duvall-pool-and-leak-detection-olive-branch-MS/"
-        Process.Start(webAddress)
+	Private Sub btnCustomerReviews_Click(sender As Object, e As EventArgs) Handles btnCustomerReviews.Click
 
-    End Sub
+		Dim webAddress As String = "https://www.womply.com/biz/duvall-pool-and-leak-detection-olive-branch-MS/"
+		Process.Start(webAddress)
+
+	End Sub
+
+	Private Sub frmOptions_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+
+
+	End Sub
 End Class

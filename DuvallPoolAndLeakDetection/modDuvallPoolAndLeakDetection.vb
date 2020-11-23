@@ -28,17 +28,17 @@ Module modDuvallPoolAndLeakDetection
                                                       "Server=(Local)\SQLEXPRESS;" &
                                                       "Database=dbCapstone;"
 
-
+	Public strCustID As String
 
 
 
 #Region "Open/Close Connection"
 
-    ' --------------------------------------------------------------------------------
-    ' Name: OpenDatabaseConnectionMSAccess
-    ' Abstract: Open a connection to the database.
-    ' --------------------------------------------------------------------------------
-    Public Function OpenDatabaseConnectionSQLServer() As Boolean
+	' --------------------------------------------------------------------------------
+	' Name: OpenDatabaseConnectionMSAccess
+	' Abstract: Open a connection to the database.
+	' --------------------------------------------------------------------------------
+	Public Function OpenDatabaseConnectionSQLServer() As Boolean
 
         Dim blnResult As Boolean = False
 
