@@ -7,7 +7,8 @@ SET NOCOUNT ON; -- Report only errors
 -- --------------------------------------------------------------------------------
 -- Drop Tables
 -- --------------------------------------------------------------------------------
-
+IF OBJECT_ID ( 'TCustomerPayments' )			IS NOT NULL DROP TABLE TCustomerPayments
+IF OBJECT_ID( 'TCreditCards' )					IS NOT NULL DROP TABLE TCreditCards
 IF OBJECT_ID( 'TInvoices' )						IS NOT NULL DROP TABLE TInvoices
 IF OBJECT_ID( 'TJobServices' )					IS NOT NULL DROP TABLE TJobServices
 IF OBJECT_ID( 'TJobEmployees' )					IS NOT NULL DROP TABLE TJobEmployees
@@ -29,7 +30,7 @@ IF OBJECT_ID( 'TStates' )						IS NOT NULL DROP TABLE TStates
 -- Drop Views
 -- --------------------------------------------------------------------------------
 
-
+IF OBJECT_ID( 'vCustomers' )					IS NOT NULL DROP VIEW vCustomers
 
 
 -- --------------------------------------------------------------------------------
@@ -174,6 +175,24 @@ CREATE TABLE TPaymentTypes
 	 intPaymentTypeID		INTEGER			NOT NULL
 	,strServiceDesc			VARCHAR(50)		NOT NULL
 	,CONSTRAINT	TPaymentTypes_PK PRIMARY KEY ( intPaymentTypeID )
+)
+
+CREATE TABLE TCreditCards
+(
+	 intCreditCardID		INTEGER			NOT NULL
+	,intCustomerID			INTEGER			NOT NULL
+	,strCardholderName		VARCHAR(50)		NOT NULL
+	,strExpiration			VARCHAR(5)		NOT NULL
+	,strCVV					VARCHAR(3)		NOT NULL
+	,CONSTRAINT TCreditCards_PK PRIMARY KEY ( intCreditCardID )
+)
+
+CREATE TABLE TCustomerPayments
+(
+	 intCustomerPaymentID	INTEGER			NOT NULL
+	,intCustomerID			INTEGER			NOT NULL
+	,intPaymentTypeID		INTEGER			NOT NULL
+	,CONSTRAINT TCustomerPayments_PK PRIMARY KEY ( intCustomerPaymentID )
 )
 
 -- --------------------------------------------------------------------------------
@@ -881,7 +900,7 @@ INSERT INTO TVendors VALUES
 (47, 'Mccorkle, Tom S Esq', 'Felicidad Poullion', '9939 N 14th St', 'Riverton', 28, '8077', '856-305-9731', 'fpoullion@poullion.com'),
 (48, 'Eagle Software Inc', 'Belen Strassner', '5384 Southwyck Blvd', 'Douglasville', 48, '30135', '770-507-8791', 'belen_strassner@aol.com'),
 (49, 'Juvenile & Adult Super', 'Gracia Melnyk', '97 Airport Loop Dr', 'Jacksonville', 18, '32216', '904-235-3633', 'gracia@melnyk.com'),
-(50, 'Perez, Joseph J Esq', 'Jolanda Hanafan', '37855 Nolan Rd', 'Bangor', 48, '4401', '207-458-9196', 'jhanafan@gmail.com'),
+(50, 'Perez, Joseph J Esq', 'Jolanda Hanafan', '37855 Nolan Rd', 'Bangor', 48, '4401', '207-458-9196', 'jhanafan@gmail.com')
 
 
 
@@ -924,3 +943,36 @@ INSERT INTO TParts VALUES
 (19,13, 'SN08936', 'Part 019',20,71.82,114.912,5),
 (20,41, 'SN06039', 'Part 020',97,54.97,87.952,1)
 
+
+INSERT INTO TPaymentTypes VALUES
+ (1, 'Cash')
+,(2, 'Credit / Debit ')
+,(3, 'Check')
+,(4, 'Bank Transfer')
+
+
+
+GO
+
+CREATE VIEW vCustomers
+AS
+SELECT
+	 TC.intCustomerID
+	,TC.strFirstName
+	,TC.strLastName
+	,TC.strAddress
+	,TC.strCity
+	,TS.strState
+	,TC.strZip
+	,TC.strPhoneNumber
+	,TC.strEmail
+FROM
+	TCustomers AS TC
+	,TStates AS TS
+WHERE
+	TC.intStateID= TS.intStateID
+GO
+
+
+
+SELECT * FROM vCustomers
