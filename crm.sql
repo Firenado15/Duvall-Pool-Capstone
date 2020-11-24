@@ -986,16 +986,29 @@ GO
 CREATE VIEW vParts
 AS
 SELECT
-	intPartID
-	,intVendorID
-	,strSerialNumber
-	,strPartDesc
-	,intQuantity
-	,decUnitPurchaseCost
-	,decUniteSaleCost
-	,intAmountSold
+	TP.intPartID
+	,TP.intVendorID
+	,TP.strSerialNumber
+	,TP.strPartDesc
+	,TP.intQuantity
+	,TP.decUnitPurchaseCost
+	,TP.decUniteSaleCost
+	,TP.intAmountSold
+	,TV.strVendortName
+	,TV.strContactName
+	,TV.strAddress
+	,TV.strCity
+	,TS.strState
+	,TV.strZip
+	,TV.strEmail
+	,TV.strPhoneNumber
 FROM
 	TParts AS TP
+	,TVendors AS TV
+	,TStates as TS
+WHERE
+	TP.intVendorID = TV.intVendorID
+	and TV.intStateID = TS.intStateID
 GO
 
 
