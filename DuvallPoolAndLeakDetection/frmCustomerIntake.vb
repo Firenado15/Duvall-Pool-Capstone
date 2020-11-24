@@ -152,23 +152,101 @@ Public Class frmCustomerIntake
 
 	End Sub
 
-	Public Function Validation() As Boolean
+	Function Validation() As Boolean
 
-		'Check textboxes for text
-		For Each cntrl As Control In Controls
-			If TypeOf cntrl Is TextBox Then
-				cntrl.BackColor = Color.White
-				If cntrl.Text = String.Empty Then
-					cntrl.BackColor = Color.Yellow
-					cntrl.Focus()
-					Return False
-				End If
-			End If
-		Next
+		txtFirstName.BackColor = Color.White
+		txtLastName.BackColor = Color.White
+		txtAddress.BackColor = Color.White
+		txtCity.BackColor = Color.White
+		txtZipCode.BackColor = Color.White
+		txtEmail.BackColor = Color.White
+		txtPhoneNumber.BackColor = Color.White
 
+		' check if something is entered in first name text box
+		If txtFirstName.Text <> String.Empty Then
 
-		'every this is good so return true
-		Return True
+		Else
+			' text box is blank so tell user to enter first name, change back color to yellow,
+			' put focus in text box and return false we don't want to continue
+			MessageBox.Show("Please enter Customer's first name.")
+			txtFirstName.BackColor = Color.Yellow
+			txtFirstName.Focus()
+			Return False
+		End If
+
+		' check if something is entered in last name text box
+		If txtLastName.Text <> String.Empty Then
+
+		Else
+			' text box is blank so tell user to enter last name, change back color to yellow,
+			' put focus in text box and return false we don't want to continue
+			MessageBox.Show("Please enter Customer's last name.")
+			txtLastName.BackColor = Color.Yellow
+			txtLastName.Focus()
+			Return False
+		End If
+
+		' check if something is entered in street address text box
+		If txtAddress.Text <> String.Empty Then
+
+		Else
+			' text box is blank so tell user to enter street address, change back color to yellow,
+			' put focus in text box and return false we don't want to continue
+			MessageBox.Show("Please enter Customer's street address.")
+			txtAddress.BackColor = Color.Yellow
+			txtAddress.Focus()
+			Return False
+		End If
+
+		' check if something is entered in city text box
+		If txtCity.Text <> String.Empty Then
+
+		Else
+			' text box is blank so tell user to enter city, change back color to yellow,
+			' put focus in text box and return false we don't want to continue
+			MessageBox.Show("Please enter Customer's city.")
+			txtCity.BackColor = Color.Yellow
+			txtCity.Focus()
+			Return False
+		End If
+
+		' check if something is entered in zip text box
+		If txtZipCode.Text <> String.Empty Then
+
+		Else
+			' text box is blank so tell user to enter zip, change back color to yellow,
+			' put focus in text box and return false we don't want to continue
+			MessageBox.Show("Please enter Customer's zip.")
+			txtZipCode.BackColor = Color.Yellow
+			txtZipCode.Focus()
+			Return False
+		End If
+
+		' check if something is entered in email text box
+		If txtEmail.Text <> String.Empty Then
+
+		Else
+			' text box is blank so tell user to enter email, change back color to yellow,
+			' put focus in text box and return false we don't want to continue
+			MessageBox.Show("Please enter Customer's email.")
+			txtEmail.BackColor = Color.Yellow
+			txtEmail.Focus()
+			Return False
+		End If
+
+		' check if something is entered in phone number text box
+		If txtPhoneNumber.Text <> String.Empty Then
+
+		Else
+			' text box is blank so tell user to enter phone number, change back color to yellow,
+			' put focus in text box and return false we don't want to continue
+			MessageBox.Show("Please enter Customer's phone number.")
+			txtPhoneNumber.BackColor = Color.Yellow
+			txtPhoneNumber.Focus()
+			Return False
+		End If
+
+		Return True ' all is well in the world
 
 	End Function
 
