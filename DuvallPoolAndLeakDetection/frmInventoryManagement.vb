@@ -115,6 +115,14 @@ Public Class frmInventoryManagement
 			lblPartCostBus.Text = dt.Rows(0).Item(5).ToString
 			lblPartCostCust.Text = dt.Rows(0).Item(6).ToString
 			lblYTDSold.Text = dt.Rows(0).Item(7).ToString
+			lblVendorName.Text = dt.Rows(0).Item(8).ToString
+			lblContactName.Text = dt.Rows(0).Item(9).ToString
+			lblAddress.Text = dt.Rows(0).Item(10).ToString
+			lblCity.Text = dt.Rows(0).Item(11).ToString
+			lblState.Text = dt.Rows(0).Item(12).ToString
+			lblZip.Text = dt.Rows(0).Item(13).ToString
+			lblEmail.Text = dt.Rows(0).Item(14).ToString
+			lblPhone.Text = dt.Rows(0).Item(15).ToString
 
 			'Close DB connection
 			CloseDatabaseConnection()
