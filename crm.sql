@@ -219,6 +219,7 @@ CREATE TABLE TCustomerPayments
 -- 15	TInvoices						TCustomers					intCustomerID
 -- 16	TInvoices						TJobs						intJobID
 -- 17	TInvoices						TPaymentTypes				intPaymentTypeID
+-- 18	TCustomerPayments				TCustomers					intCustomerID
 
 
 -- 1
@@ -286,9 +287,12 @@ ALTER TABLE	TInvoices ADD CONSTRAINT TInvoices_TJobs_FK
 FOREIGN KEY ( intJobID ) REFERENCES TJobs ( intJobID )
 
 -- 17
-ALTER TABLE	TInvoices ADD CONSTRAINT TInvoices_TPaymentTypeID_FK
+ALTER TABLE	TInvoices ADD CONSTRAINT TInvoices_TPaymentTypes_FK
 FOREIGN KEY ( intPaymentTypeID ) REFERENCES TPaymentTypes ( intPaymentTypeID )
 
+-- 18
+ALTER TABLE TCustomerPayments ADD CONSTRAINT TCustomerPayments_TCustomers_FK
+FOREIGN KEY ( intCustomerID ) REFERENCES TCustomers ( intCustomerID )
 
 ---- --------------------------------------------------------------------------------
 ---- Add Necessary Data
@@ -1015,3 +1019,4 @@ GO
 SELECT * FROM vParts
 
 GO
+

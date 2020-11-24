@@ -1,7 +1,18 @@
 ﻿Public Class frmPaymentType
 
+	'variable for intCustomerID, restricted to this form
+	Dim receiveCustomerID As Integer
+
 	Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
 		Me.Close()
+	End Sub
+
+	Public Sub New(ByVal passedCustomerID As Integer)
+
+		'Receive current intCustomerID from whichever form called this one
+		InitializeComponent()
+		receiveCustomerID = passedCustomerID
+
 	End Sub
 
 	Private Sub btnSubmit_Click(sender As Object, e As EventArgs) Handles btnSubmit.Click
@@ -68,24 +79,24 @@
 
 			Else
 
-				'Not empty, add 1
+				'Not empty, add 
 				intNextHighestRecordID = CInt(drSourceTable.Item(0))
 
 			End If
 
 
 			'Update statement
-			strInsert = "Insert into TCustomerPayments Values (" & intRadioValue & ", " & strCustID & ", " & intRadioValue & ")"
+			strInsert = "Insert into TCustomerPayments Values (" & intNextHighestRecordID & ", " & receiveCustomerID & ", " & intRadioValue & ")"
 
 
 			' execute the statement
-			cmdInsert = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
+			cmdInsert = New OleDb.OleDbCommand(strInsert, m_conAdministrator)
 
 			' Insert the row
 			intRowsAffected = cmdInsert.ExecuteNonQuery()
 
 			' have to let the user know what happened 
-			If intRowsAffected = 1 Then
+			If intRowsAffected >= 1 Then
 				MessageBox.Show("Update successful")
 			Else
 				MessageBox.Show("Update failed")
@@ -104,5 +115,9 @@
 
 	End Sub
 
+	Private Sub frmPaymentType_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+
+
+	End Sub
 End Class

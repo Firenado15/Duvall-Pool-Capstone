@@ -30,8 +30,8 @@ Public Class frmPartsOrdering
         txtPartName.BackColor = Color.White
         txtPartDescription.BackColor = Color.White
         txtQuantity.BackColor = Color.White
-        txtCostPerUnit.BackColor = Color.White
-        txtVendorIdentification.BackColor = Color.White
+		'txtCostPerUnit.BackColor = Color.White
+		txtVendorIdentification.BackColor = Color.White
 
         ' check if something is entered in vendor name text box
         If txtVendorName.Text <> String.Empty Then
@@ -177,20 +177,20 @@ Public Class frmPartsOrdering
             Return False
         End If
 
-        ' check if something is entered in cost per unit text box
-        If txtCostPerUnit.Text <> String.Empty Then
+		'' check if something is entered in cost per unit text box
+		'If txtCostPerUnit.Text <> String.Empty Then
 
-        Else
-            ' text box is blank so tell user to enter cost per unit, change back color to yellow,
-            ' put focus in text box and return false we don't want to continue
-            MessageBox.Show("Please enter cost per unit.")
-            txtCostPerUnit.BackColor = Color.Yellow
-            txtCostPerUnit.Focus()
-            Return False
-        End If
+		'Else
+		'    ' text box is blank so tell user to enter cost per unit, change back color to yellow,
+		'    ' put focus in text box and return false we don't want to continue
+		'    MessageBox.Show("Please enter cost per unit.")
+		'    txtCostPerUnit.BackColor = Color.Yellow
+		'    txtCostPerUnit.Focus()
+		'    Return False
+		'End If
 
-        ' check if something is entered in identification number text box
-        If txtVendorIdentification.Text <> String.Empty Then
+		' check if something is entered in identification number text box
+		If txtVendorIdentification.Text <> String.Empty Then
 
         Else
             ' text box is blank so tell user to enter identification number, change back color to yellow,

@@ -107,7 +107,7 @@ Public Class frmCustomerIntake
 					"','" & cboState.SelectedValue.ToString & "','" & strZip & "','" & strPhoneNumber & "','" & strEmail & "')"
 
 				'LOOK HERE
-				strCustID = intNextHighestRecordID
+				'intCustID = intNextHighestRecordID
 
 
 				cmdInsert = New OleDb.OleDbCommand(strInsert, m_conAdministrator)
@@ -129,11 +129,13 @@ Public Class frmCustomerIntake
 
 				ElseIf result = DialogResult.Yes Then
 
-					' create a new instance of the customer intake form
-					Dim CustomerPayment As New frmPaymentType
+
+					' create a new instance of the customer intake form, passing current intCustomerID
+					Dim CustomerPayment As New frmPaymentType(intNextHighestRecordID)
 
 					' show the new form so any past data is not still on the form
 					CustomerPayment.ShowDialog()
+
 
 				End If
 

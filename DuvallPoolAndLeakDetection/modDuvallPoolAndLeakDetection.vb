@@ -28,7 +28,7 @@ Module modDuvallPoolAndLeakDetection
                                                       "Server=(Local)\SQLEXPRESS;" &
                                                       "Database=dbCapstone;"
 
-	Public strCustID As String
+	'Public intCustID As Integer
 
 
 

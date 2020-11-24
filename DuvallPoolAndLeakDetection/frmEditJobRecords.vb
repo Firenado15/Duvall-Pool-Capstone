@@ -26,7 +26,7 @@ Public Class frmEditJobRecords
 		txtAddress.BackColor = Color.White
 		txtCity.BackColor = Color.White
 		txtZip.BackColor = Color.White
-		txtEmail.BackColor = Color.White
+		'txtEmail.BackColor = Color.White
 		txtPhone.BackColor = Color.White
 
 		' check if something is entered in date started text box
@@ -138,16 +138,16 @@ Public Class frmEditJobRecords
 		End If
 
 		' check if something is entered in email text box
-		If txtEmail.Text <> String.Empty Then
+		'If txtEmail.Text <> String.Empty Then
 
-		Else
-			' text box is blank so tell user to enter email, change back color to yellow,
-			' put focus in text box and return false we don't want to continue
-			MessageBox.Show("Please enter Customer's email.")
-			txtEmail.BackColor = Color.Yellow
-			txtEmail.Focus()
-			Return False
-		End If
+		'Else
+		'	' text box is blank so tell user to enter email, change back color to yellow,
+		'	' put focus in text box and return false we don't want to continue
+		'	MessageBox.Show("Please enter Customer's email.")
+		'	txtEmail.BackColor = Color.Yellow
+		'	txtEmail.Focus()
+		'	Return False
+		'End If
 
 		' check if something is entered in phone number text box
 		If txtPhone.Text <> String.Empty Then
