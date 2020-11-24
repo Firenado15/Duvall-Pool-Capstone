@@ -31,6 +31,7 @@ IF OBJECT_ID( 'TStates' )						IS NOT NULL DROP TABLE TStates
 -- --------------------------------------------------------------------------------
 
 IF OBJECT_ID( 'vCustomers' )					IS NOT NULL DROP VIEW vCustomers
+IF OBJECT_ID( 'VParts' )						IS NOT NULL DROP VIEW vParts
 
 
 -- --------------------------------------------------------------------------------
@@ -976,3 +977,28 @@ GO
 
 
 SELECT * FROM vCustomers
+
+GO
+
+
+GO
+
+CREATE VIEW vParts
+AS
+SELECT
+	intPartID
+	,intVendorID
+	,strSerialNumber
+	,strPartDesc
+	,intQuantity
+	,decUnitPurchaseCost
+	,decUniteSaleCost
+	,intAmountSold
+FROM
+	TParts AS TP
+GO
+
+
+SELECT * FROM vParts
+
+GO
