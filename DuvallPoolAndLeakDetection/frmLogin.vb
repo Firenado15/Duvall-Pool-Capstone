@@ -15,9 +15,16 @@ Public Class frmLogin
         ' create a new instance of the add form
         Dim Options As New frmOptions
 
-        ' show the new form so any past data is not still on the form
-        Options.ShowDialog()
+		' show the new form so any past data is not still on the form
 
-    End Sub
+		Me.Visible = False
 
+		Options.ShowDialog()
+
+
+	End Sub
+
+	Private Sub frmLogin_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+	End Sub
 End Class

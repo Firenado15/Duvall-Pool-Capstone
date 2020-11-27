@@ -62,7 +62,7 @@
 			End If
 
 
-			strSelect = "SELECT MAX(intCustomerPaymentID) + 1 AS intNextHighestRecordID FROM TCustomerPayments"
+			strSelect = "SELECT MAX(intCustomerPaymentID) + 1 AS intNextHighestRecordID FROM TCustomerPaymentTypes"
 
 			'Execute
 			cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
@@ -86,7 +86,7 @@
 
 
 			'Update statement
-			strInsert = "Insert into TCustomerPayments Values (" & intNextHighestRecordID & ", " & receiveCustomerID & ", " & intRadioValue & ")"
+			strInsert = "Insert into TCustomerPaymentTypes Values (" & intNextHighestRecordID & ", " & receiveCustomerID & ", " & intRadioValue & ")"
 
 
 			' execute the statement
@@ -97,21 +97,44 @@
 
 			' have to let the user know what happened 
 			If intRowsAffected >= 1 Then
-				MessageBox.Show("Update successful")
+
+				'MessageBox.Show("Update successful")
+
+				' close the database connection
+				CloseDatabaseConnection()
+
+				'Determine if another form is required to open
+				If intRadioValue = 2 Then
+
+					' create a new instance of the customer intake form, passing current intCustomerID
+					Dim CreditCard As New frmAddCreditCard(receiveCustomerID)
+
+					'Make Payment Type invisible
+					Me.Visible = False
+
+					' show the new form so any past data is not still on the form
+					CreditCard.ShowDialog()
+
+
+				ElseIf intRadioValue >= 3 Then
+
+				End If
+
+
 			Else
 				MessageBox.Show("Update failed")
+
+				' close the database connection
+				CloseDatabaseConnection()
 			End If
 
-			' close the database connection
-			CloseDatabaseConnection()
+			Me.Close()
+
 
 		Catch ex As Exception
 			'unhandled exception
 			MessageBox.Show(ex.Message)
 		End Try
-
-
-
 
 	End Sub
 
