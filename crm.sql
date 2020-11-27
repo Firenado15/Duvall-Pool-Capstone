@@ -1022,6 +1022,11 @@ INSERT INTO TCreditCardTypes VALUES
  (1, 'Debit')
 ,(2, 'Credit')
 
+INSERT INTO TCreditCardCompanies VALUES
+ (1, 'American Express')
+,(2, 'Mastercard')
+,(3, 'Visa')
+
 GO
 
 CREATE VIEW vCustomers
