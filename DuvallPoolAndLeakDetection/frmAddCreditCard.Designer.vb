@@ -46,7 +46,6 @@ Partial Class frmAddCreditCard
 		Me.radAmericanExpress.Name = "radAmericanExpress"
 		Me.radAmericanExpress.Size = New System.Drawing.Size(109, 17)
 		Me.radAmericanExpress.TabIndex = 47
-		Me.radAmericanExpress.TabStop = True
 		Me.radAmericanExpress.Text = "American Express"
 		Me.radAmericanExpress.UseVisualStyleBackColor = True
 		'
@@ -57,13 +56,13 @@ Partial Class frmAddCreditCard
 		Me.radMastercard.Name = "radMastercard"
 		Me.radMastercard.Size = New System.Drawing.Size(78, 17)
 		Me.radMastercard.TabIndex = 48
-		Me.radMastercard.TabStop = True
 		Me.radMastercard.Text = "Mastercard"
 		Me.radMastercard.UseVisualStyleBackColor = True
 		'
 		'radVisa
 		'
 		Me.radVisa.AutoSize = True
+		Me.radVisa.Checked = True
 		Me.radVisa.Location = New System.Drawing.Point(31, 12)
 		Me.radVisa.Name = "radVisa"
 		Me.radVisa.Size = New System.Drawing.Size(45, 17)
@@ -117,14 +116,15 @@ Partial Class frmAddCreditCard
 		Me.txtCardholderName.Location = New System.Drawing.Point(133, 47)
 		Me.txtCardholderName.Name = "txtCardholderName"
 		Me.txtCardholderName.Size = New System.Drawing.Size(244, 20)
-		Me.txtCardholderName.TabIndex = 53
+		Me.txtCardholderName.TabIndex = 1
 		'
 		'txtCardNumber
 		'
 		Me.txtCardNumber.Location = New System.Drawing.Point(133, 84)
+		Me.txtCardNumber.MaxLength = 20
 		Me.txtCardNumber.Name = "txtCardNumber"
 		Me.txtCardNumber.Size = New System.Drawing.Size(244, 20)
-		Me.txtCardNumber.TabIndex = 54
+		Me.txtCardNumber.TabIndex = 2
 		'
 		'txtExpiration
 		'
@@ -132,14 +132,15 @@ Partial Class frmAddCreditCard
 		Me.txtExpiration.MaxLength = 5
 		Me.txtExpiration.Name = "txtExpiration"
 		Me.txtExpiration.Size = New System.Drawing.Size(244, 20)
-		Me.txtExpiration.TabIndex = 55
+		Me.txtExpiration.TabIndex = 3
 		'
 		'txtCVV
 		'
 		Me.txtCVV.Location = New System.Drawing.Point(134, 171)
+		Me.txtCVV.MaxLength = 3
 		Me.txtCVV.Name = "txtCVV"
 		Me.txtCVV.Size = New System.Drawing.Size(243, 20)
-		Me.txtCVV.TabIndex = 56
+		Me.txtCVV.TabIndex = 4
 		'
 		'Label1
 		'
@@ -157,15 +158,15 @@ Partial Class frmAddCreditCard
 		Me.cboCardType.Location = New System.Drawing.Point(133, 209)
 		Me.cboCardType.Name = "cboCardType"
 		Me.cboCardType.Size = New System.Drawing.Size(244, 21)
-		Me.cboCardType.TabIndex = 58
+		Me.cboCardType.TabIndex = 5
 		'
 		'btnClose
 		'
 		Me.btnClose.Location = New System.Drawing.Point(68, 242)
 		Me.btnClose.Name = "btnClose"
 		Me.btnClose.Size = New System.Drawing.Size(109, 44)
-		Me.btnClose.TabIndex = 59
-		Me.btnClose.Text = "Close"
+		Me.btnClose.TabIndex = 7
+		Me.btnClose.Text = "Cancel"
 		Me.btnClose.UseVisualStyleBackColor = True
 		'
 		'btnSubmit
@@ -173,7 +174,7 @@ Partial Class frmAddCreditCard
 		Me.btnSubmit.Location = New System.Drawing.Point(219, 242)
 		Me.btnSubmit.Name = "btnSubmit"
 		Me.btnSubmit.Size = New System.Drawing.Size(109, 44)
-		Me.btnSubmit.TabIndex = 60
+		Me.btnSubmit.TabIndex = 6
 		Me.btnSubmit.Text = "Submit"
 		Me.btnSubmit.UseVisualStyleBackColor = True
 		'
