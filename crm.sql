@@ -201,6 +201,7 @@ CREATE TABLE TCreditCards
 	 intCreditCardID		INTEGER			NOT NULL
 	,intCustomerID			INTEGER			NOT NULL
 	,strCardholderName		VARCHAR(50)		NOT NULL
+	,strCardNumber			VARCHAR(50)		NOT NULL
 	,strExpiration			VARCHAR(5)		NOT NULL
 	,strCVV					VARCHAR(3)		NOT NULL
 	,intCardCompanyID		INTEGER			NOT NULL
@@ -1090,3 +1091,8 @@ GO
 
 GO
 
+
+---- Validate credit card insert data
+--SELECT TOP 1 * From TCustomers ORDER BY intcustomerID DESC
+--SELECT * FROM TCustomerPaymentTypes
+--SELECT * FROM TCreditCards
