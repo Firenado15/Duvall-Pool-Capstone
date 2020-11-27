@@ -7,8 +7,12 @@ SET NOCOUNT ON; -- Report only errors
 -- --------------------------------------------------------------------------------
 -- Drop Tables
 -- --------------------------------------------------------------------------------
-IF OBJECT_ID ( 'TCustomerPayments' )			IS NOT NULL DROP TABLE TCustomerPayments
+IF OBJECT_ID( 'TBankAccounts' )					IS NOT NULL DROP TABLE TBankAccounts
+IF OBJECT_ID( 'TBankAccountTypes' )				IS NOT NULL DROP TABLE TBankAccountTypes
+IF OBJECT_ID( 'TCustomerPaymentTypes' )			IS NOT NULL DROP TABLE TCustomerPaymentTypes
 IF OBJECT_ID( 'TCreditCards' )					IS NOT NULL DROP TABLE TCreditCards
+IF OBJECT_ID( 'TCreditCardTypes' )				IS NOT NULL DROP TABLE TCreditCardTypes
+IF OBJECT_ID( 'TCreditCardCompanies' )			IS NOT NULL DROP TABLE TCreditCardCompanies
 IF OBJECT_ID( 'TInvoices' )						IS NOT NULL DROP TABLE TInvoices
 IF OBJECT_ID( 'TJobServices' )					IS NOT NULL DROP TABLE TJobServices
 IF OBJECT_ID( 'TJobEmployees' )					IS NOT NULL DROP TABLE TJobEmployees
@@ -178,6 +182,20 @@ CREATE TABLE TPaymentTypes
 	,CONSTRAINT	TPaymentTypes_PK PRIMARY KEY ( intPaymentTypeID )
 )
 
+CREATE TABLE TCreditCardTypes
+(
+	 intCreditCardTypeID	INTEGER			NOT NULL
+	,strCardTypeDesc		VARCHAR(50)		NOT NULL
+	,CONSTRAINT TCreditCardTypes_PK PRIMARY KEY ( intCreditCardTypeID )
+)
+
+CREATE TABLE TCreditCardCompanies
+(
+	 intCardCompanyID		INTEGER			NOT NULL
+	,strCardCompanyDesc		VARCHAR(50)		NOT NULL
+	,CONSTRAINT TCreditCardCompanies_PK PRIMARY KEY ( intCardCompanyID )
+)
+
 CREATE TABLE TCreditCards
 (
 	 intCreditCardID		INTEGER			NOT NULL
@@ -185,15 +203,35 @@ CREATE TABLE TCreditCards
 	,strCardholderName		VARCHAR(50)		NOT NULL
 	,strExpiration			VARCHAR(5)		NOT NULL
 	,strCVV					VARCHAR(3)		NOT NULL
+	,intCardCompanyID		INTEGER			NOT NULL
+	,intCreditCardTypeID	INTEGER			NOT NULL
 	,CONSTRAINT TCreditCards_PK PRIMARY KEY ( intCreditCardID )
 )
 
-CREATE TABLE TCustomerPayments
+CREATE TABLE TBankAccountTypes
+(
+	 intBankAccountTypeID	INTEGER			NOT NULL
+	,strAccountTypeDesc		VARCHAR(50)		NOT NULL
+	,CONSTRAINT TBankAccountTypes_PK PRIMARY KEY ( intBankAccountTypeID )
+)
+
+CREATE TABLE TBankAccounts
+(
+	 intBankAccountID		INTEGER			NOT NULL
+	,intCustomerID			INTEGER			NOT NULL
+	,intRoutingNumber		INTEGER			NOT NULL
+	,intAccountNumber		INTEGER			NOT NULL
+	,intBankAccountTypeID	INTEGER			NOT NULL
+	,strAccountName			VARCHAR(50)		NOT NULL
+	,CONSTRAINT TBankAccounts_PK PRIMARY KEY (intBankAccountID)
+)
+
+CREATE TABLE TCustomerPaymentTypes
 (
 	 intCustomerPaymentID	INTEGER			NOT NULL
 	,intCustomerID			INTEGER			NOT NULL
 	,intPaymentTypeID		INTEGER			NOT NULL
-	,CONSTRAINT TCustomerPayments_PK PRIMARY KEY ( intCustomerPaymentID )
+	,CONSTRAINT TCustomerPaymentTypes_PK PRIMARY KEY ( intCustomerPaymentID )
 )
 
 -- --------------------------------------------------------------------------------
@@ -219,7 +257,12 @@ CREATE TABLE TCustomerPayments
 -- 15	TInvoices						TCustomers					intCustomerID
 -- 16	TInvoices						TJobs						intJobID
 -- 17	TInvoices						TPaymentTypes				intPaymentTypeID
--- 18	TCustomerPayments				TCustomers					intCustomerID
+-- 18	TCustomerPaymentTypes			TCustomers					intCustomerID
+-- 19	TCreditCards					TCreditCardTypes			intCreditCardTypeID
+-- 20	TCreditCards					TCreditCardCompanies		intCardCompanyID
+-- 21	TCreditCards					TCustomers					intCustomerID
+-- 22	TBankAccounts					TBankAccountTypes			intBankAccountTypeID
+-- 23	TBankAccounts					TCustomers					intCustomerID
 
 
 -- 1
@@ -291,7 +334,27 @@ ALTER TABLE	TInvoices ADD CONSTRAINT TInvoices_TPaymentTypes_FK
 FOREIGN KEY ( intPaymentTypeID ) REFERENCES TPaymentTypes ( intPaymentTypeID )
 
 -- 18
-ALTER TABLE TCustomerPayments ADD CONSTRAINT TCustomerPayments_TCustomers_FK
+ALTER TABLE TCustomerPaymentTypes ADD CONSTRAINT TCustomerPayments_TCustomers_FK
+FOREIGN KEY ( intCustomerID ) REFERENCES TCustomers ( intCustomerID )
+
+-- 19
+ALTER TABLE TCreditCards ADD CONSTRAINT TCreditCards_TCreditCardTypes_FK
+FOREIGN KEY ( intCreditCardTypeID ) REFERENCES TCreditCardTypes ( intCreditCardTypeID )
+
+-- 20
+ALTER TABLE TCreditCards ADD CONSTRAINT TCreditCards_TCreditCardCompanies_FK
+FOREIGN KEY ( intCardCompanyID ) REFERENCES TCreditCardCompanies ( intCardCompanyID )
+
+-- 21
+ALTER TABLE TCreditCards ADD CONSTRAINT TCreditCards_TCustomers_FK
+FOREIGN KEY ( intCustomerID ) REFERENCES TCustomers ( intCustomerID )
+
+-- 22
+ALTER TABLE TBankAccounts ADD CONSTRAINT TBankAccounts_TBankAccountTypes_FK
+FOREIGN KEY ( intBankAccountTypeID ) REFERENCES TBankAccountTypes ( intBankAccountTypeID )
+
+-- 23
+ALTER TABLE TBankAccounts ADD CONSTRAINT TBankAccounts_TCustomers_FK
 FOREIGN KEY ( intCustomerID ) REFERENCES TCustomers ( intCustomerID )
 
 ---- --------------------------------------------------------------------------------
@@ -955,7 +1018,9 @@ INSERT INTO TPaymentTypes VALUES
 ,(3, 'Check')
 ,(4, 'Bank Transfer')
 
-
+INSERT INTO TCreditCardTypes VALUES
+ (1, 'Debit')
+,(2, 'Credit')
 
 GO
 
@@ -980,7 +1045,7 @@ GO
 
 
 
-SELECT * FROM vCustomers
+--SELECT * FROM vCustomers
 
 GO
 
@@ -1016,7 +1081,7 @@ WHERE
 GO
 
 
-SELECT * FROM vParts
+--SELECT * FROM vParts
 
 GO
 
