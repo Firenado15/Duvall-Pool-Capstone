@@ -220,8 +220,8 @@ CREATE TABLE TBankAccounts
 (
 	 intBankAccountID		INTEGER			NOT NULL
 	,intCustomerID			INTEGER			NOT NULL
-	,intRoutingNumber		INTEGER			NOT NULL
-	,intAccountNumber		INTEGER			NOT NULL
+	,strRoutingNumber		VARCHAR(50)		NOT NULL
+	,strAccountNumber		VARCHAR(50)		NOT NULL
 	,intBankAccountTypeID	INTEGER			NOT NULL
 	,strAccountName			VARCHAR(50)		NOT NULL
 	,CONSTRAINT TBankAccounts_PK PRIMARY KEY (intBankAccountID)
@@ -1027,6 +1027,10 @@ INSERT INTO TCreditCardCompanies VALUES
  (1, 'American Express')
 ,(2, 'Mastercard')
 ,(3, 'Visa')
+
+INSERT INTO TBankAccountTypes VALUES
+ (1, 'Checking')
+,(2, 'Savings')
 
 GO
 
