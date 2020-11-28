@@ -1100,3 +1100,8 @@ GO
 --SELECT TOP 1 * From TCustomers ORDER BY intcustomerID DESC
 --SELECT * FROM TCustomerPaymentTypes
 --SELECT * FROM TCreditCards
+
+---- Validate bank account insert data
+--SELECT TOP 1 * From TCustomers ORDER BY intcustomerID DESC
+--SELECT * FROM TCustomerPaymentTypes
+--SELECT * FROM TBankAccounts
