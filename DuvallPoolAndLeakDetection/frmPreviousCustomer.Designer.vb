@@ -135,7 +135,7 @@ Partial Class frmPreviousCustomer
 		'
 		'btnClose
 		'
-		Me.btnClose.Location = New System.Drawing.Point(533, 573)
+		Me.btnClose.Location = New System.Drawing.Point(672, 573)
 		Me.btnClose.Name = "btnClose"
 		Me.btnClose.Size = New System.Drawing.Size(109, 44)
 		Me.btnClose.TabIndex = 33
@@ -299,7 +299,6 @@ Partial Class frmPreviousCustomer
 		Me.radAmericanExpress.Name = "radAmericanExpress"
 		Me.radAmericanExpress.Size = New System.Drawing.Size(109, 17)
 		Me.radAmericanExpress.TabIndex = 20
-		Me.radAmericanExpress.TabStop = True
 		Me.radAmericanExpress.Text = "American Express"
 		Me.radAmericanExpress.UseVisualStyleBackColor = True
 		'
@@ -310,7 +309,6 @@ Partial Class frmPreviousCustomer
 		Me.radMastercard.Name = "radMastercard"
 		Me.radMastercard.Size = New System.Drawing.Size(78, 17)
 		Me.radMastercard.TabIndex = 20
-		Me.radMastercard.TabStop = True
 		Me.radMastercard.Text = "Mastercard"
 		Me.radMastercard.UseVisualStyleBackColor = True
 		'
@@ -321,7 +319,6 @@ Partial Class frmPreviousCustomer
 		Me.radVisa.Name = "radVisa"
 		Me.radVisa.Size = New System.Drawing.Size(45, 17)
 		Me.radVisa.TabIndex = 20
-		Me.radVisa.TabStop = True
 		Me.radVisa.Text = "Visa"
 		Me.radVisa.UseVisualStyleBackColor = True
 		'
@@ -376,7 +373,7 @@ Partial Class frmPreviousCustomer
 		Me.GroupBox3.Size = New System.Drawing.Size(406, 76)
 		Me.GroupBox3.TabIndex = 29
 		Me.GroupBox3.TabStop = False
-		Me.GroupBox3.Text = "Payment Type"
+		Me.GroupBox3.Text = "Active Payment Type"
 		'
 		'radCreditDebit
 		'

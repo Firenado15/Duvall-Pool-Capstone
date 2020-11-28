@@ -8,7 +8,7 @@ Public Class frmOptions
 
 		' Close program
 		Application.Exit()
-
+		End
 
 	End Sub
 

@@ -136,8 +136,10 @@ Partial Class frmAddBankAccount
 		Me.Controls.Add(Me.Label18)
 		Me.Controls.Add(Me.Label16)
 		Me.Controls.Add(Me.Label17)
+		Me.MaximizeBox = False
+		Me.MinimizeBox = False
 		Me.Name = "frmAddBankAccount"
-		Me.Text = "frmAddBankAccount"
+		Me.Text = "Add Customer Bank Account"
 		Me.ResumeLayout(False)
 		Me.PerformLayout()
 

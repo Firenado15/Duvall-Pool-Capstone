@@ -21,6 +21,8 @@ Public Class frmLogin
 
 		Options.ShowDialog()
 
+		Close()
+
 
 	End Sub
 

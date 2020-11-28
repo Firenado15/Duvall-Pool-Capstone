@@ -198,8 +198,10 @@ Partial Class frmAddCreditCard
 		Me.Controls.Add(Me.Label14)
 		Me.Controls.Add(Me.Label13)
 		Me.Controls.Add(Me.Label12)
+		Me.MaximizeBox = False
+		Me.MinimizeBox = False
 		Me.Name = "frmAddCreditCard"
-		Me.Text = "Add Credit / Debit Card"
+		Me.Text = "Add Customer Credit / Debit Card"
 		Me.ResumeLayout(False)
 		Me.PerformLayout()
 
