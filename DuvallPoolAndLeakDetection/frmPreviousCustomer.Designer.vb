@@ -76,6 +76,8 @@ Partial Class frmPreviousCustomer
 		Me.GroupBox7 = New System.Windows.Forms.GroupBox()
 		Me.cboName = New System.Windows.Forms.ComboBox()
 		Me.Label38 = New System.Windows.Forms.Label()
+		Me.btnEditContact = New System.Windows.Forms.Button()
+		Me.btnUpdatePayment = New System.Windows.Forms.Button()
 		Me.GroupBox6.SuspendLayout()
 		Me.GroupBox5.SuspendLayout()
 		Me.GroupBox4.SuspendLayout()
@@ -90,7 +92,7 @@ Partial Class frmPreviousCustomer
 		Me.GroupBox6.Controls.Add(Me.lblTotalPaymentAmount)
 		Me.GroupBox6.Controls.Add(Me.Label21)
 		Me.GroupBox6.Controls.Add(Me.Label20)
-		Me.GroupBox6.Location = New System.Drawing.Point(110, 498)
+		Me.GroupBox6.Location = New System.Drawing.Point(12, 498)
 		Me.GroupBox6.Name = "GroupBox6"
 		Me.GroupBox6.Size = New System.Drawing.Size(397, 96)
 		Me.GroupBox6.TabIndex = 35
@@ -135,18 +137,18 @@ Partial Class frmPreviousCustomer
 		'
 		'btnClose
 		'
-		Me.btnClose.Location = New System.Drawing.Point(672, 573)
+		Me.btnClose.Location = New System.Drawing.Point(435, 573)
 		Me.btnClose.Name = "btnClose"
-		Me.btnClose.Size = New System.Drawing.Size(109, 44)
+		Me.btnClose.Size = New System.Drawing.Size(89, 44)
 		Me.btnClose.TabIndex = 33
 		Me.btnClose.Text = "Close"
 		Me.btnClose.UseVisualStyleBackColor = True
 		'
 		'btnSearch
 		'
-		Me.btnSearch.Location = New System.Drawing.Point(830, 573)
+		Me.btnSearch.Location = New System.Drawing.Point(750, 573)
 		Me.btnSearch.Name = "btnSearch"
-		Me.btnSearch.Size = New System.Drawing.Size(109, 44)
+		Me.btnSearch.Size = New System.Drawing.Size(89, 44)
 		Me.btnSearch.TabIndex = 34
 		Me.btnSearch.Text = "Search"
 		Me.btnSearch.UseVisualStyleBackColor = True
@@ -161,7 +163,7 @@ Partial Class frmPreviousCustomer
 		Me.GroupBox5.Controls.Add(Me.Label18)
 		Me.GroupBox5.Controls.Add(Me.Label16)
 		Me.GroupBox5.Controls.Add(Me.Label17)
-		Me.GroupBox5.Location = New System.Drawing.Point(533, 372)
+		Me.GroupBox5.Location = New System.Drawing.Point(435, 372)
 		Me.GroupBox5.Name = "GroupBox5"
 		Me.GroupBox5.Size = New System.Drawing.Size(406, 183)
 		Me.GroupBox5.TabIndex = 31
@@ -253,7 +255,7 @@ Partial Class frmPreviousCustomer
 		Me.GroupBox4.Controls.Add(Me.Label14)
 		Me.GroupBox4.Controls.Add(Me.Label13)
 		Me.GroupBox4.Controls.Add(Me.Label12)
-		Me.GroupBox4.Location = New System.Drawing.Point(533, 139)
+		Me.GroupBox4.Location = New System.Drawing.Point(435, 139)
 		Me.GroupBox4.Name = "GroupBox4"
 		Me.GroupBox4.Size = New System.Drawing.Size(406, 214)
 		Me.GroupBox4.TabIndex = 30
@@ -368,7 +370,7 @@ Partial Class frmPreviousCustomer
 		Me.GroupBox3.Controls.Add(Me.radBankTransfer)
 		Me.GroupBox3.Controls.Add(Me.radCheck)
 		Me.GroupBox3.Controls.Add(Me.radCash)
-		Me.GroupBox3.Location = New System.Drawing.Point(533, 39)
+		Me.GroupBox3.Location = New System.Drawing.Point(435, 39)
 		Me.GroupBox3.Name = "GroupBox3"
 		Me.GroupBox3.Size = New System.Drawing.Size(406, 76)
 		Me.GroupBox3.TabIndex = 29
@@ -437,7 +439,7 @@ Partial Class frmPreviousCustomer
 		Me.GroupBox1.Controls.Add(Me.Label6)
 		Me.GroupBox1.Controls.Add(Me.Label5)
 		Me.GroupBox1.Controls.Add(Me.Label4)
-		Me.GroupBox1.Location = New System.Drawing.Point(110, 120)
+		Me.GroupBox1.Location = New System.Drawing.Point(12, 120)
 		Me.GroupBox1.Name = "GroupBox1"
 		Me.GroupBox1.Size = New System.Drawing.Size(397, 344)
 		Me.GroupBox1.TabIndex = 27
@@ -592,7 +594,7 @@ Partial Class frmPreviousCustomer
 		'
 		Me.Label1.AutoSize = True
 		Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.Label1.Location = New System.Drawing.Point(428, 9)
+		Me.Label1.Location = New System.Drawing.Point(330, 9)
 		Me.Label1.Name = "Label1"
 		Me.Label1.Size = New System.Drawing.Size(179, 17)
 		Me.Label1.TabIndex = 26
@@ -602,7 +604,7 @@ Partial Class frmPreviousCustomer
 		'
 		Me.GroupBox7.Controls.Add(Me.cboName)
 		Me.GroupBox7.Controls.Add(Me.Label38)
-		Me.GroupBox7.Location = New System.Drawing.Point(110, 39)
+		Me.GroupBox7.Location = New System.Drawing.Point(12, 39)
 		Me.GroupBox7.Name = "GroupBox7"
 		Me.GroupBox7.Size = New System.Drawing.Size(398, 61)
 		Me.GroupBox7.TabIndex = 40
@@ -627,11 +629,31 @@ Partial Class frmPreviousCustomer
 		Me.Label38.TabIndex = 37
 		Me.Label38.Text = "Last Name, First Name"
 		'
+		'btnEditContact
+		'
+		Me.btnEditContact.Location = New System.Drawing.Point(645, 573)
+		Me.btnEditContact.Name = "btnEditContact"
+		Me.btnEditContact.Size = New System.Drawing.Size(89, 44)
+		Me.btnEditContact.TabIndex = 41
+		Me.btnEditContact.Text = "Update Contact Info"
+		Me.btnEditContact.UseVisualStyleBackColor = True
+		'
+		'btnUpdatePayment
+		'
+		Me.btnUpdatePayment.Location = New System.Drawing.Point(540, 573)
+		Me.btnUpdatePayment.Name = "btnUpdatePayment"
+		Me.btnUpdatePayment.Size = New System.Drawing.Size(89, 44)
+		Me.btnUpdatePayment.TabIndex = 42
+		Me.btnUpdatePayment.Text = "Update Payment Info"
+		Me.btnUpdatePayment.UseVisualStyleBackColor = True
+		'
 		'frmPreviousCustomer
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-		Me.ClientSize = New System.Drawing.Size(1024, 650)
+		Me.ClientSize = New System.Drawing.Size(865, 632)
+		Me.Controls.Add(Me.btnUpdatePayment)
+		Me.Controls.Add(Me.btnEditContact)
 		Me.Controls.Add(Me.GroupBox7)
 		Me.Controls.Add(Me.GroupBox6)
 		Me.Controls.Add(Me.btnClose)
@@ -714,4 +736,6 @@ Partial Class frmPreviousCustomer
     Friend WithEvents lblLastName As Label
     Friend WithEvents Label38 As Label
     Friend WithEvents cboName As ComboBox
+	Friend WithEvents btnEditContact As Button
+	Friend WithEvents btnUpdatePayment As Button
 End Class

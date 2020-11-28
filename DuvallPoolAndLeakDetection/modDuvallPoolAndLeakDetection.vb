@@ -11,24 +11,23 @@ Module modDuvallPoolAndLeakDetection
     ' the connection open while until the form closes
     Public m_conAdministrator As OleDb.OleDbConnection
 
-    ' SQL Server Connection string with integrated login v1
-    Private m_strDatabaseConnectionStringSQLServerV1 As String = "Provider=SQLOLEDB;" &
-                                                                 "Server=(Local);" &
-                                                                 "Database=dbCapstone;" &
-                                                                 "Integrated Security=SSPI;"
+	' SQL Server Connection String With integrated login v1
+	Private m_strDatabaseConnectionStringSQLServerV1 As String = "Provider=SQLOLEDB;" &
+																 "Server=(Local);" &
+																 "Database=dbCapstone;" &
+																 "Integrated Security=SSPI;"
 
-    ' SQL Server Connection string with integrated login v2
-    Private m_strDatabaseConnectionStringSQLServerV2 As String = "Provider=SQLOLEDB;" &
-                                                                 "Server=(Local);" &
-                                                                 "Database=dbCapstone;" &
-                                                                 "Trusted_Connection=True;"
+	' SQL Server Connection string with integrated login v2
+	Private m_strDatabaseConnectionStringSQLServerV2 As String = "Provider=SQLOLEDB;" &
+																 "Server=(Local);" &
+																 "Database=dbCapstone;" &
+																 "Trusted_Connection=True;"
 
-    ' SQL Express Connection string                             
-    Private m_strDatabaseConnectionString As String = "Provider=SQLOLEDB;" &
-                                                      "Server=(Local)\SQLEXPRESS;" &
-                                                      "Database=dbCapstone;"
+	' SQL Express Connection string                             
+	Private m_strDatabaseConnectionString As String = "Provider=SQLOLEDB;" &
+														 "Server=(Local)\SQLEXPRESS;" &
+														 "Database=dbCapstone;"
 
-	'Public intCustID As Integer
 
 
 
@@ -46,8 +45,8 @@ Module modDuvallPoolAndLeakDetection
 
             ' Open a connection to the database
             m_conAdministrator = New OleDb.OleDbConnection
-            m_conAdministrator.ConnectionString = m_strDatabaseConnectionStringSQLServerV1
-            m_conAdministrator.Open()
+			m_conAdministrator.ConnectionString = m_strDatabaseConnectionStringSQLServerV1
+			m_conAdministrator.Open()
 
 
             ' Success

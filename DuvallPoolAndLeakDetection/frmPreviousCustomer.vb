@@ -137,6 +137,45 @@ Public Class frmPreviousCustomer
 
 	End Sub
 
+	Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
+
+		Try
+
+			ComboBoxSearch()
+
+		Catch ex As Exception
+
+			'Unhandled Exception
+			MessageBox.Show(ex.Message)
+
+		End Try
+
+	End Sub
+
+	Private Sub cboName_KeyPress(sender As Object, e As KeyPressEventArgs) Handles cboName.KeyPress
+
+		'If keypress return
+		Dim tb As ComboBox = CType(sender, ComboBox)
+		If Char.IsControl(e.KeyChar) Then
+			If e.KeyChar.Equals(Chr(Keys.Return)) Then
+
+				Try
+
+					'initiante search
+					ComboBoxSearch()
+
+				Catch ex As Exception
+
+					'Unhandled Exception
+					MessageBox.Show(ex.Message)
+
+				End Try
+
+			End If
+		End If
+
+	End Sub
+
 	Private Sub LoadCustomerInfo()
 
 		Dim strSelect As String = ""
@@ -346,72 +385,94 @@ Public Class frmPreviousCustomer
 
 	End Sub
 
-	Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
+	Private Sub ComboBoxSearch()
 
-		Try
+		UncheckRadios()
 
-			UncheckRadios()
+		Dim strSelect As String = ""
+		Dim cmdSelect As OleDb.OleDbCommand
+		Dim drSourceTable As OleDb.OleDbDataReader
+		Dim dt As DataTable = New DataTable
 
-			Dim strSelect As String = ""
-			Dim cmdSelect As OleDb.OleDbCommand
-			Dim drSourceTable As OleDb.OleDbDataReader
-			Dim dt As DataTable = New DataTable
-
-			'Delete data from boxes
-			For Each cntrl As Control In Controls
-				If TypeOf cntrl Is TextBox Then
-					cntrl.Text = String.Empty
-				End If
-			Next
-
-			'Open DB
-			If OpenDatabaseConnectionSQLServer() = False Then
-
-				'If DB could not open
-				MessageBox.Show(Me, "Database connection error." & vbNewLine &
-									"The application will now close.",
-									Me.Text + " Error",
-									MessageBoxButtons.OK, MessageBoxIcon.Error)
-				Me.Close()
-
+		'Delete data from boxes
+		For Each cntrl As Control In Controls
+			If TypeOf cntrl Is TextBox Then
+				cntrl.Text = String.Empty
 			End If
+		Next
 
-			cboName.BeginUpdate()
+		'Open DB
+		If OpenDatabaseConnectionSQLServer() = False Then
 
-			'Create select
-			strSelect = "SELECT intCustomerID, ( strLastName + ', ' + strFirstName ) AS FullName FROM TCustomers WHERE strLastName LIKE '%" & cboName.Text &
-				"%' OR strFirstName like '%" & cboName.Text & "%' ORDER BY FullName ASC"
+			'If DB could not open
+			MessageBox.Show(Me, "Database connection error." & vbNewLine &
+								"The application will now close.",
+								Me.Text + " Error",
+								MessageBoxButtons.OK, MessageBoxIcon.Error)
+			Me.Close()
 
-			'Get records
-			cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
-			drSourceTable = cmdSelect.ExecuteReader
+		End If
 
-			'Load Table
-			dt.Load(drSourceTable)
+		cboName.BeginUpdate()
 
-			' Add items to combo box
-			cboName.ValueMember = "intCustomerID"
-			cboName.DisplayMember = "FullName"
-			cboName.DataSource = dt
+		'Create select
+		strSelect = "SELECT intCustomerID, ( strLastName + ', ' + strFirstName ) AS FullName FROM TCustomers WHERE ( strLastName + ', ' + strFirstName ) LIKE '%" & cboName.Text &
+			"%' OR (strFirstName + ' ' + strLastName) like '%" & cboName.Text & "%' ORDER BY FullName ASC"
 
-			' Select the first item in the list by default
-			If cboName.Items.Count > 0 Then cboName.SelectedIndex = 0
+		'Get records
+		cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
+		drSourceTable = cmdSelect.ExecuteReader
 
-			' Show changes
-			cboName.EndUpdate()
+		'Load Table
+		dt.Load(drSourceTable)
 
-			' Clean up
-			drSourceTable.Close()
+		' Add items to combo box
+		cboName.ValueMember = "intCustomerID"
+		cboName.DisplayMember = "FullName"
+		cboName.DataSource = dt
 
-			' close the database connection
-			CloseDatabaseConnection()
+		' Select the first item in the list by default
+		If cboName.Items.Count > 0 Then cboName.SelectedIndex = 0
 
-		Catch ex As Exception
+		' Show changes
+		cboName.EndUpdate()
 
-			'Unhandled Exception
-			MessageBox.Show(ex.Message)
+		' Clean up
+		drSourceTable.Close()
 
-		End Try
+		' close the database connection
+		CloseDatabaseConnection()
+
+	End Sub
+
+	Private Sub btnEditContact_Click(sender As Object, e As EventArgs) Handles btnEditContact.Click
+
+		Dim UpdateCustomer As New frmUpdateCustomerInfo(cboName.SelectedValue)
+
+		' show the new form so any past data is not still on the form
+		UpdateCustomer.ShowDialog()
+
+		'Relead customer info after update
+		LoadCustomerInfo()
+
+	End Sub
+
+	Private Sub btnUpdatePayment_Click(sender As Object, e As EventArgs) Handles btnUpdatePayment.Click
+
+		' create a new instance of the customer intake form, passing current intCustomerID
+		Dim CustomerPayment As New frmPaymentType(cboName.SelectedValue)
+
+		' show the new form so any past data is not still on the form
+		CustomerPayment.ShowDialog()
+
+		'Reload payments
+		LoadCurrentPaymentType()
+
+		'Reload cards
+		LoadCreditInfo()
+
+		'Reload banks
+		LoadBankInfo()
 
 	End Sub
 End Class

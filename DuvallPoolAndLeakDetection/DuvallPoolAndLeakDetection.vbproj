@@ -158,6 +158,12 @@
     <Compile Include="frmPreviousInvoices.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmUpdateCustomerInfo.Designer.vb">
+      <DependentUpon>frmUpdateCustomerInfo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmUpdateCustomerInfo.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmViewAndUpdateDispatchedOrders.Designer.vb">
       <DependentUpon>frmViewAndUpdateDispatchedOrders.vb</DependentUpon>
     </Compile>
@@ -235,6 +241,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmPreviousInvoices.resx">
       <DependentUpon>frmPreviousInvoices.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmUpdateCustomerInfo.resx">
+      <DependentUpon>frmUpdateCustomerInfo.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmViewAndUpdateDispatchedOrders.resx">
       <DependentUpon>frmViewAndUpdateDispatchedOrders.vb</DependentUpon>
