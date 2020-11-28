@@ -7,7 +7,8 @@ Public Class frmOptions
 	Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
 
 		' Close program
-		Close()
+		Application.Exit()
+
 
 	End Sub
 
