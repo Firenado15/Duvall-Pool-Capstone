@@ -36,6 +36,8 @@ IF OBJECT_ID( 'TStates' )						IS NOT NULL DROP TABLE TStates
 
 IF OBJECT_ID( 'vCustomers' )					IS NOT NULL DROP VIEW vCustomers
 IF OBJECT_ID( 'VParts' )						IS NOT NULL DROP VIEW vParts
+IF OBJECT_ID( 'vBankAccount' )					IS NOT NULL DROP VIEW vBankAccount
+
 
 
 -- --------------------------------------------------------------------------------
@@ -1053,11 +1055,29 @@ WHERE
 	TC.intStateID= TS.intStateID
 GO
 
-
-
 --SELECT * FROM vCustomers
 
 GO
+
+CREATE VIEW vBankAccount
+AS
+SELECT
+	 BA.intBankAccountID
+	,BA.intCustomerID
+	,BA.strRoutingNumber
+	,BA.strAccountNumber
+	,BAT.strAccountTypeDesc
+	,BA.strAccountName
+FROM
+	 TBankAccounts AS BA
+	,TBankAccountTypes AS BAT
+WHERE
+	BA.intBankAccountTypeID = BAT.intBankAccountTypeID
+GO
+
+
+
+
 
 
 GO
@@ -1105,3 +1125,12 @@ GO
 --SELECT TOP 1 * From TCustomers ORDER BY intcustomerID DESC
 --SELECT * FROM TCustomerPaymentTypes
 --SELECT * FROM TBankAccounts
+
+
+---- Test Select for Customer Search
+--SELECT intCustomerID, ( strLastName + ', ' + strFirstName ) AS FullName 
+--FROM TCustomers 
+--WHERE strLastName LIKE '%dasd%' OR strFirstName like '%test%' 
+--ORDER BY FullName ASC
+
+
