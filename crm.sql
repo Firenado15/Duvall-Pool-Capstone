@@ -1130,7 +1130,7 @@ GO
 ---- Test Select for Customer Search
 --SELECT intCustomerID, ( strLastName + ', ' + strFirstName ) AS FullName 
 --FROM TCustomers 
---WHERE strLastName LIKE '%dasd%' OR strFirstName like '%test%' 
+--WHERE ( strLastName + ', ' + strFirstName ) like '%asdasd%' OR (strFirstName + ' ' + strLastName) like '%scarlet cartan%'
 --ORDER BY FullName ASC
 
 
