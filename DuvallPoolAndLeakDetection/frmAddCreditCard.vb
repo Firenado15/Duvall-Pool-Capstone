@@ -172,8 +172,6 @@
 
 		Try
 
-
-
 			If Validation() = True Then
 
 				'Set values

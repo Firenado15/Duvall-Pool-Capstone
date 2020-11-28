@@ -106,7 +106,7 @@
 				'Determine if another form is required to open
 				If intRadioValue = 2 Then
 
-					' create a new instance of the customer intake form, passing current intCustomerID
+					' create a new instance of the add credit card form, passing current intCustomerID
 					Dim CreditCard As New frmAddCreditCard(receiveCustomerID)
 
 					'Make Payment Type invisible
@@ -117,6 +117,15 @@
 
 
 				ElseIf intRadioValue >= 3 Then
+
+					' create a new instance of the add bank account form, passing current intCustomerID
+					Dim BankAccount As New frmAddBankAccount(receiveCustomerID)
+
+					'Make Payment Type invisible
+					Me.Visible = False
+
+					' show the new form so any past data is not still on the form
+					BankAccount.ShowDialog()
 
 				End If
 
