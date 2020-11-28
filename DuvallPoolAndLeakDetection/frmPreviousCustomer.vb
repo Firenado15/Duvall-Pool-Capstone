@@ -85,6 +85,8 @@ Public Class frmPreviousCustomer
 
 			UncheckRadios()
 
+			ClearLabels()
+
 			LoadCustomerInfo()
 
 			LoadCurrentPaymentType()
@@ -112,6 +114,26 @@ Public Class frmPreviousCustomer
 		radAmericanExpress.Checked = False
 		radMastercard.Checked = False
 		radVisa.Checked = False
+
+	End Sub
+
+	Private Sub ClearLabels()
+
+		'Credit / Debit label clear
+		lblCardholderName.ResetText()
+		lblCardNumber.ResetText()
+		lblExpiration.ResetText()
+		lblCVCNumber.ResetText()
+
+		'Bank Label Clear
+		lblRoutingNumber.ResetText()
+		lblAccountNumber.ResetText()
+		lblAcccountType.ResetText()
+		lblNameOnAccount.ResetText()
+
+		'Payment Amount
+		lblTotalPaymentAmount.ResetText()
+		lblCurrentPaymentAmount.ResetText()
 
 	End Sub
 
