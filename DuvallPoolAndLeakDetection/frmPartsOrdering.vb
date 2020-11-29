@@ -3,19 +3,37 @@
 ' Last modified by Matthew Estes
 
 Public Class frmPartsOrdering
-    Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
 
-        ' Close program
-        Close()
+	Dim intNewVendorID As Integer
 
-    End Sub
+	Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
+
+		' Close program
+		Close()
+
+	End Sub
 
 	Private Sub btnSubmit_Click(sender As Object, e As EventArgs) Handles btnSubmit.Click
 
 		' After Validation, run submit and assign values to variables
 		Validation()
 
-		InsertNewVendor()
+		If radNo.Checked = True Then
+
+			'insert new vendor
+			InsertNewVendor()
+			'place PO
+			InsertParts(intNewVendorID)
+
+		ElseIf radYes.Checked = True Then
+
+			'Place PO using selected vendor
+			InsertParts(cboVendor.SelectedValue)
+
+		End If
+
+		'Close form
+		Me.Close()
 
 	End Sub
 
@@ -86,13 +104,13 @@ Public Class frmPartsOrdering
 
 			End If
 
+			'set variable to be used by parts insert
+			intNewVendorID = intNextHighestRecordID
+
 			'Create insert statement
 			strInsert = "Insert into TVendors" &
 					" Values (" & intNextHighestRecordID & ",'" & strVendorName & "'," & "'" & strContactName & "'," & "'" & strAddress & "'," & "'" & strCity &
 					"','" & cboState.SelectedValue.ToString & "','" & strZip & "','" & strPhoneNumber & "','" & strEmail & "')"
-
-			'LOOK HERE
-			'intCustID = intNextHighestRecordID
 
 			cmdInsert = New OleDb.OleDbCommand(strInsert, m_conAdministrator)
 
@@ -100,6 +118,86 @@ Public Class frmPartsOrdering
 
 			If intRowsAffected > 0 Then
 				MessageBox.Show("Vendor has been added")
+				Me.Close()
+			End If
+
+			CloseDatabaseConnection()
+
+		End If
+
+	End Sub
+
+	Private Sub InsertParts(ByVal intVendorID As Integer)
+
+		'Variables
+		Dim strSerialNumber As String = ""
+		Dim strPartDesc As String = ""
+		Dim intQuantity As Integer = 0
+		Dim decUnitPurchaseCost As Decimal = 0.0
+		Dim decUniteSaleCost As Decimal = 0.0
+
+		Dim strSelect As String
+		Dim strInsert As String
+		Dim cmdSelect As OleDb.OleDbCommand
+		Dim cmdInsert As OleDb.OleDbCommand
+		Dim drSourceTable As OleDb.OleDbDataReader
+		Dim intNextHighestRecordID As Integer
+		Dim intRowsAffected As Integer
+
+		strSerialNumber = txtSerialNumber.Text
+		strPartDesc = txtPartName.Text
+		intQuantity = Integer.Parse(txtQuantity.Text)
+		decUnitPurchaseCost = txtUnitCost.Text
+		decUniteSaleCost = decUnitPurchaseCost * 1.5
+
+		If Validation() = True Then
+
+			If OpenDatabaseConnectionSQLServer() = False Then
+
+				'Alert if no connection
+				MessageBox.Show(Me, "Database connection error." & vbNewLine &
+										"The application will now close.",
+										Me.Text + " Error",
+										MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+				'Close Form
+				Me.Close()
+
+			End If
+
+			strSelect = "SELECT MAX(intPartID) + 1 AS intNextHighestRecordID FROM TParts"
+
+			'Execute
+			cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
+			drSourceTable = cmdSelect.ExecuteReader
+
+			'Read
+			drSourceTable.Read()
+
+			'Check for empty table
+			If drSourceTable.IsDBNull(0) = True Then
+
+				'Start at 1 for empty table
+				intNextHighestRecordID = 1
+
+			Else
+
+				'Not empty, add 1
+				intNextHighestRecordID = CInt(drSourceTable.Item(0))
+
+			End If
+
+			'Create insert statement
+			strInsert = "Insert into TParts" &
+					" Values (" & intNextHighestRecordID & ", " & intVendorID & ", '" & strSerialNumber & "', '" & strPartDesc & "', " & intQuantity &
+					", " & decUnitPurchaseCost & ", " & decUniteSaleCost & ", 0)"
+
+			cmdInsert = New OleDb.OleDbCommand(strInsert, m_conAdministrator)
+
+			intRowsAffected = cmdInsert.ExecuteNonQuery()
+
+			If intRowsAffected > 0 Then
+				MessageBox.Show("PO has been added")
 				Me.Close()
 			End If
 
@@ -119,119 +217,125 @@ Public Class frmPartsOrdering
 		txtZip.BackColor = Color.White
 		txtEmail.BackColor = Color.White
 		txtPhone.BackColor = Color.White
-		txtPurchaseOrder.BackColor = Color.White
-		txtJobNumber.BackColor = Color.White
+		txtSerialNumber.BackColor = Color.White
 		txtPartName.BackColor = Color.White
-		txtPartDescription.BackColor = Color.White
 		txtQuantity.BackColor = Color.White
-		'txtCostPerUnit.BackColor = Color.White
-		txtVendorIdentification.BackColor = Color.White
+		txtUnitCost.BackColor = Color.White
+		'txtVendorIdentification.BackColor = Color.White
 
-		' check if something is entered in vendor name text box
-		If txtVendorName.Text <> String.Empty Then
+		' only validate vendor input if for new vendor
+		If radNo.Checked = True Then
 
-		Else
-			' text box is blank so tell user to enter vendor name, change back color to yellow,
-			' put focus in text box and return false we don't want to continue
-			MessageBox.Show("Please enter Vendor's name.")
-			txtVendorName.BackColor = Color.Yellow
-			txtVendorName.Focus()
-			Return False
+
+			' check if something is entered in vendor name text box
+			If txtVendorName.Text <> String.Empty Then
+
+			Else
+				' text box is blank so tell user to enter vendor name, change back color to yellow,
+				' put focus in text box and return false we don't want to continue
+				MessageBox.Show("Please enter Vendor's name.")
+				txtVendorName.BackColor = Color.Yellow
+				txtVendorName.Focus()
+				Return False
+			End If
+
+			' check if something is entered in contact name text box
+			If txtContactName.Text <> String.Empty Then
+
+			Else
+				' text box is blank so tell user to enter contact name, change back color to yellow,
+				' put focus in text box and return false we don't want to continue
+				MessageBox.Show("Please enter Contact's name.")
+				txtContactName.BackColor = Color.Yellow
+				txtContactName.Focus()
+				Return False
+			End If
+
+			' check if something is entered in street address text box
+			If txtAddress.Text <> String.Empty Then
+
+			Else
+				' text box is blank so tell user to enter street address, change back color to yellow,
+				' put focus in text box and return false we don't want to continue
+				MessageBox.Show("Please enter Vendor's street address.")
+				txtAddress.BackColor = Color.Yellow
+				txtAddress.Focus()
+				Return False
+			End If
+
+			' check if something is entered in city text box
+			If txtCity.Text <> String.Empty Then
+
+			Else
+				' text box is blank so tell user to enter city, change back color to yellow,
+				' put focus in text box and return false we don't want to continue
+				MessageBox.Show("Please enter Vendor's city.")
+				txtCity.BackColor = Color.Yellow
+				txtCity.Focus()
+				Return False
+			End If
+
+			' check if something is entered in zip text box
+			If txtZip.Text <> String.Empty Then
+
+			Else
+				' text box is blank so tell user to enter zip, change back color to yellow,
+				' put focus in text box and return false we don't want to continue
+				MessageBox.Show("Please enter Vendor's zip.")
+				txtZip.BackColor = Color.Yellow
+				txtZip.Focus()
+				Return False
+			End If
+
+			' check if something is entered in email text box
+			If txtEmail.Text <> String.Empty Then
+
+			Else
+				' text box is blank so tell user to enter email, change back color to yellow,
+				' put focus in text box and return false we don't want to continue
+				MessageBox.Show("Please enter Vendor's email.")
+				txtEmail.BackColor = Color.Yellow
+				txtEmail.Focus()
+				Return False
+			End If
+
+			' check if something is entered in phone number text box
+			If txtPhone.Text <> String.Empty Then
+
+			Else
+				' text box is blank so tell user to enter phone number, change back color to yellow,
+				' put focus in text box and return false we don't want to continue
+				MessageBox.Show("Please enter Vendor's phone number.")
+				txtPhone.BackColor = Color.Yellow
+				txtPhone.Focus()
+				Return False
+			End If
+
 		End If
 
-		' check if something is entered in contact name text box
-		If txtContactName.Text <> String.Empty Then
 
-		Else
-			' text box is blank so tell user to enter contact name, change back color to yellow,
-			' put focus in text box and return false we don't want to continue
-			MessageBox.Show("Please enter Contact's name.")
-			txtContactName.BackColor = Color.Yellow
-			txtContactName.Focus()
-			Return False
-		End If
 
-		' check if something is entered in street address text box
-		If txtAddress.Text <> String.Empty Then
+		'' check if something is entered in purchase order text box
+		'If txtPurchaseOrder.Text <> String.Empty Then
 
-		Else
-			' text box is blank so tell user to enter street address, change back color to yellow,
-			' put focus in text box and return false we don't want to continue
-			MessageBox.Show("Please enter Vendor's street address.")
-			txtAddress.BackColor = Color.Yellow
-			txtAddress.Focus()
-			Return False
-		End If
-
-		' check if something is entered in city text box
-		If txtCity.Text <> String.Empty Then
-
-		Else
-			' text box is blank so tell user to enter city, change back color to yellow,
-			' put focus in text box and return false we don't want to continue
-			MessageBox.Show("Please enter Vendor's city.")
-			txtCity.BackColor = Color.Yellow
-			txtCity.Focus()
-			Return False
-		End If
-
-		' check if something is entered in zip text box
-		If txtZip.Text <> String.Empty Then
-
-		Else
-			' text box is blank so tell user to enter zip, change back color to yellow,
-			' put focus in text box and return false we don't want to continue
-			MessageBox.Show("Please enter Vendor's zip.")
-			txtZip.BackColor = Color.Yellow
-			txtZip.Focus()
-			Return False
-		End If
-
-		' check if something is entered in email text box
-		If txtEmail.Text <> String.Empty Then
-
-		Else
-			' text box is blank so tell user to enter email, change back color to yellow,
-			' put focus in text box and return false we don't want to continue
-			MessageBox.Show("Please enter Vendor's email.")
-			txtEmail.BackColor = Color.Yellow
-			txtEmail.Focus()
-			Return False
-		End If
-
-		' check if something is entered in phone number text box
-		If txtPhone.Text <> String.Empty Then
-
-		Else
-			' text box is blank so tell user to enter phone number, change back color to yellow,
-			' put focus in text box and return false we don't want to continue
-			MessageBox.Show("Please enter Vendor's phone number.")
-			txtPhone.BackColor = Color.Yellow
-			txtPhone.Focus()
-			Return False
-		End If
-
-		' check if something is entered in purchase order text box
-		If txtPurchaseOrder.Text <> String.Empty Then
-
-		Else
-			' text box is blank so tell user to enter purchase order, change back color to yellow,
-			' put focus in text box and return false we don't want to continue
-			MessageBox.Show("Please enter purchase order.")
-			txtPurchaseOrder.BackColor = Color.Yellow
-			txtPurchaseOrder.Focus()
-			Return False
-		End If
+		'Else
+		'	' text box is blank so tell user to enter purchase order, change back color to yellow,
+		'	' put focus in text box and return false we don't want to continue
+		'	MessageBox.Show("Please enter purchase order.")
+		'	txtPurchaseOrder.BackColor = Color.Yellow
+		'	txtPurchaseOrder.Focus()
+		'	Return False
+		'End If
 
 		' check if something is entered in job number text box
-		If txtJobNumber.Text <> String.Empty Then
+		If txtSerialNumber.Text <> String.Empty Then
 
 		Else
 			' text box is blank so tell user to enter job number, change back color to yellow,
 			' put focus in text box and return false we don't want to continue
 			MessageBox.Show("Please enter job number.")
-			txtJobNumber.BackColor = Color.Yellow
-			txtJobNumber.Focus()
+			txtSerialNumber.BackColor = Color.Yellow
+			txtSerialNumber.Focus()
 			Return False
 		End If
 
@@ -247,17 +351,17 @@ Public Class frmPartsOrdering
 			Return False
 		End If
 
-		' check if something is entered in part description text box
-		If txtPartDescription.Text <> String.Empty Then
+		'' check if something is entered in part description text box
+		'If txtPartDescription.Text <> String.Empty Then
 
-		Else
-			' text box is blank so tell user to enter part description, change back color to yellow,
-			' put focus in text box and return false we don't want to continue
-			MessageBox.Show("Please enter part description.")
-			txtPartDescription.BackColor = Color.Yellow
-			txtPartDescription.Focus()
-			Return False
-		End If
+		'Else
+		'	' text box is blank so tell user to enter part description, change back color to yellow,
+		'	' put focus in text box and return false we don't want to continue
+		'	MessageBox.Show("Please enter part description.")
+		'	txtPartDescription.BackColor = Color.Yellow
+		'	txtPartDescription.Focus()
+		'	Return False
+		'End If
 
 		' check if something is entered in quantity text box
 		If txtQuantity.Text <> String.Empty Then
@@ -271,29 +375,29 @@ Public Class frmPartsOrdering
 			Return False
 		End If
 
-		'' check if something is entered in cost per unit text box
-		'If txtCostPerUnit.Text <> String.Empty Then
-
-		'Else
-		'    ' text box is blank so tell user to enter cost per unit, change back color to yellow,
-		'    ' put focus in text box and return false we don't want to continue
-		'    MessageBox.Show("Please enter cost per unit.")
-		'    txtCostPerUnit.BackColor = Color.Yellow
-		'    txtCostPerUnit.Focus()
-		'    Return False
-		'End If
-
-		' check if something is entered in identification number text box
-		If txtVendorIdentification.Text <> String.Empty Then
+		' check if something is entered in cost per unit text box
+		If txtUnitCost.Text <> String.Empty Then
 
 		Else
-			' text box is blank so tell user to enter identification number, change back color to yellow,
+			' text box is blank so tell user to enter cost per unit, change back color to yellow,
 			' put focus in text box and return false we don't want to continue
-			MessageBox.Show("Please enter Vendor's identification number.")
-			txtVendorIdentification.BackColor = Color.Yellow
-			txtVendorIdentification.Focus()
+			MessageBox.Show("Please enter cost per unit.")
+			txtUnitCost.BackColor = Color.Yellow
+			txtUnitCost.Focus()
 			Return False
 		End If
+
+		'' check if something is entered in identification number text box
+		'If txtVendorIdentification.Text <> String.Empty Then
+
+		'Else
+		'	' text box is blank so tell user to enter identification number, change back color to yellow,
+		'	' put focus in text box and return false we don't want to continue
+		'	MessageBox.Show("Please enter Vendor's identification number.")
+		'	txtVendorIdentification.BackColor = Color.Yellow
+		'	txtVendorIdentification.Focus()
+		'	Return False
+		'End If
 
 		Return True ' all is well in the world
 

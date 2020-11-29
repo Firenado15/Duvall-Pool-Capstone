@@ -44,23 +44,15 @@ Partial Class frmPartsOrdering
 		Me.Label2 = New System.Windows.Forms.Label()
 		Me.Label1 = New System.Windows.Forms.Label()
 		Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-		Me.cboCostPerUnit = New System.Windows.Forms.ComboBox()
-		Me.Label13 = New System.Windows.Forms.Label()
 		Me.Label14 = New System.Windows.Forms.Label()
 		Me.Label15 = New System.Windows.Forms.Label()
 		Me.Label12 = New System.Windows.Forms.Label()
-		Me.Label16 = New System.Windows.Forms.Label()
-		Me.txtVendorIdentification = New System.Windows.Forms.TextBox()
 		Me.txtQuantity = New System.Windows.Forms.TextBox()
 		Me.txtPartName = New System.Windows.Forms.TextBox()
-		Me.txtPartDescription = New System.Windows.Forms.TextBox()
 		Me.Label17 = New System.Windows.Forms.Label()
-		Me.txtJobNumber = New System.Windows.Forms.TextBox()
-		Me.txtPurchaseOrder = New System.Windows.Forms.TextBox()
-		Me.Label18 = New System.Windows.Forms.Label()
+		Me.txtSerialNumber = New System.Windows.Forms.TextBox()
 		Me.btnClose = New System.Windows.Forms.Button()
 		Me.btnSubmit = New System.Windows.Forms.Button()
-		Me.Label11 = New System.Windows.Forms.Label()
 		Me.cboVendor = New System.Windows.Forms.ComboBox()
 		Me.lblContactName = New System.Windows.Forms.Label()
 		Me.lblPhone = New System.Windows.Forms.Label()
@@ -69,6 +61,7 @@ Partial Class frmPartsOrdering
 		Me.lblState = New System.Windows.Forms.Label()
 		Me.lblCity = New System.Windows.Forms.Label()
 		Me.lblAddress = New System.Windows.Forms.Label()
+		Me.txtUnitCost = New System.Windows.Forms.TextBox()
 		Me.GroupBox1.SuspendLayout()
 		Me.GroupBox2.SuspendLayout()
 		Me.SuspendLayout()
@@ -93,7 +86,6 @@ Partial Class frmPartsOrdering
 		Me.GroupBox1.Controls.Add(Me.Label3)
 		Me.GroupBox1.Controls.Add(Me.txtContactName)
 		Me.GroupBox1.Controls.Add(Me.Label2)
-		Me.GroupBox1.Controls.Add(Me.cboVendor)
 		Me.GroupBox1.Controls.Add(Me.txtVendorName)
 		Me.GroupBox1.Controls.Add(Me.lblContactName)
 		Me.GroupBox1.Controls.Add(Me.lblPhone)
@@ -102,7 +94,8 @@ Partial Class frmPartsOrdering
 		Me.GroupBox1.Controls.Add(Me.lblState)
 		Me.GroupBox1.Controls.Add(Me.lblCity)
 		Me.GroupBox1.Controls.Add(Me.lblAddress)
-		Me.GroupBox1.Location = New System.Drawing.Point(12, 83)
+		Me.GroupBox1.Controls.Add(Me.cboVendor)
+		Me.GroupBox1.Location = New System.Drawing.Point(13, 29)
 		Me.GroupBox1.Name = "GroupBox1"
 		Me.GroupBox1.Size = New System.Drawing.Size(397, 380)
 		Me.GroupBox1.TabIndex = 14
@@ -290,51 +283,26 @@ Partial Class frmPartsOrdering
 		'
 		'GroupBox2
 		'
-		Me.GroupBox2.Controls.Add(Me.cboCostPerUnit)
-		Me.GroupBox2.Controls.Add(Me.Label13)
+		Me.GroupBox2.Controls.Add(Me.txtUnitCost)
 		Me.GroupBox2.Controls.Add(Me.Label14)
 		Me.GroupBox2.Controls.Add(Me.Label15)
 		Me.GroupBox2.Controls.Add(Me.Label12)
-		Me.GroupBox2.Controls.Add(Me.Label16)
-		Me.GroupBox2.Controls.Add(Me.txtVendorIdentification)
 		Me.GroupBox2.Controls.Add(Me.txtQuantity)
 		Me.GroupBox2.Controls.Add(Me.txtPartName)
-		Me.GroupBox2.Controls.Add(Me.txtPartDescription)
 		Me.GroupBox2.Controls.Add(Me.Label17)
-		Me.GroupBox2.Controls.Add(Me.txtJobNumber)
-		Me.GroupBox2.Controls.Add(Me.txtPurchaseOrder)
-		Me.GroupBox2.Controls.Add(Me.Label18)
-		Me.GroupBox2.Location = New System.Drawing.Point(435, 53)
+		Me.GroupBox2.Controls.Add(Me.txtSerialNumber)
+		Me.GroupBox2.Location = New System.Drawing.Point(437, 29)
 		Me.GroupBox2.Name = "GroupBox2"
-		Me.GroupBox2.Size = New System.Drawing.Size(462, 280)
+		Me.GroupBox2.Size = New System.Drawing.Size(408, 195)
 		Me.GroupBox2.TabIndex = 16
 		Me.GroupBox2.TabStop = False
-		Me.GroupBox2.Text = "Related Job Information"
-		'
-		'cboCostPerUnit
-		'
-		Me.cboCostPerUnit.FormattingEnabled = True
-		Me.cboCostPerUnit.ItemHeight = 13
-		Me.cboCostPerUnit.Location = New System.Drawing.Point(200, 204)
-		Me.cboCostPerUnit.Name = "cboCostPerUnit"
-		Me.cboCostPerUnit.Size = New System.Drawing.Size(244, 21)
-		Me.cboCostPerUnit.TabIndex = 12
-		'
-		'Label13
-		'
-		Me.Label13.AutoSize = True
-		Me.Label13.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.Label13.Location = New System.Drawing.Point(16, 248)
-		Me.Label13.Name = "Label13"
-		Me.Label13.Size = New System.Drawing.Size(137, 17)
-		Me.Label13.TabIndex = 11
-		Me.Label13.Text = "Vendor Identification"
+		Me.GroupBox2.Text = "Part Information"
 		'
 		'Label14
 		'
 		Me.Label14.AutoSize = True
 		Me.Label14.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.Label14.Location = New System.Drawing.Point(16, 205)
+		Me.Label14.Location = New System.Drawing.Point(6, 133)
 		Me.Label14.Name = "Label14"
 		Me.Label14.Size = New System.Drawing.Size(91, 17)
 		Me.Label14.TabIndex = 11
@@ -344,7 +312,7 @@ Partial Class frmPartsOrdering
 		'
 		Me.Label15.AutoSize = True
 		Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.Label15.Location = New System.Drawing.Point(16, 169)
+		Me.Label15.Location = New System.Drawing.Point(6, 94)
 		Me.Label15.Name = "Label15"
 		Me.Label15.Size = New System.Drawing.Size(61, 17)
 		Me.Label15.TabIndex = 11
@@ -354,87 +322,46 @@ Partial Class frmPartsOrdering
 		'
 		Me.Label12.AutoSize = True
 		Me.Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.Label12.Location = New System.Drawing.Point(16, 90)
+		Me.Label12.Location = New System.Drawing.Point(6, 55)
 		Me.Label12.Name = "Label12"
 		Me.Label12.Size = New System.Drawing.Size(75, 17)
 		Me.Label12.TabIndex = 11
 		Me.Label12.Text = "Part Name"
 		'
-		'Label16
-		'
-		Me.Label16.AutoSize = True
-		Me.Label16.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.Label16.Location = New System.Drawing.Point(16, 130)
-		Me.Label16.Name = "Label16"
-		Me.Label16.Size = New System.Drawing.Size(109, 17)
-		Me.Label16.TabIndex = 11
-		Me.Label16.Text = "Part Description"
-		'
-		'txtVendorIdentification
-		'
-		Me.txtVendorIdentification.Location = New System.Drawing.Point(200, 246)
-		Me.txtVendorIdentification.Name = "txtVendorIdentification"
-		Me.txtVendorIdentification.Size = New System.Drawing.Size(244, 20)
-		Me.txtVendorIdentification.TabIndex = 15
-		'
 		'txtQuantity
 		'
-		Me.txtQuantity.Location = New System.Drawing.Point(200, 165)
+		Me.txtQuantity.Location = New System.Drawing.Point(138, 98)
 		Me.txtQuantity.Name = "txtQuantity"
 		Me.txtQuantity.Size = New System.Drawing.Size(244, 20)
 		Me.txtQuantity.TabIndex = 13
 		'
 		'txtPartName
 		'
-		Me.txtPartName.Location = New System.Drawing.Point(200, 86)
+		Me.txtPartName.Location = New System.Drawing.Point(138, 58)
 		Me.txtPartName.Name = "txtPartName"
 		Me.txtPartName.Size = New System.Drawing.Size(244, 20)
 		Me.txtPartName.TabIndex = 11
-		'
-		'txtPartDescription
-		'
-		Me.txtPartDescription.Location = New System.Drawing.Point(200, 126)
-		Me.txtPartDescription.Name = "txtPartDescription"
-		Me.txtPartDescription.Size = New System.Drawing.Size(244, 20)
-		Me.txtPartDescription.TabIndex = 12
 		'
 		'Label17
 		'
 		Me.Label17.AutoSize = True
 		Me.Label17.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.Label17.Location = New System.Drawing.Point(16, 49)
+		Me.Label17.Location = New System.Drawing.Point(6, 16)
 		Me.Label17.Name = "Label17"
-		Me.Label17.Size = New System.Drawing.Size(85, 17)
+		Me.Label17.Size = New System.Drawing.Size(98, 17)
 		Me.Label17.TabIndex = 9
-		Me.Label17.Text = "Job Number"
+		Me.Label17.Text = "Serial Number"
 		'
-		'txtJobNumber
+		'txtSerialNumber
 		'
-		Me.txtJobNumber.Location = New System.Drawing.Point(200, 48)
-		Me.txtJobNumber.Name = "txtJobNumber"
-		Me.txtJobNumber.Size = New System.Drawing.Size(244, 20)
-		Me.txtJobNumber.TabIndex = 10
-		'
-		'txtPurchaseOrder
-		'
-		Me.txtPurchaseOrder.Location = New System.Drawing.Point(200, 15)
-		Me.txtPurchaseOrder.Name = "txtPurchaseOrder"
-		Me.txtPurchaseOrder.Size = New System.Drawing.Size(244, 20)
-		Me.txtPurchaseOrder.TabIndex = 9
-		'
-		'Label18
-		'
-		Me.Label18.AutoSize = True
-		Me.Label18.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.Label18.Location = New System.Drawing.Point(16, 17)
-		Me.Label18.Name = "Label18"
-		Me.Label18.Size = New System.Drawing.Size(163, 17)
-		Me.Label18.TabIndex = 6
-		Me.Label18.Text = "Purchase Order Number"
+		Me.txtSerialNumber.Location = New System.Drawing.Point(138, 18)
+		Me.txtSerialNumber.Name = "txtSerialNumber"
+		Me.txtSerialNumber.Size = New System.Drawing.Size(244, 20)
+		Me.txtSerialNumber.TabIndex = 10
 		'
 		'btnClose
 		'
-		Me.btnClose.Location = New System.Drawing.Point(436, 370)
+		Me.btnClose.Location = New System.Drawing.Point(609, 365)
 		Me.btnClose.Name = "btnClose"
 		Me.btnClose.Size = New System.Drawing.Size(109, 44)
 		Me.btnClose.TabIndex = 17
@@ -443,22 +370,12 @@ Partial Class frmPartsOrdering
 		'
 		'btnSubmit
 		'
-		Me.btnSubmit.Location = New System.Drawing.Point(770, 370)
+		Me.btnSubmit.Location = New System.Drawing.Point(736, 365)
 		Me.btnSubmit.Name = "btnSubmit"
 		Me.btnSubmit.Size = New System.Drawing.Size(109, 44)
 		Me.btnSubmit.TabIndex = 16
 		Me.btnSubmit.Text = "Submit"
 		Me.btnSubmit.UseVisualStyleBackColor = True
-		'
-		'Label11
-		'
-		Me.Label11.AutoSize = True
-		Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.Label11.Location = New System.Drawing.Point(19, 53)
-		Me.Label11.Name = "Label11"
-		Me.Label11.Size = New System.Drawing.Size(390, 17)
-		Me.Label11.TabIndex = 28
-		Me.Label11.Text = "If previous Vendor just enter name under Vendor Information"
 		'
 		'cboVendor
 		'
@@ -532,17 +449,25 @@ Partial Class frmPartsOrdering
 		Me.lblAddress.TabIndex = 48
 		Me.lblAddress.Visible = False
 		'
+		'txtUnitCost
+		'
+		Me.txtUnitCost.Location = New System.Drawing.Point(138, 138)
+		Me.txtUnitCost.Name = "txtUnitCost"
+		Me.txtUnitCost.Size = New System.Drawing.Size(244, 20)
+		Me.txtUnitCost.TabIndex = 16
+		'
 		'frmPartsOrdering
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-		Me.ClientSize = New System.Drawing.Size(924, 476)
-		Me.Controls.Add(Me.Label11)
+		Me.ClientSize = New System.Drawing.Size(863, 431)
 		Me.Controls.Add(Me.btnClose)
 		Me.Controls.Add(Me.btnSubmit)
 		Me.Controls.Add(Me.GroupBox2)
 		Me.Controls.Add(Me.Label1)
 		Me.Controls.Add(Me.GroupBox1)
+		Me.MaximizeBox = False
+		Me.MinimizeBox = False
 		Me.Name = "frmPartsOrdering"
 		Me.Text = "Parts Ordering"
 		Me.GroupBox1.ResumeLayout(False)
@@ -573,26 +498,18 @@ Partial Class frmPartsOrdering
     Friend WithEvents Label2 As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents GroupBox2 As GroupBox
-    Friend WithEvents cboCostPerUnit As ComboBox
-    Friend WithEvents Label13 As Label
-    Friend WithEvents Label14 As Label
-    Friend WithEvents Label15 As Label
-    Friend WithEvents Label16 As Label
-    Friend WithEvents txtVendorIdentification As TextBox
-    Friend WithEvents txtQuantity As TextBox
-    Friend WithEvents txtPartDescription As TextBox
-    Friend WithEvents Label17 As Label
-    Friend WithEvents txtJobNumber As TextBox
-    Friend WithEvents txtPurchaseOrder As TextBox
-    Friend WithEvents Label18 As Label
-    Friend WithEvents btnClose As Button
-    Friend WithEvents btnSubmit As Button
-    Friend WithEvents radNo As RadioButton
-    Friend WithEvents radYes As RadioButton
-    Friend WithEvents Label10 As Label
-    Friend WithEvents Label11 As Label
-    Friend WithEvents Label12 As Label
-    Friend WithEvents txtPartName As TextBox
+	Friend WithEvents Label14 As Label
+	Friend WithEvents Label15 As Label
+	Friend WithEvents txtQuantity As TextBox
+	Friend WithEvents Label17 As Label
+	Friend WithEvents txtSerialNumber As TextBox
+	Friend WithEvents btnClose As Button
+	Friend WithEvents btnSubmit As Button
+	Friend WithEvents radNo As RadioButton
+	Friend WithEvents radYes As RadioButton
+	Friend WithEvents Label10 As Label
+	Friend WithEvents Label12 As Label
+	Friend WithEvents txtPartName As TextBox
 	Friend WithEvents cboVendor As ComboBox
 	Friend WithEvents lblContactName As Label
 	Friend WithEvents lblPhone As Label
@@ -601,4 +518,5 @@ Partial Class frmPartsOrdering
 	Friend WithEvents lblState As Label
 	Friend WithEvents lblCity As Label
 	Friend WithEvents lblAddress As Label
+	Friend WithEvents txtUnitCost As TextBox
 End Class
