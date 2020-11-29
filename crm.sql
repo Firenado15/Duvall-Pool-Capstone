@@ -37,8 +37,7 @@ IF OBJECT_ID( 'TUserLogin' )					IS NOT NULL DROP TABLE TUserLogin
 IF OBJECT_ID( 'vCustomers' )					IS NOT NULL DROP VIEW vCustomers
 IF OBJECT_ID( 'VParts' )						IS NOT NULL DROP VIEW vParts
 IF OBJECT_ID( 'vBankAccount' )					IS NOT NULL DROP VIEW vBankAccount
-
-
+IF OBJECT_ID( 'vVendors' )						IS NOT NULL DROP VIEW vVendors
 
 -- --------------------------------------------------------------------------------
 -- Create Tables
@@ -1088,7 +1087,26 @@ WHERE
 GO
 
 
+GO
 
+CREATE VIEW vVendors
+AS
+SELECT
+	 TV.intVendorID
+	,TV.strVendorName
+	,TV.strContactName
+	,TV.strAddress
+	,TV.strCity
+	,TS.strState
+	,TV.strZip
+	,TV.strPhoneNumber
+	,TV.strEmail
+FROM
+	TVendors AS TV
+	,TStates AS TS
+WHERE
+	TV.intStateID= TS.intStateID
+GO
 
 
 
