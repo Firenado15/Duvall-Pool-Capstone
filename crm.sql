@@ -28,7 +28,7 @@ IF OBJECT_ID( 'TPaymentTypes' )					IS NOT NULL DROP TABLE TPaymentTypes
 IF OBJECT_ID( 'TCustomers' )					IS NOT NULL DROP TABLE TCustomers
 IF OBJECT_ID( 'TCities' )						IS NOT NULL DROP TABLE TCities
 IF OBJECT_ID( 'TStates' )						IS NOT NULL DROP TABLE TStates
-
+IF OBJECT_ID( 'TUserLogin' )					IS NOT NULL DROP TABLE TUserLogin
 
 -- --------------------------------------------------------------------------------
 -- Drop Views
@@ -235,6 +235,14 @@ CREATE TABLE TCustomerPaymentTypes
 	,intCustomerID			INTEGER			NOT NULL
 	,intPaymentTypeID		INTEGER			NOT NULL
 	,CONSTRAINT TCustomerPaymentTypes_PK PRIMARY KEY ( intCustomerPaymentID )
+)
+
+CREATE TABLE TUserLogin
+(
+	 intUserLoginID			INTEGER			NOT NULL
+	,strUsername			VARCHAR(20)		NOT NULL
+	,strPassword			VARCHAR(20)		NOT NULL
+	,CONSTRAINT TUserLogin_PK PRIMARY KEY ( intUserLoginID )
 )
 
 -- --------------------------------------------------------------------------------
@@ -1034,6 +1042,10 @@ INSERT INTO TBankAccountTypes VALUES
  (1, 'Checking')
 ,(2, 'Savings')
 
+INSERT INTO TUserLogin VALUES
+ (1, 'admin', 'admin')
+,(2, 'test', 'test')
+
 GO
 
 CREATE VIEW vCustomers
@@ -1134,3 +1146,12 @@ GO
 --ORDER BY FullName ASC
 
 
+
+---- Test update commands
+--SELECT * FROM TCustomers WHERE intCustomerID = 119
+
+--UPDATE TCustomers
+--SET strFirstName = '', strLastName = '', strAddress = '', strCity = '', intStateID = 1, strZip = '',strPhoneNumber = '', strEmail = ''
+--WHERE intCustomerID = 119
+
+--SELECT * FROM TCustomers WHERE intCustomerID = 119
