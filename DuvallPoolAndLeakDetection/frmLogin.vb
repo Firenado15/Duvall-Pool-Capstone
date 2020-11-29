@@ -12,17 +12,73 @@ Public Class frmLogin
 
     Private Sub btnEnter_Click(sender As Object, e As EventArgs) Handles btnEnter.Click
 
-        ' create a new instance of the add form
-        Dim Options As New frmOptions
+		Dim strUsername As String = txtUsername.Text
+		Dim strPassword As String = ""
 
-		' show the new form so any past data is not still on the form
 
-		Me.Visible = False
+		Dim strSelect As String = ""
+		Dim strName As String = ""
+		Dim cmdSelect As OleDb.OleDbCommand 'Select
+		Dim drSourceTable As OleDb.OleDbDataReader 'retrieved data
+		Dim dt As DataTable = New DataTable 'reader
 
-		Options.ShowDialog()
+		'open the database
+		If OpenDatabaseConnectionSQLServer() = False Then
 
-		Close()
 
+			' No connection error
+			MessageBox.Show(Me, "Database connection error." & vbNewLine &
+								"The application will now close.",
+								Me.Text + " Error",
+								MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+			'close the form
+			Me.Close()
+
+		End If
+
+		'Select statement
+		strSelect = "SELECT * FROM TUserLogin WHERE strUsername = '" & strUsername & "'"
+
+
+		'Retrieve records 
+		cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
+		drSourceTable = cmdSelect.ExecuteReader
+
+		'load the data table from the reader
+		dt.Load(drSourceTable)
+
+		If dt.Rows.Count > 0 Then
+
+			'populate text boxes
+			strPassword = dt.Rows(0).Item(2).ToString
+
+			'close connection
+			CloseDatabaseConnection()
+
+
+			If strPassword = txtPassword.Text Then
+
+				' create a new instance of the add form
+				Dim Options As New frmOptions
+
+				' show the new form so any past data is not still on the form
+
+				Me.Visible = False
+
+				Options.ShowDialog()
+
+			Else
+
+				MessageBox.Show("Incorrect username/password.")
+
+			End If
+
+		Else
+
+			MessageBox.Show("Incorrect username/password.")
+
+		End If
 
 	End Sub
 

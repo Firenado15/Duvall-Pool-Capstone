@@ -81,6 +81,7 @@ Partial Class frmLogin
 		Me.txtPassword.Name = "txtPassword"
 		Me.txtPassword.Size = New System.Drawing.Size(244, 20)
 		Me.txtPassword.TabIndex = 5
+		Me.txtPassword.UseSystemPasswordChar = True
 		'
 		'frmLogin
 		'
