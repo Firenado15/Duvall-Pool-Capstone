@@ -16,24 +16,29 @@ Public Class frmPartsOrdering
 	Private Sub btnSubmit_Click(sender As Object, e As EventArgs) Handles btnSubmit.Click
 
 		' After Validation, run submit and assign values to variables
-		Validation()
+		If Validation() = True Then
 
-		If radNo.Checked = True Then
+			If radNo.Checked = True Then
 
-			'insert new vendor
-			InsertNewVendor()
-			'place PO
-			InsertParts(intNewVendorID)
+				'insert new vendor
+				InsertNewVendor()
+				'place PO
+				InsertParts(intNewVendorID)
 
-		ElseIf radYes.Checked = True Then
+				'Close form
+				Me.Close()
 
-			'Place PO using selected vendor
-			InsertParts(cboVendor.SelectedValue)
+			ElseIf radYes.Checked = True Then
+
+				'Place PO using selected vendor
+				InsertParts(cboVendor.SelectedValue)
+
+				'Close form
+				Me.Close()
+
+			End If
 
 		End If
-
-		'Close form
-		Me.Close()
 
 	End Sub
 
@@ -367,7 +372,14 @@ Public Class frmPartsOrdering
 
 		' check if something is entered in quantity text box
 		If txtQuantity.Text <> String.Empty Then
-
+			'Check for numeric value
+			If IsNumeric(txtQuantity.Text) = True Then
+			Else
+				MessageBox.Show("Please enter numeric value for quantity.")
+				txtQuantity.BackColor = Color.Yellow
+				txtQuantity.Focus()
+				Return False
+			End If
 		Else
 			' text box is blank so tell user to enter quantity, change back color to yellow,
 			' put focus in text box and return false we don't want to continue
@@ -379,7 +391,14 @@ Public Class frmPartsOrdering
 
 		' check if something is entered in cost per unit text box
 		If txtUnitCost.Text <> String.Empty Then
-
+			' Check for numric value
+			If IsNumeric(txtUnitCost.Text) = True Then
+			Else
+				MessageBox.Show("Please enter numeric values only for cost.")
+				txtUnitCost.BackColor = Color.Yellow
+				txtUnitCost.Focus()
+				Return False
+			End If
 		Else
 			' text box is blank so tell user to enter cost per unit, change back color to yellow,
 			' put focus in text box and return false we don't want to continue
@@ -579,7 +598,7 @@ Public Class frmPartsOrdering
 
 	Private Sub radNo_CheckedChanged(sender As Object, e As EventArgs) Handles radNo.CheckedChanged
 
-		'Turn off combo and labels
+		'Turn off combo and labels and edit
 		cboVendor.Visible = False
 		lblContactName.Visible = False
 		lblAddress.Visible = False
@@ -588,6 +607,7 @@ Public Class frmPartsOrdering
 		lblZip.Visible = False
 		lblPhone.Visible = False
 		lblEmail.Visible = False
+		btnEditVendorInfo.Visible = False
 
 		'Turn on text box
 		txtVendorName.Visible = True
@@ -612,6 +632,7 @@ Public Class frmPartsOrdering
 		lblZip.Visible = True
 		lblPhone.Visible = True
 		lblEmail.Visible = True
+		btnEditVendorInfo.Visible = True
 
 		'text boxes invisible
 		txtVendorName.Visible = False

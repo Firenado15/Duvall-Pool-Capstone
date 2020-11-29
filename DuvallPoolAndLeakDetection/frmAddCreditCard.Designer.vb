@@ -22,6 +22,7 @@ Partial Class frmAddCreditCard
 	'Do not modify it using the code editor.
 	<System.Diagnostics.DebuggerStepThrough()> _
 	Private Sub InitializeComponent()
+		Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAddCreditCard))
 		Me.radAmericanExpress = New System.Windows.Forms.RadioButton()
 		Me.radMastercard = New System.Windows.Forms.RadioButton()
 		Me.radVisa = New System.Windows.Forms.RadioButton()
@@ -198,6 +199,7 @@ Partial Class frmAddCreditCard
 		Me.Controls.Add(Me.Label14)
 		Me.Controls.Add(Me.Label13)
 		Me.Controls.Add(Me.Label12)
+		Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
 		Me.MaximizeBox = False
 		Me.MinimizeBox = False
 		Me.Name = "frmAddCreditCard"

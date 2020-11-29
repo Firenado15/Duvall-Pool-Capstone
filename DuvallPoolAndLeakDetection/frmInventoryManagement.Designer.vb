@@ -22,6 +22,7 @@ Partial Class frmInventoryManagement
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+		Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmInventoryManagement))
 		Me.GroupBox1 = New System.Windows.Forms.GroupBox()
 		Me.lblPhone = New System.Windows.Forms.Label()
 		Me.lblZip = New System.Windows.Forms.Label()
@@ -41,6 +42,7 @@ Partial Class frmInventoryManagement
 		Me.Label2 = New System.Windows.Forms.Label()
 		Me.Label1 = New System.Windows.Forms.Label()
 		Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+		Me.lblSerialNumber = New System.Windows.Forms.Label()
 		Me.cboPartName = New System.Windows.Forms.ComboBox()
 		Me.Label16 = New System.Windows.Forms.Label()
 		Me.Label17 = New System.Windows.Forms.Label()
@@ -58,7 +60,6 @@ Partial Class frmInventoryManagement
 		Me.Label12 = New System.Windows.Forms.Label()
 		Me.Label11 = New System.Windows.Forms.Label()
 		Me.btnClose = New System.Windows.Forms.Button()
-		Me.lblSerialNumber = New System.Windows.Forms.Label()
 		Me.GroupBox1.SuspendLayout()
 		Me.GroupBox2.SuspendLayout()
 		Me.GroupBox3.SuspendLayout()
@@ -256,6 +257,14 @@ Partial Class frmInventoryManagement
 		Me.GroupBox2.TabStop = False
 		Me.GroupBox2.Text = "Search Information"
 		'
+		'lblSerialNumber
+		'
+		Me.lblSerialNumber.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+		Me.lblSerialNumber.Location = New System.Drawing.Point(137, 53)
+		Me.lblSerialNumber.Name = "lblSerialNumber"
+		Me.lblSerialNumber.Size = New System.Drawing.Size(244, 23)
+		Me.lblSerialNumber.TabIndex = 20
+		'
 		'cboPartName
 		'
 		Me.cboPartName.FormattingEnabled = True
@@ -422,14 +431,6 @@ Partial Class frmInventoryManagement
 		Me.btnClose.Text = "Close"
 		Me.btnClose.UseVisualStyleBackColor = True
 		'
-		'lblSerialNumber
-		'
-		Me.lblSerialNumber.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-		Me.lblSerialNumber.Location = New System.Drawing.Point(137, 53)
-		Me.lblSerialNumber.Name = "lblSerialNumber"
-		Me.lblSerialNumber.Size = New System.Drawing.Size(244, 23)
-		Me.lblSerialNumber.TabIndex = 20
-		'
 		'frmInventoryManagement
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -440,6 +441,9 @@ Partial Class frmInventoryManagement
 		Me.Controls.Add(Me.GroupBox2)
 		Me.Controls.Add(Me.Label1)
 		Me.Controls.Add(Me.GroupBox1)
+		Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+		Me.MaximizeBox = False
+		Me.MinimizeBox = False
 		Me.Name = "frmInventoryManagement"
 		Me.Text = "Inventory Management"
 		Me.GroupBox1.ResumeLayout(False)

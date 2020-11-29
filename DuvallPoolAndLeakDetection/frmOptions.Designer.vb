@@ -22,6 +22,7 @@ Partial Class frmOptions
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+		Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmOptions))
 		Me.Label1 = New System.Windows.Forms.Label()
 		Me.btnCustomerIntake = New System.Windows.Forms.Button()
 		Me.btnPartsOrdering = New System.Windows.Forms.Button()
@@ -279,8 +280,9 @@ Partial Class frmOptions
 		Me.Controls.Add(Me.btnClose)
 		Me.Controls.Add(Me.btnCustomerReviews)
 		Me.Controls.Add(Me.Label1)
+		Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
 		Me.Name = "frmOptions"
-		Me.Text = "  Duvall Pool and Leak Detection Main"
+		Me.Text = "  Duvall Pool and Leak Detection"
 		Me.GroupBox1.ResumeLayout(False)
 		Me.GroupBox2.ResumeLayout(False)
 		Me.GroupBox3.ResumeLayout(False)

@@ -22,6 +22,7 @@ Partial Class frmPreviousCustomer
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+		Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPreviousCustomer))
 		Me.GroupBox6 = New System.Windows.Forms.GroupBox()
 		Me.lblCurrentPaymentAmount = New System.Windows.Forms.Label()
 		Me.lblTotalPaymentAmount = New System.Windows.Forms.Label()
@@ -663,6 +664,9 @@ Partial Class frmPreviousCustomer
 		Me.Controls.Add(Me.GroupBox3)
 		Me.Controls.Add(Me.GroupBox1)
 		Me.Controls.Add(Me.Label1)
+		Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+		Me.MaximizeBox = False
+		Me.MinimizeBox = False
 		Me.Name = "frmPreviousCustomer"
 		Me.Text = "Previous Customers"
 		Me.GroupBox6.ResumeLayout(False)

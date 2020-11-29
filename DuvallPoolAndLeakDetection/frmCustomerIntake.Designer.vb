@@ -22,6 +22,7 @@ Partial Class frmCustomerIntake
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+		Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmCustomerIntake))
 		Me.Label1 = New System.Windows.Forms.Label()
 		Me.btnSubmit = New System.Windows.Forms.Button()
 		Me.btnClose = New System.Windows.Forms.Button()
@@ -232,6 +233,9 @@ Partial Class frmCustomerIntake
 		Me.Controls.Add(Me.btnClose)
 		Me.Controls.Add(Me.btnSubmit)
 		Me.Controls.Add(Me.Label1)
+		Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+		Me.MaximizeBox = False
+		Me.MinimizeBox = False
 		Me.Name = "frmCustomerIntake"
 		Me.Text = "Customer Intake"
 		Me.ResumeLayout(False)

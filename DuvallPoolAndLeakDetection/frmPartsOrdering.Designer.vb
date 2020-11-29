@@ -22,6 +22,7 @@ Partial Class frmPartsOrdering
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+		Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPartsOrdering))
 		Me.GroupBox1 = New System.Windows.Forms.GroupBox()
 		Me.radNo = New System.Windows.Forms.RadioButton()
 		Me.cboState = New System.Windows.Forms.ComboBox()
@@ -62,6 +63,7 @@ Partial Class frmPartsOrdering
 		Me.lblCity = New System.Windows.Forms.Label()
 		Me.lblAddress = New System.Windows.Forms.Label()
 		Me.txtUnitCost = New System.Windows.Forms.TextBox()
+		Me.btnEditVendorInfo = New System.Windows.Forms.Button()
 		Me.GroupBox1.SuspendLayout()
 		Me.GroupBox2.SuspendLayout()
 		Me.SuspendLayout()
@@ -333,14 +335,14 @@ Partial Class frmPartsOrdering
 		Me.txtQuantity.Location = New System.Drawing.Point(138, 98)
 		Me.txtQuantity.Name = "txtQuantity"
 		Me.txtQuantity.Size = New System.Drawing.Size(244, 20)
-		Me.txtQuantity.TabIndex = 13
+		Me.txtQuantity.TabIndex = 11
 		'
 		'txtPartName
 		'
 		Me.txtPartName.Location = New System.Drawing.Point(138, 58)
 		Me.txtPartName.Name = "txtPartName"
 		Me.txtPartName.Size = New System.Drawing.Size(244, 20)
-		Me.txtPartName.TabIndex = 11
+		Me.txtPartName.TabIndex = 10
 		'
 		'Label17
 		'
@@ -357,14 +359,14 @@ Partial Class frmPartsOrdering
 		Me.txtSerialNumber.Location = New System.Drawing.Point(138, 18)
 		Me.txtSerialNumber.Name = "txtSerialNumber"
 		Me.txtSerialNumber.Size = New System.Drawing.Size(244, 20)
-		Me.txtSerialNumber.TabIndex = 10
+		Me.txtSerialNumber.TabIndex = 9
 		'
 		'btnClose
 		'
 		Me.btnClose.Location = New System.Drawing.Point(609, 365)
 		Me.btnClose.Name = "btnClose"
 		Me.btnClose.Size = New System.Drawing.Size(109, 44)
-		Me.btnClose.TabIndex = 17
+		Me.btnClose.TabIndex = 14
 		Me.btnClose.Text = "Close"
 		Me.btnClose.UseVisualStyleBackColor = True
 		'
@@ -373,7 +375,7 @@ Partial Class frmPartsOrdering
 		Me.btnSubmit.Location = New System.Drawing.Point(736, 365)
 		Me.btnSubmit.Name = "btnSubmit"
 		Me.btnSubmit.Size = New System.Drawing.Size(109, 44)
-		Me.btnSubmit.TabIndex = 16
+		Me.btnSubmit.TabIndex = 13
 		Me.btnSubmit.Text = "Submit"
 		Me.btnSubmit.UseVisualStyleBackColor = True
 		'
@@ -454,18 +456,31 @@ Partial Class frmPartsOrdering
 		Me.txtUnitCost.Location = New System.Drawing.Point(138, 138)
 		Me.txtUnitCost.Name = "txtUnitCost"
 		Me.txtUnitCost.Size = New System.Drawing.Size(244, 20)
-		Me.txtUnitCost.TabIndex = 16
+		Me.txtUnitCost.TabIndex = 12
+		'
+		'btnEditVendorInfo
+		'
+		Me.btnEditVendorInfo.Location = New System.Drawing.Point(479, 365)
+		Me.btnEditVendorInfo.Name = "btnEditVendorInfo"
+		Me.btnEditVendorInfo.Size = New System.Drawing.Size(109, 44)
+		Me.btnEditVendorInfo.TabIndex = 15
+		Me.btnEditVendorInfo.Text = "Edit Vendor"
+		Me.btnEditVendorInfo.UseVisualStyleBackColor = True
+		Me.btnEditVendorInfo.Visible = False
 		'
 		'frmPartsOrdering
 		'
+		Me.AcceptButton = Me.btnSubmit
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
 		Me.ClientSize = New System.Drawing.Size(863, 431)
+		Me.Controls.Add(Me.btnEditVendorInfo)
 		Me.Controls.Add(Me.btnClose)
 		Me.Controls.Add(Me.btnSubmit)
 		Me.Controls.Add(Me.GroupBox2)
 		Me.Controls.Add(Me.Label1)
 		Me.Controls.Add(Me.GroupBox1)
+		Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
 		Me.MaximizeBox = False
 		Me.MinimizeBox = False
 		Me.Name = "frmPartsOrdering"
@@ -519,4 +534,5 @@ Partial Class frmPartsOrdering
 	Friend WithEvents lblCity As Label
 	Friend WithEvents lblAddress As Label
 	Friend WithEvents txtUnitCost As TextBox
+	Friend WithEvents btnEditVendorInfo As Button
 End Class
