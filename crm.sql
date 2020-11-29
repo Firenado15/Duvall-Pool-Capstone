@@ -60,7 +60,7 @@ CREATE TABLE TCustomers
 CREATE TABLE TVendors
 (
 	 intVendorID		INTEGER			NOT NULL
-	,strVendortName		VARCHAR(50)		NOT NULL
+	,strVendorName		VARCHAR(50)		NOT NULL
 	,strContactName		VARCHAR(50)		NOT NULL
 	,strAddress			VARCHAR(50)		NOT NULL
 	,strCity			VARCHAR(50)		NOT NULL
@@ -1105,7 +1105,7 @@ SELECT
 	,TP.decUnitPurchaseCost
 	,TP.decUniteSaleCost
 	,TP.intAmountSold
-	,TV.strVendortName
+	,TV.strVendorName
 	,TV.strContactName
 	,TV.strAddress
 	,TV.strCity
@@ -1133,6 +1133,7 @@ GO
 --SELECT * FROM TCustomerPaymentTypes
 --SELECT * FROM TCreditCards
 
+
 ---- Validate bank account insert data
 --SELECT TOP 1 * From TCustomers ORDER BY intcustomerID DESC
 --SELECT * FROM TCustomerPaymentTypes
@@ -1146,12 +1147,28 @@ GO
 --ORDER BY FullName ASC
 
 
-
 ---- Test update commands
 --SELECT * FROM TCustomers WHERE intCustomerID = 119
 
---UPDATE TCustomers
+
+--UPDATE TCustomers Test
 --SET strFirstName = '', strLastName = '', strAddress = '', strCity = '', intStateID = 1, strZip = '',strPhoneNumber = '', strEmail = ''
 --WHERE intCustomerID = 119
-
 --SELECT * FROM TCustomers WHERE intCustomerID = 119
+
+
+-- Log in Test
+--SELECT * FROM TUserLogin WHERE strUsername = 'test'
+
+
+---- Add Vendor Test
+--select * from tvendors
+
+
+
+
+
+
+
+
+
