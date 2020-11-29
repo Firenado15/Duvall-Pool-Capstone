@@ -133,8 +133,9 @@ Public Class frmPartsOrdering
 		Dim strSerialNumber As String = ""
 		Dim strPartDesc As String = ""
 		Dim intQuantity As Integer = 0
-		Dim decUnitPurchaseCost As Decimal = 0.0
-		Dim decUniteSaleCost As Decimal = 0.0
+		Dim strUnitCost As String = ""
+		Dim decUnitPurchaseCost As Double = 0.00
+		Dim decUniteSaleCost As Double = 0.00
 
 		Dim strSelect As String
 		Dim strInsert As String
@@ -147,7 +148,8 @@ Public Class frmPartsOrdering
 		strSerialNumber = txtSerialNumber.Text
 		strPartDesc = txtPartName.Text
 		intQuantity = Integer.Parse(txtQuantity.Text)
-		decUnitPurchaseCost = txtUnitCost.Text
+		strUnitCost = txtUnitCost.Text
+		decUnitPurchaseCost = Convert.ToDouble(strUnitCost)
 		decUniteSaleCost = decUnitPurchaseCost * 1.5
 
 		If Validation() = True Then

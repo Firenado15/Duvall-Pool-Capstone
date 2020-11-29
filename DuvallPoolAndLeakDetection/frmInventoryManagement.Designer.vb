@@ -41,7 +41,6 @@ Partial Class frmInventoryManagement
 		Me.Label2 = New System.Windows.Forms.Label()
 		Me.Label1 = New System.Windows.Forms.Label()
 		Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-		Me.cboSerialNumber = New System.Windows.Forms.ComboBox()
 		Me.cboPartName = New System.Windows.Forms.ComboBox()
 		Me.Label16 = New System.Windows.Forms.Label()
 		Me.Label17 = New System.Windows.Forms.Label()
@@ -59,6 +58,7 @@ Partial Class frmInventoryManagement
 		Me.Label12 = New System.Windows.Forms.Label()
 		Me.Label11 = New System.Windows.Forms.Label()
 		Me.btnClose = New System.Windows.Forms.Button()
+		Me.lblSerialNumber = New System.Windows.Forms.Label()
 		Me.GroupBox1.SuspendLayout()
 		Me.GroupBox2.SuspendLayout()
 		Me.GroupBox3.SuspendLayout()
@@ -245,7 +245,7 @@ Partial Class frmInventoryManagement
 		'
 		'GroupBox2
 		'
-		Me.GroupBox2.Controls.Add(Me.cboSerialNumber)
+		Me.GroupBox2.Controls.Add(Me.lblSerialNumber)
 		Me.GroupBox2.Controls.Add(Me.cboPartName)
 		Me.GroupBox2.Controls.Add(Me.Label16)
 		Me.GroupBox2.Controls.Add(Me.Label17)
@@ -255,14 +255,6 @@ Partial Class frmInventoryManagement
 		Me.GroupBox2.TabIndex = 17
 		Me.GroupBox2.TabStop = False
 		Me.GroupBox2.Text = "Search Information"
-		'
-		'cboSerialNumber
-		'
-		Me.cboSerialNumber.FormattingEnabled = True
-		Me.cboSerialNumber.Location = New System.Drawing.Point(137, 58)
-		Me.cboSerialNumber.Name = "cboSerialNumber"
-		Me.cboSerialNumber.Size = New System.Drawing.Size(244, 21)
-		Me.cboSerialNumber.TabIndex = 14
 		'
 		'cboPartName
 		'
@@ -430,6 +422,14 @@ Partial Class frmInventoryManagement
 		Me.btnClose.Text = "Close"
 		Me.btnClose.UseVisualStyleBackColor = True
 		'
+		'lblSerialNumber
+		'
+		Me.lblSerialNumber.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+		Me.lblSerialNumber.Location = New System.Drawing.Point(137, 53)
+		Me.lblSerialNumber.Name = "lblSerialNumber"
+		Me.lblSerialNumber.Size = New System.Drawing.Size(244, 23)
+		Me.lblSerialNumber.TabIndex = 20
+		'
 		'frmInventoryManagement
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -488,6 +488,6 @@ Partial Class frmInventoryManagement
     Friend WithEvents Label12 As Label
     Friend WithEvents Label11 As Label
     Friend WithEvents btnClose As Button
-	Friend WithEvents cboSerialNumber As ComboBox
 	Friend WithEvents cboPartName As ComboBox
+	Friend WithEvents lblSerialNumber As Label
 End Class

@@ -107,13 +107,11 @@ Public Class frmInventoryManagement
 			dt.Load(drSourceTable)
 
 			'Populate labels and CBO
-			cboSerialNumber.ValueMember = "strSerialNumber"
-			cboSerialNumber.DisplayMember = "strSerialNumber"
-			cboSerialNumber.DataSource = dt
+			lblSerialNumber.Text = dt.Rows(0).Item(2).ToString
 			lblPartDescription.Text = dt.Rows(0).Item(3).ToString
 			lblQuantity.Text = dt.Rows(0).Item(4).ToString
-			lblPartCostBus.Text = dt.Rows(0).Item(5).ToString
-			lblPartCostCust.Text = dt.Rows(0).Item(6).ToString
+			lblPartCostBus.Text = "$" & dt.Rows(0).Item(5).ToString
+			lblPartCostCust.Text = "$" & dt.Rows(0).Item(6).ToString
 			lblYTDSold.Text = dt.Rows(0).Item(7).ToString
 			lblVendorName.Text = dt.Rows(0).Item(8).ToString
 			lblContactName.Text = dt.Rows(0).Item(9).ToString
