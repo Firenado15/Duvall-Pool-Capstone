@@ -113,8 +113,8 @@ CREATE TABLE TParts
 	,strSerialNumber		VARCHAR(50)		NOT NULL
 	,strPartDesc			VARCHAR(50)		NOT NULL
 	,intQuantity			INTEGER			NOT NULL
-	,decUnitPurchaseCost	DECIMAL			NOT NULL
-	,decUniteSaleCost		DECIMAL			NOT NULL
+	,decUnitPurchaseCost	DECIMAL(7,2)	NOT NULL
+	,decUniteSaleCost		DECIMAL(7,2)	NOT NULL
 	,intAmountSold			INTEGER			NOT NULL
 	,CONSTRAINT TParts_PK PRIMARY KEY ( intPartID )
 )
@@ -1190,3 +1190,4 @@ GO
 
 
 
+--select * from TParts
