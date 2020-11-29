@@ -84,5 +84,8 @@ Public Class frmLogin
 
 	Private Sub frmLogin_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+		'Set focus on username
+		txtUsername.Focus()
+
 	End Sub
 End Class

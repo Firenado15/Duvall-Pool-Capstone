@@ -16,7 +16,6 @@ Public Class frmCustomerIntake
 
 			LoadStates()
 
-
 		Catch ex As Exception
 
 			'Unhandled Exception
@@ -236,16 +235,10 @@ Public Class frmCustomerIntake
 
 	Private Sub LoadStates()
 
-
-
 		Dim strSelect As String = ""
 		Dim cmdSelect As OleDb.OleDbCommand
 		Dim drSourceTable As OleDb.OleDbDataReader
 		Dim dt As DataTable = New DataTable
-
-
-
-
 
 		'Open DB
 		If OpenDatabaseConnectionSQLServer() = False Then
@@ -261,8 +254,6 @@ Public Class frmCustomerIntake
 
 		cboState.BeginUpdate()
 
-
-
 		'Create select
 		strSelect = "SELECT intStateID, strState FROM TStates"
 
@@ -273,13 +264,10 @@ Public Class frmCustomerIntake
 		'Load Table
 		dt.Load(drSourceTable)
 
-
 		' Add items to combo box
 		cboState.ValueMember = "intStateID"
 		cboState.DisplayMember = "strState"
 		cboState.DataSource = dt
-
-
 
 		' Select the first item in the list by default
 		If cboState.Items.Count > 0 Then cboState.SelectedIndex = 0
@@ -292,8 +280,6 @@ Public Class frmCustomerIntake
 
 		' close the database connection
 		CloseDatabaseConnection()
-
-
 
 	End Sub
 
