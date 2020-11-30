@@ -1183,11 +1183,4 @@ GO
 --select * from tvendors
 
 
-
-
-
-
-
-
-
---select * from TParts
+SELECT intPartID FROM TParts WHERE intPartID LIKE '%12%'
