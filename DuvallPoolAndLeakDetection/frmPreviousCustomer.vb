@@ -5,7 +5,7 @@
 Public Class frmPreviousCustomer
     Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
 
-		' Close program
+		' Close form
 		Me.Close()
 
 	End Sub

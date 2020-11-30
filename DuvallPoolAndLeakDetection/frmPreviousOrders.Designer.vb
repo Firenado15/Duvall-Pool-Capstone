@@ -30,7 +30,7 @@ Partial Class frmPreviousOrders
 		Me.lblVendorIdentification = New System.Windows.Forms.Label()
 		Me.lblCostPerUnit = New System.Windows.Forms.Label()
 		Me.lblQuantity = New System.Windows.Forms.Label()
-		Me.lblPartName = New System.Windows.Forms.Label()
+		Me.lblPartNumber = New System.Windows.Forms.Label()
 		Me.lblPartDescription = New System.Windows.Forms.Label()
 		Me.Label13 = New System.Windows.Forms.Label()
 		Me.Label14 = New System.Windows.Forms.Label()
@@ -86,7 +86,7 @@ Partial Class frmPreviousOrders
 		Me.GroupBox2.Controls.Add(Me.lblVendorIdentification)
 		Me.GroupBox2.Controls.Add(Me.lblCostPerUnit)
 		Me.GroupBox2.Controls.Add(Me.lblQuantity)
-		Me.GroupBox2.Controls.Add(Me.lblPartName)
+		Me.GroupBox2.Controls.Add(Me.lblPartNumber)
 		Me.GroupBox2.Controls.Add(Me.lblPartDescription)
 		Me.GroupBox2.Controls.Add(Me.Label13)
 		Me.GroupBox2.Controls.Add(Me.Label14)
@@ -105,9 +105,9 @@ Partial Class frmPreviousOrders
 		Me.Label26.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
 		Me.Label26.Location = New System.Drawing.Point(28, 23)
 		Me.Label26.Name = "Label26"
-		Me.Label26.Size = New System.Drawing.Size(75, 17)
+		Me.Label26.Size = New System.Drawing.Size(88, 17)
 		Me.Label26.TabIndex = 46
-		Me.Label26.Text = "Part Name"
+		Me.Label26.Text = "Part Number"
 		'
 		'lblVendorIdentification
 		'
@@ -133,13 +133,13 @@ Partial Class frmPreviousOrders
 		Me.lblQuantity.Size = New System.Drawing.Size(244, 23)
 		Me.lblQuantity.TabIndex = 43
 		'
-		'lblPartName
+		'lblPartNumber
 		'
-		Me.lblPartName.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-		Me.lblPartName.Location = New System.Drawing.Point(212, 24)
-		Me.lblPartName.Name = "lblPartName"
-		Me.lblPartName.Size = New System.Drawing.Size(244, 23)
-		Me.lblPartName.TabIndex = 43
+		Me.lblPartNumber.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+		Me.lblPartNumber.Location = New System.Drawing.Point(212, 24)
+		Me.lblPartNumber.Name = "lblPartNumber"
+		Me.lblPartNumber.Size = New System.Drawing.Size(244, 23)
+		Me.lblPartNumber.TabIndex = 43
 		'
 		'lblPartDescription
 		'
@@ -457,5 +457,5 @@ Partial Class frmPreviousOrders
     Friend WithEvents lblContactName As Label
     Friend WithEvents lblVendorName As Label
     Friend WithEvents Label26 As Label
-    Friend WithEvents lblPartName As Label
+    Friend WithEvents lblPartNumber As Label
 End Class
