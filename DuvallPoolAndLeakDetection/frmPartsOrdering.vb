@@ -478,53 +478,59 @@ Public Class frmPartsOrdering
 
 		Try
 
-			Dim strSelect As String = ""
-			Dim strName As String = ""
-			Dim cmdSelect As OleDb.OleDbCommand 'Select
-			Dim drSourceTable As OleDb.OleDbDataReader 'retrieved data
-			Dim dt As DataTable = New DataTable 'reader
-
-			'open the database
-			If OpenDatabaseConnectionSQLServer() = False Then
-
-
-				' No connection error
-				MessageBox.Show(Me, "Database connection error." & vbNewLine &
-									"The application will now close.",
-									Me.Text + " Error",
-									MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-				'close the form
-				Me.Close()
-
-			End If
-
-			'Select statement
-			strSelect = "SELECT * FROM vVendors WHERE intVendorID = " & cboVendor.SelectedValue.ToString
-
-			'Retrieve records 
-			cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
-			drSourceTable = cmdSelect.ExecuteReader
-
-			'load the data table from the reader
-			dt.Load(drSourceTable)
-
-			'populate text boxes
-			lblContactName.Text = dt.Rows(0).Item(2).ToString
-			lblAddress.Text = dt.Rows(0).Item(3).ToString
-			lblCity.Text = dt.Rows(0).Item(4).ToString
-			lblState.Text = dt.Rows(0).Item(5).ToString
-			lblZip.Text = dt.Rows(0).Item(6).ToString
-			lblPhone.Text = dt.Rows(0).Item(7).ToString
-			lblEmail.Text = dt.Rows(0).Item(8).ToString
-
-			'close connection
-			CloseDatabaseConnection()
+			LoadCurrentVendor()
 
 		Catch ex As Exception
 
 			MessageBox.Show(ex.Message)
 		End Try
+
+	End Sub
+
+	Private Sub LoadCurrentVendor()
+
+		Dim strSelect As String = ""
+		Dim strName As String = ""
+		Dim cmdSelect As OleDb.OleDbCommand 'Select
+		Dim drSourceTable As OleDb.OleDbDataReader 'retrieved data
+		Dim dt As DataTable = New DataTable 'reader
+
+		'open the database
+		If OpenDatabaseConnectionSQLServer() = False Then
+
+
+			' No connection error
+			MessageBox.Show(Me, "Database connection error." & vbNewLine &
+								"The application will now close.",
+								Me.Text + " Error",
+								MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+			'close the form
+			Me.Close()
+
+		End If
+
+		'Select statement
+		strSelect = "SELECT * FROM vVendors WHERE intVendorID = " & cboVendor.SelectedValue.ToString
+
+		'Retrieve records 
+		cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
+		drSourceTable = cmdSelect.ExecuteReader
+
+		'load the data table from the reader
+		dt.Load(drSourceTable)
+
+		'populate text boxes
+		lblContactName.Text = dt.Rows(0).Item(2).ToString
+		lblAddress.Text = dt.Rows(0).Item(3).ToString
+		lblCity.Text = dt.Rows(0).Item(4).ToString
+		lblState.Text = dt.Rows(0).Item(5).ToString
+		lblZip.Text = dt.Rows(0).Item(6).ToString
+		lblPhone.Text = dt.Rows(0).Item(7).ToString
+		lblEmail.Text = dt.Rows(0).Item(8).ToString
+
+		'close connection
+		CloseDatabaseConnection()
 
 	End Sub
 
@@ -643,6 +649,18 @@ Public Class frmPartsOrdering
 		txtZip.Visible = False
 		txtPhone.Visible = False
 		txtEmail.Visible = False
+
+	End Sub
+
+	Private Sub btnEditVendorInfo_Click(sender As Object, e As EventArgs) Handles btnEditVendorInfo.Click
+
+		Dim UpdateVendor As New frmUpdateVendorInfo(cboVendor.SelectedValue)
+
+		' show the new form so any past data is not still on the form
+		UpdateVendor.ShowDialog()
+
+		'Relead customer info after update
+		LoadCurrentVendor()
 
 	End Sub
 End Class

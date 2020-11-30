@@ -32,19 +32,28 @@ Partial Class frmPartsOrdering
 		Me.Label8 = New System.Windows.Forms.Label()
 		Me.Label7 = New System.Windows.Forms.Label()
 		Me.Label6 = New System.Windows.Forms.Label()
+		Me.txtPhone = New System.Windows.Forms.TextBox()
 		Me.Label5 = New System.Windows.Forms.Label()
 		Me.Label4 = New System.Windows.Forms.Label()
-		Me.txtPhone = New System.Windows.Forms.TextBox()
 		Me.txtEmail = New System.Windows.Forms.TextBox()
 		Me.txtZip = New System.Windows.Forms.TextBox()
 		Me.txtCity = New System.Windows.Forms.TextBox()
 		Me.txtAddress = New System.Windows.Forms.TextBox()
 		Me.Label3 = New System.Windows.Forms.Label()
 		Me.txtContactName = New System.Windows.Forms.TextBox()
-		Me.txtVendorName = New System.Windows.Forms.TextBox()
 		Me.Label2 = New System.Windows.Forms.Label()
+		Me.txtVendorName = New System.Windows.Forms.TextBox()
+		Me.lblContactName = New System.Windows.Forms.Label()
+		Me.lblEmail = New System.Windows.Forms.Label()
+		Me.lblZip = New System.Windows.Forms.Label()
+		Me.lblState = New System.Windows.Forms.Label()
+		Me.lblCity = New System.Windows.Forms.Label()
+		Me.lblAddress = New System.Windows.Forms.Label()
+		Me.cboVendor = New System.Windows.Forms.ComboBox()
+		Me.lblPhone = New System.Windows.Forms.Label()
 		Me.Label1 = New System.Windows.Forms.Label()
 		Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+		Me.txtUnitCost = New System.Windows.Forms.TextBox()
 		Me.Label14 = New System.Windows.Forms.Label()
 		Me.Label15 = New System.Windows.Forms.Label()
 		Me.Label12 = New System.Windows.Forms.Label()
@@ -54,15 +63,6 @@ Partial Class frmPartsOrdering
 		Me.txtSerialNumber = New System.Windows.Forms.TextBox()
 		Me.btnClose = New System.Windows.Forms.Button()
 		Me.btnSubmit = New System.Windows.Forms.Button()
-		Me.cboVendor = New System.Windows.Forms.ComboBox()
-		Me.lblContactName = New System.Windows.Forms.Label()
-		Me.lblPhone = New System.Windows.Forms.Label()
-		Me.lblEmail = New System.Windows.Forms.Label()
-		Me.lblZip = New System.Windows.Forms.Label()
-		Me.lblState = New System.Windows.Forms.Label()
-		Me.lblCity = New System.Windows.Forms.Label()
-		Me.lblAddress = New System.Windows.Forms.Label()
-		Me.txtUnitCost = New System.Windows.Forms.TextBox()
 		Me.btnEditVendorInfo = New System.Windows.Forms.Button()
 		Me.GroupBox1.SuspendLayout()
 		Me.GroupBox2.SuspendLayout()
@@ -78,9 +78,9 @@ Partial Class frmPartsOrdering
 		Me.GroupBox1.Controls.Add(Me.Label8)
 		Me.GroupBox1.Controls.Add(Me.Label7)
 		Me.GroupBox1.Controls.Add(Me.Label6)
+		Me.GroupBox1.Controls.Add(Me.txtPhone)
 		Me.GroupBox1.Controls.Add(Me.Label5)
 		Me.GroupBox1.Controls.Add(Me.Label4)
-		Me.GroupBox1.Controls.Add(Me.txtPhone)
 		Me.GroupBox1.Controls.Add(Me.txtEmail)
 		Me.GroupBox1.Controls.Add(Me.txtZip)
 		Me.GroupBox1.Controls.Add(Me.txtCity)
@@ -90,13 +90,13 @@ Partial Class frmPartsOrdering
 		Me.GroupBox1.Controls.Add(Me.Label2)
 		Me.GroupBox1.Controls.Add(Me.txtVendorName)
 		Me.GroupBox1.Controls.Add(Me.lblContactName)
-		Me.GroupBox1.Controls.Add(Me.lblPhone)
 		Me.GroupBox1.Controls.Add(Me.lblEmail)
 		Me.GroupBox1.Controls.Add(Me.lblZip)
 		Me.GroupBox1.Controls.Add(Me.lblState)
 		Me.GroupBox1.Controls.Add(Me.lblCity)
 		Me.GroupBox1.Controls.Add(Me.lblAddress)
 		Me.GroupBox1.Controls.Add(Me.cboVendor)
+		Me.GroupBox1.Controls.Add(Me.lblPhone)
 		Me.GroupBox1.Location = New System.Drawing.Point(13, 29)
 		Me.GroupBox1.Name = "GroupBox1"
 		Me.GroupBox1.Size = New System.Drawing.Size(397, 380)
@@ -148,7 +148,7 @@ Partial Class frmPartsOrdering
 		'
 		Me.Label9.AutoSize = True
 		Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.Label9.Location = New System.Drawing.Point(26, 343)
+		Me.Label9.Location = New System.Drawing.Point(25, 302)
 		Me.Label9.Name = "Label9"
 		Me.Label9.Size = New System.Drawing.Size(103, 17)
 		Me.Label9.TabIndex = 11
@@ -158,7 +158,7 @@ Partial Class frmPartsOrdering
 		'
 		Me.Label8.AutoSize = True
 		Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.Label8.Location = New System.Drawing.Point(26, 301)
+		Me.Label8.Location = New System.Drawing.Point(25, 340)
 		Me.Label8.Name = "Label8"
 		Me.Label8.Size = New System.Drawing.Size(98, 17)
 		Me.Label8.TabIndex = 11
@@ -184,6 +184,13 @@ Partial Class frmPartsOrdering
 		Me.Label6.TabIndex = 11
 		Me.Label6.Text = "State"
 		'
+		'txtPhone
+		'
+		Me.txtPhone.Location = New System.Drawing.Point(146, 296)
+		Me.txtPhone.Name = "txtPhone"
+		Me.txtPhone.Size = New System.Drawing.Size(244, 20)
+		Me.txtPhone.TabIndex = 8
+		'
 		'Label5
 		'
 		Me.Label5.AutoSize = True
@@ -204,16 +211,9 @@ Partial Class frmPartsOrdering
 		Me.Label4.TabIndex = 11
 		Me.Label4.Text = "Address"
 		'
-		'txtPhone
-		'
-		Me.txtPhone.Location = New System.Drawing.Point(147, 337)
-		Me.txtPhone.Name = "txtPhone"
-		Me.txtPhone.Size = New System.Drawing.Size(244, 20)
-		Me.txtPhone.TabIndex = 8
-		'
 		'txtEmail
 		'
-		Me.txtEmail.Location = New System.Drawing.Point(147, 297)
+		Me.txtEmail.Location = New System.Drawing.Point(146, 336)
 		Me.txtEmail.Name = "txtEmail"
 		Me.txtEmail.Size = New System.Drawing.Size(244, 20)
 		Me.txtEmail.TabIndex = 7
@@ -256,13 +256,6 @@ Partial Class frmPartsOrdering
 		Me.txtContactName.Size = New System.Drawing.Size(244, 20)
 		Me.txtContactName.TabIndex = 2
 		'
-		'txtVendorName
-		'
-		Me.txtVendorName.Location = New System.Drawing.Point(147, 56)
-		Me.txtVendorName.Name = "txtVendorName"
-		Me.txtVendorName.Size = New System.Drawing.Size(244, 20)
-		Me.txtVendorName.TabIndex = 1
-		'
 		'Label2
 		'
 		Me.Label2.AutoSize = True
@@ -272,6 +265,85 @@ Partial Class frmPartsOrdering
 		Me.Label2.Size = New System.Drawing.Size(95, 17)
 		Me.Label2.TabIndex = 6
 		Me.Label2.Text = "Vendor Name"
+		'
+		'txtVendorName
+		'
+		Me.txtVendorName.Location = New System.Drawing.Point(147, 56)
+		Me.txtVendorName.Name = "txtVendorName"
+		Me.txtVendorName.Size = New System.Drawing.Size(244, 20)
+		Me.txtVendorName.TabIndex = 1
+		'
+		'lblContactName
+		'
+		Me.lblContactName.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+		Me.lblContactName.Location = New System.Drawing.Point(147, 94)
+		Me.lblContactName.Name = "lblContactName"
+		Me.lblContactName.Size = New System.Drawing.Size(244, 23)
+		Me.lblContactName.TabIndex = 50
+		Me.lblContactName.Visible = False
+		'
+		'lblEmail
+		'
+		Me.lblEmail.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+		Me.lblEmail.Location = New System.Drawing.Point(145, 338)
+		Me.lblEmail.Name = "lblEmail"
+		Me.lblEmail.Size = New System.Drawing.Size(244, 23)
+		Me.lblEmail.TabIndex = 44
+		Me.lblEmail.Visible = False
+		'
+		'lblZip
+		'
+		Me.lblZip.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+		Me.lblZip.Location = New System.Drawing.Point(146, 258)
+		Me.lblZip.Name = "lblZip"
+		Me.lblZip.Size = New System.Drawing.Size(244, 23)
+		Me.lblZip.TabIndex = 45
+		Me.lblZip.Visible = False
+		'
+		'lblState
+		'
+		Me.lblState.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+		Me.lblState.Location = New System.Drawing.Point(146, 217)
+		Me.lblState.Name = "lblState"
+		Me.lblState.Size = New System.Drawing.Size(244, 23)
+		Me.lblState.TabIndex = 46
+		Me.lblState.Visible = False
+		'
+		'lblCity
+		'
+		Me.lblCity.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+		Me.lblCity.Location = New System.Drawing.Point(146, 176)
+		Me.lblCity.Name = "lblCity"
+		Me.lblCity.Size = New System.Drawing.Size(244, 23)
+		Me.lblCity.TabIndex = 47
+		Me.lblCity.Visible = False
+		'
+		'lblAddress
+		'
+		Me.lblAddress.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+		Me.lblAddress.Location = New System.Drawing.Point(147, 135)
+		Me.lblAddress.Name = "lblAddress"
+		Me.lblAddress.Size = New System.Drawing.Size(244, 23)
+		Me.lblAddress.TabIndex = 48
+		Me.lblAddress.Visible = False
+		'
+		'cboVendor
+		'
+		Me.cboVendor.FormattingEnabled = True
+		Me.cboVendor.Location = New System.Drawing.Point(147, 55)
+		Me.cboVendor.Name = "cboVendor"
+		Me.cboVendor.Size = New System.Drawing.Size(244, 21)
+		Me.cboVendor.TabIndex = 29
+		Me.cboVendor.Visible = False
+		'
+		'lblPhone
+		'
+		Me.lblPhone.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+		Me.lblPhone.Location = New System.Drawing.Point(145, 299)
+		Me.lblPhone.Name = "lblPhone"
+		Me.lblPhone.Size = New System.Drawing.Size(244, 23)
+		Me.lblPhone.TabIndex = 43
+		Me.lblPhone.Visible = False
 		'
 		'Label1
 		'
@@ -299,6 +371,13 @@ Partial Class frmPartsOrdering
 		Me.GroupBox2.TabIndex = 16
 		Me.GroupBox2.TabStop = False
 		Me.GroupBox2.Text = "Part Information"
+		'
+		'txtUnitCost
+		'
+		Me.txtUnitCost.Location = New System.Drawing.Point(138, 138)
+		Me.txtUnitCost.Name = "txtUnitCost"
+		Me.txtUnitCost.Size = New System.Drawing.Size(244, 20)
+		Me.txtUnitCost.TabIndex = 12
 		'
 		'Label14
 		'
@@ -378,85 +457,6 @@ Partial Class frmPartsOrdering
 		Me.btnSubmit.TabIndex = 13
 		Me.btnSubmit.Text = "Submit"
 		Me.btnSubmit.UseVisualStyleBackColor = True
-		'
-		'cboVendor
-		'
-		Me.cboVendor.FormattingEnabled = True
-		Me.cboVendor.Location = New System.Drawing.Point(147, 55)
-		Me.cboVendor.Name = "cboVendor"
-		Me.cboVendor.Size = New System.Drawing.Size(244, 21)
-		Me.cboVendor.TabIndex = 29
-		Me.cboVendor.Visible = False
-		'
-		'lblContactName
-		'
-		Me.lblContactName.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-		Me.lblContactName.Location = New System.Drawing.Point(147, 94)
-		Me.lblContactName.Name = "lblContactName"
-		Me.lblContactName.Size = New System.Drawing.Size(244, 23)
-		Me.lblContactName.TabIndex = 50
-		Me.lblContactName.Visible = False
-		'
-		'lblPhone
-		'
-		Me.lblPhone.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-		Me.lblPhone.Location = New System.Drawing.Point(146, 340)
-		Me.lblPhone.Name = "lblPhone"
-		Me.lblPhone.Size = New System.Drawing.Size(244, 23)
-		Me.lblPhone.TabIndex = 43
-		Me.lblPhone.Visible = False
-		'
-		'lblEmail
-		'
-		Me.lblEmail.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-		Me.lblEmail.Location = New System.Drawing.Point(146, 299)
-		Me.lblEmail.Name = "lblEmail"
-		Me.lblEmail.Size = New System.Drawing.Size(244, 23)
-		Me.lblEmail.TabIndex = 44
-		Me.lblEmail.Visible = False
-		'
-		'lblZip
-		'
-		Me.lblZip.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-		Me.lblZip.Location = New System.Drawing.Point(146, 258)
-		Me.lblZip.Name = "lblZip"
-		Me.lblZip.Size = New System.Drawing.Size(244, 23)
-		Me.lblZip.TabIndex = 45
-		Me.lblZip.Visible = False
-		'
-		'lblState
-		'
-		Me.lblState.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-		Me.lblState.Location = New System.Drawing.Point(146, 217)
-		Me.lblState.Name = "lblState"
-		Me.lblState.Size = New System.Drawing.Size(244, 23)
-		Me.lblState.TabIndex = 46
-		Me.lblState.Visible = False
-		'
-		'lblCity
-		'
-		Me.lblCity.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-		Me.lblCity.Location = New System.Drawing.Point(146, 176)
-		Me.lblCity.Name = "lblCity"
-		Me.lblCity.Size = New System.Drawing.Size(244, 23)
-		Me.lblCity.TabIndex = 47
-		Me.lblCity.Visible = False
-		'
-		'lblAddress
-		'
-		Me.lblAddress.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-		Me.lblAddress.Location = New System.Drawing.Point(147, 135)
-		Me.lblAddress.Name = "lblAddress"
-		Me.lblAddress.Size = New System.Drawing.Size(244, 23)
-		Me.lblAddress.TabIndex = 48
-		Me.lblAddress.Visible = False
-		'
-		'txtUnitCost
-		'
-		Me.txtUnitCost.Location = New System.Drawing.Point(138, 138)
-		Me.txtUnitCost.Name = "txtUnitCost"
-		Me.txtUnitCost.Size = New System.Drawing.Size(244, 20)
-		Me.txtUnitCost.TabIndex = 12
 		'
 		'btnEditVendorInfo
 		'

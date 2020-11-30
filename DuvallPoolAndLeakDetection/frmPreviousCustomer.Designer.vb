@@ -138,6 +138,7 @@ Partial Class frmPreviousCustomer
 		'
 		'btnClose
 		'
+		Me.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel
 		Me.btnClose.Location = New System.Drawing.Point(435, 573)
 		Me.btnClose.Name = "btnClose"
 		Me.btnClose.Size = New System.Drawing.Size(89, 44)
@@ -652,6 +653,7 @@ Partial Class frmPreviousCustomer
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+		Me.CancelButton = Me.btnClose
 		Me.ClientSize = New System.Drawing.Size(865, 632)
 		Me.Controls.Add(Me.btnUpdatePayment)
 		Me.Controls.Add(Me.btnEditContact)
