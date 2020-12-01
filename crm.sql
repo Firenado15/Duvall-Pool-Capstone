@@ -29,6 +29,10 @@ IF OBJECT_ID( 'TCustomers' )					IS NOT NULL DROP TABLE TCustomers
 IF OBJECT_ID( 'TCities' )						IS NOT NULL DROP TABLE TCities
 IF OBJECT_ID( 'TStates' )						IS NOT NULL DROP TABLE TStates
 IF OBJECT_ID( 'TUserLogin' )					IS NOT NULL DROP TABLE TUserLogin
+IF OBJECT_ID( 'TFinances' )						IS NOT NULL DROP TABLE TFinances
+IF OBJECT_ID( 'TMonths' )						IS NOT NULL DROP TABLE TMonths
+IF OBJECT_ID( 'TYears' )						IS NOT NULL DROP TABLE TYears
+
 
 -- --------------------------------------------------------------------------------
 -- Drop Views
@@ -38,6 +42,10 @@ IF OBJECT_ID( 'vCustomers' )					IS NOT NULL DROP VIEW vCustomers
 IF OBJECT_ID( 'VParts' )						IS NOT NULL DROP VIEW vParts
 IF OBJECT_ID( 'vBankAccount' )					IS NOT NULL DROP VIEW vBankAccount
 IF OBJECT_ID( 'vVendors' )						IS NOT NULL DROP VIEW vVendors
+IF OBJECT_ID( 'vMonthAndYear' )					IS NOT NULL DROP VIEW vMonthAndYear
+IF OBJECT_ID( 'vMonthlyFinances' )				IS NOT NULL DROP VIEW vMonthlyFinances
+IF OBJECT_ID( 'vYTDFinances' )					IS NOT NULL DROP VIEW vYTDFinances
+
 
 -- --------------------------------------------------------------------------------
 -- Create Tables
@@ -244,6 +252,38 @@ CREATE TABLE TUserLogin
 	,CONSTRAINT TUserLogin_PK PRIMARY KEY ( intUserLoginID )
 )
 
+CREATE TABLE TFinances
+(
+	 intFinanceID			INTEGER			NOT NULL
+	,intMonthID				INTEGER			NOT NULL
+	,intYearID				INTEGER			NOT NULL
+	,decPayrollCost			DECIMAL(7,2)	NOT NULL
+	,decInventoryCost		DECIMAL(7,2)	NOT NULL
+	,decInsuranceCost		DECIMAL(7,2)	NOT NULL
+	,decProjectCost			DECIMAL(7,2)	NOT NULL
+	,decVehicleCost			DECIMAL(7,2)	NOT NULL
+	,decFuelCost			DECIMAL(7,2)	NOT NULL
+	,decShopRental			DECIMAL(7,2)	NOT NULL
+	,decUtilitiesCost		DECIMAL(7,2)	NOT NULL
+	,decOtherCost			DECIMAL(7,2)	NOT NULL
+	,decRevenue				DECIMAL(7,2)	NOT NULL
+	,CONSTRAINT TFinances_PK PRIMARY KEY (intFinanceID)
+)
+
+CREATE TABLE TMonths
+(
+	 intMonthID				INTEGER			NOT NULL
+	,strMonth				VARCHAR(50)		NOT NULL
+	,CONSTRAINT	TMonths_PK PRIMARY KEY ( intMonthID )
+)
+
+CREATE TABLE TYears
+(
+	 intYearID				INTEGER			NOT NULL
+	,strYear				VARCHAR(50)		NOT NULL
+	,CONSTRAINT	TYears_PK PRIMARY KEY ( intYearID )
+)
+
 -- --------------------------------------------------------------------------------
 -- Identify and Create Foreign Keys
 -- --------------------------------------------------------------------------------
@@ -273,7 +313,8 @@ CREATE TABLE TUserLogin
 -- 21	TCreditCards					TCustomers					intCustomerID
 -- 22	TBankAccounts					TBankAccountTypes			intBankAccountTypeID
 -- 23	TBankAccounts					TCustomers					intCustomerID
-
+-- 24	TFinances						TMonths						intMonthID
+-- 25	TFinances						TYears						intYearID
 
 -- 1
 ALTER TABLE TCustomers ADD CONSTRAINT TCustomers_TStates_FK
@@ -367,11 +408,19 @@ FOREIGN KEY ( intBankAccountTypeID ) REFERENCES TBankAccountTypes ( intBankAccou
 ALTER TABLE TBankAccounts ADD CONSTRAINT TBankAccounts_TCustomers_FK
 FOREIGN KEY ( intCustomerID ) REFERENCES TCustomers ( intCustomerID )
 
+-- 24
+ALTER TABLE TFinances ADD CONSTRAINT TFinances_TMonths_FK
+FOREIGN KEY ( intMonthID ) REFERENCES TMonths ( intMonthID )
+
+-- 25
+ALTER TABLE TFinances ADD CONSTRAINT TFinances_TYears_FK
+FOREIGN KEY ( intYearID ) REFERENCES TYears ( intYearID )
+
 ---- --------------------------------------------------------------------------------
 ---- Add Necessary Data
 ---- --------------------------------------------------------------------------------
 
-INSERT into TStates values 
+INSERT INTO TStates values 
 (1, 'AK', 'Alaska'),
 (2, 'AL', 'Alabama'),
 (3, 'AZ', 'Arizona'),
@@ -424,7 +473,6 @@ INSERT into TStates values
 (50, 'WV', 'West Virginia'),
 (51, 'WI', 'Wisconsin'),
 (52, 'WY', 'Wyoming');
-
 
 /*
 INSERT INTO TCities values
@@ -772,7 +820,6 @@ INSERT INTO TCities values
 (342, 'York')
 */
 
-
 INSERT INTO TCustomers VALUES
 (1, 'James', 'Butt', '6649 N Blue Gum St', 'New Orleans', 29, '70116', '504-621-8927', 'jbutt@gmail.com'),
 (2, 'Josephine', 'Darakjy', '4 B Blue Ridge Blvd', 'Brighton', 37, '48116', '810-292-9388', 'josephine_darakjy@darakjy.org'),
@@ -925,9 +972,6 @@ INSERT INTO TCustomers VALUES
 (149, 'Theola', 'Frey', '54169 N Main St', 'Massapequa', 19, '11758', '516-948-5768', 'theola_frey@frey.com'),
 (150, 'Cheryl', 'Haroldson', '92 Main St', 'Atlantic City', 47, '8401', '609-518-7697', 'cheryl@haroldson.org')
 
-
-
-
 INSERT INTO TVendors VALUES
 (1, 'Alinabal Inc', 'Laticia Merced', '72 Mannix Dr', 'Cincinnati', 10, '45203', '513-508-7371', 'lmerced@gmail.com'),
 (2, 'Poletto, Kim David Esq', 'Carissa Batman', '12270 Caton Center Dr', 'Eugene', 44, '97401', '541-326-4074', 'carissa.batman@yahoo.com'),
@@ -980,8 +1024,6 @@ INSERT INTO TVendors VALUES
 (49, 'Juvenile & Adult Super', 'Gracia Melnyk', '97 Airport Loop Dr', 'Jacksonville', 18, '32216', '904-235-3633', 'gracia@melnyk.com'),
 (50, 'Perez, Joseph J Esq', 'Jolanda Hanafan', '37855 Nolan Rd', 'Bangor', 48, '4401', '207-458-9196', 'jhanafan@gmail.com')
 
-
-
 INSERT INTO TEmployees VALUES
 (1, 'Barrett', 'Toyama'),
 (2, 'Helga', 'Fredicks'),
@@ -1021,29 +1063,72 @@ INSERT INTO TParts VALUES
 (19,13, 'SN08936', 'Part 019',20,71.82,114.912,5),
 (20,41, 'SN06039', 'Part 020',97,54.97,87.952,1)
 
-
 INSERT INTO TPaymentTypes VALUES
- (1, 'Cash')
-,(2, 'Credit / Debit ')
-,(3, 'Check')
-,(4, 'Bank Transfer')
+(1, 'Cash'),
+(2, 'Credit / Debit '),
+(3, 'Check'),
+(4, 'Bank Transfer')
 
 INSERT INTO TCreditCardTypes VALUES
- (1, 'Debit')
-,(2, 'Credit')
+(1, 'Debit'),
+(2, 'Credit')
 
 INSERT INTO TCreditCardCompanies VALUES
- (1, 'American Express')
-,(2, 'Mastercard')
-,(3, 'Visa')
+(1, 'American Express'),
+(2, 'Mastercard'),
+(3, 'Visa')
 
 INSERT INTO TBankAccountTypes VALUES
- (1, 'Checking')
-,(2, 'Savings')
+(1, 'Checking'),
+(2, 'Savings')
 
 INSERT INTO TUserLogin VALUES
- (1, 'admin', 'admin')
-,(2, 'test', 'test')
+(1, 'admin', 'admin'),
+(2, 'test', 'test')
+
+INSERT INTO TMonths VALUES
+(1, 'January'),
+(2, 'February'),
+(3, 'March'),
+(4, 'April'),
+(5, 'May'),
+(6, 'June'),
+(7, 'July'),
+(8, 'August'),
+(9, 'September'),
+(10, 'October'),
+(11, 'November'),
+(12, 'December')
+
+INSERT INTO TYears VALUES
+(1, '2019'),
+(2, '2020')
+
+INSERT INTO TFinances VALUES
+-- ID, Month, Year, Payroll, Inventory, Insurance, Project, Vehicle, Fuel, Rental, Utilities, Other Cost, Revenue
+(1, 1, 1, 4100.92, 352.84, 1072.64, 342.46, 0, 82.40, 1245.72, 792.92, 108.46, 9842.73),
+(2, 2, 1, 3946.63, 304.71, 1072.64, 298.62, 105.82, 62.60, 1245.72, 823.92, 62.63, 7521.52),
+(3, 3, 1, 4512.73, 386.71, 1072.64, 375.96, 0, 152.61, 1245.72, 763.22, 72.64, 10231.29),
+--(4, 4, 1),
+--(5, 5, 1),
+--(6, 6, 1),
+--(7, 7, 1),
+--(8, 8, 1),
+--(9, 9, 1),
+--(10, 10, 1),
+--(11, 11, 1),
+--(12, 12, 1),
+--(13, 1, 2),
+--(14, 2, 2),
+--(15, 3, 2),
+--(16, 4, 2),
+--(17, 5, 2),
+--(18, 6, 2),
+--(19, 7, 2),
+--(20, 8, 2),
+--(21, 9, 2),
+--(22, 10, 2),
+(4, 11, 2, 3512.73, 294.42, 1208.84, 321.54, 86.34, 103.92, 1463.85, 684.54, 24.80, 8182.83)
 
 GO
 
@@ -1145,6 +1230,90 @@ GO
 
 GO
 
+CREATE VIEW vMonthAndYear
+AS
+SELECT
+	 TF.intFinanceID
+	,TM.strMonth
+	,TY.strYear
+FROM
+	TFinances AS TF
+	,TMonths AS TM
+	,TYears AS TY
+WHERE
+	TF.intMonthID = TM.intMonthID
+AND TF.intYearID = TY.intYearID
+GO
+
+--SELECT * FROM vMonthAndYear
+
+GO
+
+CREATE VIEW vMonthlyFinances
+AS
+SELECT
+	TF.intFinanceID
+	,TF.decPayrollCost
+	,TF.decInventoryCost
+	,TF.decInsuranceCost
+	,TF.decProjectCost
+	,TF.decVehicleCost
+	,TF.decFuelCost
+	,TF.decShopRental
+	,TF.decUtilitiesCost
+	,TF.decOtherCost
+	,TF.decPayrollCost + TF.decInventoryCost + TF.decInsuranceCost + TF.decProjectCost + TF.decVehicleCost + TF.decFuelCost + TF.decShopRental + TF.decUtilitiesCost + TF.decOtherCost AS TotalCost
+	,TF.decRevenue
+	,str((decRevenue - (decPayrollCost + decInventoryCost + decInsuranceCost + decProjectCost + decVehicleCost + decFuelCost + decShopRental + decUtilitiesCost + decOtherCost)), 7, 2) AS GrossProfit
+	,str(((decRevenue - (decPayrollCost + decInventoryCost + decInsuranceCost + decProjectCost + decVehicleCost + decFuelCost + decShopRental + decUtilitiesCost + decOtherCost)) / decRevenue) * 100, 7, 2) + '%' AS ProfitMargin
+	
+FROM
+	TFinances AS TF
+	,TMonths AS TM
+	,TYears AS TY
+WHERE
+	TF.intMonthID = TM.intMonthID
+AND TF.intYearID = TY.intYearID
+GO
+
+
+--SELECT * FROM vMonthlyFinances
+
+GO
+
+CREATE VIEW vYTDFinances
+AS
+SELECT
+	TF.intFinanceID AS intFinanceID
+	,SUM(TFMonth.decPayrollCost) AS PayrollYTD
+	,SUM(TFMonth.decInventoryCost) AS InventoryYTD
+	,SUM(TFMonth.decInsuranceCost) AS InsuranceYTD
+	,SUM(TFMonth.decProjectCost) AS ProjectYTD
+	,SUM(TFMonth.decVehicleCost) AS VehicleYTD
+	,SUM(TFMonth.decFuelCost) AS FuelYTD
+	,SUM(TFMonth.decShopRental) AS ShopYTD
+	,SUM(TFMonth.decUtilitiesCost) AS UtilityYTD
+	,SUM(TFMonth.decOtherCost) AS OtherYTD
+	,SUM(TFMonth.decRevenue) AS RevenueYTD
+	,((SUM(TFMonth.decRevenue) - (SUM(TFMonth.decPayrollCost + TFMonth.decInventoryCost + TFMonth.decInsuranceCost + TFMonth.decProjectCost + TFMonth.decVehicleCost + TFMonth.decFuelCost + TFMonth.decShopRental + TFMonth.decUtilitiesCost + TFMonth.decOtherCost)))) AS GrossProfitYTD
+	,str(((SUM(TFMonth.decRevenue)) - (SUM(TFMonth.decPayrollCost + TFMonth.decInventoryCost + TFMonth.decInsuranceCost + TFMonth.decProjectCost + TFMonth.decVehicleCost + TFMonth.decFuelCost + TFMonth.decShopRental + TFMonth.decUtilitiesCost + TFMonth.decOtherCost))) / (SUM(TFMonth.decRevenue)) * 100, 7, 2) + '%' AS ProfitMarginYTD
+	--,TF.intYearID AS YearID
+	--,TF.intMonthID AS MonthID
+FROM
+	TFinances AS TF
+	join TYears AS TY ON TY.intYearID = TF.intYearID
+	inner join TFinances AS TFMonth ON TF.intMonthID >= TFMonth.intMonthID
+	and TY.intYearID = TFMonth.intYearID
+	join TMonths AS TM ON TM.intMonthID = TF.intMonthID
+	
+GROUP BY
+	TF.intFinanceID
+	--,TF.intYearID
+	--,TF.intMonthID
+GO
+
+SELECT * FROM vMonthlyFinances
+SELECT * FROM vYTDFinances 
 
 ---- Validate credit card insert data
 --SELECT TOP 1 * From TCustomers ORDER BY intcustomerID DESC
@@ -1183,4 +1352,11 @@ GO
 --select * from tvendors
 
 
-SELECT intPartID FROM TParts WHERE intPartID LIKE '%12%'
+
+
+
+
+
+
+
+--select * from TParts
