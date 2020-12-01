@@ -1297,8 +1297,6 @@ SELECT
 	,SUM(TFMonth.decRevenue) AS RevenueYTD
 	,((SUM(TFMonth.decRevenue) - (SUM(TFMonth.decPayrollCost + TFMonth.decInventoryCost + TFMonth.decInsuranceCost + TFMonth.decProjectCost + TFMonth.decVehicleCost + TFMonth.decFuelCost + TFMonth.decShopRental + TFMonth.decUtilitiesCost + TFMonth.decOtherCost)))) AS GrossProfitYTD
 	,str(((SUM(TFMonth.decRevenue)) - (SUM(TFMonth.decPayrollCost + TFMonth.decInventoryCost + TFMonth.decInsuranceCost + TFMonth.decProjectCost + TFMonth.decVehicleCost + TFMonth.decFuelCost + TFMonth.decShopRental + TFMonth.decUtilitiesCost + TFMonth.decOtherCost))) / (SUM(TFMonth.decRevenue)) * 100, 7, 2) + '%' AS ProfitMarginYTD
-	--,TF.intYearID AS YearID
-	--,TF.intMonthID AS MonthID
 FROM
 	TFinances AS TF
 	join TYears AS TY ON TY.intYearID = TF.intYearID
@@ -1308,8 +1306,6 @@ FROM
 	
 GROUP BY
 	TF.intFinanceID
-	--,TF.intYearID
-	--,TF.intMonthID
 GO
 
 SELECT * FROM vMonthlyFinances
