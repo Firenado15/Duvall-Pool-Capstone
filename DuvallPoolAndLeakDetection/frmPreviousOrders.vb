@@ -182,7 +182,7 @@ Public Class frmPreviousOrders
 		cboOrderNumber.BeginUpdate()
 
 		'Create select
-		strSelect = "SELECT intPartID FROM TParts WHERE intPartID LIKE '%" & cboOrderNumber.Text &
+		strSelect = "SELECT intPartID, strSerialNumber FROM TParts WHERE intPartID LIKE '%" & cboOrderNumber.Text &
 			"%' OR strSerialNumber like '%" & cboOrderNumber.Text &
 			"%' OR strPartDesc like '%" & cboOrderNumber.Text &
 			"' ORDER BY intPartID ASC"
@@ -196,7 +196,7 @@ Public Class frmPreviousOrders
 
 		' Add items to combo box
 		cboOrderNumber.ValueMember = "intPartID"
-		cboOrderNumber.DisplayMember = "intPartID"
+		cboOrderNumber.DisplayMember = "strSerialNumber"
 		cboOrderNumber.DataSource = dt
 
 		' Select the first item in the list by default

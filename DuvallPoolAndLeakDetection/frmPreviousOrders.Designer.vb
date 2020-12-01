@@ -386,9 +386,9 @@ Partial Class frmPreviousOrders
 		Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
 		Me.Label10.Location = New System.Drawing.Point(6, 26)
 		Me.Label10.Name = "Label10"
-		Me.Label10.Size = New System.Drawing.Size(163, 17)
+		Me.Label10.Size = New System.Drawing.Size(88, 17)
 		Me.Label10.TabIndex = 13
-		Me.Label10.Text = "Purchase Order Number"
+		Me.Label10.Text = "Part Number"
 		'
 		'cboOrderNumber
 		'
