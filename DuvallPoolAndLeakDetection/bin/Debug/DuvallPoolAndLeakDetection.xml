@@ -22,5 +22,15 @@ DuvallPoolAndLeakDetection
   resource lookups using this strongly typed resource class.
 </summary>
 </member>
+<member name="P:DuvallPoolAndLeakDetection.My.Resources.Resources.icon">
+<summary>
+  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+</summary>
+</member>
+<member name="P:DuvallPoolAndLeakDetection.My.Resources.Resources.Untitled">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
 </members>
 </doc>
