@@ -117,6 +117,14 @@ CREATE TABLE TJobs
 CREATE TABLE TParts
 (
 	 intPartID				INTEGER			NOT NULL
+	,PONumber AS CASE len(intpartID)
+		when 1 then 'PO-'+'00000'+CONVERT(varchar, intPartID)
+		when 2 then 'PO-'+'0000'+CONVERT(varchar, intPartID)
+		when 3 then 'PO-'+'000'+CONVERT(varchar, intPartID)
+		when 4 then 'PO-'+'00'+CONVERT(varchar, intPartID)
+		when 5 then 'PO-'+'0'+CONVERT(varchar, intPartID)
+		else'PO-'+CONVERT(varchar, intPartID)
+		end
 	,intVendorID			INTEGER			NOT NULL
 	,strSerialNumber		VARCHAR(50)		NOT NULL
 	,strPartDesc			VARCHAR(50)		NOT NULL
