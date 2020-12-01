@@ -105,10 +105,10 @@ Public Class frmOptions
 	Private Sub btnEditFinances_Click(sender As Object, e As EventArgs) Handles btnEditFinances.Click
 
 		' create a new instance of the edit finances form
-		Dim EditFinances As New frmEditFinances
+		Dim AddFinances As New frmAddFinances
 
 		' show the new form so any past data is not still on the form
-		EditFinances.ShowDialog()
+		AddFinances.ShowDialog()
 
 	End Sub
 
@@ -136,12 +136,6 @@ Public Class frmOptions
 
 		Dim webAddress As String = "https://www.womply.com/biz/duvall-pool-and-leak-detection-olive-branch-MS/"
 		Process.Start(webAddress)
-
-	End Sub
-
-	Private Sub frmOptions_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-
 
 	End Sub
 End Class
