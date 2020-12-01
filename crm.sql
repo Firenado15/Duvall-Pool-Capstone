@@ -117,6 +117,13 @@ CREATE TABLE TJobs
 CREATE TABLE TParts
 (
 	 intPartID				INTEGER			NOT NULL
+	,intVendorID			INTEGER			NOT NULL
+	,strSerialNumber		VARCHAR(50)		NOT NULL
+	,strPartDesc			VARCHAR(50)		NOT NULL
+	,intQuantity			INTEGER			NOT NULL
+	,decUnitPurchaseCost	DECIMAL(7,2)	NOT NULL
+	,decUniteSaleCost		DECIMAL(7,2)	NOT NULL
+	,intAmountSold			INTEGER			NOT NULL
 	,PONumber AS CASE len(intpartID)
 		when 1 then 'PO-'+'00000'+CONVERT(varchar, intPartID)
 		when 2 then 'PO-'+'0000'+CONVERT(varchar, intPartID)
@@ -125,13 +132,6 @@ CREATE TABLE TParts
 		when 5 then 'PO-'+'0'+CONVERT(varchar, intPartID)
 		else'PO-'+CONVERT(varchar, intPartID)
 		end
-	,intVendorID			INTEGER			NOT NULL
-	,strSerialNumber		VARCHAR(50)		NOT NULL
-	,strPartDesc			VARCHAR(50)		NOT NULL
-	,intQuantity			INTEGER			NOT NULL
-	,decUnitPurchaseCost	DECIMAL(7,2)	NOT NULL
-	,decUniteSaleCost		DECIMAL(7,2)	NOT NULL
-	,intAmountSold			INTEGER			NOT NULL
 	,CONSTRAINT TParts_PK PRIMARY KEY ( intPartID )
 )
 
