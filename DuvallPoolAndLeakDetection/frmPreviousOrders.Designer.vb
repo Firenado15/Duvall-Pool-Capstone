@@ -1,27 +1,27 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmPreviousOrders
-    Inherits System.Windows.Forms.Form
+	Inherits System.Windows.Forms.Form
 
-    'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
-    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
-        Try
-            If disposing AndAlso components IsNot Nothing Then
-                components.Dispose()
-            End If
-        Finally
-            MyBase.Dispose(disposing)
-        End Try
-    End Sub
+	'Form overrides dispose to clean up the component list.
+	<System.Diagnostics.DebuggerNonUserCode()>
+	Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+		Try
+			If disposing AndAlso components IsNot Nothing Then
+				components.Dispose()
+			End If
+		Finally
+			MyBase.Dispose(disposing)
+		End Try
+	End Sub
 
-    'Required by the Windows Form Designer
-    Private components As System.ComponentModel.IContainer
+	'Required by the Windows Form Designer
+	Private components As System.ComponentModel.IContainer
 
-    'NOTE: The following procedure is required by the Windows Form Designer
-    'It can be modified using the Windows Form Designer.  
-    'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
-    Private Sub InitializeComponent()
+	'NOTE: The following procedure is required by the Windows Form Designer
+	'It can be modified using the Windows Form Designer.  
+	'Do not modify it using the code editor.
+	<System.Diagnostics.DebuggerStepThrough()>
+	Private Sub InitializeComponent()
 		Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPreviousOrders))
 		Me.btnClose = New System.Windows.Forms.Button()
 		Me.btnSearch = New System.Windows.Forms.Button()
@@ -57,6 +57,7 @@ Partial Class frmPreviousOrders
 		Me.GroupBox3 = New System.Windows.Forms.GroupBox()
 		Me.Label10 = New System.Windows.Forms.Label()
 		Me.cboOrderNumber = New System.Windows.Forms.ComboBox()
+		Me.btnEditVendorInfo = New System.Windows.Forms.Button()
 		Me.GroupBox2.SuspendLayout()
 		Me.GroupBox1.SuspendLayout()
 		Me.GroupBox3.SuspendLayout()
@@ -64,7 +65,7 @@ Partial Class frmPreviousOrders
 		'
 		'btnClose
 		'
-		Me.btnClose.Location = New System.Drawing.Point(35, 360)
+		Me.btnClose.Location = New System.Drawing.Point(156, 374)
 		Me.btnClose.Name = "btnClose"
 		Me.btnClose.Size = New System.Drawing.Size(109, 44)
 		Me.btnClose.TabIndex = 31
@@ -73,7 +74,7 @@ Partial Class frmPreviousOrders
 		'
 		'btnSearch
 		'
-		Me.btnSearch.Location = New System.Drawing.Point(388, 360)
+		Me.btnSearch.Location = New System.Drawing.Point(386, 374)
 		Me.btnSearch.Name = "btnSearch"
 		Me.btnSearch.Size = New System.Drawing.Size(109, 44)
 		Me.btnSearch.TabIndex = 32
@@ -397,11 +398,21 @@ Partial Class frmPreviousOrders
 		Me.cboOrderNumber.Size = New System.Drawing.Size(244, 21)
 		Me.cboOrderNumber.TabIndex = 12
 		'
+		'btnEditVendorInfo
+		'
+		Me.btnEditVendorInfo.Location = New System.Drawing.Point(271, 374)
+		Me.btnEditVendorInfo.Name = "btnEditVendorInfo"
+		Me.btnEditVendorInfo.Size = New System.Drawing.Size(109, 44)
+		Me.btnEditVendorInfo.TabIndex = 16
+		Me.btnEditVendorInfo.Text = "Edit Vendor Info"
+		Me.btnEditVendorInfo.UseVisualStyleBackColor = True
+		'
 		'frmPreviousOrders
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
 		Me.ClientSize = New System.Drawing.Size(948, 432)
+		Me.Controls.Add(Me.btnEditVendorInfo)
 		Me.Controls.Add(Me.GroupBox3)
 		Me.Controls.Add(Me.btnClose)
 		Me.Controls.Add(Me.btnSearch)
@@ -425,37 +436,38 @@ Partial Class frmPreviousOrders
 	End Sub
 
 	Friend WithEvents btnClose As Button
-    Friend WithEvents btnSearch As Button
-    Friend WithEvents GroupBox2 As GroupBox
-    Friend WithEvents Label13 As Label
-    Friend WithEvents Label14 As Label
-    Friend WithEvents Label15 As Label
-    Friend WithEvents Label16 As Label
-    Friend WithEvents Label1 As Label
-    Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents Label9 As Label
-    Friend WithEvents Label8 As Label
-    Friend WithEvents Label7 As Label
-    Friend WithEvents Label6 As Label
-    Friend WithEvents Label5 As Label
-    Friend WithEvents Label4 As Label
-    Friend WithEvents Label3 As Label
-    Friend WithEvents Label2 As Label
-    Friend WithEvents GroupBox3 As GroupBox
-    Friend WithEvents cboOrderNumber As ComboBox
-    Friend WithEvents Label10 As Label
-    Friend WithEvents lblVendorIdentification As Label
-    Friend WithEvents lblCostPerUnit As Label
-    Friend WithEvents lblQuantity As Label
-    Friend WithEvents lblPartDescription As Label
-    Friend WithEvents lblPhone As Label
-    Friend WithEvents lblEmail As Label
-    Friend WithEvents lblZip As Label
-    Friend WithEvents lblState As Label
-    Friend WithEvents lblCity As Label
-    Friend WithEvents lblAddress As Label
-    Friend WithEvents lblContactName As Label
-    Friend WithEvents lblVendorName As Label
-    Friend WithEvents Label26 As Label
-    Friend WithEvents lblPartNumber As Label
+	Friend WithEvents btnSearch As Button
+	Friend WithEvents GroupBox2 As GroupBox
+	Friend WithEvents Label13 As Label
+	Friend WithEvents Label14 As Label
+	Friend WithEvents Label15 As Label
+	Friend WithEvents Label16 As Label
+	Friend WithEvents Label1 As Label
+	Friend WithEvents GroupBox1 As GroupBox
+	Friend WithEvents Label9 As Label
+	Friend WithEvents Label8 As Label
+	Friend WithEvents Label7 As Label
+	Friend WithEvents Label6 As Label
+	Friend WithEvents Label5 As Label
+	Friend WithEvents Label4 As Label
+	Friend WithEvents Label3 As Label
+	Friend WithEvents Label2 As Label
+	Friend WithEvents GroupBox3 As GroupBox
+	Friend WithEvents cboOrderNumber As ComboBox
+	Friend WithEvents Label10 As Label
+	Friend WithEvents lblVendorIdentification As Label
+	Friend WithEvents lblCostPerUnit As Label
+	Friend WithEvents lblQuantity As Label
+	Friend WithEvents lblPartDescription As Label
+	Friend WithEvents lblPhone As Label
+	Friend WithEvents lblEmail As Label
+	Friend WithEvents lblZip As Label
+	Friend WithEvents lblState As Label
+	Friend WithEvents lblCity As Label
+	Friend WithEvents lblAddress As Label
+	Friend WithEvents lblContactName As Label
+	Friend WithEvents lblVendorName As Label
+	Friend WithEvents Label26 As Label
+	Friend WithEvents lblPartNumber As Label
+	Friend WithEvents btnEditVendorInfo As Button
 End Class

@@ -17,58 +17,7 @@ Public Class frmPreviousOrders
 
 		Try
 
-			Dim strSelect As String = ""
-			Dim cmdSelect As OleDb.OleDbCommand
-			Dim drSourceTable As OleDb.OleDbDataReader
-			Dim dt As DataTable = New DataTable
-
-			'Delete data from boxes
-			For Each cntrl As Control In Controls
-				If TypeOf cntrl Is TextBox Then
-					cntrl.Text = String.Empty
-				End If
-			Next
-
-			'Open DB
-			If OpenDatabaseConnectionSQLServer() = False Then
-
-				'If DB could not open
-				MessageBox.Show(Me, "Database connection error." & vbNewLine &
-									"The application will now close.",
-									Me.Text + " Error",
-									MessageBoxButtons.OK, MessageBoxIcon.Error)
-				Me.Close()
-
-			End If
-
-			cboOrderNumber.BeginUpdate()
-
-			'Create select
-			strSelect = "SELECT intPartID, strSerialNumber FROM TParts"
-
-			'Get records
-			cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
-			drSourceTable = cmdSelect.ExecuteReader
-
-			'Load Table
-			dt.Load(drSourceTable)
-
-			' Add items to combo box
-			cboOrderNumber.ValueMember = "intPartID"
-			cboOrderNumber.DisplayMember = "intPartID"
-			cboOrderNumber.DataSource = dt
-
-			' Select the first item in the list by default
-			If cboOrderNumber.Items.Count > 0 Then cboOrderNumber.SelectedIndex = 0
-
-			' Show changes
-			cboOrderNumber.EndUpdate()
-
-			' Clean up
-			drSourceTable.Close()
-
-			' close the database connection
-			CloseDatabaseConnection()
+			ComboBoxSearch()
 
 		Catch ex As Exception
 
@@ -189,4 +138,113 @@ Public Class frmPreviousOrders
 
 	End Sub
 
+	Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
+
+		Try
+
+			ComboBoxSearch()
+
+		Catch ex As Exception
+
+			'Unhandled Exception
+			MessageBox.Show(ex.Message)
+
+		End Try
+
+	End Sub
+
+	Private Sub ComboBoxSearch()
+
+		Dim strSelect As String = ""
+		Dim cmdSelect As OleDb.OleDbCommand
+		Dim drSourceTable As OleDb.OleDbDataReader
+		Dim dt As DataTable = New DataTable
+
+		'Delete data from boxes
+		For Each cntrl As Control In Controls
+			If TypeOf cntrl Is TextBox Then
+				cntrl.Text = String.Empty
+			End If
+		Next
+
+		'Open DB
+		If OpenDatabaseConnectionSQLServer() = False Then
+
+			'If DB could not open
+			MessageBox.Show(Me, "Database connection error." & vbNewLine &
+								"The application will now close.",
+								Me.Text + " Error",
+								MessageBoxButtons.OK, MessageBoxIcon.Error)
+			Me.Close()
+
+		End If
+
+		cboOrderNumber.BeginUpdate()
+
+		'Create select
+		strSelect = "SELECT intPartID FROM TParts WHERE intPartID LIKE '%" & cboOrderNumber.Text &
+			"%' OR strSerialNumber like '%" & cboOrderNumber.Text &
+			"%' OR strPartDesc like '%" & cboOrderNumber.Text &
+			"' ORDER BY intPartID ASC"
+
+		'Get records
+		cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
+		drSourceTable = cmdSelect.ExecuteReader
+
+		'Load Table
+		dt.Load(drSourceTable)
+
+		' Add items to combo box
+		cboOrderNumber.ValueMember = "intPartID"
+		cboOrderNumber.DisplayMember = "intPartID"
+		cboOrderNumber.DataSource = dt
+
+		' Select the first item in the list by default
+		If cboOrderNumber.Items.Count > 0 Then cboOrderNumber.SelectedIndex = 0
+
+		' Show changes
+		cboOrderNumber.EndUpdate()
+
+		' Clean up
+		drSourceTable.Close()
+
+		' close the database connection
+		CloseDatabaseConnection()
+
+	End Sub
+
+	Private Sub cboOrderNumber_KeyPress(sender As Object, e As KeyPressEventArgs) Handles cboOrderNumber.KeyPress
+
+		Dim tb As ComboBox = CType(sender, ComboBox)
+		If Char.IsControl(e.KeyChar) Then
+			If e.KeyChar.Equals(Chr(Keys.Return)) Then
+
+				Try
+
+					'initiante search
+					ComboBoxSearch()
+
+				Catch ex As Exception
+
+					'Unhandled Exception
+					MessageBox.Show(ex.Message)
+
+				End Try
+
+			End If
+		End If
+
+	End Sub
+
+	Private Sub btnEditVendorInfo_Click(sender As Object, e As EventArgs) Handles btnEditVendorInfo.Click
+
+		Dim UpdateVendor As New frmUpdateVendorInfo(intVendorID)
+
+		' show the new form so any past data is not still on the form
+		UpdateVendor.ShowDialog()
+
+		'Relead customer info after update
+		LoadVendorInfo()
+
+	End Sub
 End Class
