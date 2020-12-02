@@ -122,13 +122,23 @@ Public Class frmOptions
 
 	End Sub
 
-	Private Sub btnEditJobRecords_Click(sender As Object, e As EventArgs) Handles btnEditJobRecords.Click
+	Private Sub btnEditJobRecords_Click(sender As Object, e As EventArgs) Handles btnViewJobRecords.Click
 
 		' create a new instance of the edit job records form
-		Dim EditJobRecords As New frmEditJobRecords
+		Dim EditJobRecords As New frmViewJobRecords
 
 		' show the new form so any past data is not still on the form
 		EditJobRecords.ShowDialog()
+
+	End Sub
+
+	Private Sub btnAddJobRecord_Click(sender As Object, e As EventArgs) Handles btnAddJobRecord.Click
+
+		' create a new instance of the add job records form
+		Dim AddJobRecords As New frmAddJobRecords
+
+		' show the new form so any past data is not still on the form
+		AddJobRecords.ShowDialog()
 
 	End Sub
 
@@ -138,4 +148,6 @@ Public Class frmOptions
 		Process.Start(webAddress)
 
 	End Sub
+
+
 End Class

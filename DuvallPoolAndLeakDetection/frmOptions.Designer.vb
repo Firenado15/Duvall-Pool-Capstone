@@ -43,7 +43,8 @@ Partial Class frmOptions
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
         Me.btnViewFinances = New System.Windows.Forms.Button()
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
-        Me.btnEditJobRecords = New System.Windows.Forms.Button()
+        Me.btnAddJobRecord = New System.Windows.Forms.Button()
+        Me.btnViewJobRecords = New System.Windows.Forms.Button()
         Me.btnClose = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -239,7 +240,8 @@ Partial Class frmOptions
         '
         'GroupBox7
         '
-        Me.GroupBox7.Controls.Add(Me.btnEditJobRecords)
+        Me.GroupBox7.Controls.Add(Me.btnAddJobRecord)
+        Me.GroupBox7.Controls.Add(Me.btnViewJobRecords)
         Me.GroupBox7.Location = New System.Drawing.Point(123, 399)
         Me.GroupBox7.Name = "GroupBox7"
         Me.GroupBox7.Size = New System.Drawing.Size(340, 53)
@@ -247,14 +249,23 @@ Partial Class frmOptions
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "Jobs"
         '
-        'btnEditJobRecords
+        'btnAddJobRecord
         '
-        Me.btnEditJobRecords.Location = New System.Drawing.Point(94, 19)
-        Me.btnEditJobRecords.Name = "btnEditJobRecords"
-        Me.btnEditJobRecords.Size = New System.Drawing.Size(136, 23)
-        Me.btnEditJobRecords.TabIndex = 11
-        Me.btnEditJobRecords.Text = "View/Edit Job Records"
-        Me.btnEditJobRecords.UseVisualStyleBackColor = True
+        Me.btnAddJobRecord.Location = New System.Drawing.Point(14, 19)
+        Me.btnAddJobRecord.Name = "btnAddJobRecord"
+        Me.btnAddJobRecord.Size = New System.Drawing.Size(136, 23)
+        Me.btnAddJobRecord.TabIndex = 11
+        Me.btnAddJobRecord.Text = "Add Job Record"
+        Me.btnAddJobRecord.UseVisualStyleBackColor = True
+        '
+        'btnViewJobRecords
+        '
+        Me.btnViewJobRecords.Location = New System.Drawing.Point(177, 19)
+        Me.btnViewJobRecords.Name = "btnViewJobRecords"
+        Me.btnViewJobRecords.Size = New System.Drawing.Size(136, 23)
+        Me.btnViewJobRecords.TabIndex = 11
+        Me.btnViewJobRecords.Text = "View Job Records"
+        Me.btnViewJobRecords.UseVisualStyleBackColor = True
         '
         'btnClose
         '
@@ -315,6 +326,7 @@ Partial Class frmOptions
     Friend WithEvents GroupBox6 As GroupBox
     Friend WithEvents btnViewFinances As Button
     Friend WithEvents GroupBox7 As GroupBox
-    Friend WithEvents btnEditJobRecords As Button
+    Friend WithEvents btnViewJobRecords As Button
     Friend WithEvents btnClose As Button
+    Friend WithEvents btnAddJobRecord As Button
 End Class
