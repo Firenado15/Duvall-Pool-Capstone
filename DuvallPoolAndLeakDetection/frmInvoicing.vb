@@ -17,41 +17,15 @@ Public Class frmInvoicing
 
     Function Validation() As Boolean
 
-        txtFirstName.BackColor = Color.White
-        txtLastName.BackColor = Color.White
-        txtDateStarted.BackColor = Color.White
+
+		txtDateStarted.BackColor = Color.White
         txtDateEnded.BackColor = Color.White
         txtClosing.BackColor = Color.White
         txtOpening.BackColor = Color.White
-        txtDueDate.BackColor = Color.White
+		txtDueDate.BackColor = Color.White
 
-
-        ' check if something is entered in first name text box
-        If txtFirstName.Text <> String.Empty Then
-
-        Else
-            ' text box is blank so tell user to enter first name, change back color to yellow,
-            ' put focus in text box and return false we don't want to continue
-            MessageBox.Show("Please enter Customer's first name.")
-            txtFirstName.BackColor = Color.Yellow
-            txtFirstName.Focus()
-            Return False
-        End If
-
-        ' check if something is entered in last name text box
-        If txtLastName.Text <> String.Empty Then
-
-        Else
-            ' text box is blank so tell user to enter last name, change back color to yellow,
-            ' put focus in text box and return false we don't want to continue
-            MessageBox.Show("Please enter Customer's last name.")
-            txtLastName.BackColor = Color.Yellow
-            txtLastName.Focus()
-            Return False
-        End If
-
-        ' check if something is entered in date started text box
-        If txtDateStarted.Text <> String.Empty Then
+		' check if something is entered in date started text box
+		If txtDateStarted.Text <> String.Empty Then
 
         Else
             ' text box is blank so tell user to enter date started, change back color to yellow,
@@ -113,4 +87,138 @@ Public Class frmInvoicing
         Return True ' all is well in the world
 
     End Function
+
+	Private Sub frmInvoicing_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+		Try
+
+			Dim strSelect As String = ""
+			Dim cmdSelect As OleDb.OleDbCommand
+			Dim drSourceTable As OleDb.OleDbDataReader
+			Dim dt As DataTable = New DataTable
+
+			'Delete data from boxes
+			For Each cntrl As Control In Controls
+				If TypeOf cntrl Is TextBox Then
+					cntrl.Text = String.Empty
+				End If
+			Next
+
+			'Open DB
+			If OpenDatabaseConnectionSQLServer() = False Then
+
+				'If DB could not open
+				MessageBox.Show(Me, "Database connection error." & vbNewLine &
+									"The application will now close.",
+									Me.Text + " Error",
+									MessageBoxButtons.OK, MessageBoxIcon.Error)
+				Me.Close()
+
+			End If
+
+			cboCustomer.BeginUpdate()
+
+			'Create select
+			strSelect = "SELECT intCustomerID, ( strLastName + ', ' + strFirstName ) AS FullName FROM TCustomers ORDER BY FullName ASC"
+
+			'Get records
+			cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
+			drSourceTable = cmdSelect.ExecuteReader
+
+			'Load Table
+			dt.Load(drSourceTable)
+
+			' Add items to combo box
+			cboCustomer.ValueMember = "intCustomerID"
+			cboCustomer.DisplayMember = "FullName"
+			cboCustomer.DataSource = dt
+
+			' Select the first item in the list by default
+			If cboCustomer.Items.Count > 0 Then cboCustomer.SelectedIndex = 0
+
+			' Show changes
+			cboCustomer.EndUpdate()
+
+			' Clean up
+			drSourceTable.Close()
+
+			' close the database connection
+			CloseDatabaseConnection()
+
+		Catch ex As Exception
+
+			'Unhandled Exception
+			MessageBox.Show(ex.Message)
+
+		End Try
+
+	End Sub
+
+	Private Sub cboCustomer_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboCustomer.SelectedIndexChanged
+
+		Try
+
+			Dim strSelect As String = ""
+			Dim cmdSelect As OleDb.OleDbCommand
+			Dim drSourceTable As OleDb.OleDbDataReader
+			Dim dt As DataTable = New DataTable
+
+			'Delete data from boxes
+			For Each cntrl As Control In Controls
+				If TypeOf cntrl Is TextBox Then
+					cntrl.Text = String.Empty
+				End If
+			Next
+
+			'Open DB
+			If OpenDatabaseConnectionSQLServer() = False Then
+
+				'If DB could not open
+				MessageBox.Show(Me, "Database connection error." & vbNewLine &
+									"The application will now close.",
+									Me.Text + " Error",
+									MessageBoxButtons.OK, MessageBoxIcon.Error)
+				Me.Close()
+
+			End If
+
+			cboJob.BeginUpdate()
+
+			'Create select
+			strSelect = "SELECT intJobRecordID, JobNumber FROM TJobRecords WHERE intCustomerID = " & cboCustomer.SelectedValue
+
+			'Get records
+			cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
+			drSourceTable = cmdSelect.ExecuteReader
+
+			'Load Table
+			dt.Load(drSourceTable)
+
+			' Add items to combo box
+			cboJob.ValueMember = "intJobRecordID"
+			cboJob.DisplayMember = "JobNumber"
+			cboJob.DataSource = dt
+
+			' Select the first item in the list by default
+			If cboJob.Items.Count > 0 Then cboJob.SelectedIndex = 0
+
+			' Show changes
+			cboJob.EndUpdate()
+
+			' Clean up
+			drSourceTable.Close()
+
+			' close the database connection
+			CloseDatabaseConnection()
+
+		Catch ex As Exception
+
+			'Unhandled Exception
+			MessageBox.Show(ex.Message)
+
+		End Try
+
+	End Sub
+
+
 End Class

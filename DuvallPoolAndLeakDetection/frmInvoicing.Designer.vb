@@ -24,9 +24,9 @@ Partial Class frmInvoicing
     Private Sub InitializeComponent()
 		Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmInvoicing))
 		Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-		Me.Label3 = New System.Windows.Forms.Label()
-		Me.txtLastName = New System.Windows.Forms.TextBox()
-		Me.txtFirstName = New System.Windows.Forms.TextBox()
+		Me.cboJob = New System.Windows.Forms.ComboBox()
+		Me.cboCustomer = New System.Windows.Forms.ComboBox()
+		Me.Job = New System.Windows.Forms.Label()
 		Me.Label2 = New System.Windows.Forms.Label()
 		Me.Label1 = New System.Windows.Forms.Label()
 		Me.GroupBox2 = New System.Windows.Forms.GroupBox()
@@ -64,9 +64,9 @@ Partial Class frmInvoicing
 		'
 		'GroupBox1
 		'
-		Me.GroupBox1.Controls.Add(Me.Label3)
-		Me.GroupBox1.Controls.Add(Me.txtLastName)
-		Me.GroupBox1.Controls.Add(Me.txtFirstName)
+		Me.GroupBox1.Controls.Add(Me.cboJob)
+		Me.GroupBox1.Controls.Add(Me.cboCustomer)
+		Me.GroupBox1.Controls.Add(Me.Job)
 		Me.GroupBox1.Controls.Add(Me.Label2)
 		Me.GroupBox1.Location = New System.Drawing.Point(27, 60)
 		Me.GroupBox1.Name = "GroupBox1"
@@ -75,29 +75,31 @@ Partial Class frmInvoicing
 		Me.GroupBox1.TabStop = False
 		Me.GroupBox1.Text = "Contact Information"
 		'
-		'Label3
+		'cboJob
 		'
-		Me.Label3.AutoSize = True
-		Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.Label3.Location = New System.Drawing.Point(16, 59)
-		Me.Label3.Name = "Label3"
-		Me.Label3.Size = New System.Drawing.Size(76, 17)
-		Me.Label3.TabIndex = 9
-		Me.Label3.Text = "Last Name"
+		Me.cboJob.FormattingEnabled = True
+		Me.cboJob.Location = New System.Drawing.Point(127, 59)
+		Me.cboJob.Name = "cboJob"
+		Me.cboJob.Size = New System.Drawing.Size(254, 21)
+		Me.cboJob.TabIndex = 15
 		'
-		'txtLastName
+		'cboCustomer
 		'
-		Me.txtLastName.Location = New System.Drawing.Point(137, 56)
-		Me.txtLastName.Name = "txtLastName"
-		Me.txtLastName.Size = New System.Drawing.Size(244, 20)
-		Me.txtLastName.TabIndex = 8
+		Me.cboCustomer.FormattingEnabled = True
+		Me.cboCustomer.Location = New System.Drawing.Point(127, 19)
+		Me.cboCustomer.Name = "cboCustomer"
+		Me.cboCustomer.Size = New System.Drawing.Size(254, 21)
+		Me.cboCustomer.TabIndex = 14
 		'
-		'txtFirstName
+		'Job
 		'
-		Me.txtFirstName.Location = New System.Drawing.Point(137, 16)
-		Me.txtFirstName.Name = "txtFirstName"
-		Me.txtFirstName.Size = New System.Drawing.Size(244, 20)
-		Me.txtFirstName.TabIndex = 7
+		Me.Job.AutoSize = True
+		Me.Job.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+		Me.Job.Location = New System.Drawing.Point(16, 59)
+		Me.Job.Name = "Job"
+		Me.Job.Size = New System.Drawing.Size(31, 17)
+		Me.Job.TabIndex = 13
+		Me.Job.Text = "Job"
 		'
 		'Label2
 		'
@@ -105,9 +107,9 @@ Partial Class frmInvoicing
 		Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
 		Me.Label2.Location = New System.Drawing.Point(16, 17)
 		Me.Label2.Name = "Label2"
-		Me.Label2.Size = New System.Drawing.Size(76, 17)
-		Me.Label2.TabIndex = 6
-		Me.Label2.Text = "First Name"
+		Me.Label2.Size = New System.Drawing.Size(68, 17)
+		Me.Label2.TabIndex = 12
+		Me.Label2.Text = "Customer"
 		'
 		'Label1
 		'
@@ -415,35 +417,35 @@ Partial Class frmInvoicing
 	End Sub
 
 	Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents Label3 As Label
-    Friend WithEvents txtLastName As TextBox
-    Friend WithEvents txtFirstName As TextBox
-    Friend WithEvents Label2 As Label
-    Friend WithEvents Label1 As Label
-    Friend WithEvents GroupBox2 As GroupBox
-    Friend WithEvents Label10 As Label
-    Friend WithEvents Label11 As Label
-    Friend WithEvents txtDateEnded As TextBox
-    Friend WithEvents txtDateStarted As TextBox
-    Friend WithEvents chkInstallation As CheckBox
-    Friend WithEvents chkTesting As CheckBox
-    Friend WithEvents chkDetection As CheckBox
-    Friend WithEvents chkVacuumed As CheckBox
-    Friend WithEvents chkSkimmed As CheckBox
-    Friend WithEvents chkChemicals As CheckBox
-    Friend WithEvents chkFilter As CheckBox
-    Friend WithEvents GroupBox3 As GroupBox
-    Friend WithEvents Label4 As Label
-    Friend WithEvents Label5 As Label
-    Friend WithEvents txtOpening As TextBox
-    Friend WithEvents txtClosing As TextBox
-    Friend WithEvents GroupBox4 As GroupBox
-    Friend WithEvents GroupBox5 As GroupBox
-    Friend WithEvents radNo As RadioButton
-    Friend WithEvents radYes As RadioButton
-    Friend WithEvents Label7 As Label
-    Friend WithEvents Label6 As Label
-    Friend WithEvents txtDueDate As TextBox
-    Friend WithEvents btnClose As Button
-    Friend WithEvents btnSubmit As Button
+	Friend WithEvents Label1 As Label
+	Friend WithEvents GroupBox2 As GroupBox
+	Friend WithEvents Label10 As Label
+	Friend WithEvents Label11 As Label
+	Friend WithEvents txtDateEnded As TextBox
+	Friend WithEvents txtDateStarted As TextBox
+	Friend WithEvents chkInstallation As CheckBox
+	Friend WithEvents chkTesting As CheckBox
+	Friend WithEvents chkDetection As CheckBox
+	Friend WithEvents chkVacuumed As CheckBox
+	Friend WithEvents chkSkimmed As CheckBox
+	Friend WithEvents chkChemicals As CheckBox
+	Friend WithEvents chkFilter As CheckBox
+	Friend WithEvents GroupBox3 As GroupBox
+	Friend WithEvents Label4 As Label
+	Friend WithEvents Label5 As Label
+	Friend WithEvents txtOpening As TextBox
+	Friend WithEvents txtClosing As TextBox
+	Friend WithEvents GroupBox4 As GroupBox
+	Friend WithEvents GroupBox5 As GroupBox
+	Friend WithEvents radNo As RadioButton
+	Friend WithEvents radYes As RadioButton
+	Friend WithEvents Label7 As Label
+	Friend WithEvents Label6 As Label
+	Friend WithEvents txtDueDate As TextBox
+	Friend WithEvents btnClose As Button
+	Friend WithEvents btnSubmit As Button
+	Friend WithEvents cboJob As ComboBox
+	Friend WithEvents cboCustomer As ComboBox
+	Friend WithEvents Job As Label
+	Friend WithEvents Label2 As Label
 End Class

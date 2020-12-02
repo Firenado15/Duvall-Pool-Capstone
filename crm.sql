@@ -457,7 +457,7 @@ FOREIGN KEY ( intYearID ) REFERENCES TYears ( intYearID )
 ALTER TABLE TJobRecords ADD CONSTRAINT TJobRecords_TCustomers_FK
 FOREIGN KEY ( intCustomerID ) REFERENCES TCustomers ( intCustomerID )
 
--- 26
+-- 27
 ALTER TABLE TJobRecords ADD CONSTRAINT TJobRecords_TStatuses_FK
 FOREIGN KEY ( intStatusID ) REFERENCES TStatuses ( intStatusID )
 
@@ -1031,7 +1031,7 @@ CREATE VIEW vJobRecordCustomers
 AS
 SELECT
 	 distinct TC.intCustomerID
-	,TC.strFirstName + ', '+ TC.strLastName AS FullName
+	,TC.strLastName + ', '+ TC.strFirstName AS FullName
 FROM
 	TCustomers AS TC
 	,TJobRecords AS TJ
