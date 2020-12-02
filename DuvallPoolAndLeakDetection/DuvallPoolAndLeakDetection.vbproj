@@ -88,6 +88,12 @@
     <Compile Include="frmAddCreditCard.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmAddFinances.Designer.vb">
+      <DependentUpon>frmAddFinances.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAddFinances.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmCustomerIntake.Designer.vb">
       <DependentUpon>frmCustomerIntake.vb</DependentUpon>
     </Compile>
@@ -214,6 +220,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmAddCreditCard.resx">
       <DependentUpon>frmAddCreditCard.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAddFinances.resx">
+      <DependentUpon>frmAddFinances.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmCustomerIntake.resx">
       <DependentUpon>frmCustomerIntake.vb</DependentUpon>
