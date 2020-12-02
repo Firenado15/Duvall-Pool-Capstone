@@ -22,6 +22,7 @@ IF OBJECT_ID( 'TVendors' )						IS NOT NULL DROP TABLE TVendors
 IF OBJECT_ID( 'TReviews' )						IS NOT NULL DROP TABLE TReviews
 IF OBJECT_ID( 'TJobs' )							IS NOT NULL DROP TABLE TJobs
 IF OBJECT_ID( 'TEmployees' )					IS NOT NULL DROP TABLE TEmployees
+IF OBJECT_ID( 'TJobRecords' )					IS NOT NULL DROP TABLE TJobRecords
 IF OBJECT_ID( 'TStatuses' )						IS NOT NULL DROP TABLE TStatuses
 IF OBJECT_ID( 'TServices' )						IS NOT NULL DROP TABLE TServices
 IF OBJECT_ID( 'TPaymentTypes' )					IS NOT NULL DROP TABLE TPaymentTypes
@@ -45,6 +46,10 @@ IF OBJECT_ID( 'vVendors' )						IS NOT NULL DROP VIEW vVendors
 IF OBJECT_ID( 'vMonthAndYear' )					IS NOT NULL DROP VIEW vMonthAndYear
 IF OBJECT_ID( 'vMonthlyFinances' )				IS NOT NULL DROP VIEW vMonthlyFinances
 IF OBJECT_ID( 'vYTDFinances' )					IS NOT NULL DROP VIEW vYTDFinances
+IF OBJECT_ID( 'vJobRecordCustomers' )			IS NOT NULL DROP VIEW vJobRecordCustomers
+IF OBJECT_ID( 'vJobRecords' )					IS NOT NULL DROP VIEW vJobRecords
+IF OBJECT_ID( 'vJobRecordNumber' )				IS NOT NULL DROP VIEW vJobRecordNumber
+IF OBJECT_ID( 'vJobRecordsSearch' )				IS NOT NULL DROP VIEW vJobRecordsSearch
 
 
 -- --------------------------------------------------------------------------------
@@ -260,6 +265,20 @@ CREATE TABLE TUserLogin
 	,CONSTRAINT TUserLogin_PK PRIMARY KEY ( intUserLoginID )
 )
 
+CREATE TABLE TMonths
+(
+	 intMonthID				INTEGER			NOT NULL
+	,strMonth				VARCHAR(50)		NOT NULL
+	,CONSTRAINT	TMonths_PK PRIMARY KEY ( intMonthID )
+)
+
+CREATE TABLE TYears
+(
+	 intYearID				INTEGER			NOT NULL
+	,strYear				VARCHAR(50)		NOT NULL
+	,CONSTRAINT	TYears_PK PRIMARY KEY ( intYearID )
+)
+
 CREATE TABLE TFinances
 (
 	 intFinanceID			INTEGER			NOT NULL
@@ -278,19 +297,27 @@ CREATE TABLE TFinances
 	,CONSTRAINT TFinances_PK PRIMARY KEY (intFinanceID)
 )
 
-CREATE TABLE TMonths
+CREATE TABLE TJobRecords
 (
-	 intMonthID				INTEGER			NOT NULL
-	,strMonth				VARCHAR(50)		NOT NULL
-	,CONSTRAINT	TMonths_PK PRIMARY KEY ( intMonthID )
+	 intJobRecordID			INTEGER			NOT NULL
+	,dtStartDate			DATE			NOT NULL
+	,dtEndDate				DATE			NOT NULL
+	,intEmployees			INTEGER			NOT NULL
+	,strEmployeeNames		VARCHAR(100)	NOT NULL
+	,strJobDesc				VARCHAR(500)	NOT NULL
+	,intStatusID			INTEGER			NOT NULL
+	,intCustomerID			INTEGER			NOT NULL
+	,JobNumber AS CASE len(intJobRecordID)
+		when 1 then '00000'+CONVERT(varchar, intJobRecordID)
+		when 2 then '0000'+CONVERT(varchar, intJobRecordID)
+		when 3 then '000'+CONVERT(varchar, intJobRecordID)
+		when 4 then '00'+CONVERT(varchar, intJobRecordID)
+		when 5 then '0'+CONVERT(varchar, intJobRecordID)
+		else'PO-'+CONVERT(varchar, intJobRecordID)
+		end
+	,CONSTRAINT TJobRecords_PK PRIMARY KEY (intJobRecordID)
 )
 
-CREATE TABLE TYears
-(
-	 intYearID				INTEGER			NOT NULL
-	,strYear				VARCHAR(50)		NOT NULL
-	,CONSTRAINT	TYears_PK PRIMARY KEY ( intYearID )
-)
 
 -- --------------------------------------------------------------------------------
 -- Identify and Create Foreign Keys
@@ -323,6 +350,8 @@ CREATE TABLE TYears
 -- 23	TBankAccounts					TCustomers					intCustomerID
 -- 24	TFinances						TMonths						intMonthID
 -- 25	TFinances						TYears						intYearID
+-- 26	TJobRecords						TCustomers					intCustomerID
+-- 27	TJobRecords						TStatuses					intStatusID
 
 -- 1
 ALTER TABLE TCustomers ADD CONSTRAINT TCustomers_TStates_FK
@@ -423,6 +452,14 @@ FOREIGN KEY ( intMonthID ) REFERENCES TMonths ( intMonthID )
 -- 25
 ALTER TABLE TFinances ADD CONSTRAINT TFinances_TYears_FK
 FOREIGN KEY ( intYearID ) REFERENCES TYears ( intYearID )
+
+-- 26
+ALTER TABLE TJobRecords ADD CONSTRAINT TJobRecords_TCustomers_FK
+FOREIGN KEY ( intCustomerID ) REFERENCES TCustomers ( intCustomerID )
+
+-- 26
+ALTER TABLE TJobRecords ADD CONSTRAINT TJobRecords_TStatuses_FK
+FOREIGN KEY ( intStatusID ) REFERENCES TStatuses ( intStatusID )
 
 ---- --------------------------------------------------------------------------------
 ---- Add Necessary Data
@@ -1137,6 +1174,25 @@ INSERT INTO TFinances VALUES
 (22, 10, 2, 4636.15, 491.64, 1208.84, 427.62, 416.35, 182.52, 1463.85, 796.23, 52.13, 10528.63),
 (23, 11, 2, 3512.73, 294.42, 1208.84, 321.54, 86.34, 103.92, 1463.85, 824.47, 24.80, 8182.83)
 
+INSERT INTO TStatuses values 
+(1, 'Scheduled'),
+(2, 'In Progress'),
+(3, 'Completed')
+
+INSERT INTO TJobRecords VALUES
+-- StartDate, EndDate, Employees, EmployeeNames, Description, Status, CustomerID, JobNumber
+(1, '11-06-2020', '11-08-2020', 1, 'Jack White', 'Maintanence performed. Cleaned pool', 3, 5)
+,(2, '11-07-2020', '11-22-2020', 4, 'John Doe, Damon Albarn, Patrick Carney, Dan Aurbach', 'Pool Installation, counsultations, and 3 month supply of cleaning supplies.', 3, 28)
+,(3, '11-09-2020', '11-12-2020', 2, 'John Doe, Jack White', 'Water testing and leak detection performed', 3, 17)
+,(4, '11-15-2020', '11-25-2020', 3, 'Damon Albarn, Patrick Carney, Dan Aurbach', 'Linear installation, water testing, chemicals add, filter backwashed', 3, 83)
+,(5, '11-23-2020', '11-24-2020', 1, 'John Doe', 'Water testing, pool skimmed, chemicals added', 3, 52)
+,(6, '11-27-2020', '11-29-2020', 2, 'Patrick Carney, Dan Aurbach', 'Vacuumed, chemicals added, leak detection', 3, 93)
+,(7, '12-1-2020', '12-3-2020', 1, 'Damon Albarn', 'Water testing', 2, 73)
+,(8, '12-2-2020', '12-4-2020', 1, 'Dan Aurbach', 'Skimmed, chemicals added', 2, 45)
+,(9, '12-6-2020', '12-9-2020', 1, 'Jack White', 'Maintenence of pool. Most likely water testing and adding chemicals', 1, 104)
+,(10, '12-16-2020', '12-17-2020', 1, 'Jack White', 'Maintanence of pool. ', 1, 5)
+
+
 GO
 
 CREATE VIEW vCustomers
@@ -1315,8 +1371,76 @@ GROUP BY
 	TF.intFinanceID
 GO
 
-SELECT * FROM vMonthlyFinances
-SELECT * FROM vYTDFinances 
+GO
+
+CREATE VIEW vJobRecordCustomers
+AS
+SELECT
+	 distinct TC.intCustomerID
+	,TC.strFirstName + ', '+ TC.strLastName AS FullName
+FROM
+	TCustomers AS TC
+	,TJobRecords AS TJ
+WHERE
+	TC.intCustomerID = TJ.intCustomerID
+GO
+
+GO
+
+CREATE VIEW vJobRecordsSearch
+AS
+SELECT
+	 distinct TC.intCustomerID
+	,TC.strFirstName 
+	,TC.strLastName
+	,TC.strFirstName + ', '+ TC.strLastName AS FullName
+FROM
+	TCustomers AS TC
+	,TJobRecords AS TJ
+WHERE
+	TC.intCustomerID = TJ.intCustomerID
+GO
+
+GO
+
+CREATE VIEW vJobRecordNumber
+AS
+SELECT
+	TC.intCustomerID
+	,TJ.intJobRecordID
+	,TJ.JobNumber AS strJobNumber
+FROM
+	TCustomers AS TC
+	,TJobRecords AS TJ
+WHERE
+	TC.intCustomerID = TJ.intCustomerID
+GO
+
+GO
+
+CREATE VIEW vJobRecords
+AS
+SELECT
+	 TJ.intJobRecordID
+	,TJ.JobNumber
+	,TJ.dtStartDate
+	,TJ.dtEndDate
+	,Tj.intEmployees
+	,TJ.strEmployeeNames
+	,TJ.strJobDesc
+	,TJ.intStatusID
+FROM
+	TCustomers AS TC
+	,TJobRecords AS TJ
+WHERE
+	TC.intCustomerID = TJ.intCustomerID
+GO
+
+SELECT * FROM vJobRecordCustomers ORDER BY FullName ASC
+SELECT * FROM vJobRecordNumber WHERE intCustomerID = 5 ORDER BY strJobNumber DESC 
+SELECT * FROM vJobRecords ORDER BY intJobRecordID DESC
+--SELECT * FROM vMonthlyFinances
+--SELECT * FROM vYTDFinances 
 
 ---- Validate credit card insert data
 --SELECT TOP 1 * From TCustomers ORDER BY intcustomerID DESC
