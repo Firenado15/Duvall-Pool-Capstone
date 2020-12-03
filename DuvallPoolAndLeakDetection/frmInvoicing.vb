@@ -12,79 +12,156 @@ Public Class frmInvoicing
     
     Private Sub btnSubmit_Click(sender As Object, e As EventArgs) Handles btnSubmit.Click
 
-        Validation()
-    End Sub
+		Try
+
+			Validation()
+
+			'Variables
+			Dim strSelect As String = ""
+			Dim strInsert As String = ""
+			Dim strDate As String = ""
+			Dim cmdSelect As OleDb.OleDbCommand
+			Dim cmdInsert As OleDb.OleDbCommand
+			Dim drSourceTable As OleDb.OleDbDataReader
+			Dim intNextHighestRecordID As Integer
+			Dim intRowsAffected As Integer
+
+			If Validation() = True Then
+
+				If OpenDatabaseConnectionSQLServer() = False Then
+
+					'Alert if no connection
+					MessageBox.Show(Me, "Database connection error." & vbNewLine &
+										"The application will now close.",
+										Me.Text + " Error",
+										MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+					'Close Form
+					Me.Close()
+
+				End If
+
+				strSelect = "SELECT MAX(intInvoiceID) + 1 AS intNextHighestRecordID FROM TInvoices"
+
+				'Execute
+				cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
+				drSourceTable = cmdSelect.ExecuteReader
+
+				'Read
+				drSourceTable.Read()
+
+				'Check for empty table
+				If drSourceTable.IsDBNull(0) = True Then
+
+					'Start at 1 for empty table
+					intNextHighestRecordID = 1
+
+				Else
+
+					'Not empty, add 1
+					intNextHighestRecordID = CInt(drSourceTable.Item(0))
+
+				End If
+
+				strDate = dtInvoiceDueDate.Value.Date.ToString()
+
+				'Create insert statement
+				strInsert = "Insert into TInvoices VALUES (" & intNextHighestRecordID &
+					", " & cboCustomer.SelectedValue &
+					", " & cboJob.SelectedValue &
+					", '" & strDate & "')"
+
+
+				cmdInsert = New OleDb.OleDbCommand(strInsert, m_conAdministrator)
+
+				intRowsAffected = cmdInsert.ExecuteNonQuery()
+
+				If intRowsAffected > 0 Then
+					MessageBox.Show("Invoice has been added")
+					Me.Close()
+				End If
+
+				CloseDatabaseConnection()
+
+			End If
+
+		Catch ex As Exception
+			'unhandled exception
+			MessageBox.Show(ex.Message)
+		End Try
+
+	End Sub
 
     Function Validation() As Boolean
 
 
-		txtDateStarted.BackColor = Color.White
-        txtDateEnded.BackColor = Color.White
-        txtClosing.BackColor = Color.White
-        txtOpening.BackColor = Color.White
-		txtDueDate.BackColor = Color.White
+		'txtDateStarted.BackColor = Color.White
+		'      txtDateEnded.BackColor = Color.White
+		'      txtClosing.BackColor = Color.White
+		'      txtOpening.BackColor = Color.White
+		'txtDueDate.BackColor = Color.White
 
-		' check if something is entered in date started text box
-		If txtDateStarted.Text <> String.Empty Then
+		'' check if something is entered in date started text box
+		'If txtDateStarted.Text <> String.Empty Then
 
-        Else
-            ' text box is blank so tell user to enter date started, change back color to yellow,
-            ' put focus in text box and return false we don't want to continue
-            MessageBox.Show("Please enter date started.")
-            txtDateStarted.BackColor = Color.Yellow
-            txtDateStarted.Focus()
-            Return False
-        End If
+		'      Else
+		'          ' text box is blank so tell user to enter date started, change back color to yellow,
+		'          ' put focus in text box and return false we don't want to continue
+		'          MessageBox.Show("Please enter date started.")
+		'          txtDateStarted.BackColor = Color.Yellow
+		'          txtDateStarted.Focus()
+		'          Return False
+		'      End If
 
-        ' check if something is entered in date ended text box
-        If txtDateEnded.Text <> String.Empty Then
+		'      ' check if something is entered in date ended text box
+		'      If txtDateEnded.Text <> String.Empty Then
 
-        Else
-            ' text box is blank so tell user to enter date ended, change back color to yellow,
-            ' put focus in text box and return false we don't want to continue
-            MessageBox.Show("Please enter date ended.")
-            txtDateEnded.BackColor = Color.Yellow
-            txtDateEnded.Focus()
-            Return False
-        End If
+		'      Else
+		'          ' text box is blank so tell user to enter date ended, change back color to yellow,
+		'          ' put focus in text box and return false we don't want to continue
+		'          MessageBox.Show("Please enter date ended.")
+		'          txtDateEnded.BackColor = Color.Yellow
+		'          txtDateEnded.Focus()
+		'          Return False
+		'      End If
 
-        ' check if something is entered in closing date text box
-        If txtClosing.Text <> String.Empty Then
+		'      ' check if something is entered in closing date text box
+		'      If txtClosing.Text <> String.Empty Then
 
-        Else
-            ' text box is blank so tell user to enter closing date, change back color to yellow,
-            ' put focus in text box and return false we don't want to continue
-            MessageBox.Show("Please enter closing date.")
-            txtClosing.BackColor = Color.Yellow
-            txtClosing.Focus()
-            Return False
-        End If
+		'      Else
+		'          ' text box is blank so tell user to enter closing date, change back color to yellow,
+		'          ' put focus in text box and return false we don't want to continue
+		'          MessageBox.Show("Please enter closing date.")
+		'          txtClosing.BackColor = Color.Yellow
+		'          txtClosing.Focus()
+		'          Return False
+		'      End If
 
-        ' check if something is entered in opening date text box
-        If txtOpening.Text <> String.Empty Then
+		'      ' check if something is entered in opening date text box
+		'      If txtOpening.Text <> String.Empty Then
 
-        Else
-            ' text box is blank so tell user to enter opening date, change back color to yellow,
-            ' put focus in text box and return false we don't want to continue
-            MessageBox.Show("Please enter opening date.")
-            txtOpening.BackColor = Color.Yellow
-            txtOpening.Focus()
-            Return False
-        End If
+		'      Else
+		'          ' text box is blank so tell user to enter opening date, change back color to yellow,
+		'          ' put focus in text box and return false we don't want to continue
+		'          MessageBox.Show("Please enter opening date.")
+		'          txtOpening.BackColor = Color.Yellow
+		'          txtOpening.Focus()
+		'          Return False
+		'      End If
 
-        ' check if something is entered in due date text box
-        If txtDueDate.Text <> String.Empty Then
+		'      ' check if something is entered in due date text box
+		'      If txtDueDate.Text <> String.Empty Then
 
-        Else
-            ' text box is blank so tell user to enter due date, change back color to yellow,
-            ' put focus in text box and return false we don't want to continue
-            MessageBox.Show("Please enter due date of invoice.")
-            txtDueDate.BackColor = Color.Yellow
-            txtDueDate.Focus()
-            Return False
-        End If
+		'      Else
+		'          ' text box is blank so tell user to enter due date, change back color to yellow,
+		'          ' put focus in text box and return false we don't want to continue
+		'          MessageBox.Show("Please enter due date of invoice.")
+		'          txtDueDate.BackColor = Color.Yellow
+		'          txtDueDate.Focus()
+		'          Return False
+		'      End If
 
-        Return True ' all is well in the world
+		Return True ' all is well in the world
 
     End Function
 

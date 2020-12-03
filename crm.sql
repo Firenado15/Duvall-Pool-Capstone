@@ -191,9 +191,8 @@ CREATE TABLE TInvoices
 (
 	 intInvoiceID			INTEGER			NOT NULL
 	,intCustomerID			INTEGER			NOT NULL
-	,intJobID				INTEGER			NOT NULL
+	,intJobRecordID			INTEGER			NOT NULL
 	,dtDateDue				DATE			NOT NULL
-	,intPaymentTypeID		INTEGER			NOT NULL
 	,CONSTRAINT TInvoices_PK PRIMARY KEY ( intInvoiceID)
 )
 
@@ -340,7 +339,7 @@ CREATE TABLE TJobRecords
 -- 13	TJobEmployees					TEmployees					intEmployeeID
 -- 14	TJobServices					TServices					intServiceID
 -- 15	TInvoices						TCustomers					intCustomerID
--- 16	TInvoices						TJobs						intJobID
+-- 16	TInvoices						TJobRecords					intJobRecordID
 -- 17	TInvoices						TPaymentTypes				intPaymentTypeID
 -- 18	TCustomerPaymentTypes			TCustomers					intCustomerID
 -- 19	TCreditCards					TCreditCardTypes			intCreditCardTypeID
@@ -414,12 +413,12 @@ ALTER TABLE	TInvoices ADD CONSTRAINT TInvoices_TCustomers_FK
 FOREIGN KEY ( intCustomerID ) REFERENCES TCustomers ( intCustomerID )
 
 -- 16
-ALTER TABLE	TInvoices ADD CONSTRAINT TInvoices_TJobs_FK
-FOREIGN KEY ( intJobID ) REFERENCES TJobs ( intJobID )
+ALTER TABLE	TInvoices ADD CONSTRAINT TInvoices_TJobRecords_FK
+FOREIGN KEY ( intJobRecordID ) REFERENCES TJobRecords ( intJobRecordID )
 
--- 17
-ALTER TABLE	TInvoices ADD CONSTRAINT TInvoices_TPaymentTypes_FK
-FOREIGN KEY ( intPaymentTypeID ) REFERENCES TPaymentTypes ( intPaymentTypeID )
+---- 17
+--ALTER TABLE	TInvoices ADD CONSTRAINT TInvoices_TPaymentTypes_FK
+--FOREIGN KEY ( intPaymentTypeID ) REFERENCES TPaymentTypes ( intPaymentTypeID )
 
 -- 18
 ALTER TABLE TCustomerPaymentTypes ADD CONSTRAINT TCustomerPayments_TCustomers_FK
@@ -1090,9 +1089,9 @@ WHERE
 	TC.intCustomerID = TJ.intCustomerID
 GO
 
-SELECT * FROM vJobRecordCustomers ORDER BY FullName ASC
-SELECT * FROM vJobRecordNumber WHERE intCustomerID = 5 ORDER BY strJobNumber DESC 
-SELECT * FROM vJobRecords ORDER BY intJobRecordID DESC
+--SELECT * FROM vJobRecordCustomers ORDER BY FullName ASC
+--SELECT * FROM vJobRecordNumber WHERE intCustomerID = 5 ORDER BY strJobNumber DESC 
+--SELECT * FROM vJobRecords ORDER BY intJobRecordID DESC
 
 
 --SELECT * FROM vMonthlyFinances
@@ -1143,3 +1142,9 @@ SELECT * FROM vJobRecords ORDER BY intJobRecordID DESC
 
 
 --select * from TParts
+
+
+
+
+--insert into TInvoices VALUES (1,4,1, '1/1/1990')
+--select * from TInvoices

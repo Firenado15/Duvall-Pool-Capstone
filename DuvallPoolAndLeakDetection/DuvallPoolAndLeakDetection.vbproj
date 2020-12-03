@@ -94,6 +94,12 @@
     <Compile Include="frmAddFinances.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmAddJobRecords.Designer.vb">
+      <DependentUpon>frmAddJobRecords.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAddJobRecords.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmCustomerIntake.Designer.vb">
       <DependentUpon>frmCustomerIntake.vb</DependentUpon>
     </Compile>
@@ -197,6 +203,12 @@
     <Compile Include="frmViewFinances.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmViewJobRecords.Designer.vb">
+      <DependentUpon>frmViewJobRecords.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmViewJobRecords.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="modDuvallPoolAndLeakDetection.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -223,6 +235,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmAddFinances.resx">
       <DependentUpon>frmAddFinances.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAddJobRecords.resx">
+      <DependentUpon>frmAddJobRecords.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmCustomerIntake.resx">
       <DependentUpon>frmCustomerIntake.vb</DependentUpon>
@@ -274,6 +289,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmViewFinances.resx">
       <DependentUpon>frmViewFinances.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmViewJobRecords.resx">
+      <DependentUpon>frmViewJobRecords.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
