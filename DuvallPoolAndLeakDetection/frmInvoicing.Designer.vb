@@ -45,6 +45,7 @@ Partial Class frmInvoicing
 		Me.btnClose = New System.Windows.Forms.Button()
 		Me.btnSubmit = New System.Windows.Forms.Button()
 		Me.dtInvoiceDueDate = New System.Windows.Forms.DateTimePicker()
+		Me.lblFirstName = New System.Windows.Forms.Label()
 		Me.GroupBox1.SuspendLayout()
 		Me.GroupBox4.SuspendLayout()
 		Me.GroupBox5.SuspendLayout()
@@ -254,7 +255,7 @@ Partial Class frmInvoicing
 		'btnClose
 		'
 		Me.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel
-		Me.btnClose.Location = New System.Drawing.Point(445, 449)
+		Me.btnClose.Location = New System.Drawing.Point(445, 384)
 		Me.btnClose.Name = "btnClose"
 		Me.btnClose.Size = New System.Drawing.Size(109, 44)
 		Me.btnClose.TabIndex = 26
@@ -263,7 +264,7 @@ Partial Class frmInvoicing
 		'
 		'btnSubmit
 		'
-		Me.btnSubmit.Location = New System.Drawing.Point(560, 449)
+		Me.btnSubmit.Location = New System.Drawing.Point(560, 384)
 		Me.btnSubmit.Name = "btnSubmit"
 		Me.btnSubmit.Size = New System.Drawing.Size(109, 44)
 		Me.btnSubmit.TabIndex = 27
@@ -278,11 +279,20 @@ Partial Class frmInvoicing
 		Me.dtInvoiceDueDate.Size = New System.Drawing.Size(201, 20)
 		Me.dtInvoiceDueDate.TabIndex = 20
 		'
+		'lblFirstName
+		'
+		Me.lblFirstName.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+		Me.lblFirstName.Location = New System.Drawing.Point(27, 278)
+		Me.lblFirstName.Name = "lblFirstName"
+		Me.lblFirstName.Size = New System.Drawing.Size(395, 150)
+		Me.lblFirstName.TabIndex = 43
+		'
 		'frmInvoicing
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-		Me.ClientSize = New System.Drawing.Size(719, 523)
+		Me.ClientSize = New System.Drawing.Size(688, 450)
+		Me.Controls.Add(Me.lblFirstName)
 		Me.Controls.Add(Me.btnClose)
 		Me.Controls.Add(Me.btnSubmit)
 		Me.Controls.Add(Me.GroupBox5)
@@ -327,4 +337,5 @@ Partial Class frmInvoicing
 	Friend WithEvents Job As Label
 	Friend WithEvents Label2 As Label
 	Friend WithEvents dtInvoiceDueDate As DateTimePicker
+	Friend WithEvents lblFirstName As Label
 End Class
