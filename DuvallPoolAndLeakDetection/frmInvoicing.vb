@@ -137,7 +137,7 @@ Public Class frmInvoicing
 			cboCustomer.BeginUpdate()
 
 			'Create select
-			strSelect = "SELECT intCustomerID, ( strLastName + ', ' + strFirstName ) AS FullName FROM TCustomers ORDER BY FullName ASC"
+			strSelect = "SELECT intCustomerID, FullName FROM vCustomersWithJobs ORDER BY FullName ASC"
 
 			'Get records
 			cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
