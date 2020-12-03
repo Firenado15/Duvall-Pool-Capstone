@@ -1046,7 +1046,7 @@ SELECT
 	 distinct TC.intCustomerID
 	,TC.strFirstName 
 	,TC.strLastName
-	,TC.strFirstName + ', '+ TC.strLastName AS FullName
+	,TC.strLastName + ', '+ TC.strFirstName AS FullName
 FROM
 	TCustomers AS TC
 	,TJobRecords AS TJ
