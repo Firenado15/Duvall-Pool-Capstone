@@ -22,13 +22,6 @@ Public Class frmPreviousInvoices
 			Dim drSourceTable As OleDb.OleDbDataReader
 			Dim dt As DataTable = New DataTable
 
-			'Delete data from boxes
-			For Each cntrl As Control In Controls
-				If TypeOf cntrl Is TextBox Then
-					cntrl.Text = String.Empty
-				End If
-			Next
-
 			'Open DB
 			If OpenDatabaseConnectionSQLServer() = False Then
 
@@ -87,13 +80,6 @@ Public Class frmPreviousInvoices
 			Dim drSourceTable As OleDb.OleDbDataReader
 			Dim dt As DataTable = New DataTable
 
-			'Delete data from boxes
-			For Each cntrl As Control In Controls
-				If TypeOf cntrl Is TextBox Then
-					cntrl.Text = String.Empty
-				End If
-			Next
-
 			'Open DB
 			If OpenDatabaseConnectionSQLServer() = False Then
 
@@ -147,9 +133,13 @@ Public Class frmPreviousInvoices
 
 		Try
 
+			ResetCheckBoxes()
+
 			LoadInvoice()
 
 			LoadJobDates()
+
+			DetermineServices()
 
 		Catch ex As Exception
 
@@ -160,6 +150,18 @@ Public Class frmPreviousInvoices
 
 	End Sub
 
+	Private Sub ResetCheckBoxes()
+
+		chkInstallation.Checked = False
+		chkTesting.Checked = False
+		chkDetection.Checked = False
+		chkVacuumed.Checked = False
+		chkSkimmed.Checked = False
+		chkChemicals.Checked = False
+		chkFilter.Checked = False
+
+	End Sub
+
 	Private Sub LoadInvoice()
 
 		Dim strDate As String = ""
@@ -167,13 +169,6 @@ Public Class frmPreviousInvoices
 		Dim cmdSelect As OleDb.OleDbCommand
 		Dim drSourceTable As OleDb.OleDbDataReader
 		Dim dt As DataTable = New DataTable
-
-		'Delete data from boxes
-		For Each cntrl As Control In Controls
-			If TypeOf cntrl Is TextBox Then
-				cntrl.Text = String.Empty
-			End If
-		Next
 
 		'Open DB
 		If OpenDatabaseConnectionSQLServer() = False Then
@@ -187,8 +182,6 @@ Public Class frmPreviousInvoices
 
 		End If
 
-		cboInvoice.BeginUpdate()
-
 		'Create select
 		strSelect = "SELECT * FROM TInvoices WHERE intInvoiceID = " & cboInvoice.SelectedValue
 
@@ -199,9 +192,11 @@ Public Class frmPreviousInvoices
 		'load the data table from the reader
 		dt.Load(drSourceTable)
 
+		'load related job id
+		intJobRecordID = dt.Rows(0).Item(2)
+
 		'populate text boxes
 		lblDueDate.Text = dt.Rows(0).Item(3)
-
 
 		' close the database connection
 		CloseDatabaseConnection()
@@ -210,7 +205,98 @@ Public Class frmPreviousInvoices
 
 	Private Sub LoadJobDates()
 
+		Dim strDate As String = ""
+		Dim strSelect As String = ""
+		Dim cmdSelect As OleDb.OleDbCommand
+		Dim drSourceTable As OleDb.OleDbDataReader
+		Dim dt As DataTable = New DataTable
 
+		'Open DB
+		If OpenDatabaseConnectionSQLServer() = False Then
+
+			'If DB could not open
+			MessageBox.Show(Me, "Database connection error." & vbNewLine &
+							"The application will now close.",
+							Me.Text + " Error",
+							MessageBoxButtons.OK, MessageBoxIcon.Error)
+			Me.Close()
+
+		End If
+
+		'Create select
+		strSelect = "SELECT * FROM TJobRecords WHERE intJobRecordID = " & intJobRecordID
+
+		'Retrieve records 
+		cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
+		drSourceTable = cmdSelect.ExecuteReader
+
+		'load the data table from the reader
+		dt.Load(drSourceTable)
+
+		'populate text boxes
+		lblDateServiceStarted.Text = dt.Rows(0).Item(1)
+		lblDateServiceEnded.Text = dt.Rows(0).Item(2)
+
+		' close the database connection
+		CloseDatabaseConnection()
+
+	End Sub
+
+	Private Sub DetermineServices()
+
+		Dim intRowCount As Integer
+		Dim strSelect As String = ""
+		Dim cmdSelect As OleDb.OleDbCommand
+		Dim drSourceTable As OleDb.OleDbDataReader
+		Dim dt As DataTable = New DataTable
+
+		'Open DB
+		If OpenDatabaseConnectionSQLServer() = False Then
+
+			'If DB could not open
+			MessageBox.Show(Me, "Database connection error." & vbNewLine &
+							"The application will now close.",
+							Me.Text + " Error",
+							MessageBoxButtons.OK, MessageBoxIcon.Error)
+			Me.Close()
+
+		End If
+
+		'Create select
+		strSelect = "SELECT * FROM TJobServices WHERE intJobRecordID = " & intJobRecordID & " AND intInvoiceID = " & cboInvoice.SelectedValue
+
+		'Retrieve records 
+		cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
+		drSourceTable = cmdSelect.ExecuteReader
+
+		'load the data table from the reader
+		dt.Load(drSourceTable)
+
+		intRowCount = dt.Rows.Count
+
+		For intIndex As Integer = 0 To (intRowCount - 1)
+
+			'Check related check boxes
+			If dt.Rows(intIndex).Item(1) = 1 Then
+				chkInstallation.Checked = True
+			ElseIf dt.Rows(intIndex).Item(1) = 2 Then
+				chkTesting.Checked = True
+			ElseIf dt.Rows(intIndex).Item(1) = 3 Then
+				chkDetection.Checked = True
+			ElseIf dt.Rows(intIndex).Item(1) = 4 Then
+				chkVacuumed.Checked = True
+			ElseIf dt.Rows(intIndex).Item(1) = 5 Then
+				chkSkimmed.Checked = True
+			ElseIf dt.Rows(intIndex).Item(1) = 6 Then
+				chkChemicals.Checked = True
+			ElseIf dt.Rows(intIndex).Item(1) = 7 Then
+				chkFilter.Checked = True
+			End If
+
+		Next
+
+		' close the database connection
+		CloseDatabaseConnection()
 
 	End Sub
 
