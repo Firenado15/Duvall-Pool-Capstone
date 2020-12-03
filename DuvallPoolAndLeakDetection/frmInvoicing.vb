@@ -3,87 +3,28 @@
 ' Last modified by Matthew Estes
 
 Public Class frmInvoicing
-    Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
 
-        ' Close program
-        Close()
+	Dim intInvoiceNumber As Integer
+	Dim blnFirstService As Boolean = True
 
-    End Sub
-    
-    Private Sub btnSubmit_Click(sender As Object, e As EventArgs) Handles btnSubmit.Click
+	Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
+
+		' Close program
+		Close()
+
+	End Sub
+
+	Private Sub btnSubmit_Click(sender As Object, e As EventArgs) Handles btnSubmit.Click
 
 		Try
 
 			Validation()
 
-			'Variables
-			Dim strSelect As String = ""
-			Dim strInsert As String = ""
-			Dim strDate As String = ""
-			Dim cmdSelect As OleDb.OleDbCommand
-			Dim cmdInsert As OleDb.OleDbCommand
-			Dim drSourceTable As OleDb.OleDbDataReader
-			Dim intNextHighestRecordID As Integer
-			Dim intRowsAffected As Integer
+			InsertInvoice()
 
-			If Validation() = True Then
-
-				If OpenDatabaseConnectionSQLServer() = False Then
-
-					'Alert if no connection
-					MessageBox.Show(Me, "Database connection error." & vbNewLine &
-										"The application will now close.",
-										Me.Text + " Error",
-										MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-					'Close Form
-					Me.Close()
-
-				End If
-
-				strSelect = "SELECT MAX(intInvoiceID) + 1 AS intNextHighestRecordID FROM TInvoices"
-
-				'Execute
-				cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
-				drSourceTable = cmdSelect.ExecuteReader
-
-				'Read
-				drSourceTable.Read()
-
-				'Check for empty table
-				If drSourceTable.IsDBNull(0) = True Then
-
-					'Start at 1 for empty table
-					intNextHighestRecordID = 1
-
-				Else
-
-					'Not empty, add 1
-					intNextHighestRecordID = CInt(drSourceTable.Item(0))
-
-				End If
-
-				strDate = dtInvoiceDueDate.Value.Date.ToString()
-
-				'Create insert statement
-				strInsert = "Insert into TInvoices VALUES (" & intNextHighestRecordID &
-					", " & cboCustomer.SelectedValue &
-					", " & cboJob.SelectedValue &
-					", '" & strDate & "')"
+			InsertJobServices()
 
 
-				cmdInsert = New OleDb.OleDbCommand(strInsert, m_conAdministrator)
-
-				intRowsAffected = cmdInsert.ExecuteNonQuery()
-
-				If intRowsAffected > 0 Then
-					MessageBox.Show("Invoice has been added")
-					Me.Close()
-				End If
-
-				CloseDatabaseConnection()
-
-			End If
 
 		Catch ex As Exception
 			'unhandled exception
@@ -92,7 +33,7 @@ Public Class frmInvoicing
 
 	End Sub
 
-    Function Validation() As Boolean
+	Function Validation() As Boolean
 
 
 		'txtDateStarted.BackColor = Color.White
@@ -163,7 +104,7 @@ Public Class frmInvoicing
 
 		Return True ' all is well in the world
 
-    End Function
+	End Function
 
 	Private Sub frmInvoicing_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -335,6 +276,218 @@ Public Class frmInvoicing
 		lblJobDesc.Text = dt.Rows(0).Item(0).ToString
 
 		'close connection
+		CloseDatabaseConnection()
+
+	End Sub
+
+	Private Sub InsertInvoice()
+
+		'Variables
+		Dim strSelect As String = ""
+		Dim strInsert As String = ""
+		Dim strDate As String = ""
+		Dim cmdSelect As OleDb.OleDbCommand
+		Dim cmdInsert As OleDb.OleDbCommand
+		Dim drSourceTable As OleDb.OleDbDataReader
+		Dim intNextHighestRecordID As Integer
+		Dim intRowsAffected As Integer
+
+		If Validation() = True Then
+
+			If OpenDatabaseConnectionSQLServer() = False Then
+
+				'Alert if no connection
+				MessageBox.Show(Me, "Database connection error." & vbNewLine &
+									"The application will now close.",
+									Me.Text + " Error",
+									MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+				'Close Form
+				Me.Close()
+
+			End If
+
+			strSelect = "SELECT MAX(intInvoiceID) + 1 AS intNextHighestRecordID FROM TInvoices"
+
+			'Execute
+			cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
+			drSourceTable = cmdSelect.ExecuteReader
+
+			'Read
+			drSourceTable.Read()
+
+			'Check for empty table
+			If drSourceTable.IsDBNull(0) = True Then
+
+				'Start at 1 for empty table
+				intNextHighestRecordID = 1
+
+			Else
+
+				'Not empty, add 1
+				intNextHighestRecordID = CInt(drSourceTable.Item(0))
+
+			End If
+
+			strDate = dtInvoiceDueDate.Value.Date.ToString()
+
+			'Create insert statement
+			strInsert = "Insert into TInvoices VALUES (" & intNextHighestRecordID &
+				", " & cboCustomer.SelectedValue &
+				", " & cboJob.SelectedValue &
+				", '" & strDate & "')"
+
+
+			cmdInsert = New OleDb.OleDbCommand(strInsert, m_conAdministrator)
+
+			intRowsAffected = cmdInsert.ExecuteNonQuery()
+
+			If intRowsAffected > 0 Then
+				MessageBox.Show("Invoice has been added")
+				Me.Close()
+			End If
+
+			intInvoiceNumber = intNextHighestRecordID
+
+			CloseDatabaseConnection()
+
+		End If
+
+	End Sub
+
+	Private Sub InsertJobServices()
+
+		'Variables
+		Dim strSelect As String
+		Dim strInsert As String
+		Dim cmdSelect As OleDb.OleDbCommand
+		Dim cmdInsert As OleDb.OleDbCommand
+		Dim drSourceTable As OleDb.OleDbDataReader
+		Dim intNextHighestRecordID As Integer
+		Dim intRowsAffected As Integer
+
+		blnFirstService = True
+
+		If OpenDatabaseConnectionSQLServer() = False Then
+
+			'Alert if no connection
+			MessageBox.Show(Me, "Database connection error." & vbNewLine &
+										"The application will now close.",
+										Me.Text + " Error",
+										MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+			'Close Form
+			Me.Close()
+
+		End If
+
+		strSelect = "SELECT MAX(intJobServiceID) + 1 AS intNextHighestRecordID FROM TJobServices"
+
+		'Execute
+		cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
+		drSourceTable = cmdSelect.ExecuteReader
+
+		'Read
+		drSourceTable.Read()
+
+		'Check for empty table
+		If drSourceTable.IsDBNull(0) = True Then
+
+			'Start at 1 for empty table
+			intNextHighestRecordID = 1
+
+		Else
+
+			'Not empty, add 1
+			intNextHighestRecordID = CInt(drSourceTable.Item(0))
+
+		End If
+
+		'Create insert statement
+		strInsert = "Insert into TJobServices VALUES"
+
+		'Check Each check box for selection
+		If chkInstallation.Checked = True Then
+
+			strInsert = strInsert & " (" & intNextHighestRecordID & ", 1, " & cboJob.SelectedValue & ", " & intInvoiceNumber & ")"
+			intNextHighestRecordID += 1
+			blnFirstService = False
+
+		End If
+		If chkTesting.Checked = True Then
+
+			If blnFirstService = False Then
+				strInsert = strInsert & ","
+			End If
+			strInsert = strInsert & " (" & intNextHighestRecordID & ", 2, " & cboJob.SelectedValue & ", " & intInvoiceNumber & ")"
+			intNextHighestRecordID += 1
+			blnFirstService = False
+
+		End If
+		If chkDetection.Checked = True Then
+
+			If blnFirstService = False Then
+				strInsert = strInsert & ","
+
+			End If
+			strInsert = strInsert & " (" & intNextHighestRecordID & ", 3, " & cboJob.SelectedValue & ", " & intInvoiceNumber & ")"
+			intNextHighestRecordID += 1
+			blnFirstService = False
+
+		End If
+		If chkVacuumed.Checked = True Then
+
+			If blnFirstService = False Then
+				strInsert = strInsert & ","
+
+			End If
+			strInsert = strInsert & " (" & intNextHighestRecordID & ", 4, " & cboJob.SelectedValue & ", " & intInvoiceNumber & ")"
+			intNextHighestRecordID += 1
+			blnFirstService = False
+
+		End If
+		If chkSkimmed.Checked = True Then
+
+			If blnFirstService = False Then
+				strInsert = strInsert & ","
+
+			End If
+			strInsert = strInsert & " (" & intNextHighestRecordID & ", 5, " & cboJob.SelectedValue & ", " & intInvoiceNumber & ")"
+			intNextHighestRecordID += 1
+			blnFirstService = False
+
+		End If
+		If chkChemicals.Checked = True Then
+
+			If blnFirstService = False Then
+				strInsert = strInsert & ","
+
+			End If
+			strInsert = strInsert & " (" & intNextHighestRecordID & ", 6, " & cboJob.SelectedValue & ", " & intInvoiceNumber & ")"
+			intNextHighestRecordID += 1
+			blnFirstService = False
+
+		End If
+		If chkFilter.Checked = True Then
+
+			If blnFirstService = False Then
+				strInsert = strInsert & ","
+
+			End If
+			strInsert = strInsert & " (" & intNextHighestRecordID & ", 7, " & cboJob.SelectedValue & ", " & intInvoiceNumber & ")"
+			intNextHighestRecordID += 1
+
+		End If
+
+		cmdInsert = New OleDb.OleDbCommand(strInsert, m_conAdministrator)
+
+		intRowsAffected = cmdInsert.ExecuteNonQuery()
+
+		If intRowsAffected > 0 Then
+			MessageBox.Show("Job Services have been added")
+			Me.Close()
+		End If
+
 		CloseDatabaseConnection()
 
 	End Sub

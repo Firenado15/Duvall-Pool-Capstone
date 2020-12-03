@@ -46,6 +46,7 @@ Partial Class frmInvoicing
 		Me.btnClose = New System.Windows.Forms.Button()
 		Me.btnSubmit = New System.Windows.Forms.Button()
 		Me.lblJobDesc = New System.Windows.Forms.Label()
+		Me.Label3 = New System.Windows.Forms.Label()
 		Me.GroupBox1.SuspendLayout()
 		Me.GroupBox4.SuspendLayout()
 		Me.GroupBox5.SuspendLayout()
@@ -282,16 +283,26 @@ Partial Class frmInvoicing
 		'lblJobDesc
 		'
 		Me.lblJobDesc.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-		Me.lblJobDesc.Location = New System.Drawing.Point(27, 278)
+		Me.lblJobDesc.Location = New System.Drawing.Point(27, 293)
 		Me.lblJobDesc.Name = "lblJobDesc"
-		Me.lblJobDesc.Size = New System.Drawing.Size(395, 150)
+		Me.lblJobDesc.Size = New System.Drawing.Size(395, 135)
 		Me.lblJobDesc.TabIndex = 43
+		'
+		'Label3
+		'
+		Me.Label3.AutoSize = True
+		Me.Label3.Location = New System.Drawing.Point(24, 278)
+		Me.Label3.Name = "Label3"
+		Me.Label3.Size = New System.Drawing.Size(80, 13)
+		Me.Label3.TabIndex = 44
+		Me.Label3.Text = "Job Description"
 		'
 		'frmInvoicing
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
 		Me.ClientSize = New System.Drawing.Size(688, 450)
+		Me.Controls.Add(Me.Label3)
 		Me.Controls.Add(Me.lblJobDesc)
 		Me.Controls.Add(Me.btnClose)
 		Me.Controls.Add(Me.btnSubmit)
@@ -338,4 +349,5 @@ Partial Class frmInvoicing
 	Friend WithEvents Label2 As Label
 	Friend WithEvents dtInvoiceDueDate As DateTimePicker
 	Friend WithEvents lblJobDesc As Label
+	Friend WithEvents Label3 As Label
 End Class

@@ -13,8 +13,8 @@ IF OBJECT_ID( 'TCustomerPaymentTypes' )			IS NOT NULL DROP TABLE TCustomerPaymen
 IF OBJECT_ID( 'TCreditCards' )					IS NOT NULL DROP TABLE TCreditCards
 IF OBJECT_ID( 'TCreditCardTypes' )				IS NOT NULL DROP TABLE TCreditCardTypes
 IF OBJECT_ID( 'TCreditCardCompanies' )			IS NOT NULL DROP TABLE TCreditCardCompanies
-IF OBJECT_ID( 'TInvoices' )						IS NOT NULL DROP TABLE TInvoices
 IF OBJECT_ID( 'TJobServices' )					IS NOT NULL DROP TABLE TJobServices
+IF OBJECT_ID( 'TInvoices' )						IS NOT NULL DROP TABLE TInvoices
 IF OBJECT_ID( 'TJobEmployees' )					IS NOT NULL DROP TABLE TJobEmployees
 IF OBJECT_ID( 'TJobParts' )						IS NOT NULL DROP TABLE TJobParts
 IF OBJECT_ID( 'TParts' )						IS NOT NULL DROP TABLE TParts
@@ -87,7 +87,7 @@ CREATE TABLE TReviews
 (
 	 intReviewID			INTEGER			NOT NULL
 	,intCustomerID			INTEGER			NOT NULL
-	,intJobID				INTEGER			NOT NULL
+	,intJobRecordID			INTEGER			NOT NULL
 	,strReview				VARCHAR(500)	NOT NULL
 	,CONSTRAINT TReviews_PK PRIMARY KEY ( intReviewID )
 )
@@ -107,17 +107,6 @@ CREATE TABLE TStates
 	,CONSTRAINT TStates_PK PRIMARY KEY ( intStateID )
 )
 
-CREATE TABLE TJobs
-(
-	 intJobID			INTEGER			NOT NULL
-	,intCustomerID		INTEGER			NOT NULL
-	,strJobDesc			VARCHAR(500)	NOT NULL
-	,intNumEmployee		INTEGER			NOT NULL
-	,intDuration		INTEGER			NOT NULL
-	,intStatusID		INTEGER			NOT NULL
-	,dtDate				DATE			NOT NULL
-	,CONSTRAINT TJobs_PK PRIMARY KEY ( intJobID )
-)
 
 CREATE TABLE TParts
 (
@@ -143,7 +132,7 @@ CREATE TABLE TParts
 CREATE TABLE TJobParts
 (
 	 intJobPartID			INTEGER			NOT NULL
-	,intJobID				INTEGER			NOT NULL
+	,intJobRecordID			INTEGER			NOT NULL
 	,intPartID				INTEGER			NOT NULL
 	,intPartQuantity		INTEGER			NOT NULL
 	,CONSTRAINT TJobParts_PK PRIMARY KEY ( intJobPartID )
@@ -152,7 +141,7 @@ CREATE TABLE TJobParts
 CREATE TABLE TJobEmployees
 (
 	 intJobEmployeeID		INTEGER			NOT NULL
-	,intJobID				INTEGER			NOT NULL
+	,intJobRecordID			INTEGER			NOT NULL
 	,intEmployeeID			INTEGER			NOT NULL
 	,CONSTRAINT TJobEmployees_PK PRIMARY KEY ( intJobEmployeeID )
 )
@@ -176,7 +165,8 @@ CREATE TABLE TJobServices
 (
 	 intJobServiceID		INTEGER			NOT NULL
 	,intServiceID			INTEGER			NOT NULL
-	,intJobID				INTEGER			NOT NULL
+	,intJobRecordID			INTEGER			NOT NULL
+	,intInvoiceID			INTEGER			NOT NULL
 	,CONSTRAINT	TJobServices_PK PRIMARY KEY ( intJobServiceID )
 )
 
@@ -331,11 +321,11 @@ CREATE TABLE TJobRecords
 -- 5	TJobs							TCustomers					intCustomerID
 -- 6    TJobs							TStatuses					intStatusID
 -- 7	TReviews						TCustomers					intCustomerID
--- 8	TReviews						TJobs						intJobID
+-- 8	TReviews						TJobs						intJobRecordID
 -- 9	TParts							TVendors					intVendorID
--- 10	TJobParts						TJobs						intJobID
+-- 10	TJobParts						TJobs						intJobRecordID
 -- 11	TJobParts						TParts						intPartID
--- 12	TJobEmployees					TJobs						intJobID
+-- 12	TJobEmployees					TJobs						intJobRecordID
 -- 13	TJobEmployees					TEmployees					intEmployeeID
 -- 14	TJobServices					TServices					intServiceID
 -- 15	TInvoices						TCustomers					intCustomerID
@@ -351,6 +341,7 @@ CREATE TABLE TJobRecords
 -- 25	TFinances						TYears						intYearID
 -- 26	TJobRecords						TCustomers					intCustomerID
 -- 27	TJobRecords						TStatuses					intStatusID
+-- 28	TJobServices					TInvoices					intInvoiceID
 
 -- 1
 ALTER TABLE TCustomers ADD CONSTRAINT TCustomers_TStates_FK
@@ -368,13 +359,13 @@ FOREIGN KEY ( intStateID ) REFERENCES TStates ( intStateID )
 --ALTER TABLE TVendors ADD CONSTRAINT TVendors_TCities_FK
 --FOREIGN KEY ( intCityID ) REFERENCES TCities ( intCityID )
 
--- 5
-ALTER TABLE TJobs ADD CONSTRAINT TJobs_TCustomers_FK
-FOREIGN KEY ( intCustomerID ) REFERENCES TCustomers ( intCustomerID )
+---- 5
+--ALTER TABLE TJobs ADD CONSTRAINT TJobs_TCustomers_FK
+--FOREIGN KEY ( intCustomerID ) REFERENCES TCustomers ( intCustomerID )
 
--- 6
-ALTER TABLE TJobs ADD CONSTRAINT TJobs_TStatuses_FK
-FOREIGN KEY ( intStatusID ) REFERENCES TStatuses ( intStatusID )
+---- 6
+--ALTER TABLE TJobs ADD CONSTRAINT TJobs_TStatuses_FK
+--FOREIGN KEY ( intStatusID ) REFERENCES TStatuses ( intStatusID )
 
 -- 7
 ALTER TABLE TReviews ADD CONSTRAINT TReviews_TCustomers_FK
@@ -382,7 +373,7 @@ FOREIGN KEY ( intCustomerID ) REFERENCES TCustomers ( intCustomerID )
 
 -- 8
 ALTER TABLE TReviews ADD CONSTRAINT TReviews_TJobs_FK
-FOREIGN KEY ( intJobID ) REFERENCES TJobs ( intJobID )
+FOREIGN KEY ( intJobRecordID ) REFERENCES TJobRecords ( intJobRecordID )
 
 -- 9
 ALTER TABLE TParts ADD CONSTRAINT TParts_TVendors_FK
@@ -390,7 +381,7 @@ FOREIGN KEY ( intVendorID ) REFERENCES TVendors ( intVendorID )
 
 -- 10
 ALTER TABLE TJobParts ADD CONSTRAINT TJobParts_TJobs_FK
-FOREIGN KEY ( intJobID ) REFERENCES TJobs ( intJobID )
+FOREIGN KEY ( intJobRecordID ) REFERENCES TJobRecords ( intJobRecordID )
 
 -- 11
 ALTER TABLE TJobParts ADD CONSTRAINT TJobParts_TParts_FK
@@ -398,7 +389,7 @@ FOREIGN KEY ( intPartID ) REFERENCES TParts ( intPartID )
 
 -- 12
 ALTER TABLE TJobEmployees ADD CONSTRAINT TJobEmployees_TJobs_FK
-FOREIGN KEY ( intJobID ) REFERENCES TJobs ( intJobID )
+FOREIGN KEY ( intJobRecordID ) REFERENCES TJobRecords ( intJobRecordID )
 
 -- 13
 ALTER TABLE TJobEmployees ADD CONSTRAINT TJobEmployees_TEmployees_FK
@@ -459,6 +450,11 @@ FOREIGN KEY ( intCustomerID ) REFERENCES TCustomers ( intCustomerID )
 -- 27
 ALTER TABLE TJobRecords ADD CONSTRAINT TJobRecords_TStatuses_FK
 FOREIGN KEY ( intStatusID ) REFERENCES TStatuses ( intStatusID )
+
+-- 28
+ALTER TABLE TJobServices ADD CONSTRAINT TJobServices_TInvoices_FK
+FOREIGN KEY ( intInvoiceID ) REFERENCES TInvoices ( intInvoiceID )
+
 
 ---- --------------------------------------------------------------------------------
 ---- Add Necessary Data
@@ -827,10 +823,19 @@ INSERT INTO TFinances VALUES
 (22, 10, 2, 4636.15, 491.64, 1208.84, 427.62, 416.35, 182.52, 1463.85, 796.23, 52.13, 10528.63),
 (23, 11, 2, 3512.73, 294.42, 1208.84, 321.54, 86.34, 103.92, 1463.85, 824.47, 24.80, 8182.83)
 
-INSERT INTO TStatuses values 
+INSERT INTO TStatuses VALUES 
 (1, 'Scheduled'),
 (2, 'In Progress'),
 (3, 'Completed')
+
+INSERT INTO TServices VALUES
+ (1, 'Liner Installation')
+,(2, 'Water Testing')
+,(3, 'Leak Detection')
+,(4, 'Vacuuming')
+,(5, 'Skimming')
+,(6, 'Chemicals Added')
+,(7, 'Filter Backwashed')
 
 INSERT INTO TJobRecords VALUES
 -- StartDate, EndDate, Employees, EmployeeNames, Description, Status, CustomerID, JobNumber
