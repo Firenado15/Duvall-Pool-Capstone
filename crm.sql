@@ -51,7 +51,6 @@ IF OBJECT_ID( 'vJobRecords' )					IS NOT NULL DROP VIEW vJobRecords
 IF OBJECT_ID( 'vJobRecordNumber' )				IS NOT NULL DROP VIEW vJobRecordNumber
 IF OBJECT_ID( 'vJobRecordsSearch' )				IS NOT NULL DROP VIEW vJobRecordsSearch
 IF OBJECT_ID( 'vCustomersWithInvoices' )		IS NOT NULL DROP VIEW vCustomersWithInvoices
-IF OBJECT_ID( 'vCustomersWithJobs' )			IS NOT NULL DROP VIEW vCustomersWithJobs
 
 
 -- --------------------------------------------------------------------------------
@@ -1102,7 +1101,7 @@ GO
 CREATE VIEW vCustomersWithInvoices
 AS
 SELECT 
-		TC.intCustomerID
+		distinct TC.intCustomerID
 		,(tc.strLastName + ', ' + tc.strFirstName) AS FullName 
 FROM
 	 TCustomers AS TC	
@@ -1116,22 +1115,6 @@ WHERE TI.intCustomerID = TC.intCustomerID
 GO
 
 
-
-CREATE VIEW vCustomersWithJobs
-AS
-SELECT 
-		TC.intCustomerID
-		,(tc.strLastName + ', ' + tc.strFirstName) AS FullName 
-FROM
-	 TCustomers AS TC	
-	,TJobRecords AS TJ
-WHERE TJ.intCustomerID = TC.intCustomerID
-	AND EXISTS ( 
-				select * from TCustomers
-				LEFT JOIN TJobRecords on TCustomers.intCustomerID = TJobRecords.intCustomerID
-				WHERE TJobRecords.intCustomerID IS NOT NULL
-				)
-GO
 
 --SELECT * FROM vJobRecordCustomers ORDER BY FullName ASC
 --SELECT * FROM vJobRecordNumber WHERE intCustomerID = 5 ORDER BY strJobNumber DESC 

@@ -345,9 +345,9 @@ Partial Class frmPreviousInvoices
 		Me.Label38.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
 		Me.Label38.Location = New System.Drawing.Point(15, 27)
 		Me.Label38.Name = "Label38"
-		Me.Label38.Size = New System.Drawing.Size(152, 17)
+		Me.Label38.Size = New System.Drawing.Size(68, 17)
 		Me.Label38.TabIndex = 37
-		Me.Label38.Text = "Last Name, First Name"
+		Me.Label38.Text = "Customer"
 		'
 		'frmPreviousInvoices
 		'
