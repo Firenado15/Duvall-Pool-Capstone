@@ -297,5 +297,45 @@ Public Class frmInvoicing
 
 	End Sub
 
+	Private Sub cboJob_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboJob.SelectedIndexChanged
 
+		Dim strSelect As String = ""
+		Dim strName As String = ""
+		Dim cmdSelect As OleDb.OleDbCommand 'Select
+		Dim drSourceTable As OleDb.OleDbDataReader 'retrieved data
+		Dim dt As DataTable = New DataTable 'reader
+
+		'open the database
+		If OpenDatabaseConnectionSQLServer() = False Then
+
+
+			' No connection error
+			MessageBox.Show(Me, "Database connection error." & vbNewLine &
+								"The application will now close.",
+								Me.Text + " Error",
+								MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+			'close the form
+			Me.Close()
+
+		End If
+
+		'Select statement
+		strSelect = "SELECT strJobDesc FROM TJobRecords WHERE intJobRecordID = " & cboJob.SelectedValue.ToString
+
+
+		'Retrieve records 
+		cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
+		drSourceTable = cmdSelect.ExecuteReader
+
+		'load the data table from the reader
+		dt.Load(drSourceTable)
+
+		'populate text boxes
+		lblJobDesc.Text = dt.Rows(0).Item(0).ToString
+
+		'close connection
+		CloseDatabaseConnection()
+
+	End Sub
 End Class
