@@ -184,6 +184,14 @@ CREATE TABLE TInvoices
 	,intCustomerID			INTEGER			NOT NULL
 	,intJobRecordID			INTEGER			NOT NULL
 	,dtDateDue				DATE			NOT NULL
+	,CIN AS CASE len(intInvoiceID)
+		when 1 then 'CIN-'+'00000'+CONVERT(varchar, intInvoiceID)
+		when 2 then 'CIN-'+'0000'+CONVERT(varchar, intInvoiceID)
+		when 3 then 'CIN-'+'000'+CONVERT(varchar, intInvoiceID)
+		when 4 then 'CIN-'+'00'+CONVERT(varchar, intInvoiceID)
+		when 5 then 'CIN-'+'0'+CONVERT(varchar, intInvoiceID)
+		else'CIN-'+CONVERT(varchar, intInvoiceID)
+		end
 	,CONSTRAINT TInvoices_PK PRIMARY KEY ( intInvoiceID)
 )
 

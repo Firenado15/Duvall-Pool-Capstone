@@ -24,7 +24,7 @@ Public Class frmInvoicing
 
 			InsertJobServices()
 
-
+			MessageBox.Show("Invoice has been added")
 
 		Catch ex As Exception
 			'unhandled exception
@@ -342,14 +342,11 @@ Public Class frmInvoicing
 
 			intRowsAffected = cmdInsert.ExecuteNonQuery()
 
-			If intRowsAffected > 0 Then
-				MessageBox.Show("Invoice has been added")
-				Me.Close()
-			End If
-
 			intInvoiceNumber = intNextHighestRecordID
 
 			CloseDatabaseConnection()
+
+			Me.Close()
 
 		End If
 
@@ -483,12 +480,9 @@ Public Class frmInvoicing
 
 		intRowsAffected = cmdInsert.ExecuteNonQuery()
 
-		If intRowsAffected > 0 Then
-			MessageBox.Show("Job Services have been added")
-			Me.Close()
-		End If
-
 		CloseDatabaseConnection()
+
+		Me.Close()
 
 	End Sub
 End Class
