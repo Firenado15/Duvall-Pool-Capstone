@@ -1,4 +1,4 @@
-﻿' Edit job Records form
+﻿' View job Records form
 ' Last Updated: 12/1/2020
 ' Last modified by Matthew Estes
 
@@ -381,6 +381,22 @@ Public Class frmViewJobRecords
 
 		'close connection
 		CloseDatabaseConnection()
+
+	End Sub
+
+
+
+	' Load new page to update records
+	Private Sub btnEditJobRecord_Click(sender As Object, e As EventArgs) Handles btnEditJobRecord.Click
+
+		' create a new instance of the edit job records form
+		Dim EditJobRecords As New frmEditJobRecords
+
+		' show the new form so any past data is not still on the form
+		EditJobRecords.ShowDialog()
+
+		'Reload job records info after update
+		cboName_SelectedIndexChanged(sender, e)
 
 	End Sub
 End Class

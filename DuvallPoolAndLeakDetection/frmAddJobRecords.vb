@@ -78,24 +78,16 @@
 	' Validation
 	Function Validation() As Boolean
 
-		txtJobNumber.BackColor = Color.White
+		' Declare variables
+		Dim intEmployees As Integer = 0
+		Dim intEmployeeNames As Integer = 0
+
+		' Reset backcolor
 		txtStartDate.BackColor = Color.White
 		txtEndDate.BackColor = Color.White
 		txtNumberEmployees.BackColor = Color.White
 		txtEmployeeNames.BackColor = Color.White
 		txtJobDescription.BackColor = Color.White
-
-		' check if something is entered in Job Number  text box
-		If txtJobNumber.Text <> String.Empty And IsNumeric(txtJobNumber.Text) Then
-
-		Else
-			' text box is blank so tell user to enter job number, change back color to yellow,
-			' put focus in text box and return false we don't want to continue
-			MessageBox.Show("Please enter job number.")
-			txtJobNumber.BackColor = Color.Yellow
-			txtJobNumber.Focus()
-			Return False
-		End If
 
 		' check if something is entered in date started text box
 		If txtStartDate.Text <> String.Empty And IsDate(txtStartDate.Text) Then
@@ -123,7 +115,7 @@
 
 		' check if something is entered in number of employees text box
 		If txtNumberEmployees.Text <> String.Empty And IsNumeric(txtNumberEmployees.Text) Then
-
+			intEmployees = txtNumberEmployees.Text
 		Else
 			' text box is blank so tell user to enter number of employees, change back color to yellow,
 			' put focus in text box and return false we don't want to continue
@@ -145,6 +137,17 @@
 			Return False
 		End If
 
+		' Check if there is the correct number of employees entered
+		intEmployeeNames = CountEmployees(txtEmployeeNames.Text)
+		If intEmployeeNames <> intEmployees Then
+
+			' Tell user to enter correct amount of names
+			' put focus in text box and return false we don't want to continue
+			MessageBox.Show("Please enter employee names. Format is First Last, First Last, First Last, ...")
+			txtEmployeeNames.BackColor = Color.Yellow
+			txtEmployeeNames.Focus()
+			Return False
+		End If
 
 		' check if something is entered in description text box
 		If txtJobDescription.Text <> String.Empty Then
@@ -182,11 +185,127 @@
 	' Attempts to enter information into database
 	Private Sub btnSubmit_Click(sender As Object, e As EventArgs) Handles btnSubmit.Click
 
-		If Validation() = True Then
+		' Declare Variables
+		Dim strSelect As String
+		Dim strInsert As String
+		Dim strStartDate As String = ""
+		Dim strEndDate As String = ""
+		Dim intNumberEmployees As Integer = 0
+		Dim strEmployeeNames As String = ""
+		Dim strJobDescription As String = ""
+		Dim strJobNumber As String = ""
+		Dim intStatusID As Integer = 0
+		Dim cmdSelect As OleDb.OleDbCommand
+		Dim cmdInsert As OleDb.OleDbCommand
+		Dim drSourceTable As OleDb.OleDbDataReader
+		Dim cmdSelect2 As OleDb.OleDbCommand
+		Dim drSourceTable2 As OleDb.OleDbDataReader
+		Dim intNextHighestRecordID As Integer
+		Dim intRowsAffected As Integer
 
-			MessageBox.Show("Validate works")
+		Try
+			' Try to validate info
+			If Validation() = True Then
 
-		End If
+				' Set values
+				strStartDate = txtStartDate.Text
+				strEndDate = txtEndDate.Text
+				intNumberEmployees = txtNumberEmployees.Text
+				strEmployeeNames = txtEmployeeNames.Text
+				strJobDescription = txtJobDescription.Text
+
+				' Set status ID
+				If radScheduled.Checked Then
+
+					intStatusID = 1
+				ElseIf radInProgress.Checked Then
+
+					intStatusID = 2
+				ElseIf radCompleted.Checked Then
+
+					intStatusID = 3
+				End If
+
+				' Connect to database
+				If OpenDatabaseConnectionSQLServer() = False Then
+
+					'Alert if no connection
+					MessageBox.Show(Me, "Database connection error." & vbNewLine &
+										"The application will now close.",
+										Me.Text + " Error",
+										MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+					'Close Form
+					Me.Close()
+
+				End If
+
+				' Build the select statement
+				strSelect = "SELECT MAX(intJobRecordID) + 1 AS intNextHighestRecordID " &
+							" FROM TJobRecords"
+
+				'Execute
+				cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
+				drSourceTable = cmdSelect.ExecuteReader
+
+				'Read
+				drSourceTable.Read()
+
+				'Check for empty table
+				If drSourceTable.IsDBNull(0) = True Then
+
+					'Start at 1 for empty table
+					intNextHighestRecordID = 1
+
+				Else
+
+					'Not empty, add 1 to next line
+					intNextHighestRecordID = CInt(drSourceTable.Item(0))
+
+				End If
+
+				' Close the reader
+				drSourceTable.Close()
+
+				'Create insert statement
+				strInsert = "Insert into TJobRecords (intJobRecordID, dtStartDate, dtEndDate, intEmployees, strEmployeeNames, strJobDesc, intStatusID, intCustomerID)" &
+					" Values (" & intNextHighestRecordID & ", '" & strStartDate & "', '" & strEndDate & "', " & intNumberEmployees & ", '" & strEmployeeNames &
+					"', '" & strJobDescription & "', " & intStatusID & ", " & cboName.SelectedValue & ")"
+
+				cmdInsert = New OleDb.OleDbCommand(strInsert, m_conAdministrator)
+
+				intRowsAffected = cmdInsert.ExecuteNonQuery()
+
+				' Build the select statement
+				strSelect = "SELECT MAX(JobNumber) AS strJobNumber " &
+							" FROM TJobRecords"
+
+				'Execute
+				cmdSelect2 = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
+				drSourceTable2 = cmdSelect2.ExecuteReader
+
+				'Read
+				drSourceTable2.Read()
+
+				' Get Job Number
+				strJobNumber = drSourceTable2.Item(0)
+
+				' Close the reader
+				drSourceTable2.Close()
+
+				If intRowsAffected > 0 Then
+					MessageBox.Show("Job record has been added. Job number is " & strJobNumber)
+					Me.Close()
+				End If
+
+				CloseDatabaseConnection()
+
+			End If
+
+		Catch ex As Exception
+			'unhandled exception
+			MessageBox.Show(ex.Message)
+		End Try
 
 	End Sub
 
@@ -245,7 +364,7 @@
 		Try
 
 			'initiante search
-			ComboBoxSearch()
+			ComboBoxNameSearch()
 
 		Catch ex As Exception
 
@@ -267,7 +386,7 @@
 				Try
 
 					'initiante search
-					ComboBoxSearch()
+					ComboBoxNameSearch()
 
 				Catch ex As Exception
 
@@ -283,7 +402,7 @@
 
 
 	' Combo search
-	Private Sub ComboBoxSearch()
+	Private Sub ComboBoxNameSearch()
 
 		Dim strSelect As String = ""
 		Dim cmdSelect As OleDb.OleDbCommand
@@ -312,8 +431,8 @@
 		cboName.BeginUpdate()
 
 		'Create select
-		strSelect = "SELECT intCustomerID, ( strLastName + ', ' + strFirstName ) AS FullName FROM TCustomers WHERE ( strLastName + ', ' + strFirstName ) LIKE '%" & cboName.Text &
-			"%' OR (strFirstName + ' ' + strLastName) like '%" & cboName.Text & "%' ORDER BY FullName ASC"
+		strSelect = "SELECT * FROM  vJobRecordsSearch WHERE ( strLastName + ', ' + strFirstName ) LIKE '%" & cboName.Text &
+			"%' OR (strFirstName + ' ' + strLastName) like '%" & cboName.Text & "%' ORDER BY strLastName ASC"
 
 		'Get records
 		cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
@@ -341,4 +460,56 @@
 
 	End Sub
 
+
+	' Count Employees
+	Function CountEmployees(strEmployeeNames As String) As Integer
+
+		' Declare variables
+		Dim intEmployeeNames As Integer = 0
+		Dim intLength As Integer = 0
+		Dim intIndex As Integer = 0
+		Dim intCount As Integer = 0
+
+		' Get length of string
+		intLength = strEmployeeNames.Length
+
+		' Loop to find all strings
+		Do
+			' Look for first user
+			If intCount = 0 And strEmployeeNames.Chars(intIndex) <> "," And strEmployeeNames.Chars(intIndex) <> " " Then
+
+				' Count first person
+				intEmployeeNames += 1
+				intCount = 1
+
+			ElseIf strEmployeeNames.Chars(intIndex) = "," And intCount = 1 Then
+
+				' Increase count
+				intCount = 2
+
+			ElseIf intCount = 2 And strEmployeeNames.Chars(intIndex) <> "," And strEmployeeNames.Chars(intIndex) <> " " Then
+
+				' Add one to employee name count
+				intEmployeeNames += 1
+
+				' Reset count
+				intCount = 1
+			End If
+
+			' Increase index
+			intIndex += 1
+		Loop While intIndex < intLength
+
+		Return intEmployeeNames
+	End Function
+
+	Private Sub btnEditJobRecord_Click(sender As Object, e As EventArgs) Handles btnEditJobRecord.Click
+
+		' create a new instance of the edit job records form
+		Dim EditJobRecords As New frmEditJobRecords
+
+		' show the new form so any past data is not still on the form
+		EditJobRecords.ShowDialog()
+
+	End Sub
 End Class
