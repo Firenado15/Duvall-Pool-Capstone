@@ -38,7 +38,6 @@ IF OBJECT_ID( 'TYears' )						IS NOT NULL DROP TABLE TYears
 -- --------------------------------------------------------------------------------
 -- Drop Views
 -- --------------------------------------------------------------------------------
-
 IF OBJECT_ID( 'vCustomers' )					IS NOT NULL DROP VIEW vCustomers
 IF OBJECT_ID( 'VParts' )						IS NOT NULL DROP VIEW vParts
 IF OBJECT_ID( 'vBankAccount' )					IS NOT NULL DROP VIEW vBankAccount
@@ -51,6 +50,9 @@ IF OBJECT_ID( 'vJobRecords' )					IS NOT NULL DROP VIEW vJobRecords
 IF OBJECT_ID( 'vJobRecordNumber' )				IS NOT NULL DROP VIEW vJobRecordNumber
 IF OBJECT_ID( 'vJobRecordsSearch' )				IS NOT NULL DROP VIEW vJobRecordsSearch
 IF OBJECT_ID( 'vCustomersWithInvoices' )		IS NOT NULL DROP VIEW vCustomersWithInvoices
+IF OBJECT_ID( 'vJobRecordStatus' )				IS NOT NULL DROP VIEW vJobRecordStatus
+IF OBJECT_ID( 'vJobAndCustomerInfo' )			IS NOT NULL DROP VIEW vJobAndCustomerInfo
+
 
 
 -- --------------------------------------------------------------------------------
@@ -1123,6 +1125,50 @@ WHERE TI.intCustomerID = TC.intCustomerID
 GO
 
 
+CREATE VIEW vJobRecordStatus
+AS
+SELECT
+	 TJ.intJobRecordID
+	,TJ.intCustomerID
+	,TJ.JobNumber
+	,TJ.dtStartDate
+	,TJ.dtEndDate
+	,Tj.intEmployees
+	,TJ.strEmployeeNames
+	,TJ.strJobDesc
+	,TS.strStatus
+FROM
+	TCustomers AS TC
+	,TJobRecords AS TJ
+	,TStatuses AS TS
+WHERE
+	TC.intCustomerID = TJ.intCustomerID
+	AND TJ.intStatusID = TS.intStatusID
+GO
+
+
+CREATE VIEW vJobAndCustomerInfo
+AS
+SELECT
+	 TJ.JobNumber
+	,(TC.strFirstName + TC.strLastName) AS Name
+	,TJ.dtStartDate
+	,TJ.dtEndDate
+	,Tj.intEmployees
+	,TJ.strEmployeeNames
+	,TJ.strJobDesc
+	,TS.strStatus
+FROM
+	 TCustomers AS TC
+	,TJobRecords AS TJ
+	,TStatuses AS TS
+WHERE
+	TC.intCustomerID = TJ.intCustomerID
+	AND TJ.intStatusID = TS.intStatusID
+GO
+
+
+--Select * from vJobRecordStatus
 
 --SELECT * FROM vJobRecordCustomers ORDER BY FullName ASC
 --SELECT * FROM vJobRecordNumber WHERE intCustomerID = 5 ORDER BY strJobNumber DESC 

@@ -86,3 +86,7 @@ C:\Users\admin\Documents\GitHub\Duvall-Pool-Capstone\DuvallPoolAndLeakDetection\
 C:\Users\admin\Documents\GitHub\Duvall-Pool-Capstone\DuvallPoolAndLeakDetection\obj\Debug\DuvallPoolAndLeakDetection.frmAddFinances.resources
 C:\Users\admin\Documents\GitHub\Duvall-Pool-Capstone\DuvallPoolAndLeakDetection\obj\Debug\DuvallPoolAndLeakDetection.frmAddJobRecords.resources
 C:\Users\admin\Documents\GitHub\Duvall-Pool-Capstone\DuvallPoolAndLeakDetection\obj\Debug\DuvallPoolAndLeakDetection.frmViewJobRecords.resources
+C:\Users\admin\Downloads\capst\Duvall-Pool-Capstone-main\DuvallPoolAndLeakDetection\obj\Debug\DuvallPoolAndLeakDetection.frmAddFinances.resources
+C:\Users\admin\Downloads\capst\Duvall-Pool-Capstone-main\DuvallPoolAndLeakDetection\obj\Debug\DuvallPoolAndLeakDetection.frmAddJobRecords.resources
+C:\Users\admin\Downloads\capst\Duvall-Pool-Capstone-main\DuvallPoolAndLeakDetection\obj\Debug\DuvallPoolAndLeakDetection.frmViewJobRecords.resources
+C:\Users\admin\Downloads\capst\Duvall-Pool-Capstone-main\DuvallPoolAndLeakDetection\obj\Debug\DuvallPoolAndLeakDetection.frmJobDetails.resources

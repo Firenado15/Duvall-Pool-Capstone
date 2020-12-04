@@ -214,6 +214,7 @@ Public Class frmViewJobRecords
 
 		' Load jobs combo box
 		LoadJobsCombobox(cboName.SelectedValue)
+
 	End Sub
 
 

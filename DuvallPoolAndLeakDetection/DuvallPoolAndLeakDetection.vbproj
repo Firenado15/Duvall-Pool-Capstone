@@ -76,6 +76,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="frmJobDetails.Designer.vb">
+      <DependentUpon>frmJobDetails.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmJobDetails.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmAddBankAccount.Designer.vb">
       <DependentUpon>frmAddBankAccount.vb</DependentUpon>
     </Compile>
@@ -227,6 +233,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="frmJobDetails.resx">
+      <DependentUpon>frmJobDetails.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmAddBankAccount.resx">
       <DependentUpon>frmAddBankAccount.vb</DependentUpon>
     </EmbeddedResource>
