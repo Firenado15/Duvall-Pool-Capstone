@@ -17,57 +17,64 @@ Public Class frmPreviousInvoices
 
 		Try
 
-			Dim strSelect As String = ""
-			Dim cmdSelect As OleDb.OleDbCommand
-			Dim drSourceTable As OleDb.OleDbDataReader
-			Dim dt As DataTable = New DataTable
+			LoadCustomers()
 
-			'Open DB
-			If OpenDatabaseConnectionSQLServer() = False Then
-
-				'If DB could not open
-				MessageBox.Show(Me, "Database connection error." & vbNewLine &
-								"The application will now close.",
-								Me.Text + " Error",
-								MessageBoxButtons.OK, MessageBoxIcon.Error)
-				Me.Close()
-
-			End If
-
-			cboName.BeginUpdate()
-
-			'Create select
-			strSelect = "SELECT * FROM vCustomersWithInvoices ORDER BY FullName ASC"
-
-			'Get records
-			cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
-			drSourceTable = cmdSelect.ExecuteReader
-
-			'Load Table
-			dt.Load(drSourceTable)
-
-			' Add items to combo box
-			cboName.ValueMember = "intCustomerID"
-			cboName.DisplayMember = "FullName"
-			cboName.DataSource = dt
-
-			' Select the first item in the list by default
-			If cboName.Items.Count > 0 Then cboName.SelectedIndex = 0
-
-			' Show changes
-			cboName.EndUpdate()
-
-			' Clean up
-			drSourceTable.Close()
-
-			' close the database connection
-			CloseDatabaseConnection()
 		Catch ex As Exception
 
 			'Unhandled Exception
 			MessageBox.Show(ex.Message)
 
 		End Try
+
+	End Sub
+
+	Private Sub LoadCustomers()
+
+		Dim strSelect As String = ""
+		Dim cmdSelect As OleDb.OleDbCommand
+		Dim drSourceTable As OleDb.OleDbDataReader
+		Dim dt As DataTable = New DataTable
+
+		'Open DB
+		If OpenDatabaseConnectionSQLServer() = False Then
+
+			'If DB could not open
+			MessageBox.Show(Me, "Database connection error." & vbNewLine &
+							"The application will now close.",
+							Me.Text + " Error",
+							MessageBoxButtons.OK, MessageBoxIcon.Error)
+			Me.Close()
+
+		End If
+
+		cboName.BeginUpdate()
+
+		'Create select
+		strSelect = "SELECT * FROM vCustomersWithInvoices ORDER BY FullName ASC"
+
+		'Get records
+		cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
+		drSourceTable = cmdSelect.ExecuteReader
+
+		'Load Table
+		dt.Load(drSourceTable)
+
+		' Add items to combo box
+		cboName.ValueMember = "intCustomerID"
+		cboName.DisplayMember = "FullName"
+		cboName.DataSource = dt
+
+		' Select the first item in the list by default
+		If cboName.Items.Count > 0 Then cboName.SelectedIndex = 0
+
+		' Show changes
+		cboName.EndUpdate()
+
+		' Clean up
+		drSourceTable.Close()
+
+		' close the database connection
+		CloseDatabaseConnection()
 
 	End Sub
 
