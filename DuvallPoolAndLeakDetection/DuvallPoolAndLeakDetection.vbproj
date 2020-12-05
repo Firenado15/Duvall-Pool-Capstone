@@ -136,10 +136,10 @@
     <Compile Include="frmInventoryManagement.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmInvoicing.Designer.vb">
-      <DependentUpon>frmInvoicing.vb</DependentUpon>
+    <Compile Include="frmAddInvoice.Designer.vb">
+      <DependentUpon>frmAddInvoice.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmInvoicing.vb">
+    <Compile Include="frmAddInvoice.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmLogin.vb">
@@ -263,8 +263,8 @@
     <EmbeddedResource Include="frmInventoryManagement.resx">
       <DependentUpon>frmInventoryManagement.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmInvoicing.resx">
-      <DependentUpon>frmInvoicing.vb</DependentUpon>
+    <EmbeddedResource Include="frmAddInvoice.resx">
+      <DependentUpon>frmAddInvoice.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmLogin.resx">
       <DependentUpon>frmLogin.vb</DependentUpon>

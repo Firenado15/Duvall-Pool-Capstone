@@ -20,7 +20,7 @@ Public Class frmViewJobRecords
 		Try
 
 			' Load names combo box
-			LoadNamesCombobox()
+			ComboBoxNameSearch()
 
 		Catch ex As Exception
 
@@ -30,144 +30,77 @@ Public Class frmViewJobRecords
 		End Try
 	End Sub
 
+	'' Runs when name is changed
+	'Private Sub LoadJobsCombobox(intCustomerID As Integer)
 
-	' Runs when form loads, loads in name combo box
-	Private Sub LoadNamesCombobox()
+	'	Try
 
-		Try
+	'		Dim strSelect As String = ""
+	'		Dim cmdSelect As OleDb.OleDbCommand
+	'		Dim drSourceTable As OleDb.OleDbDataReader
+	'		Dim dt As DataTable = New DataTable
 
-			Dim strSelect As String = ""
-			Dim cmdSelect As OleDb.OleDbCommand
-			Dim drSourceTable As OleDb.OleDbDataReader
-			Dim dt As DataTable = New DataTable
+	'		'Delete data from boxes
+	'		For Each cntrl As Control In Controls
+	'			If TypeOf cntrl Is TextBox Then
+	'				cntrl.Text = String.Empty
+	'			End If
+	'		Next
 
-			'Delete data from boxes
-			For Each cntrl As Control In Controls
-				If TypeOf cntrl Is TextBox Then
-					cntrl.Text = String.Empty
-				End If
-			Next
+	'		'Open DB
+	'		If OpenDatabaseConnectionSQLServer() = False Then
 
-			'Open DB
-			If OpenDatabaseConnectionSQLServer() = False Then
+	'			'If DB could not open
+	'			MessageBox.Show(Me, "Database connection error." & vbNewLine &
+	'								"The application will now close.",
+	'								Me.Text + " Error",
+	'								MessageBoxButtons.OK, MessageBoxIcon.Error)
+	'			Me.Close()
 
-				'If DB could not open
-				MessageBox.Show(Me, "Database connection error." & vbNewLine &
-									"The application will now close.",
-									Me.Text + " Error",
-									MessageBoxButtons.OK, MessageBoxIcon.Error)
-				Me.Close()
+	'		End If
 
-			End If
+	'		cboJobNumber.BeginUpdate()
 
-			cboName.BeginUpdate()
+	'		'Create select
+	'		strSelect = "SELECT * FROM vJobRecordNumber WHERE intCustomerID = " & intCustomerID & " ORDER BY intJobRecordID DESC"
 
-			'Create select
-			strSelect = "SELECT * FROM vJobRecordCustomers ORDER BY FullName ASC"
+	'		'Get records
+	'		cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
+	'		drSourceTable = cmdSelect.ExecuteReader
 
-			'Get records
-			cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
-			drSourceTable = cmdSelect.ExecuteReader
+	'		'Load Table
+	'		dt.Load(drSourceTable)
 
-			'Load Table
-			dt.Load(drSourceTable)
+	'		' Add items to combo box
+	'		cboJobNumber.ValueMember = "intJobRecordID"
+	'		cboJobNumber.DisplayMember = "strJobNumber"
+	'		cboJobNumber.DataSource = dt
 
-			' Add items to combo box
-			cboName.ValueMember = "intCustomerID"
-			cboName.DisplayMember = "FullName"
-			cboName.DataSource = dt
+	'		' Select the first item in the list by default
+	'		If cboJobNumber.Items.Count > 0 Then cboJobNumber.SelectedIndex = 0
 
-			' Select the first item in the list by default
-			If cboName.Items.Count > 0 Then cboName.SelectedIndex = 0
+	'		' Show changes
+	'		cboJobNumber.EndUpdate()
 
-			' Show changes
-			cboName.EndUpdate()
+	'		' Clean up
+	'		drSourceTable.Close()
 
-			' Clean up
-			drSourceTable.Close()
+	'		' close the database connection
+	'		CloseDatabaseConnection()
 
-			' close the database connection
-			CloseDatabaseConnection()
+	'	Catch ex As Exception
 
-			' Load jobs combo box
-		Catch ex As Exception
+	'		'Unhandled Exception
+	'		MessageBox.Show(ex.Message)
 
-			'Unhandled Exception
-			MessageBox.Show(ex.Message)
-
-		End Try
-	End Sub
-
-
-	' Runs when name is changed
-	Private Sub LoadJobsCombobox(intCustomerID As Integer)
-
-		Try
-
-			Dim strSelect As String = ""
-			Dim cmdSelect As OleDb.OleDbCommand
-			Dim drSourceTable As OleDb.OleDbDataReader
-			Dim dt As DataTable = New DataTable
-
-			'Delete data from boxes
-			For Each cntrl As Control In Controls
-				If TypeOf cntrl Is TextBox Then
-					cntrl.Text = String.Empty
-				End If
-			Next
-
-			'Open DB
-			If OpenDatabaseConnectionSQLServer() = False Then
-
-				'If DB could not open
-				MessageBox.Show(Me, "Database connection error." & vbNewLine &
-									"The application will now close.",
-									Me.Text + " Error",
-									MessageBoxButtons.OK, MessageBoxIcon.Error)
-				Me.Close()
-
-			End If
-
-			cboJobNumber.BeginUpdate()
-
-			'Create select
-			strSelect = "SELECT * FROM vJobRecordNumber WHERE intCustomerID = " & intCustomerID & " ORDER BY intJobRecordID DESC"
-
-			'Get records
-			cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
-			drSourceTable = cmdSelect.ExecuteReader
-
-			'Load Table
-			dt.Load(drSourceTable)
-
-			' Add items to combo box
-			cboJobNumber.ValueMember = "intJobRecordID"
-			cboJobNumber.DisplayMember = "strJobNumber"
-			cboJobNumber.DataSource = dt
-
-			' Select the first item in the list by default
-			If cboJobNumber.Items.Count > 0 Then cboJobNumber.SelectedIndex = 0
-
-			' Show changes
-			cboJobNumber.EndUpdate()
-
-			' Clean up
-			drSourceTable.Close()
-
-			' close the database connection
-			CloseDatabaseConnection()
-
-		Catch ex As Exception
-
-			'Unhandled Exception
-			MessageBox.Show(ex.Message)
-
-		End Try
-	End Sub
+	'	End Try
+	'End Sub
 
 
 	' Update name
 	Private Sub cboName_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboName.SelectedIndexChanged
+
+		LoadJobList()
 
 		Dim strSelect As String = ""
 		Dim strName As String = ""
@@ -213,7 +146,7 @@ Public Class frmViewJobRecords
 		CloseDatabaseConnection()
 
 		' Load jobs combo box
-		LoadJobsCombobox(cboName.SelectedValue)
+		'LoadJobsCombobox(cboName.SelectedValue)
 
 	End Sub
 
@@ -322,82 +255,133 @@ Public Class frmViewJobRecords
 
 
 	' Update name
-	Private Sub cboJobNumber_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboJobNumber.SelectedIndexChanged
+	'Private Sub cboJobNumber_SelectedIndexChanged(sender As Object, e As EventArgs)
+
+	'	Dim strSelect As String = ""
+	'	Dim strName As String = ""
+	'	Dim intStatus As Integer = 0
+	'	Dim cmdSelect As OleDb.OleDbCommand 'Select
+	'	Dim drSourceTable As OleDb.OleDbDataReader 'retrieved data
+	'	Dim dt As DataTable = New DataTable 'reader
+
+	'	'open the database
+	'	If OpenDatabaseConnectionSQLServer() = False Then
+
+
+	'		' No connection error
+	'		MessageBox.Show(Me, "Database connection error." & vbNewLine &
+	'							"The application will now close.",
+	'							Me.Text + " Error",
+	'							MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+	'		'close the form
+	'		Me.Close()
+
+	'	End If
+
+	'	'Select statement
+	'	strSelect = "SELECT * FROM vJobRecords WHERE intJobRecordID = " & cboJobNumber.SelectedValue.ToString
+
+
+	'	'Retrieve records 
+	'	cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
+	'	drSourceTable = cmdSelect.ExecuteReader
+
+	'	'load the data table from the reader
+	'	dt.Load(drSourceTable)
+
+	'	'populate text boxes
+	'	lblStartDate.Text = dt.Rows(0).Item(2).ToString
+	'	lblEndDate.Text = dt.Rows(0).Item(3).ToString
+	'	lblNumberOfEmployees.Text = dt.Rows(0).Item(4).ToString
+	'	lblEmployeeNames.Text = dt.Rows(0).Item(5).ToString
+	'	lblDescription.Text = dt.Rows(0).Item(6).ToString
+	'	intStatus = dt.Rows(0).Item(7)
+
+	'	If intStatus = 1 Then
+
+	'		radScheduled.Checked = True
+
+	'	ElseIf intStatus = 2 Then
+
+	'		radInProgress.Checked = True
+
+	'	ElseIf intStatus = 3 Then
+
+	'		radCompleted.Checked = True
+
+	'	End If
+
+
+	'	'close connection
+	'	CloseDatabaseConnection()
+
+	'End Sub
+
+	Private Sub LoadJobList()
 
 		Dim strSelect As String = ""
-		Dim strName As String = ""
-		Dim intStatus As Integer = 0
-		Dim cmdSelect As OleDb.OleDbCommand 'Select
-		Dim drSourceTable As OleDb.OleDbDataReader 'retrieved data
-		Dim dt As DataTable = New DataTable 'reader
+		Dim cmdSelect As OleDb.OleDbCommand
+		Dim drSourceTable As OleDb.OleDbDataReader
+		Dim dt As DataTable = New DataTable
 
-		'open the database
+
+		'Open DB
 		If OpenDatabaseConnectionSQLServer() = False Then
 
-
-			' No connection error
+			'If DB could not open
 			MessageBox.Show(Me, "Database connection error." & vbNewLine &
-								"The application will now close.",
-								Me.Text + " Error",
-								MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-			'close the form
+									"The application will now close.",
+									Me.Text + " Error",
+									MessageBoxButtons.OK, MessageBoxIcon.Error)
 			Me.Close()
 
 		End If
 
-		'Select statement
-		strSelect = "SELECT * FROM vJobRecords WHERE intJobRecordID = " & cboJobNumber.SelectedValue.ToString
+		'Create select
+		strSelect = "SELECT JobNumber, strJobDesc AS Description, dtStartDate AS StartDate, dtendDate AS EndDate FROM vJobRecordStatus WHERE intCustomerID = " & cboName.SelectedValue & " ORDER BY intJobRecordID DESC"
 
 
-		'Retrieve records 
+
+
+		'lblNumberOfEmployees.Text = dt.Rows(0).Item(4).ToString
+		'lblEmployeeNames.Text = dt.Rows(0).Item(5).ToString
+		'intStatus = dt.Rows(0).Item(7)
+
+		'Get records
 		cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
 		drSourceTable = cmdSelect.ExecuteReader
 
-		'load the data table from the reader
+		'Load Table
 		dt.Load(drSourceTable)
 
-		'populate text boxes
-		lblStartDate.Text = dt.Rows(0).Item(2).ToString
-		lblEndDate.Text = dt.Rows(0).Item(3).ToString
-		lblNumberOfEmployees.Text = dt.Rows(0).Item(4).ToString
-		lblEmployeeNames.Text = dt.Rows(0).Item(5).ToString
-		lblDescription.Text = dt.Rows(0).Item(6).ToString
-		intStatus = dt.Rows(0).Item(7)
-
-		If intStatus = 1 Then
-
-			radScheduled.Checked = True
-
-		ElseIf intStatus = 2 Then
-
-			radInProgress.Checked = True
-
-		ElseIf intStatus = 3 Then
-
-			radCompleted.Checked = True
-
-		End If
+		dgvJobs.DataSource = dt
 
 
-		'close connection
+		' Clean up
+		drSourceTable.Close()
+
+		' close the database connection
 		CloseDatabaseConnection()
+
+
+
 
 	End Sub
 
+	Private Sub dgvJobs_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvJobs.CellDoubleClick
 
 
-	' Load new page to update records
-	Private Sub btnEditJobRecord_Click(sender As Object, e As EventArgs) Handles btnEditJobRecord.Click
+		'Check to make sure it is not a DBNull value
+		If IsDBNull(dgvJobs.CurrentRow.Cells(0).Value) = False Then
 
-		' create a new instance of the edit job records form
-		Dim EditJobRecords As New frmEditJobRecords
+			' create a new instance of the job information form, passing current job ID
+			Dim EditJob As New frmEditJobRecords(dgvJobs.CurrentRow.Cells(0).Value)
 
-		' show the new form so any past data is not still on the form
-		EditJobRecords.ShowDialog()
+			' show the new form so any past data is not still on the form
+			EditJob.ShowDialog()
 
-		'Reload job records info after update
-		cboName_SelectedIndexChanged(sender, e)
+		End If
 
 	End Sub
 End Class

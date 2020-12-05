@@ -29,7 +29,6 @@ C:\Users\admin\Downloads\capst\Duvall-Pool-Capstone-main\DuvallPoolAndLeakDetect
 C:\Users\admin\Downloads\capst\Duvall-Pool-Capstone-main\DuvallPoolAndLeakDetection\obj\Debug\DuvallPoolAndLeakDetection.frmEditFinances.resources
 C:\Users\admin\Downloads\capst\Duvall-Pool-Capstone-main\DuvallPoolAndLeakDetection\obj\Debug\DuvallPoolAndLeakDetection.frmEditJobRecords.resources
 C:\Users\admin\Downloads\capst\Duvall-Pool-Capstone-main\DuvallPoolAndLeakDetection\obj\Debug\DuvallPoolAndLeakDetection.frmInventoryManagement.resources
-C:\Users\admin\Downloads\capst\Duvall-Pool-Capstone-main\DuvallPoolAndLeakDetection\obj\Debug\DuvallPoolAndLeakDetection.frmInvoicing.resources
 C:\Users\admin\Downloads\capst\Duvall-Pool-Capstone-main\DuvallPoolAndLeakDetection\obj\Debug\DuvallPoolAndLeakDetection.frmLogin.resources
 C:\Users\admin\Downloads\capst\Duvall-Pool-Capstone-main\DuvallPoolAndLeakDetection\obj\Debug\DuvallPoolAndLeakDetection.frmOptions.resources
 C:\Users\admin\Downloads\capst\Duvall-Pool-Capstone-main\DuvallPoolAndLeakDetection\obj\Debug\DuvallPoolAndLeakDetection.frmPartsOrdering.resources
@@ -90,4 +89,4 @@ C:\Users\admin\Downloads\capst\Duvall-Pool-Capstone-main\DuvallPoolAndLeakDetect
 C:\Users\admin\Downloads\capst\Duvall-Pool-Capstone-main\DuvallPoolAndLeakDetection\obj\Debug\DuvallPoolAndLeakDetection.frmAddJobRecords.resources
 C:\Users\admin\Downloads\capst\Duvall-Pool-Capstone-main\DuvallPoolAndLeakDetection\obj\Debug\DuvallPoolAndLeakDetection.frmViewJobRecords.resources
 C:\Users\admin\Downloads\capst\Duvall-Pool-Capstone-main\DuvallPoolAndLeakDetection\obj\Debug\DuvallPoolAndLeakDetection.frmJobDetails.resources
-C:\Users\admin\Documents\GitHub\Duvall-Pool-Capstone\DuvallPoolAndLeakDetection\obj\Debug\DuvallPoolAndLeakDetection.frmJobDetails.resources
+C:\Users\admin\Downloads\capst\Duvall-Pool-Capstone-main\DuvallPoolAndLeakDetection\obj\Debug\DuvallPoolAndLeakDetection.frmAddInvoice.resources

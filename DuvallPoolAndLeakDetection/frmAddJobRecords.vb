@@ -83,35 +83,35 @@
 		Dim intEmployeeNames As Integer = 0
 
 		' Reset backcolor
-		txtStartDate.BackColor = Color.White
-		txtEndDate.BackColor = Color.White
+		'txtStartDate.BackColor = Color.White
+		'txtEndDate.BackColor = Color.White
 		txtNumberEmployees.BackColor = Color.White
 		txtEmployeeNames.BackColor = Color.White
 		txtJobDescription.BackColor = Color.White
 
-		' check if something is entered in date started text box
-		If txtStartDate.Text <> String.Empty And IsDate(txtStartDate.Text) Then
+		'' check if something is entered in date started text box
+		'If txtStartDate.Text <> String.Empty And IsDate(txtStartDate.Text) Then
 
-		Else
-			' text box is blank so tell user to enter date started, change back color to yellow,
-			' put focus in text box and return false we don't want to continue
-			MessageBox.Show("Please enter start date.")
-			txtStartDate.BackColor = Color.Yellow
-			txtStartDate.Focus()
-			Return False
-		End If
+		'Else
+		'	' text box is blank so tell user to enter date started, change back color to yellow,
+		'	' put focus in text box and return false we don't want to continue
+		'	MessageBox.Show("Please enter start date.")
+		'	txtStartDate.BackColor = Color.Yellow
+		'	txtStartDate.Focus()
+		'	Return False
+		'End If
 
-		' check if something is entered in date ended text box
-		If txtEndDate.Text <> String.Empty And IsDate(txtEndDate.Text) Then
+		'' check if something is entered in date ended text box
+		'If txtEndDate.Text <> String.Empty And IsDate(txtEndDate.Text) Then
 
-		Else
-			' text box is blank so tell user to enter date ended, change back color to yellow,
-			' put focus in text box and return false we don't want to continue
-			MessageBox.Show("Please enter end date.")
-			txtEndDate.BackColor = Color.Yellow
-			txtEndDate.Focus()
-			Return False
-		End If
+		'Else
+		'	' text box is blank so tell user to enter date ended, change back color to yellow,
+		'	' put focus in text box and return false we don't want to continue
+		'	MessageBox.Show("Please enter end date.")
+		'	txtEndDate.BackColor = Color.Yellow
+		'	txtEndDate.Focus()
+		'	Return False
+		'End If
 
 		' check if something is entered in number of employees text box
 		If txtNumberEmployees.Text <> String.Empty And IsNumeric(txtNumberEmployees.Text) Then
@@ -208,8 +208,8 @@
 			If Validation() = True Then
 
 				' Set values
-				strStartDate = txtStartDate.Text
-				strEndDate = txtEndDate.Text
+				strStartDate = dtStartDate.Value.Date.ToString()
+				strEndDate = dtEndDate.Value.Date.ToString()
 				intNumberEmployees = txtNumberEmployees.Text
 				strEmployeeNames = txtEmployeeNames.Text
 				strJobDescription = txtJobDescription.Text
@@ -503,13 +503,5 @@
 		Return intEmployeeNames
 	End Function
 
-	Private Sub btnEditJobRecord_Click(sender As Object, e As EventArgs) Handles btnEditJobRecord.Click
 
-		' create a new instance of the edit job records form
-		Dim EditJobRecords As New frmEditJobRecords
-
-		' show the new form so any past data is not still on the form
-		EditJobRecords.ShowDialog()
-
-	End Sub
 End Class

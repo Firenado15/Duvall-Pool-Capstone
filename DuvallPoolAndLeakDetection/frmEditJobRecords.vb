@@ -5,6 +5,18 @@
 
 Public Class frmEditJobRecords
 
+	Dim receiveJobNumber As String
+	Dim intJobID As Integer
+
+	Public Sub New(ByVal passedJobNumber As String)
+
+		'Receive current intCustomerID from whichever form called this one
+		InitializeComponent()
+		receiveJobNumber = passedJobNumber
+
+	End Sub
+
+
 	' Close form
 	Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
 
@@ -21,7 +33,7 @@ Public Class frmEditJobRecords
 		Try
 
 			' Load names combo box
-			LoadNamesCombobox()
+			LoadJobInfo()
 
 		Catch ex As Exception
 
@@ -34,10 +46,10 @@ Public Class frmEditJobRecords
 
 
 	' Runs when form loads, loads in name combo box
-	Private Sub LoadNamesCombobox()
+	Private Sub LoadJobInfo()
 
 		Try
-
+			Dim intStatus As Integer
 			Dim strSelect As String = ""
 			Dim cmdSelect As OleDb.OleDbCommand
 			Dim drSourceTable As OleDb.OleDbDataReader
@@ -62,10 +74,8 @@ Public Class frmEditJobRecords
 
 			End If
 
-			cboName.BeginUpdate()
-
 			'Create select
-			strSelect = "SELECT * FROM vJobRecordCustomers ORDER BY FullName ASC"
+			strSelect = "SELECT * FROM TJobRecords WHERE JobNumber = '" & receiveJobNumber & "'"
 
 			'Get records
 			cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
@@ -74,16 +84,24 @@ Public Class frmEditJobRecords
 			'Load Table
 			dt.Load(drSourceTable)
 
-			' Add items to combo box
-			cboName.ValueMember = "intCustomerID"
-			cboName.DisplayMember = "FullName"
-			cboName.DataSource = dt
+			' Add items
+			'intJobID = dt.Rows(0).Item(0)
+			lblJobNumber.Text = dt.Rows(0).Item(8).ToString
+			dtStartDate.Value = dt.Rows(0).Item(1).ToString
+			dtEndDate.Value = dt.Rows(0).Item(2).ToString
+			txtNumberEmployees.Text = dt.Rows(0).Item(3).ToString
+			txtEmployeeNames.Text = dt.Rows(0).Item(4).ToString
+			txtJobDescription.Text = dt.Rows(0).Item(5).ToString
+			intStatus = dt.Rows(0).Item(6)
 
-			' Select the first item in the list by default
-			If cboName.Items.Count > 0 Then cboName.SelectedIndex = 0
-
-			' Show changes
-			cboName.EndUpdate()
+			'Set Progress
+			If intStatus = 1 Then
+				radScheduled.Checked = True
+			ElseIf intStatus = 2 Then
+				radInProgress.Checked = True
+			ElseIf intStatus = 3 Then
+				radCompleted.Checked = True
+			End If
 
 			' Clean up
 			drSourceTable.Close()
@@ -99,299 +117,6 @@ Public Class frmEditJobRecords
 
 		End Try
 	End Sub
-
-
-
-	' Runs when name is changed
-	Private Sub LoadJobsCombobox(intCustomerID As Integer)
-
-		Try
-
-			Dim strSelect As String = ""
-			Dim cmdSelect As OleDb.OleDbCommand
-			Dim drSourceTable As OleDb.OleDbDataReader
-			Dim dt As DataTable = New DataTable
-
-			'Delete data from boxes
-			For Each cntrl As Control In Controls
-				If TypeOf cntrl Is TextBox Then
-					cntrl.Text = String.Empty
-				End If
-			Next
-
-			'Open DB
-			If OpenDatabaseConnectionSQLServer() = False Then
-
-				'If DB could not open
-				MessageBox.Show(Me, "Database connection error." & vbNewLine &
-									"The application will now close.",
-									Me.Text + " Error",
-									MessageBoxButtons.OK, MessageBoxIcon.Error)
-				Me.Close()
-
-			End If
-
-			cboJobNumber.BeginUpdate()
-
-			'Create select
-			strSelect = "SELECT * FROM vJobRecordNumber WHERE intCustomerID = " & intCustomerID & " ORDER BY intJobRecordID DESC"
-
-			'Get records
-			cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
-			drSourceTable = cmdSelect.ExecuteReader
-
-			'Load Table
-			dt.Load(drSourceTable)
-
-			' Add items to combo box
-			cboJobNumber.ValueMember = "intJobRecordID"
-			cboJobNumber.DisplayMember = "strJobNumber"
-			cboJobNumber.DataSource = dt
-
-			' Select the first item in the list by default
-			If cboJobNumber.Items.Count > 0 Then cboJobNumber.SelectedIndex = 0
-
-			' Show changes
-			cboJobNumber.EndUpdate()
-
-			' Clean up
-			drSourceTable.Close()
-
-			' close the database connection
-			CloseDatabaseConnection()
-
-		Catch ex As Exception
-
-			'Unhandled Exception
-			MessageBox.Show(ex.Message)
-
-		End Try
-	End Sub
-
-
-
-	' Update name
-	Private Sub cboName_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboName.SelectedIndexChanged
-
-		Dim strSelect As String = ""
-		Dim strName As String = ""
-		Dim cmdSelect As OleDb.OleDbCommand 'Select
-		Dim drSourceTable As OleDb.OleDbDataReader 'retrieved data
-		Dim dt As DataTable = New DataTable 'reader
-
-		'open the database
-		If OpenDatabaseConnectionSQLServer() = False Then
-
-
-			' No connection error
-			MessageBox.Show(Me, "Database connection error." & vbNewLine &
-								"The application will now close.",
-								Me.Text + " Error",
-								MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-			'close the form
-			Me.Close()
-
-		End If
-
-		'Select statement
-		strSelect = "SELECT * FROM vCustomers WHERE intCustomerID = " & cboName.SelectedValue.ToString
-
-
-		'Retrieve records 
-		cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
-		drSourceTable = cmdSelect.ExecuteReader
-
-		'load the data table from the reader
-		dt.Load(drSourceTable)
-
-		'populate text boxes
-		lblAddress.Text = dt.Rows(0).Item(3).ToString
-		lblCity.Text = dt.Rows(0).Item(4).ToString
-		lblState.Text = dt.Rows(0).Item(5).ToString
-		lblZip.Text = dt.Rows(0).Item(6).ToString
-		lblPhone.Text = dt.Rows(0).Item(7).ToString
-		lblEmail.Text = dt.Rows(0).Item(8).ToString
-
-		'close connection
-		CloseDatabaseConnection()
-
-		' Load jobs combo box
-		LoadJobsCombobox(cboName.SelectedValue)
-	End Sub
-
-
-	' Click search for customer name
-	Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnNameSearch.Click
-
-		Try
-
-			'initiante search
-			ComboBoxNameSearch()
-
-		Catch ex As Exception
-
-			'Unhandled Exception
-			MessageBox.Show(ex.Message)
-
-		End Try
-	End Sub
-
-
-
-	' Search for customer name
-	Private Sub cboName_KeyPress(sender As Object, e As KeyPressEventArgs) Handles cboName.KeyPress
-
-		'If keypress return
-		Dim tb As ComboBox = CType(sender, ComboBox)
-		If Char.IsControl(e.KeyChar) Then
-			If e.KeyChar.Equals(Chr(Keys.Return)) Then
-
-				Try
-
-					'initiante search
-					ComboBoxNameSearch()
-
-				Catch ex As Exception
-
-					'Unhandled Exception
-					MessageBox.Show(ex.Message)
-
-				End Try
-
-			End If
-		End If
-
-	End Sub
-
-
-
-	' Combo search
-	Private Sub ComboBoxNameSearch()
-
-		Dim strSelect As String = ""
-		Dim cmdSelect As OleDb.OleDbCommand
-		Dim drSourceTable As OleDb.OleDbDataReader
-		Dim dt As DataTable = New DataTable
-
-		'Delete data from boxes
-		For Each cntrl As Control In Controls
-			If TypeOf cntrl Is TextBox Then
-				cntrl.Text = String.Empty
-			End If
-		Next
-
-		'Open DB
-		If OpenDatabaseConnectionSQLServer() = False Then
-
-			'If DB could not open
-			MessageBox.Show(Me, "Database connection error." & vbNewLine &
-								"The application will now close.",
-								Me.Text + " Error",
-								MessageBoxButtons.OK, MessageBoxIcon.Error)
-			Me.Close()
-
-		End If
-
-		cboName.BeginUpdate()
-
-		'Create select
-		strSelect = "SELECT * FROM  vJobRecordsSearch WHERE ( strLastName + ', ' + strFirstName ) LIKE '%" & cboName.Text &
-			"%' OR (strFirstName + ' ' + strLastName) like '%" & cboName.Text & "%' ORDER BY strLastName ASC"
-
-		'Get records
-		cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
-		drSourceTable = cmdSelect.ExecuteReader
-
-		'Load Table
-		dt.Load(drSourceTable)
-
-		' Add items to combo box
-		cboName.ValueMember = "intCustomerID"
-		cboName.DisplayMember = "FullName"
-		cboName.DataSource = dt
-
-		' Select the first item in the list by default
-		If cboName.Items.Count > 0 Then cboName.SelectedIndex = 0
-
-		' Show changes
-		cboName.EndUpdate()
-
-		' Clean up
-		drSourceTable.Close()
-
-		' close the database connection
-		CloseDatabaseConnection()
-
-	End Sub
-
-
-
-	' Update name
-	Private Sub cboJobNumber_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboJobNumber.SelectedIndexChanged
-
-		Dim strSelect As String = ""
-		Dim strName As String = ""
-		Dim intStatus As Integer = 0
-		Dim cmdSelect As OleDb.OleDbCommand 'Select
-		Dim drSourceTable As OleDb.OleDbDataReader 'retrieved data
-		Dim dt As DataTable = New DataTable 'reader
-
-		'open the database
-		If OpenDatabaseConnectionSQLServer() = False Then
-
-
-			' No connection error
-			MessageBox.Show(Me, "Database connection error." & vbNewLine &
-								"The application will now close.",
-								Me.Text + " Error",
-								MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-			'close the form
-			Me.Close()
-
-		End If
-
-		'Select statement
-		strSelect = "SELECT * FROM vJobRecords WHERE intJobRecordID = " & cboJobNumber.SelectedValue.ToString
-
-
-		'Retrieve records 
-		cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
-		drSourceTable = cmdSelect.ExecuteReader
-
-		'load the data table from the reader
-		dt.Load(drSourceTable)
-
-		'populate text boxes
-		txtStartDate.Text = dt.Rows(0).Item(2).ToString
-		txtEndDate.Text = dt.Rows(0).Item(3).ToString
-		txtNumberEmployees.Text = dt.Rows(0).Item(4).ToString
-		txtEmployeeNames.Text = dt.Rows(0).Item(5).ToString
-		txtJobDescription.Text = dt.Rows(0).Item(6).ToString
-		intStatus = dt.Rows(0).Item(7)
-
-		If intStatus = 1 Then
-
-			radScheduled.Checked = True
-
-		ElseIf intStatus = 2 Then
-
-			radInProgress.Checked = True
-
-		ElseIf intStatus = 3 Then
-
-			radCompleted.Checked = True
-
-		End If
-
-
-		'close connection
-		CloseDatabaseConnection()
-
-	End Sub
-
-
 
 	' Update job record
 	Private Sub btnSubmit_Click(sender As Object, e As EventArgs) Handles btnSubmit.Click
@@ -414,21 +139,18 @@ Public Class frmEditJobRecords
 			If Validation() = True Then
 
 				' Set values
-				strStartDate = txtStartDate.Text
-				strEndDate = txtEndDate.Text
+				strStartDate = dtStartDate.Value.Date.ToString()
+				strEndDate = dtEndDate.Value.Date.ToString()
 				intNumberEmployees = txtNumberEmployees.Text
 				strEmployeeNames = txtEmployeeNames.Text
 				strJobDescription = txtJobDescription.Text
 
 				' Set status ID
 				If radScheduled.Checked Then
-
 					intStatusID = 1
 				ElseIf radInProgress.Checked Then
-
 					intStatusID = 2
 				ElseIf radCompleted.Checked Then
-
 					intStatusID = 3
 				End If
 
@@ -454,7 +176,7 @@ Public Class frmEditJobRecords
 						"strEmployeeNames = '" & strEmployeeNames & "', " &
 						"strJobDesc = '" & strJobDescription & "', " &
 						"intStatusID = " & intStatusID &
-					" WHERE intJobRecordID = " & cboJobNumber.SelectedValue
+					" WHERE JobNumber = " & lblJobNumber.Text
 
 				cmdUpdate = New OleDb.OleDbCommand(strupdate, m_conAdministrator)
 
@@ -476,7 +198,6 @@ Public Class frmEditJobRecords
 	End Sub
 
 
-
 	' Validation
 	Function Validation() As Boolean
 
@@ -485,35 +206,35 @@ Public Class frmEditJobRecords
 		Dim intEmployeeNames As Integer = 0
 
 		' Reset backcolor
-		txtStartDate.BackColor = Color.White
-		txtEndDate.BackColor = Color.White
+		'txtStartDate.BackColor = Color.White
+		'txtEndDate.BackColor = Color.White
 		txtNumberEmployees.BackColor = Color.White
 		txtEmployeeNames.BackColor = Color.White
 		txtJobDescription.BackColor = Color.White
 
-		' check if something is entered in date started text box
-		If txtStartDate.Text <> String.Empty And IsDate(txtStartDate.Text) Then
+		'' check if something is entered in date started text box
+		'If txtStartDate.Text <> String.Empty And IsDate(txtStartDate.Text) Then
 
-		Else
-			' text box is blank so tell user to enter date started, change back color to yellow,
-			' put focus in text box and return false we don't want to continue
-			MessageBox.Show("Please enter start date.")
-			txtStartDate.BackColor = Color.Yellow
-			txtStartDate.Focus()
-			Return False
-		End If
+		'Else
+		'	' text box is blank so tell user to enter date started, change back color to yellow,
+		'	' put focus in text box and return false we don't want to continue
+		'	MessageBox.Show("Please enter start date.")
+		'	txtStartDate.BackColor = Color.Yellow
+		'	txtStartDate.Focus()
+		'	Return False
+		'End If
 
-		' check if something is entered in date ended text box
-		If txtEndDate.Text <> String.Empty And IsDate(txtEndDate.Text) Then
+		'' check if something is entered in date ended text box
+		'If txtEndDate.Text <> String.Empty And IsDate(txtEndDate.Text) Then
 
-		Else
-			' text box is blank so tell user to enter date ended, change back color to yellow,
-			' put focus in text box and return false we don't want to continue
-			MessageBox.Show("Please enter end date.")
-			txtEndDate.BackColor = Color.Yellow
-			txtEndDate.Focus()
-			Return False
-		End If
+		'Else
+		'	' text box is blank so tell user to enter date ended, change back color to yellow,
+		'	' put focus in text box and return false we don't want to continue
+		'	MessageBox.Show("Please enter end date.")
+		'	txtEndDate.BackColor = Color.Yellow
+		'	txtEndDate.Focus()
+		'	Return False
+		'End If
 
 		' check if something is entered in number of employees text box
 		If txtNumberEmployees.Text <> String.Empty And IsNumeric(txtNumberEmployees.Text) Then
@@ -575,8 +296,6 @@ Public Class frmEditJobRecords
 
 	End Function
 
-
-
 	' Count Employees
 	Function CountEmployees(strEmployeeNames As String) As Integer
 
@@ -618,4 +337,5 @@ Public Class frmEditJobRecords
 
 		Return intEmployeeNames
 	End Function
+
 End Class

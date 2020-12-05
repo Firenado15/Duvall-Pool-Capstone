@@ -1236,3 +1236,4 @@ GO
 --WHERE TCustomers.intCustomerID IS NOT NULL
 
 --select * from vCustomersWithJobs
+

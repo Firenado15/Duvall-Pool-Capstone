@@ -85,7 +85,7 @@ Public Class frmOptions
 	Private Sub btnInvoicing_Click(sender As Object, e As EventArgs) Handles btnInvoicing.Click
 
 		' create a new instance of the invoicing form
-		Dim Invoicing As New frmInvoicing
+		Dim Invoicing As New frmAddInvoice
 
 		' show the new form so any past data is not still on the form
 		Invoicing.ShowDialog()
