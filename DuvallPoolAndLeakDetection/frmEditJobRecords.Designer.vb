@@ -1,27 +1,27 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmEditJobRecords
-    Inherits System.Windows.Forms.Form
+	Inherits System.Windows.Forms.Form
 
-    'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
-    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
-        Try
-            If disposing AndAlso components IsNot Nothing Then
-                components.Dispose()
-            End If
-        Finally
-            MyBase.Dispose(disposing)
-        End Try
-    End Sub
+	'Form overrides dispose to clean up the component list.
+	<System.Diagnostics.DebuggerNonUserCode()>
+	Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+		Try
+			If disposing AndAlso components IsNot Nothing Then
+				components.Dispose()
+			End If
+		Finally
+			MyBase.Dispose(disposing)
+		End Try
+	End Sub
 
-    'Required by the Windows Form Designer
-    Private components As System.ComponentModel.IContainer
+	'Required by the Windows Form Designer
+	Private components As System.ComponentModel.IContainer
 
-    'NOTE: The following procedure is required by the Windows Form Designer
-    'It can be modified using the Windows Form Designer.  
-    'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
-    Private Sub InitializeComponent()
+	'NOTE: The following procedure is required by the Windows Form Designer
+	'It can be modified using the Windows Form Designer.  
+	'Do not modify it using the code editor.
+	<System.Diagnostics.DebuggerStepThrough()>
+	Private Sub InitializeComponent()
 		Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmEditJobRecords))
 		Me.GroupBox3 = New System.Windows.Forms.GroupBox()
 		Me.radCompleted = New System.Windows.Forms.RadioButton()
@@ -31,6 +31,8 @@ Partial Class frmEditJobRecords
 		Me.btnSubmit = New System.Windows.Forms.Button()
 		Me.lblJobNumber = New System.Windows.Forms.Label()
 		Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+		Me.dtEndDate = New System.Windows.Forms.DateTimePicker()
+		Me.dtStartDate = New System.Windows.Forms.DateTimePicker()
 		Me.Label2 = New System.Windows.Forms.Label()
 		Me.Label3 = New System.Windows.Forms.Label()
 		Me.Label14 = New System.Windows.Forms.Label()
@@ -41,8 +43,6 @@ Partial Class frmEditJobRecords
 		Me.txtJobDescription = New System.Windows.Forms.TextBox()
 		Me.txtEmployeeNames = New System.Windows.Forms.TextBox()
 		Me.txtNumberEmployees = New System.Windows.Forms.TextBox()
-		Me.dtStartDate = New System.Windows.Forms.DateTimePicker()
-		Me.dtEndDate = New System.Windows.Forms.DateTimePicker()
 		Me.GroupBox3.SuspendLayout()
 		Me.GroupBox1.SuspendLayout()
 		Me.SuspendLayout()
@@ -141,6 +141,20 @@ Partial Class frmEditJobRecords
 		Me.GroupBox1.TabStop = False
 		Me.GroupBox1.Text = "Job Information"
 		'
+		'dtEndDate
+		'
+		Me.dtEndDate.Location = New System.Drawing.Point(180, 97)
+		Me.dtEndDate.Name = "dtEndDate"
+		Me.dtEndDate.Size = New System.Drawing.Size(244, 20)
+		Me.dtEndDate.TabIndex = 15
+		'
+		'dtStartDate
+		'
+		Me.dtStartDate.Location = New System.Drawing.Point(180, 59)
+		Me.dtStartDate.Name = "dtStartDate"
+		Me.dtStartDate.Size = New System.Drawing.Size(244, 20)
+		Me.dtStartDate.TabIndex = 14
+		'
 		'Label2
 		'
 		Me.Label2.AutoSize = True
@@ -233,20 +247,6 @@ Partial Class frmEditJobRecords
 		Me.txtNumberEmployees.Size = New System.Drawing.Size(244, 20)
 		Me.txtNumberEmployees.TabIndex = 2
 		'
-		'dtStartDate
-		'
-		Me.dtStartDate.Location = New System.Drawing.Point(180, 59)
-		Me.dtStartDate.Name = "dtStartDate"
-		Me.dtStartDate.Size = New System.Drawing.Size(244, 20)
-		Me.dtStartDate.TabIndex = 14
-		'
-		'dtEndDate
-		'
-		Me.dtEndDate.Location = New System.Drawing.Point(180, 97)
-		Me.dtEndDate.Name = "dtEndDate"
-		Me.dtEndDate.Size = New System.Drawing.Size(244, 20)
-		Me.dtEndDate.TabIndex = 15
-		'
 		'frmEditJobRecords
 		'
 		Me.AcceptButton = Me.btnSubmit
@@ -271,11 +271,11 @@ Partial Class frmEditJobRecords
 
 	End Sub
 	Friend WithEvents GroupBox3 As GroupBox
-    Friend WithEvents radCompleted As RadioButton
-    Friend WithEvents radInProgress As RadioButton
-    Friend WithEvents radScheduled As RadioButton
-    Friend WithEvents btnClose As Button
-    Friend WithEvents btnSubmit As Button
+	Friend WithEvents radCompleted As RadioButton
+	Friend WithEvents radInProgress As RadioButton
+	Friend WithEvents radScheduled As RadioButton
+	Friend WithEvents btnClose As Button
+	Friend WithEvents btnSubmit As Button
 	Friend WithEvents lblJobNumber As Label
 	Friend WithEvents GroupBox1 As GroupBox
 	Friend WithEvents Label3 As Label

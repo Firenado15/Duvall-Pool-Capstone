@@ -51,9 +51,11 @@
     <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic.PowerPacks, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -76,6 +78,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="frmPrintInvoice.Designer.vb">
+      <DependentUpon>frmPrintInvoice.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmPrintInvoice.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmJobDetails.Designer.vb">
       <DependentUpon>frmJobDetails.vb</DependentUpon>
     </Compile>
@@ -284,6 +292,9 @@
     <EmbeddedResource Include="frmPreviousInvoices.resx">
       <DependentUpon>frmPreviousInvoices.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmPrintInvoice.resx">
+      <DependentUpon>frmPrintInvoice.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmUpdateCustomerInfo.resx">
       <DependentUpon>frmUpdateCustomerInfo.vb</DependentUpon>
     </EmbeddedResource>
@@ -326,6 +337,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
+    <None Include="Resources\Invoice.png" />
     <None Include="My Project\icon.ico" />
     <None Include="Resources\Logo.bmp" />
   </ItemGroup>

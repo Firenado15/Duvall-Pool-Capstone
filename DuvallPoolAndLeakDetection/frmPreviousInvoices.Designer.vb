@@ -1,27 +1,28 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmPreviousInvoices
-    Inherits System.Windows.Forms.Form
+	Inherits System.Windows.Forms.Form
 
-    'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
-    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
-        Try
-            If disposing AndAlso components IsNot Nothing Then
-                components.Dispose()
-            End If
-        Finally
-            MyBase.Dispose(disposing)
-        End Try
-    End Sub
+	'Form overrides dispose to clean up the component list.
+	<System.Diagnostics.DebuggerNonUserCode()>
+	Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+		Try
+			If disposing AndAlso components IsNot Nothing Then
+				components.Dispose()
+			End If
+		Finally
+			MyBase.Dispose(disposing)
+		End Try
+	End Sub
 
-    'Required by the Windows Form Designer
-    Private components As System.ComponentModel.IContainer
+	'Required by the Windows Form Designer
+	Private components As System.ComponentModel.IContainer
 
-    'NOTE: The following procedure is required by the Windows Form Designer
-    'It can be modified using the Windows Form Designer.  
-    'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
-    Private Sub InitializeComponent()
+	'NOTE: The following procedure is required by the Windows Form Designer
+	'It can be modified using the Windows Form Designer.  
+	'Do not modify it using the code editor.
+	<System.Diagnostics.DebuggerStepThrough()>
+	Private Sub InitializeComponent()
+		Me.components = New System.ComponentModel.Container()
 		Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPreviousInvoices))
 		Me.btnClose = New System.Windows.Forms.Button()
 		Me.btnSearch = New System.Windows.Forms.Button()
@@ -47,6 +48,9 @@ Partial Class frmPreviousInvoices
 		Me.cboInvoice = New System.Windows.Forms.ComboBox()
 		Me.cboName = New System.Windows.Forms.ComboBox()
 		Me.Label38 = New System.Windows.Forms.Label()
+		Me.Button1 = New System.Windows.Forms.Button()
+		Me.prfrmInvoice = New Microsoft.VisualBasic.PowerPacks.Printing.PrintForm(Me.components)
+		Me.prdiaInvoice = New System.Windows.Forms.PrintDialog()
 		Me.GroupBox5.SuspendLayout()
 		Me.GroupBox4.SuspendLayout()
 		Me.GroupBox2.SuspendLayout()
@@ -55,7 +59,7 @@ Partial Class frmPreviousInvoices
 		'
 		'btnClose
 		'
-		Me.btnClose.Location = New System.Drawing.Point(440, 383)
+		Me.btnClose.Location = New System.Drawing.Point(321, 383)
 		Me.btnClose.Name = "btnClose"
 		Me.btnClose.Size = New System.Drawing.Size(109, 44)
 		Me.btnClose.TabIndex = 34
@@ -294,11 +298,33 @@ Partial Class frmPreviousInvoices
 		Me.Label38.TabIndex = 37
 		Me.Label38.Text = "Customer"
 		'
+		'Button1
+		'
+		Me.Button1.Location = New System.Drawing.Point(445, 383)
+		Me.Button1.Name = "Button1"
+		Me.Button1.Size = New System.Drawing.Size(109, 44)
+		Me.Button1.TabIndex = 53
+		Me.Button1.Text = "Print"
+		Me.Button1.UseVisualStyleBackColor = True
+		'
+		'prfrmInvoice
+		'
+		Me.prfrmInvoice.DocumentName = "document"
+		Me.prfrmInvoice.Form = Me
+		Me.prfrmInvoice.PrintAction = System.Drawing.Printing.PrintAction.PrintToPrinter
+		Me.prfrmInvoice.PrinterSettings = CType(resources.GetObject("prfrmInvoice.PrinterSettings"), System.Drawing.Printing.PrinterSettings)
+		Me.prfrmInvoice.PrintFileName = Nothing
+		'
+		'prdiaInvoice
+		'
+		Me.prdiaInvoice.UseEXDialog = True
+		'
 		'frmPreviousInvoices
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
 		Me.ClientSize = New System.Drawing.Size(700, 447)
+		Me.Controls.Add(Me.Button1)
 		Me.Controls.Add(Me.GroupBox7)
 		Me.Controls.Add(Me.btnClose)
 		Me.Controls.Add(Me.btnSearch)
@@ -325,17 +351,17 @@ Partial Class frmPreviousInvoices
 	End Sub
 
 	Friend WithEvents btnClose As Button
-    Friend WithEvents btnSearch As Button
-    Friend WithEvents GroupBox5 As GroupBox
-    Friend WithEvents Label6 As Label
-    Friend WithEvents GroupBox4 As GroupBox
-    Friend WithEvents chkFilter As CheckBox
-    Friend WithEvents chkChemicals As CheckBox
-    Friend WithEvents chkSkimmed As CheckBox
-    Friend WithEvents chkVacuumed As CheckBox
-    Friend WithEvents chkDetection As CheckBox
-    Friend WithEvents chkTesting As CheckBox
-    Friend WithEvents chkInstallation As CheckBox
+	Friend WithEvents btnSearch As Button
+	Friend WithEvents GroupBox5 As GroupBox
+	Friend WithEvents Label6 As Label
+	Friend WithEvents GroupBox4 As GroupBox
+	Friend WithEvents chkFilter As CheckBox
+	Friend WithEvents chkChemicals As CheckBox
+	Friend WithEvents chkSkimmed As CheckBox
+	Friend WithEvents chkVacuumed As CheckBox
+	Friend WithEvents chkDetection As CheckBox
+	Friend WithEvents chkTesting As CheckBox
+	Friend WithEvents chkInstallation As CheckBox
 	Friend WithEvents GroupBox2 As GroupBox
 	Friend WithEvents Label10 As Label
 	Friend WithEvents Label11 As Label
@@ -348,4 +374,7 @@ Partial Class frmPreviousInvoices
 	Friend WithEvents lblDueDate As Label
 	Friend WithEvents lblDateServiceEnded As Label
 	Friend WithEvents lblDateServiceStarted As Label
+	Friend WithEvents Button1 As Button
+	Friend WithEvents prfrmInvoice As PowerPacks.Printing.PrintForm
+	Friend WithEvents prdiaInvoice As PrintDialog
 End Class

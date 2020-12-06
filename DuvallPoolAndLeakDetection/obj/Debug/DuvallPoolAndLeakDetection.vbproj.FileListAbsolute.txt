@@ -90,3 +90,7 @@ C:\Users\admin\Downloads\capst\Duvall-Pool-Capstone-main\DuvallPoolAndLeakDetect
 C:\Users\admin\Downloads\capst\Duvall-Pool-Capstone-main\DuvallPoolAndLeakDetection\obj\Debug\DuvallPoolAndLeakDetection.frmViewJobRecords.resources
 C:\Users\admin\Downloads\capst\Duvall-Pool-Capstone-main\DuvallPoolAndLeakDetection\obj\Debug\DuvallPoolAndLeakDetection.frmJobDetails.resources
 C:\Users\admin\Downloads\capst\Duvall-Pool-Capstone-main\DuvallPoolAndLeakDetection\obj\Debug\DuvallPoolAndLeakDetection.frmAddInvoice.resources
+C:\Users\admin\Downloads\capst\Duvall-Pool-Capstone-main\DuvallPoolAndLeakDetection\bin\Debug\Microsoft.VisualBasic.PowerPacks.dll
+C:\Users\admin\Downloads\capst\Duvall-Pool-Capstone-main\DuvallPoolAndLeakDetection\bin\Debug\Microsoft.VisualBasic.PowerPacks.xml
+C:\Users\admin\Downloads\capst\Duvall-Pool-Capstone-main\DuvallPoolAndLeakDetection\obj\Debug\DuvallPoolAndLeakDetection.vbproj.CopyComplete
+C:\Users\admin\Downloads\capst\Duvall-Pool-Capstone-main\DuvallPoolAndLeakDetection\obj\Debug\DuvallPoolAndLeakDetection.frmPrintInvoice.resources

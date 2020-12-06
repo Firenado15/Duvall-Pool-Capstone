@@ -2,8 +2,11 @@
 ' Last Updated: 12/1/2020
 ' Last modified by Matthew Estes
 
+'Imports Microsoft.VisualBasic.ApplicationServices.
 
 Public Class frmEditJobRecords
+
+
 
 	Dim receiveJobNumber As String
 	Dim intJobID As Integer

@@ -2,6 +2,8 @@
 ' Last Updated: 11/4/2020
 ' Last modified by Matthew Estes
 
+Imports Microsoft.VisualBasic.PowerPacks.Printing
+
 Public Class frmPreviousInvoices
 
 	Dim intJobRecordID As Integer
@@ -300,4 +302,37 @@ Public Class frmPreviousInvoices
 
 	End Sub
 
+	Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
+		'Dim pf As New PrintForm
+		'pf.Form = Me
+		'pf.PrintAction = Printing.PrintAction.PrintToFile
+		'pf.PrintFileName = cboInvoice.Text.ToString
+		'pf.Print()
+
+
+		'prdiaInvoice.PrinterSettings = prfrmInvoice.PrinterSettings
+		'prdiaInvoice.AllowSomePages = True
+		'If prdiaInvoice.ShowDialog = DialogResult.OK Then prfrmInvoice.PrinterSettings = prdiaInvoice.PrinterSettings
+
+		''With Me.PrintForm1
+		'prfrmInvoice.PrintAction = Printing.PrintAction.PrintToPreview
+
+		''Set Margins
+		'prfrmInvoice.PrinterSettings.DefaultPageSettings.Margins.Left = 10
+		'prfrmInvoice.PrinterSettings.DefaultPageSettings.Margins.Top = 10
+		'prfrmInvoice.PrinterSettings.DefaultPageSettings.Margins.Right = 10
+		'prfrmInvoice.PrinterSettings.DefaultPageSettings.Margins.Bottom = 10
+
+		'prfrmInvoice.Print()
+
+		'End With
+
+		' create a new instance of the customer intake form, passing current intCustomerID
+		Dim printInvoice As New frmPrintInvoice(cboInvoice.Text)
+
+		' show the new form so any past data is not still on the form
+		printInvoice.ShowDialog()
+
+	End Sub
 End Class
