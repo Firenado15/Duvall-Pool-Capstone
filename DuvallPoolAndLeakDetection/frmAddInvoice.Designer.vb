@@ -297,7 +297,7 @@ Partial Class frmAddInvoice
 		Me.Label3.TabIndex = 44
 		Me.Label3.Text = "Job Description"
 		'
-		'frmInvoicing
+		'frmAddInvoice
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -313,7 +313,7 @@ Partial Class frmAddInvoice
 		Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
 		Me.MaximizeBox = False
 		Me.MinimizeBox = False
-		Me.Name = "frmInvoicing"
+		Me.Name = "frmAddInvoice"
 		Me.Text = "Invoicing"
 		Me.GroupBox1.ResumeLayout(False)
 		Me.GroupBox1.PerformLayout()
