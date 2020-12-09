@@ -70,6 +70,8 @@ Public Class frmPrintInvoice
 		intCustomerID = dt.Rows(0).Item(1)
 		intJobRecordID = dt.Rows(0).Item(2)
 
+		lblTotal.Text = dt.Rows(0).Item(5)
+
 		'close connection
 		CloseDatabaseConnection()
 
@@ -163,50 +165,50 @@ Public Class frmPrintInvoice
 			If dt.Rows(intIndex).Item(1) = 1 Then
 
 				lblServices.Text = lblServices.Text & "Liner Installation" & Environment.NewLine
-				lblBilling.Text = lblBilling.Text & "90" & Environment.NewLine
-				dblTotal += 90
+				lblBilling.Text = lblBilling.Text & dt.Rows(intIndex).Item(4) & Environment.NewLine
+				dblTotal += dt.Rows(intIndex).Item(4)
 
 			ElseIf dt.Rows(intIndex).Item(1) = 2 Then
 
 				lblServices.Text = lblServices.Text & "Water Testing" & Environment.NewLine
-				lblBilling.Text = lblBilling.Text & "80" & Environment.NewLine
-				dblTotal += 80
+				lblBilling.Text = lblBilling.Text & dt.Rows(intIndex).Item(4) & Environment.NewLine
+				dblTotal += dt.Rows(intIndex).Item(4)
 
 			ElseIf dt.Rows(intIndex).Item(1) = 3 Then
 
 				lblServices.Text = lblServices.Text & "Leak Detection" & Environment.NewLine
-				lblBilling.Text = lblBilling.Text & "70" & Environment.NewLine
-				dblTotal += 70
+				lblBilling.Text = lblBilling.Text & dt.Rows(intIndex).Item(4) & Environment.NewLine
+				dblTotal += dt.Rows(intIndex).Item(4)
 
 			ElseIf dt.Rows(intIndex).Item(1) = 4 Then
 
 				lblServices.Text = lblServices.Text & "Vacuuming" & Environment.NewLine
-				lblBilling.Text = lblBilling.Text & "60" & Environment.NewLine
-				dblTotal += 60
+				lblBilling.Text = lblBilling.Text & dt.Rows(intIndex).Item(4) & Environment.NewLine
+				dblTotal += dt.Rows(intIndex).Item(4)
 
 			ElseIf dt.Rows(intIndex).Item(1) = 5 Then
 
 				lblServices.Text = lblServices.Text & "Skimming" & Environment.NewLine
-				lblBilling.Text = lblBilling.Text & "50" & Environment.NewLine
-				dblTotal += 50
+				lblBilling.Text = lblBilling.Text & dt.Rows(intIndex).Item(4) & Environment.NewLine
+				dblTotal += dt.Rows(intIndex).Item(4)
 
 			ElseIf dt.Rows(intIndex).Item(1) = 6 Then
 
 				lblServices.Text = lblServices.Text & "Chemicals Added" & Environment.NewLine
-				lblBilling.Text = lblBilling.Text & "40" & Environment.NewLine
-				dblTotal += 40
+				lblBilling.Text = lblBilling.Text & dt.Rows(intIndex).Item(4) & Environment.NewLine
+				dblTotal += dt.Rows(intIndex).Item(4)
 
 			ElseIf dt.Rows(intIndex).Item(1) = 7 Then
 
 				lblServices.Text = lblServices.Text & "Filter Backwashed" & Environment.NewLine
-				lblBilling.Text = lblBilling.Text & "30" & Environment.NewLine
-				dblTotal += 30
+				lblBilling.Text = lblBilling.Text & dt.Rows(intIndex).Item(4) & Environment.NewLine
+				dblTotal += dt.Rows(intIndex).Item(4)
 
 			End If
 
 		Next
 
-		lblTotal.Text = "$" & dblTotal.ToString
+
 
 		' close the database connection
 		CloseDatabaseConnection()

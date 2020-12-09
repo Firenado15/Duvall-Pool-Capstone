@@ -52,7 +52,7 @@ IF OBJECT_ID( 'vJobRecordsSearch' )				IS NOT NULL DROP VIEW vJobRecordsSearch
 IF OBJECT_ID( 'vCustomersWithInvoices' )		IS NOT NULL DROP VIEW vCustomersWithInvoices
 IF OBJECT_ID( 'vJobRecordStatus' )				IS NOT NULL DROP VIEW vJobRecordStatus
 IF OBJECT_ID( 'vJobAndCustomerInfo' )			IS NOT NULL DROP VIEW vJobAndCustomerInfo
-
+IF OBJECT_ID( 'vJobsAndNoInvoice' )				IS NOT NULL DROP VIEW vJobsAndNoInvoice
 
 
 -- --------------------------------------------------------------------------------
@@ -170,6 +170,7 @@ CREATE TABLE TJobServices
 	,intServiceID			INTEGER			NOT NULL
 	,intJobRecordID			INTEGER			NOT NULL
 	,intInvoiceID			INTEGER			NOT NULL
+	,decServiceCost			DECIMAL(7,2)	NOT NULL
 	,CONSTRAINT	TJobServices_PK PRIMARY KEY ( intJobServiceID )
 )
 
@@ -194,6 +195,7 @@ CREATE TABLE TInvoices
 		when 5 then 'CIN-'+'0'+CONVERT(varchar, intInvoiceID)
 		else'CIN-'+CONVERT(varchar, intInvoiceID)
 		end
+	,decJobCost				DECIMAL(7,2)	NOT NULL
 	,CONSTRAINT TInvoices_PK PRIMARY KEY ( intInvoiceID)
 )
 
@@ -1168,6 +1170,23 @@ WHERE
 GO
 
 
+GO
+
+CREATE VIEW vJobsAndNoInvoice
+AS
+SELECT
+	 distinct TC.intCustomerID
+	,TC.strLastName + ', '+ TC.strFirstName AS FullName
+	,TJ.intJobRecordID
+FROM
+	TCustomers AS TC
+	,TJobRecords AS TJ
+WHERE
+	TC.intCustomerID = TJ.intCustomerID AND
+	NOT EXISTS(SELECT intJobRecordID FROM TInvoices WHERE TJ.intJobRecordID = TInvoices.intJobRecordID)
+GO
+
+
 --Select * from vJobRecordStatus
 
 --SELECT * FROM vJobRecordCustomers ORDER BY FullName ASC
@@ -1237,3 +1256,4 @@ GO
 
 --select * from vCustomersWithJobs
 
+--select * from vJobsAndNoInvoice

@@ -6,6 +6,7 @@ Public Class frmAddInvoice
 
 	Dim intInvoiceNumber As Integer
 	Dim blnFirstService As Boolean = True
+	Dim dblInvoiceCost As Double = 0.00
 
 	Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
 
@@ -19,6 +20,8 @@ Public Class frmAddInvoice
 		Try
 
 			Validation()
+
+			CalculateTotalCost()
 
 			InsertInvoice()
 
@@ -137,7 +140,7 @@ Public Class frmAddInvoice
 			cboCustomer.BeginUpdate()
 
 			'Create select
-			strSelect = "SELECT * FROM vJobRecordCustomers ORDER BY FullName ASC"
+			strSelect = "SELECT * FROM vJobsAndNoInvoice ORDER BY FullName ASC"
 
 			'Get records
 			cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
@@ -262,23 +265,67 @@ Public Class frmAddInvoice
 		End If
 
 		'Select statement
-		strSelect = "SELECT strJobDesc FROM TJobRecords WHERE intJobRecordID = " & cboJob.SelectedValue.ToString
+		strSelect = "SELECT * FROM TJobRecords WHERE intJobRecordID = " & cboJob.SelectedValue.ToString
 
 
 		'Retrieve records 
 		cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
 		drSourceTable = cmdSelect.ExecuteReader
 
-		'load the data table from the reader
+		'Load Table
 		dt.Load(drSourceTable)
 
 		'populate text boxes
-		lblJobDesc.Text = dt.Rows(0).Item(0).ToString
+		lblStartDate.Text = dt.Rows(0).Item(1).ToString
+		lblEndDate.Text = dt.Rows(0).Item(2).ToString
+		lblJobDesc.Text = dt.Rows(0).Item(5).ToString
 
 		'close connection
 		CloseDatabaseConnection()
 
 	End Sub
+
+	Private Sub CalculateTotalCost()
+
+		'reset total
+		dblInvoiceCost = 0
+
+
+		'only text boxes to total if they're enabled
+		If txtLinerCost.Enabled = True Then
+			dblInvoiceCost += txtLinerCost.Text
+		End If
+
+		If txtTestingCost.Enabled = True Then
+			dblInvoiceCost += txtTestingCost.Text
+		End If
+
+		If txtLeakCost.Enabled = True Then
+			dblInvoiceCost += txtLeakCost.Text
+		End If
+
+		If txtVacuumCost.Enabled = True Then
+			dblInvoiceCost += txtVacuumCost.Text
+		End If
+
+		If txtSkimCost.Enabled = True Then
+			dblInvoiceCost += txtSkimCost.Text
+		End If
+
+		If txtChemCost.Enabled = True Then
+			dblInvoiceCost += txtChemCost.Text
+		End If
+
+		If txtFilterCost.Enabled = True Then
+			dblInvoiceCost += txtFilterCost.Text
+		End If
+
+
+		txtTotalCost.Text = dblInvoiceCost
+
+	End Sub
+
+
 
 	Private Sub InsertInvoice()
 
@@ -335,7 +382,9 @@ Public Class frmAddInvoice
 			strInsert = "Insert into TInvoices VALUES (" & intNextHighestRecordID &
 				", " & cboCustomer.SelectedValue &
 				", " & cboJob.SelectedValue &
-				", '" & strDate & "')"
+				", '" & strDate &
+				"', " & dblInvoiceCost &
+				")"
 
 
 			cmdInsert = New OleDb.OleDbCommand(strInsert, m_conAdministrator)
@@ -406,7 +455,7 @@ Public Class frmAddInvoice
 		'Check Each check box for selection
 		If chkInstallation.Checked = True Then
 
-			strInsert = strInsert & " (" & intNextHighestRecordID & ", 1, " & cboJob.SelectedValue & ", " & intInvoiceNumber & ")"
+			strInsert = strInsert & " (" & intNextHighestRecordID & ", 1, " & cboJob.SelectedValue & ", " & intInvoiceNumber & ", " & txtLinerCost.Text & ")"
 			intNextHighestRecordID += 1
 			blnFirstService = False
 
@@ -416,7 +465,7 @@ Public Class frmAddInvoice
 			If blnFirstService = False Then
 				strInsert = strInsert & ","
 			End If
-			strInsert = strInsert & " (" & intNextHighestRecordID & ", 2, " & cboJob.SelectedValue & ", " & intInvoiceNumber & ")"
+			strInsert = strInsert & " (" & intNextHighestRecordID & ", 2, " & cboJob.SelectedValue & ", " & intInvoiceNumber & ", " & txtTestingCost.Text & ")"
 			intNextHighestRecordID += 1
 			blnFirstService = False
 
@@ -427,7 +476,7 @@ Public Class frmAddInvoice
 				strInsert = strInsert & ","
 
 			End If
-			strInsert = strInsert & " (" & intNextHighestRecordID & ", 3, " & cboJob.SelectedValue & ", " & intInvoiceNumber & ")"
+			strInsert = strInsert & " (" & intNextHighestRecordID & ", 3, " & cboJob.SelectedValue & ", " & intInvoiceNumber & ", " & txtLeakCost.Text & ")"
 			intNextHighestRecordID += 1
 			blnFirstService = False
 
@@ -438,7 +487,7 @@ Public Class frmAddInvoice
 				strInsert = strInsert & ","
 
 			End If
-			strInsert = strInsert & " (" & intNextHighestRecordID & ", 4, " & cboJob.SelectedValue & ", " & intInvoiceNumber & ")"
+			strInsert = strInsert & " (" & intNextHighestRecordID & ", 4, " & cboJob.SelectedValue & ", " & intInvoiceNumber & ", " & txtVacuumCost.Text & ")"
 			intNextHighestRecordID += 1
 			blnFirstService = False
 
@@ -449,7 +498,7 @@ Public Class frmAddInvoice
 				strInsert = strInsert & ","
 
 			End If
-			strInsert = strInsert & " (" & intNextHighestRecordID & ", 5, " & cboJob.SelectedValue & ", " & intInvoiceNumber & ")"
+			strInsert = strInsert & " (" & intNextHighestRecordID & ", 5, " & cboJob.SelectedValue & ", " & intInvoiceNumber & ", " & txtSkimCost.Text & ")"
 			intNextHighestRecordID += 1
 			blnFirstService = False
 
@@ -460,7 +509,7 @@ Public Class frmAddInvoice
 				strInsert = strInsert & ","
 
 			End If
-			strInsert = strInsert & " (" & intNextHighestRecordID & ", 6, " & cboJob.SelectedValue & ", " & intInvoiceNumber & ")"
+			strInsert = strInsert & " (" & intNextHighestRecordID & ", 6, " & cboJob.SelectedValue & ", " & intInvoiceNumber & ", " & txtChemCost.Text & ")"
 			intNextHighestRecordID += 1
 			blnFirstService = False
 
@@ -471,7 +520,7 @@ Public Class frmAddInvoice
 				strInsert = strInsert & ","
 
 			End If
-			strInsert = strInsert & " (" & intNextHighestRecordID & ", 7, " & cboJob.SelectedValue & ", " & intInvoiceNumber & ")"
+			strInsert = strInsert & " (" & intNextHighestRecordID & ", 7, " & cboJob.SelectedValue & ", " & intInvoiceNumber & ", " & txtFilterCost.Text & ")"
 			intNextHighestRecordID += 1
 
 		End If
@@ -485,4 +534,270 @@ Public Class frmAddInvoice
 		Me.Close()
 
 	End Sub
+
+	' Liner ----------------------------------------------
+
+	Private Sub chkInstallation_CheckedChanged(sender As Object, e As EventArgs) Handles chkInstallation.CheckedChanged
+
+		'if checked
+		If chkInstallation.Checked = True Then
+			'turn on radio buttons
+			radAbove.Enabled = True
+			radInground.Enabled = True
+
+		End If
+
+		'if unchecked
+		If chkInstallation.Checked = False Then
+
+			'turn off radio buttons
+			radAbove.Checked = False
+			radInground.Checked = False
+			radAbove.Enabled = False
+			radInground.Enabled = False
+			txtLinerCost.Clear()
+			txtLinerCost.Enabled = False
+
+
+			'turn off combo boxes
+			cboAbove.Enabled = False
+			cboAbove.Text = ""
+			cboInground.Enabled = False
+			cboInground.Text = ""
+
+		End If
+
+	End Sub
+
+	Private Sub radAbove_CheckedChanged(sender As Object, e As EventArgs) Handles radAbove.CheckedChanged
+
+		'turn on Above combo box
+		cboAbove.Visible = True
+		cboAbove.Enabled = True
+
+		'turn off Inground combo box
+		cboInground.Enabled = False
+		cboInground.Visible = False
+
+	End Sub
+
+	Private Sub radInground_CheckedChanged(sender As Object, e As EventArgs) Handles radInground.CheckedChanged
+
+		'turn on Inground combo box
+		cboInground.Visible = True
+		cboInground.Enabled = True
+
+
+		'turn off Above combo box
+		cboAbove.Enabled = False
+		cboAbove.Visible = False
+
+	End Sub
+
+	Private Sub cboInground_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboInground.SelectedIndexChanged
+
+		txtLinerCost.Enabled = True
+		CalculateLinerCost()
+
+	End Sub
+
+	Private Sub cboAbove_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboAbove.SelectedIndexChanged
+
+		txtLinerCost.Enabled = True
+		CalculateLinerCost()
+
+	End Sub
+
+	Private Sub CalculateLinerCost()
+
+		'check for liner installation
+		If chkInstallation.Checked = True Then
+			'check for aboveground
+			If radAbove.Checked = True Then
+				'check which pool size and assign price
+				If cboAbove.SelectedIndex = 0 Then
+					txtLinerCost.Text = 400
+				ElseIf cboAbove.SelectedIndex = 1 Then
+					txtLinerCost.Text = 800
+				ElseIf cboAbove.SelectedIndex = 2 Then
+					txtLinerCost.Text = 1200
+				ElseIf cboAbove.SelectedIndex = 3 Then
+					txtLinerCost.Text = 1600
+				End If
+				'check for inground
+			ElseIf radInground.Checked = True Then
+				'check which pool size and assign price
+				If cboAbove.SelectedIndex = 0 Then
+					txtLinerCost.Text = 960
+				ElseIf cboAbove.SelectedIndex = 1 Then
+					txtLinerCost.Text = 1920
+				ElseIf cboAbove.SelectedIndex = 2 Then
+					txtLinerCost.Text = 2880
+				ElseIf cboAbove.SelectedIndex = 3 Then
+					txtLinerCost.Text = 3840
+				ElseIf cboAbove.SelectedIndex = 4 Then
+					txtLinerCost.Text = 4800
+				End If
+			End If
+		End If
+
+	End Sub
+
+	' Water Testing -------------------------------------------------------
+
+	Private Sub chkTesting_CheckedChanged(sender As Object, e As EventArgs) Handles chkTesting.CheckedChanged
+
+		If chkTesting.Checked = True Then
+			'turn on combo and text box
+			txtTestingCost.Enabled = True
+			txtTestingCost.Text = 45
+
+		End If
+		'unchecked
+		If chkTesting.Checked = False Then
+			'turn off combo and text box
+			txtTestingCost.Clear()
+			txtTestingCost.Enabled = False
+
+		End If
+
+	End Sub
+
+	' Leak Detection --------------------------------------------------------
+
+	Private Sub chkDetection_CheckedChanged(sender As Object, e As EventArgs) Handles chkDetection.CheckedChanged
+
+		'checked
+		If chkDetection.Checked = True Then
+			'turn on combo and text box
+			cboLeak.Enabled = True
+		End If
+		'unchecked
+		If chkDetection.Checked = False Then
+			'turn off combo and text box
+			cboLeak.Enabled = False
+			cboLeak.Text = ""
+			txtLeakCost.Enabled = False
+			txtLeakCost.Clear()
+		End If
+
+	End Sub
+
+	Private Sub cboLeak_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboLeak.SelectedIndexChanged
+
+		'Recalculate cost
+		txtLeakCost.Enabled = True
+		CalculateLeakCost()
+
+	End Sub
+
+	Private Sub CalculateLeakCost()
+
+		'Determine selection
+		If cboLeak.SelectedIndex = 0 Then
+			txtLeakCost.Text = 100
+		ElseIf cboLeak.SelectedIndex = 1 Then
+			txtLeakCost.Text = 300
+		ElseIf cboLeak.SelectedIndex = 2 Then
+			txtLeakCost.Text = 500
+		End If
+
+	End Sub
+
+	' Vacuumed -------------------------------------------------------------
+
+	Private Sub chkVacuumed_CheckedChanged(sender As Object, e As EventArgs) Handles chkVacuumed.CheckedChanged
+
+		'checked
+		If chkVacuumed.Checked = True Then
+			'turn on combo and text box
+			cboVacuumHours.Enabled = True
+
+		End If
+		'unchecked
+		If chkVacuumed.Checked = False Then
+			'turn off combo and text box
+			cboVacuumHours.Enabled = False
+			cboVacuumHours.Text = ""
+			txtVacuumCost.Enabled = False
+			txtVacuumCost.Clear()
+
+		End If
+
+	End Sub
+
+	Private Sub cboVacuumHours_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboVacuumHours.SelectedIndexChanged
+
+		txtVacuumCost.Enabled = True
+		txtVacuumCost.Text = cboVacuumHours.Text * 85
+
+	End Sub
+
+	' Skimmed -----------------------------------------------------------
+
+	Private Sub chkSkimmed_CheckedChanged(sender As Object, e As EventArgs) Handles chkSkimmed.CheckedChanged
+
+		If chkSkimmed.Checked = True Then
+			'turn on combo and text box
+			txtSkimCost.Enabled = True
+			txtSkimCost.Text = 35
+
+		End If
+		'unchecked
+		If chkSkimmed.Checked = False Then
+			'turn off combo and text box
+			txtSkimCost.Clear()
+			txtSkimCost.Enabled = False
+
+		End If
+
+	End Sub
+
+	' Chemical Balance ---------------------------------------------------
+
+	Private Sub chkChemicals_CheckedChanged(sender As Object, e As EventArgs) Handles chkChemicals.CheckedChanged
+
+		If chkChemicals.Checked = True Then
+			'turn on combo and text box
+			txtChemCost.Enabled = True
+			txtChemCost.Text = 50
+
+		End If
+		'unchecked
+		If chkChemicals.Checked = False Then
+			'turn off combo and text box
+			txtChemCost.Clear()
+			txtChemCost.Enabled = False
+
+		End If
+
+	End Sub
+
+	' Filter -------------------------------------------------------------
+
+	Private Sub chkFilter_CheckedChanged(sender As Object, e As EventArgs) Handles chkFilter.CheckedChanged
+
+		If chkFilter.Checked = True Then
+			'turn on combo and text box
+			txtFilterCost.Enabled = True
+			txtFilterCost.Text = 45
+
+		End If
+		'unchecked
+		If chkFilter.Checked = False Then
+			'turn off combo and text box
+			txtFilterCost.Clear()
+			txtFilterCost.Enabled = False
+
+		End If
+
+	End Sub
+
+	Private Sub btnTotal_Click(sender As Object, e As EventArgs) Handles btnTotal.Click
+
+		CalculateTotalCost()
+
+	End Sub
+
+
 End Class

@@ -59,7 +59,7 @@ Partial Class frmPreviousInvoices
 		'
 		'btnClose
 		'
-		Me.btnClose.Location = New System.Drawing.Point(321, 383)
+		Me.btnClose.Location = New System.Drawing.Point(318, 383)
 		Me.btnClose.Name = "btnClose"
 		Me.btnClose.Size = New System.Drawing.Size(109, 44)
 		Me.btnClose.TabIndex = 34
@@ -68,7 +68,7 @@ Partial Class frmPreviousInvoices
 		'
 		'btnSearch
 		'
-		Me.btnSearch.Location = New System.Drawing.Point(569, 383)
+		Me.btnSearch.Location = New System.Drawing.Point(568, 383)
 		Me.btnSearch.Name = "btnSearch"
 		Me.btnSearch.Size = New System.Drawing.Size(109, 44)
 		Me.btnSearch.TabIndex = 35
@@ -300,7 +300,7 @@ Partial Class frmPreviousInvoices
 		'
 		'Button1
 		'
-		Me.Button1.Location = New System.Drawing.Point(445, 383)
+		Me.Button1.Location = New System.Drawing.Point(443, 383)
 		Me.Button1.Name = "Button1"
 		Me.Button1.Size = New System.Drawing.Size(109, 44)
 		Me.Button1.TabIndex = 53
