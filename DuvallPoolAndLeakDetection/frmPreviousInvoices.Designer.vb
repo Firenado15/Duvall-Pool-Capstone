@@ -37,11 +37,6 @@ Partial Class frmPreviousInvoices
 		Me.chkDetection = New System.Windows.Forms.CheckBox()
 		Me.chkTesting = New System.Windows.Forms.CheckBox()
 		Me.chkInstallation = New System.Windows.Forms.CheckBox()
-		Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-		Me.lblDateServiceEnded = New System.Windows.Forms.Label()
-		Me.lblDateServiceStarted = New System.Windows.Forms.Label()
-		Me.Label10 = New System.Windows.Forms.Label()
-		Me.Label11 = New System.Windows.Forms.Label()
 		Me.Label1 = New System.Windows.Forms.Label()
 		Me.GroupBox7 = New System.Windows.Forms.GroupBox()
 		Me.Label8 = New System.Windows.Forms.Label()
@@ -53,7 +48,6 @@ Partial Class frmPreviousInvoices
 		Me.prdiaInvoice = New System.Windows.Forms.PrintDialog()
 		Me.GroupBox5.SuspendLayout()
 		Me.GroupBox4.SuspendLayout()
-		Me.GroupBox2.SuspendLayout()
 		Me.GroupBox7.SuspendLayout()
 		Me.SuspendLayout()
 		'
@@ -79,7 +73,7 @@ Partial Class frmPreviousInvoices
 		'
 		Me.GroupBox5.Controls.Add(Me.lblDueDate)
 		Me.GroupBox5.Controls.Add(Me.Label6)
-		Me.GroupBox5.Location = New System.Drawing.Point(57, 184)
+		Me.GroupBox5.Location = New System.Drawing.Point(57, 159)
 		Me.GroupBox5.Name = "GroupBox5"
 		Me.GroupBox5.Size = New System.Drawing.Size(398, 55)
 		Me.GroupBox5.TabIndex = 33
@@ -190,55 +184,6 @@ Partial Class frmPreviousInvoices
 		Me.chkInstallation.Text = "Liner Installation"
 		Me.chkInstallation.UseVisualStyleBackColor = True
 		'
-		'GroupBox2
-		'
-		Me.GroupBox2.Controls.Add(Me.lblDateServiceEnded)
-		Me.GroupBox2.Controls.Add(Me.lblDateServiceStarted)
-		Me.GroupBox2.Controls.Add(Me.Label10)
-		Me.GroupBox2.Controls.Add(Me.Label11)
-		Me.GroupBox2.Location = New System.Drawing.Point(57, 275)
-		Me.GroupBox2.Name = "GroupBox2"
-		Me.GroupBox2.Size = New System.Drawing.Size(398, 90)
-		Me.GroupBox2.TabIndex = 30
-		Me.GroupBox2.TabStop = False
-		Me.GroupBox2.Text = "Date Services Performed"
-		'
-		'lblDateServiceEnded
-		'
-		Me.lblDateServiceEnded.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-		Me.lblDateServiceEnded.Location = New System.Drawing.Point(170, 59)
-		Me.lblDateServiceEnded.Name = "lblDateServiceEnded"
-		Me.lblDateServiceEnded.Size = New System.Drawing.Size(215, 23)
-		Me.lblDateServiceEnded.TabIndex = 43
-		'
-		'lblDateServiceStarted
-		'
-		Me.lblDateServiceStarted.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-		Me.lblDateServiceStarted.Location = New System.Drawing.Point(170, 19)
-		Me.lblDateServiceStarted.Name = "lblDateServiceStarted"
-		Me.lblDateServiceStarted.Size = New System.Drawing.Size(215, 23)
-		Me.lblDateServiceStarted.TabIndex = 43
-		'
-		'Label10
-		'
-		Me.Label10.AutoSize = True
-		Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.Label10.Location = New System.Drawing.Point(16, 58)
-		Me.Label10.Name = "Label10"
-		Me.Label10.Size = New System.Drawing.Size(134, 17)
-		Me.Label10.TabIndex = 16
-		Me.Label10.Text = "Date Service Ended"
-		'
-		'Label11
-		'
-		Me.Label11.AutoSize = True
-		Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.Label11.Location = New System.Drawing.Point(16, 18)
-		Me.Label11.Name = "Label11"
-		Me.Label11.Size = New System.Drawing.Size(139, 17)
-		Me.Label11.TabIndex = 17
-		Me.Label11.Text = "Date Service Started"
-		'
 		'Label1
 		'
 		Me.Label1.AutoSize = True
@@ -330,7 +275,6 @@ Partial Class frmPreviousInvoices
 		Me.Controls.Add(Me.btnSearch)
 		Me.Controls.Add(Me.GroupBox5)
 		Me.Controls.Add(Me.GroupBox4)
-		Me.Controls.Add(Me.GroupBox2)
 		Me.Controls.Add(Me.Label1)
 		Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
 		Me.MaximizeBox = False
@@ -341,8 +285,6 @@ Partial Class frmPreviousInvoices
 		Me.GroupBox5.PerformLayout()
 		Me.GroupBox4.ResumeLayout(False)
 		Me.GroupBox4.PerformLayout()
-		Me.GroupBox2.ResumeLayout(False)
-		Me.GroupBox2.PerformLayout()
 		Me.GroupBox7.ResumeLayout(False)
 		Me.GroupBox7.PerformLayout()
 		Me.ResumeLayout(False)
@@ -362,9 +304,6 @@ Partial Class frmPreviousInvoices
 	Friend WithEvents chkDetection As CheckBox
 	Friend WithEvents chkTesting As CheckBox
 	Friend WithEvents chkInstallation As CheckBox
-	Friend WithEvents GroupBox2 As GroupBox
-	Friend WithEvents Label10 As Label
-	Friend WithEvents Label11 As Label
 	Friend WithEvents Label1 As Label
 	Friend WithEvents GroupBox7 As GroupBox
 	Friend WithEvents Label8 As Label
@@ -372,8 +311,6 @@ Partial Class frmPreviousInvoices
 	Friend WithEvents cboName As ComboBox
 	Friend WithEvents Label38 As Label
 	Friend WithEvents lblDueDate As Label
-	Friend WithEvents lblDateServiceEnded As Label
-	Friend WithEvents lblDateServiceStarted As Label
 	Friend WithEvents Button1 As Button
 	Friend WithEvents prfrmInvoice As PowerPacks.Printing.PrintForm
 	Friend WithEvents prdiaInvoice As PrintDialog

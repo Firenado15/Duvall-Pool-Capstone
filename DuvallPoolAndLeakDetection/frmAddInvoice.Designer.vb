@@ -62,6 +62,8 @@ Partial Class frmAddInvoice
 		Me.radInground = New System.Windows.Forms.RadioButton()
 		Me.radAbove = New System.Windows.Forms.RadioButton()
 		Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+		Me.lblEndDate = New System.Windows.Forms.Label()
+		Me.lblStartDate = New System.Windows.Forms.Label()
 		Me.Label16 = New System.Windows.Forms.Label()
 		Me.Label7 = New System.Windows.Forms.Label()
 		Me.dtInvoiceDueDate = New System.Windows.Forms.DateTimePicker()
@@ -71,8 +73,6 @@ Partial Class frmAddInvoice
 		Me.lblJobDesc = New System.Windows.Forms.Label()
 		Me.Label3 = New System.Windows.Forms.Label()
 		Me.btnTotal = New System.Windows.Forms.Button()
-		Me.lblStartDate = New System.Windows.Forms.Label()
-		Me.lblEndDate = New System.Windows.Forms.Label()
 		Me.GroupBox1.SuspendLayout()
 		Me.GroupBox4.SuspendLayout()
 		Me.GroupBox5.SuspendLayout()
@@ -481,6 +481,22 @@ Partial Class frmAddInvoice
 		Me.GroupBox5.TabStop = False
 		Me.GroupBox5.Text = "Dates"
 		'
+		'lblEndDate
+		'
+		Me.lblEndDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+		Me.lblEndDate.Location = New System.Drawing.Point(170, 56)
+		Me.lblEndDate.Name = "lblEndDate"
+		Me.lblEndDate.Size = New System.Drawing.Size(201, 23)
+		Me.lblEndDate.TabIndex = 24
+		'
+		'lblStartDate
+		'
+		Me.lblStartDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+		Me.lblStartDate.Location = New System.Drawing.Point(170, 21)
+		Me.lblStartDate.Name = "lblStartDate"
+		Me.lblStartDate.Size = New System.Drawing.Size(201, 23)
+		Me.lblStartDate.TabIndex = 23
+		'
 		'Label16
 		'
 		Me.Label16.AutoSize = True
@@ -541,9 +557,9 @@ Partial Class frmAddInvoice
 		'lblJobDesc
 		'
 		Me.lblJobDesc.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-		Me.lblJobDesc.Location = New System.Drawing.Point(27, 293)
+		Me.lblJobDesc.Location = New System.Drawing.Point(27, 291)
 		Me.lblJobDesc.Name = "lblJobDesc"
-		Me.lblJobDesc.Size = New System.Drawing.Size(395, 256)
+		Me.lblJobDesc.Size = New System.Drawing.Size(395, 258)
 		Me.lblJobDesc.TabIndex = 43
 		'
 		'Label3
@@ -563,22 +579,6 @@ Partial Class frmAddInvoice
 		Me.btnTotal.TabIndex = 45
 		Me.btnTotal.Text = "Total"
 		Me.btnTotal.UseVisualStyleBackColor = True
-		'
-		'lblStartDate
-		'
-		Me.lblStartDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-		Me.lblStartDate.Location = New System.Drawing.Point(170, 21)
-		Me.lblStartDate.Name = "lblStartDate"
-		Me.lblStartDate.Size = New System.Drawing.Size(201, 23)
-		Me.lblStartDate.TabIndex = 23
-		'
-		'lblEndDate
-		'
-		Me.lblEndDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-		Me.lblEndDate.Location = New System.Drawing.Point(170, 56)
-		Me.lblEndDate.Name = "lblEndDate"
-		Me.lblEndDate.Size = New System.Drawing.Size(201, 23)
-		Me.lblEndDate.TabIndex = 24
 		'
 		'frmAddInvoice
 		'

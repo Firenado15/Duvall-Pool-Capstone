@@ -157,6 +157,7 @@ CREATE TABLE TEmployees
 	,CONSTRAINT TEmployees_PK PRIMARY KEY ( intEmployeeID )
 )
 
+
 CREATE TABLE TStatuses
 (
 	 intStatusID			INTEGER			NOT NULL
@@ -196,6 +197,7 @@ CREATE TABLE TInvoices
 		else'CIN-'+CONVERT(varchar, intInvoiceID)
 		end
 	,decJobCost				DECIMAL(7,2)	NOT NULL
+	,decAmountPaid			DECIMAL(7,2)	NOT NULL
 	,CONSTRAINT TInvoices_PK PRIMARY KEY ( intInvoiceID)
 )
 
