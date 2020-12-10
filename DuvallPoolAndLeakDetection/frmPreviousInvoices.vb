@@ -139,8 +139,6 @@ Public Class frmPreviousInvoices
 
 			LoadInvoice()
 
-			LoadJobDates()
-
 			DetermineServices()
 
 		Catch ex As Exception
@@ -199,50 +197,14 @@ Public Class frmPreviousInvoices
 
 		'populate text boxes
 		lblDueDate.Text = dt.Rows(0).Item(3)
+		lblTotal.Text = "$" & dt.Rows(0).Item(5)
+		lblPaid.Text = "$" & dt.Rows(0).Item(6)
 
 		' close the database connection
 		CloseDatabaseConnection()
 
 	End Sub
 
-	Private Sub LoadJobDates()
-
-		Dim strDate As String = ""
-		Dim strSelect As String = ""
-		Dim cmdSelect As OleDb.OleDbCommand
-		Dim drSourceTable As OleDb.OleDbDataReader
-		Dim dt As DataTable = New DataTable
-
-		'Open DB
-		If OpenDatabaseConnectionSQLServer() = False Then
-
-			'If DB could not open
-			MessageBox.Show(Me, "Database connection error." & vbNewLine &
-							"The application will now close.",
-							Me.Text + " Error",
-							MessageBoxButtons.OK, MessageBoxIcon.Error)
-			Me.Close()
-
-		End If
-
-		'Create select
-		strSelect = "SELECT * FROM TJobRecords WHERE intJobRecordID = " & intJobRecordID
-
-		'Retrieve records 
-		cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
-		drSourceTable = cmdSelect.ExecuteReader
-
-		'load the data table from the reader
-		dt.Load(drSourceTable)
-
-		'populate text boxes
-		lblDateServiceStarted.Text = dt.Rows(0).Item(1)
-		lblDateServiceEnded.Text = dt.Rows(0).Item(2)
-
-		' close the database connection
-		CloseDatabaseConnection()
-
-	End Sub
 
 	Private Sub DetermineServices()
 
@@ -333,6 +295,82 @@ Public Class frmPreviousInvoices
 
 		' show the new form so any past data is not still on the form
 		printInvoice.ShowDialog()
+
+	End Sub
+
+	Private Sub btnPayment_Click(sender As Object, e As EventArgs) Handles btnPayment.Click
+
+		If lblTotal.Text = lblPaid.Text Then
+			MessageBox.Show(Me, "This invoice is already paid in full.")
+		Else
+
+			Dim strSelect As String = ""
+			Dim strName As String = ""
+			Dim intRowCount As Integer
+			Dim cmdSelect As OleDb.OleDbCommand 'Select
+			Dim drSourceTable As OleDb.OleDbDataReader 'retrieved data
+			Dim dt As DataTable = New DataTable 'reader
+
+			'open the database
+			If OpenDatabaseConnectionSQLServer() = False Then
+
+
+				' No connection error
+				MessageBox.Show(Me, "Database connection error." & vbNewLine &
+									"The application will now close.",
+									Me.Text + " Error",
+									MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+				'close the form
+				Me.Close()
+
+			End If
+
+			'Select statement
+			strSelect = "SELECT TOP 1 * FROM TCustomerPaymentTypes WHERE intCustomerID = " & cboName.SelectedValue.ToString & " ORDER BY intCustomerPaymentID DESC"
+
+			'Retrieve records 
+			cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
+			drSourceTable = cmdSelect.ExecuteReader
+
+			'load the data table from the reader
+			dt.Load(drSourceTable)
+
+			intRowCount = dt.Rows.Count
+
+			'close connection
+			CloseDatabaseConnection()
+
+			'Verify any rows were added to dt
+			If intRowCount = 0 Then
+
+				Dim result As DialogResult = MessageBox.Show("You must have an active payment type to make a payment." & Environment.NewLine & " Would you like to enter one now?", "Payment", MessageBoxButtons.YesNo)
+				If result = DialogResult.No Then
+
+				ElseIf result = DialogResult.Yes Then
+
+					' create a new instance of the customer intake form, passing current intCustomerID
+					Dim CustomerPayment As New frmPaymentType(cboName.SelectedValue)
+
+					' show the new form so any past data is not still on the form
+					CustomerPayment.ShowDialog()
+
+				End If
+
+			Else
+
+				' create a new instance of the customer intake form, passing current intCustomerID
+				Dim MakeInvoicePayment As New frmMakeInvoicePayment(cboInvoice.SelectedValue, cboName.SelectedValue, lblTotal.Text, lblPaid.Text)
+
+				' show the new form so any past data is not still on the form
+				MakeInvoicePayment.ShowDialog()
+
+				'Reload Invoice info
+				LoadInvoice()
+
+			End If
+
+		End If
 
 	End Sub
 End Class

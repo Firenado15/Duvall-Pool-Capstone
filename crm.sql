@@ -7,6 +7,7 @@ SET NOCOUNT ON; -- Report only errors
 -- --------------------------------------------------------------------------------
 -- Drop Tables
 -- --------------------------------------------------------------------------------
+IF OBJECT_ID( 'TInvoicePayments' )				IS NOT NULL DROP TABLE TInvoicePayments
 IF OBJECT_ID( 'TBankAccounts' )					IS NOT NULL DROP TABLE TBankAccounts
 IF OBJECT_ID( 'TBankAccountTypes' )				IS NOT NULL DROP TABLE TBankAccountTypes
 IF OBJECT_ID( 'TCustomerPaymentTypes' )			IS NOT NULL DROP TABLE TCustomerPaymentTypes
@@ -53,7 +54,7 @@ IF OBJECT_ID( 'vCustomersWithInvoices' )		IS NOT NULL DROP VIEW vCustomersWithIn
 IF OBJECT_ID( 'vJobRecordStatus' )				IS NOT NULL DROP VIEW vJobRecordStatus
 IF OBJECT_ID( 'vJobAndCustomerInfo' )			IS NOT NULL DROP VIEW vJobAndCustomerInfo
 IF OBJECT_ID( 'vJobsAndNoInvoice' )				IS NOT NULL DROP VIEW vJobsAndNoInvoice
-
+IF OBJECT_ID( 'vJobsWithoutInvoices' )			IS NOT NULL DROP VIEW vJobsWithoutInvoices
 
 -- --------------------------------------------------------------------------------
 -- Create Tables
@@ -199,6 +200,16 @@ CREATE TABLE TInvoices
 	,decJobCost				DECIMAL(7,2)	NOT NULL
 	,decAmountPaid			DECIMAL(7,2)	NOT NULL
 	,CONSTRAINT TInvoices_PK PRIMARY KEY ( intInvoiceID)
+)
+
+CREATE TABLE TInvoicePayments
+(
+	 intInvoicePaymentID		INTEGER			NOT NULL
+	,intInvoiceID				INTEGER			NOT NULL
+	,intCustomerID				INTEGER			NOT NULL
+	,decPaymentAmount			DECIMAL(7,2)	NOT NULL
+	,dtDateOfPayment			DATE			NOT NULL
+	CONSTRAINT TInvoicePayments_PK PRIMARY KEY ( intInvoicePaymentID )
 )
 
 CREATE TABLE TPaymentTypes
@@ -357,6 +368,8 @@ CREATE TABLE TJobRecords
 -- 26	TJobRecords						TCustomers					intCustomerID
 -- 27	TJobRecords						TStatuses					intStatusID
 -- 28	TJobServices					TInvoices					intInvoiceID
+-- 29   TInvoicePayments				TCustomers					intCustomerID
+-- 30	TInvoicePayments				TInvoices					intInvoiceID
 
 -- 1
 ALTER TABLE TCustomers ADD CONSTRAINT TCustomers_TStates_FK
@@ -468,6 +481,14 @@ FOREIGN KEY ( intStatusID ) REFERENCES TStatuses ( intStatusID )
 
 -- 28
 ALTER TABLE TJobServices ADD CONSTRAINT TJobServices_TInvoices_FK
+FOREIGN KEY ( intInvoiceID ) REFERENCES TInvoices ( intInvoiceID )
+
+-- 29
+ALTER TABLE TInvoicePayments ADD CONSTRAINT TInvoicePayments_TCustomers_FK
+FOREIGN KEY ( intCustomerID ) REFERENCES TCustomers ( intCustomerID )
+
+-- 30
+ALTER TABLE TInvoicePayments ADD CONSTRAINT TInvoicePayments_TInvoices_FK
 FOREIGN KEY ( intInvoiceID ) REFERENCES TInvoices ( intInvoiceID )
 
 
@@ -1173,21 +1194,37 @@ GO
 
 
 GO
-
 CREATE VIEW vJobsAndNoInvoice
 AS
 SELECT
-	 distinct TC.intCustomerID
+	 Distinct TC.intCustomerID
 	,TC.strLastName + ', '+ TC.strFirstName AS FullName
-	,TJ.intJobRecordID
+	--,TJ.intJobRecordID
 FROM
-	TCustomers AS TC
+	 TCustomers AS TC
 	,TJobRecords AS TJ
 WHERE
-	TC.intCustomerID = TJ.intCustomerID AND
+	TJ.intCustomerID = TC.intCustomerID AND
 	NOT EXISTS(SELECT intJobRecordID FROM TInvoices WHERE TJ.intJobRecordID = TInvoices.intJobRecordID)
 GO
 
+
+GO
+CREATE VIEW vJobsWithoutInvoices
+AS
+SELECT
+	 Distinct TJ.intJobRecordID
+	,TJ.JobNumber
+	,TJ.intCustomerID
+FROM
+	 TJobRecords AS TJ
+WHERE
+	NOT EXISTS(SELECT intJobRecordID FROM TInvoices WHERE TJ.intJobRecordID = TInvoices.intJobRecordID)
+GO
+
+
+
+--select * from vJobsAndNoInvoice
 
 --Select * from vJobRecordStatus
 
@@ -1259,3 +1296,5 @@ GO
 --select * from vCustomersWithJobs
 
 --select * from vJobsAndNoInvoice
+
+--select * from tinvoicepayments

@@ -46,14 +46,21 @@ Partial Class frmPreviousInvoices
 		Me.Button1 = New System.Windows.Forms.Button()
 		Me.prfrmInvoice = New Microsoft.VisualBasic.PowerPacks.Printing.PrintForm(Me.components)
 		Me.prdiaInvoice = New System.Windows.Forms.PrintDialog()
+		Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+		Me.lblTotal = New System.Windows.Forms.Label()
+		Me.Label3 = New System.Windows.Forms.Label()
+		Me.lblPaid = New System.Windows.Forms.Label()
+		Me.Label5 = New System.Windows.Forms.Label()
+		Me.btnPayment = New System.Windows.Forms.Button()
 		Me.GroupBox5.SuspendLayout()
 		Me.GroupBox4.SuspendLayout()
 		Me.GroupBox7.SuspendLayout()
+		Me.GroupBox1.SuspendLayout()
 		Me.SuspendLayout()
 		'
 		'btnClose
 		'
-		Me.btnClose.Location = New System.Drawing.Point(318, 383)
+		Me.btnClose.Location = New System.Drawing.Point(221, 333)
 		Me.btnClose.Name = "btnClose"
 		Me.btnClose.Size = New System.Drawing.Size(109, 44)
 		Me.btnClose.TabIndex = 34
@@ -62,7 +69,7 @@ Partial Class frmPreviousInvoices
 		'
 		'btnSearch
 		'
-		Me.btnSearch.Location = New System.Drawing.Point(568, 383)
+		Me.btnSearch.Location = New System.Drawing.Point(569, 333)
 		Me.btnSearch.Name = "btnSearch"
 		Me.btnSearch.Size = New System.Drawing.Size(109, 44)
 		Me.btnSearch.TabIndex = 35
@@ -211,7 +218,7 @@ Partial Class frmPreviousInvoices
 		'
 		Me.Label8.AutoSize = True
 		Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.Label8.Location = New System.Drawing.Point(15, 72)
+		Me.Label8.Location = New System.Drawing.Point(10, 72)
 		Me.Label8.Name = "Label8"
 		Me.Label8.Size = New System.Drawing.Size(52, 17)
 		Me.Label8.TabIndex = 39
@@ -237,7 +244,7 @@ Partial Class frmPreviousInvoices
 		'
 		Me.Label38.AutoSize = True
 		Me.Label38.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.Label38.Location = New System.Drawing.Point(15, 27)
+		Me.Label38.Location = New System.Drawing.Point(6, 27)
 		Me.Label38.Name = "Label38"
 		Me.Label38.Size = New System.Drawing.Size(68, 17)
 		Me.Label38.TabIndex = 37
@@ -245,7 +252,7 @@ Partial Class frmPreviousInvoices
 		'
 		'Button1
 		'
-		Me.Button1.Location = New System.Drawing.Point(443, 383)
+		Me.Button1.Location = New System.Drawing.Point(453, 333)
 		Me.Button1.Name = "Button1"
 		Me.Button1.Size = New System.Drawing.Size(109, 44)
 		Me.Button1.TabIndex = 53
@@ -264,11 +271,71 @@ Partial Class frmPreviousInvoices
 		'
 		Me.prdiaInvoice.UseEXDialog = True
 		'
+		'GroupBox1
+		'
+		Me.GroupBox1.Controls.Add(Me.lblPaid)
+		Me.GroupBox1.Controls.Add(Me.Label5)
+		Me.GroupBox1.Controls.Add(Me.lblTotal)
+		Me.GroupBox1.Controls.Add(Me.Label3)
+		Me.GroupBox1.Location = New System.Drawing.Point(57, 227)
+		Me.GroupBox1.Name = "GroupBox1"
+		Me.GroupBox1.Size = New System.Drawing.Size(398, 100)
+		Me.GroupBox1.TabIndex = 54
+		Me.GroupBox1.TabStop = False
+		Me.GroupBox1.Text = "Payment"
+		'
+		'lblTotal
+		'
+		Me.lblTotal.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+		Me.lblTotal.Location = New System.Drawing.Point(173, 16)
+		Me.lblTotal.Name = "lblTotal"
+		Me.lblTotal.Size = New System.Drawing.Size(215, 23)
+		Me.lblTotal.TabIndex = 45
+		'
+		'Label3
+		'
+		Me.Label3.AutoSize = True
+		Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+		Me.Label3.Location = New System.Drawing.Point(10, 22)
+		Me.Label3.Name = "Label3"
+		Me.Label3.Size = New System.Drawing.Size(88, 17)
+		Me.Label3.TabIndex = 44
+		Me.Label3.Text = "Invoice Total"
+		'
+		'lblPaid
+		'
+		Me.lblPaid.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+		Me.lblPaid.Location = New System.Drawing.Point(173, 58)
+		Me.lblPaid.Name = "lblPaid"
+		Me.lblPaid.Size = New System.Drawing.Size(215, 23)
+		Me.lblPaid.TabIndex = 47
+		'
+		'Label5
+		'
+		Me.Label5.AutoSize = True
+		Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+		Me.Label5.Location = New System.Drawing.Point(10, 64)
+		Me.Label5.Name = "Label5"
+		Me.Label5.Size = New System.Drawing.Size(88, 17)
+		Me.Label5.TabIndex = 46
+		Me.Label5.Text = "Amount Paid"
+		'
+		'btnPayment
+		'
+		Me.btnPayment.Location = New System.Drawing.Point(337, 333)
+		Me.btnPayment.Name = "btnPayment"
+		Me.btnPayment.Size = New System.Drawing.Size(109, 44)
+		Me.btnPayment.TabIndex = 55
+		Me.btnPayment.Text = "Make Payment"
+		Me.btnPayment.UseVisualStyleBackColor = True
+		'
 		'frmPreviousInvoices
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-		Me.ClientSize = New System.Drawing.Size(700, 447)
+		Me.ClientSize = New System.Drawing.Size(700, 388)
+		Me.Controls.Add(Me.btnPayment)
+		Me.Controls.Add(Me.GroupBox1)
 		Me.Controls.Add(Me.Button1)
 		Me.Controls.Add(Me.GroupBox7)
 		Me.Controls.Add(Me.btnClose)
@@ -287,6 +354,8 @@ Partial Class frmPreviousInvoices
 		Me.GroupBox4.PerformLayout()
 		Me.GroupBox7.ResumeLayout(False)
 		Me.GroupBox7.PerformLayout()
+		Me.GroupBox1.ResumeLayout(False)
+		Me.GroupBox1.PerformLayout()
 		Me.ResumeLayout(False)
 		Me.PerformLayout()
 
@@ -314,4 +383,10 @@ Partial Class frmPreviousInvoices
 	Friend WithEvents Button1 As Button
 	Friend WithEvents prfrmInvoice As PowerPacks.Printing.PrintForm
 	Friend WithEvents prdiaInvoice As PrintDialog
+	Friend WithEvents GroupBox1 As GroupBox
+	Friend WithEvents lblPaid As Label
+	Friend WithEvents Label5 As Label
+	Friend WithEvents lblTotal As Label
+	Friend WithEvents Label3 As Label
+	Friend WithEvents btnPayment As Button
 End Class

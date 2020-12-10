@@ -206,7 +206,7 @@ Public Class frmAddInvoice
 			cboJob.BeginUpdate()
 
 			'Create select
-			strSelect = "SELECT intJobRecordID, JobNumber FROM TJobRecords WHERE intCustomerID = " & cboCustomer.SelectedValue
+			strSelect = "SELECT intJobRecordID, JobNumber FROM vJobsWithoutInvoices WHERE intCustomerID = " & cboCustomer.SelectedValue
 
 			'Get records
 			cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
@@ -384,7 +384,7 @@ Public Class frmAddInvoice
 				", " & cboJob.SelectedValue &
 				", '" & strDate &
 				"', " & dblInvoiceCost &
-				")"
+				", 0.00)"
 
 
 			cmdInsert = New OleDb.OleDbCommand(strInsert, m_conAdministrator)
@@ -627,15 +627,15 @@ Public Class frmAddInvoice
 				'check for inground
 			ElseIf radInground.Checked = True Then
 				'check which pool size and assign price
-				If cboAbove.SelectedIndex = 0 Then
+				If cboInground.SelectedIndex = 0 Then
 					txtLinerCost.Text = 960
-				ElseIf cboAbove.SelectedIndex = 1 Then
+				ElseIf cboInground.SelectedIndex = 1 Then
 					txtLinerCost.Text = 1920
-				ElseIf cboAbove.SelectedIndex = 2 Then
+				ElseIf cboInground.SelectedIndex = 2 Then
 					txtLinerCost.Text = 2880
-				ElseIf cboAbove.SelectedIndex = 3 Then
+				ElseIf cboInground.SelectedIndex = 3 Then
 					txtLinerCost.Text = 3840
-				ElseIf cboAbove.SelectedIndex = 4 Then
+				ElseIf cboInground.SelectedIndex = 4 Then
 					txtLinerCost.Text = 4800
 				End If
 			End If
