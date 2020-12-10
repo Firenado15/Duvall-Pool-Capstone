@@ -55,6 +55,8 @@ IF OBJECT_ID( 'vJobRecordStatus' )				IS NOT NULL DROP VIEW vJobRecordStatus
 IF OBJECT_ID( 'vJobAndCustomerInfo' )			IS NOT NULL DROP VIEW vJobAndCustomerInfo
 IF OBJECT_ID( 'vJobsAndNoInvoice' )				IS NOT NULL DROP VIEW vJobsAndNoInvoice
 IF OBJECT_ID( 'vJobsWithoutInvoices' )			IS NOT NULL DROP VIEW vJobsWithoutInvoices
+IF OBJECT_ID( 'vMonthlyRevenue' )				IS NOT NULL DROP VIEW vMonthlyRevenue
+IF OBJECT_ID( 'vYearlyRevenue' )				IS NOT NULL DROP VIEW vYearlyRevenue
 
 -- --------------------------------------------------------------------------------
 -- Create Tables
@@ -171,7 +173,7 @@ CREATE TABLE TJobServices
 	 intJobServiceID		INTEGER			NOT NULL
 	,intServiceID			INTEGER			NOT NULL
 	,intJobRecordID			INTEGER			NOT NULL
-	,intInvoiceID			INTEGER			NOT NULL
+	--,intInvoiceID			INTEGER			NOT NULL
 	,decServiceCost			DECIMAL(7,2)	NOT NULL
 	,CONSTRAINT	TJobServices_PK PRIMARY KEY ( intJobServiceID )
 )
@@ -186,9 +188,11 @@ CREATE TABLE TServices
 CREATE TABLE TInvoices
 (
 	 intInvoiceID			INTEGER			NOT NULL
-	,intCustomerID			INTEGER			NOT NULL
+	--,intCustomerID			INTEGER			NOT NULL
 	,intJobRecordID			INTEGER			NOT NULL
 	,dtDateDue				DATE			NOT NULL
+	,decJobCost				DECIMAL(7,2)	NOT NULL
+	,decAmountPaid			DECIMAL(7,2)	NOT NULL
 	,CIN AS CASE len(intInvoiceID)
 		when 1 then 'CIN-'+'00000'+CONVERT(varchar, intInvoiceID)
 		when 2 then 'CIN-'+'0000'+CONVERT(varchar, intInvoiceID)
@@ -197,8 +201,6 @@ CREATE TABLE TInvoices
 		when 5 then 'CIN-'+'0'+CONVERT(varchar, intInvoiceID)
 		else'CIN-'+CONVERT(varchar, intInvoiceID)
 		end
-	,decJobCost				DECIMAL(7,2)	NOT NULL
-	,decAmountPaid			DECIMAL(7,2)	NOT NULL
 	,CONSTRAINT TInvoices_PK PRIMARY KEY ( intInvoiceID)
 )
 
@@ -206,7 +208,7 @@ CREATE TABLE TInvoicePayments
 (
 	 intInvoicePaymentID		INTEGER			NOT NULL
 	,intInvoiceID				INTEGER			NOT NULL
-	,intCustomerID				INTEGER			NOT NULL
+	--,intCustomerID				INTEGER			NOT NULL
 	,decPaymentAmount			DECIMAL(7,2)	NOT NULL
 	,dtDateOfPayment			DATE			NOT NULL
 	CONSTRAINT TInvoicePayments_PK PRIMARY KEY ( intInvoicePaymentID )
@@ -317,8 +319,6 @@ CREATE TABLE TJobRecords
 	 intJobRecordID			INTEGER			NOT NULL
 	,dtStartDate			DATE			NOT NULL
 	,dtEndDate				DATE			NOT NULL
-	,intEmployees			INTEGER			NOT NULL
-	,strEmployeeNames		VARCHAR(100)	NOT NULL
 	,strJobDesc				VARCHAR(500)	NOT NULL
 	,intStatusID			INTEGER			NOT NULL
 	,intCustomerID			INTEGER			NOT NULL
@@ -368,8 +368,7 @@ CREATE TABLE TJobRecords
 -- 26	TJobRecords						TCustomers					intCustomerID
 -- 27	TJobRecords						TStatuses					intStatusID
 -- 28	TJobServices					TInvoices					intInvoiceID
--- 29   TInvoicePayments				TCustomers					intCustomerID
--- 30	TInvoicePayments				TInvoices					intInvoiceID
+-- 29	TInvoicePayments				TInvoices					intInvoiceID
 
 -- 1
 ALTER TABLE TCustomers ADD CONSTRAINT TCustomers_TStates_FK
@@ -428,8 +427,8 @@ ALTER TABLE TJobServices ADD CONSTRAINT TJobServices_TServices_FK
 FOREIGN KEY ( intServiceID ) REFERENCES TServices ( intServiceID )
 
 -- 15
-ALTER TABLE	TInvoices ADD CONSTRAINT TInvoices_TCustomers_FK
-FOREIGN KEY ( intCustomerID ) REFERENCES TCustomers ( intCustomerID )
+--ALTER TABLE	TInvoices ADD CONSTRAINT TInvoices_TCustomers_FK
+--FOREIGN KEY ( intCustomerID ) REFERENCES TCustomers ( intCustomerID )
 
 -- 16
 ALTER TABLE	TInvoices ADD CONSTRAINT TInvoices_TJobRecords_FK
@@ -480,18 +479,12 @@ ALTER TABLE TJobRecords ADD CONSTRAINT TJobRecords_TStatuses_FK
 FOREIGN KEY ( intStatusID ) REFERENCES TStatuses ( intStatusID )
 
 -- 28
-ALTER TABLE TJobServices ADD CONSTRAINT TJobServices_TInvoices_FK
-FOREIGN KEY ( intInvoiceID ) REFERENCES TInvoices ( intInvoiceID )
+--ALTER TABLE TJobServices ADD CONSTRAINT TJobServices_TInvoices_FK
+--FOREIGN KEY ( intInvoiceID ) REFERENCES TInvoices ( intInvoiceID )
 
 -- 29
-ALTER TABLE TInvoicePayments ADD CONSTRAINT TInvoicePayments_TCustomers_FK
-FOREIGN KEY ( intCustomerID ) REFERENCES TCustomers ( intCustomerID )
-
--- 30
 ALTER TABLE TInvoicePayments ADD CONSTRAINT TInvoicePayments_TInvoices_FK
 FOREIGN KEY ( intInvoiceID ) REFERENCES TInvoices ( intInvoiceID )
-
-
 ---- --------------------------------------------------------------------------------
 ---- Add Necessary Data
 ---- --------------------------------------------------------------------------------
@@ -831,33 +824,32 @@ INSERT INTO TMonths VALUES
 (12, 'December')
 
 INSERT INTO TYears VALUES
-(1, '2019'),
-(2, '2020')
+(1, '2020')
 
-INSERT INTO TFinances VALUES
-(1, 1, 1, 4100.92, 352.84, 1072.64, 342.46, 0, 82.40, 1245.72, 792.92, 108.46, 9842.73),
-(2, 2, 1, 3946.63, 304.71, 1072.64, 298.62, 105.82, 62.60, 1245.72, 823.92, 62.63, 7521.52),
-(3, 3, 1, 4512.73, 386.71, 1072.64, 375.96, 0, 152.61, 1245.72, 763.22, 72.64, 10231.29),
-(4, 4, 1, 4852.24, 525.24, 1072.64, 525.24, 0, 205.34, 1245.72, 725.24, 104.23, 12023.43),
-(5, 5, 1, 4924.64, 517.85, 1072.64, 574.67, 58.43, 264.64, 1245.72, 672.49, 135.83, 12632.84),
-(6, 6, 1, 5451.86, 601.14, 1072.64, 613.68, 61.96, 289.57, 1245.72, 703.15, 176.32, 14001.35),
-(7, 7, 1, 5524.34, 624.43, 1072.64, 681.96, 96.21, 305.21, 1245.72, 743.25, 115.74, 14835.22),
-(8, 8, 1, 5415.35, 621.14, 1072.64, 618.25, 81.58, 293.18, 1245.72, 752.73, 183.25, 14715.25),
-(9, 9, 1, 4921.25, 563.25, 1072.64, 539.53, 153.25, 252.56, 1245.72, 726.23, 91.53, 13158.63),
-(10, 10, 1, 4256.85, 475.21, 1072.64, 368.15, 78.83, 173.25, 1245.72, 731.52, 99.25, 10367.82),
-(11, 11, 1, 3315.32, 325.25, 1072.64, 253.25, 135.64, 91.75, 1245.72, 782.64, 116.75, 7375.24),
-(12, 12, 1, 3037.46, 301.53, 1072.64, 137.42, 1553.85, 82.68, 1245.72, 842.65, 101.53, 6928.42),
-(13, 1, 2, 4500.85, 382.32, 1208.84, 383.65, 53.32, 102.26, 1463.85, 832.56, 143.64, 11636.15),
-(14, 2, 2, 4246.63, 364.93, 1208.84, 343.53, 75.43, 93.83, 1463.85, 854.22, 35.63, 8968.24),
-(15, 3, 2, 4924.15, 402.65, 1208.84, 421.23, 0, 225.35, 1463.85, 802.25, 52.54, 11001.01),
-(16, 4, 2, 5123.27, 583.43, 1208.84, 515.35, 0, 247.75, 1463.85, 783.15, 91.25, 12853.28),
-(17, 5, 2, 5522.85, 598.99, 1208.84, 564.35, 158.43, 314.85, 1463.85, 753.16, 99.99, 13015.52),
-(18, 6, 2, 6014.53, 653.14, 1208.84, 623.36, 103.15, 353.15, 1463.85, 784.53, 102.53, 14729.89),
-(19, 7, 2, 6091.25, 701.25, 1208.84, 692.15, 80.25, 405.15, 1463.85, 801.53, 142.53, 15496.64),
-(20, 8, 2, 5947.54, 682.57, 1208.84, 715.63, 95.31, 371.53, 1463.85, 812.63, 171.64, 14932.64),
-(21, 9, 2, 5253.53, 601.35, 1208.84, 623.14, 253.74, 292.73, 1463.85, 785.52, 242.63, 13526.26),
-(22, 10, 2, 4636.15, 491.64, 1208.84, 427.62, 416.35, 182.52, 1463.85, 796.23, 52.13, 10528.63),
-(23, 11, 2, 3512.73, 294.42, 1208.84, 321.54, 86.34, 103.92, 1463.85, 824.47, 24.80, 8182.83)
+--INSERT INTO TFinances VALUES
+--(1, 1, 1, 4100.92, 352.84, 1072.64, 342.46, 0, 82.40, 1245.72, 792.92, 108.46, 9842.73),
+--(2, 2, 1, 3946.63, 304.71, 1072.64, 298.62, 105.82, 62.60, 1245.72, 823.92, 62.63, 7521.52),
+--(3, 3, 1, 4512.73, 386.71, 1072.64, 375.96, 0, 152.61, 1245.72, 763.22, 72.64, 10231.29),
+--(4, 4, 1, 4852.24, 525.24, 1072.64, 525.24, 0, 205.34, 1245.72, 725.24, 104.23, 12023.43),
+--(5, 5, 1, 4924.64, 517.85, 1072.64, 574.67, 58.43, 264.64, 1245.72, 672.49, 135.83, 12632.84),
+--(6, 6, 1, 5451.86, 601.14, 1072.64, 613.68, 61.96, 289.57, 1245.72, 703.15, 176.32, 14001.35),
+--(7, 7, 1, 5524.34, 624.43, 1072.64, 681.96, 96.21, 305.21, 1245.72, 743.25, 115.74, 14835.22),
+--(8, 8, 1, 5415.35, 621.14, 1072.64, 618.25, 81.58, 293.18, 1245.72, 752.73, 183.25, 14715.25),
+--(9, 9, 1, 4921.25, 563.25, 1072.64, 539.53, 153.25, 252.56, 1245.72, 726.23, 91.53, 13158.63),
+--(10, 10, 1, 4256.85, 475.21, 1072.64, 368.15, 78.83, 173.25, 1245.72, 731.52, 99.25, 10367.82),
+--(11, 11, 1, 3315.32, 325.25, 1072.64, 253.25, 135.64, 91.75, 1245.72, 782.64, 116.75, 7375.24),
+--(12, 12, 1, 3037.46, 301.53, 1072.64, 137.42, 1553.85, 82.68, 1245.72, 842.65, 101.53, 6928.42),
+--(13, 1, 2, 4500.85, 382.32, 1208.84, 383.65, 53.32, 102.26, 1463.85, 832.56, 143.64, 11636.15),
+--(14, 2, 2, 4246.63, 364.93, 1208.84, 343.53, 75.43, 93.83, 1463.85, 854.22, 35.63, 8968.24),
+--(15, 3, 2, 4924.15, 402.65, 1208.84, 421.23, 0, 225.35, 1463.85, 802.25, 52.54, 11001.01),
+--(16, 4, 2, 5123.27, 583.43, 1208.84, 515.35, 0, 247.75, 1463.85, 783.15, 91.25, 12853.28),
+--(17, 5, 2, 5522.85, 598.99, 1208.84, 564.35, 158.43, 314.85, 1463.85, 753.16, 99.99, 13015.52),
+--(18, 6, 2, 6014.53, 653.14, 1208.84, 623.36, 103.15, 353.15, 1463.85, 784.53, 102.53, 14729.89),
+--(19, 7, 2, 6091.25, 701.25, 1208.84, 692.15, 80.25, 405.15, 1463.85, 801.53, 142.53, 15496.64),
+--(20, 8, 2, 5947.54, 682.57, 1208.84, 715.63, 95.31, 371.53, 1463.85, 812.63, 171.64, 14932.64),
+--(21, 9, 2, 5253.53, 601.35, 1208.84, 623.14, 253.74, 292.73, 1463.85, 785.52, 242.63, 13526.26),
+--(22, 10, 2, 4636.15, 491.64, 1208.84, 427.62, 416.35, 182.52, 1463.85, 796.23, 52.13, 10528.63),
+--(23, 11, 2, 3512.73, 294.42, 1208.84, 321.54, 86.34, 103.92, 1463.85, 824.47, 24.80, 8182.83)
 
 INSERT INTO TStatuses VALUES 
 (1, 'Scheduled'),
@@ -874,17 +866,546 @@ INSERT INTO TServices VALUES
 ,(7, 'Filter Backwashed')
 
 INSERT INTO TJobRecords VALUES
--- StartDate, EndDate, Employees, EmployeeNames, Description, Status, CustomerID, JobNumber
-(1, '11-06-2020', '11-08-2020', 1, 'Jack White', 'Maintanence performed. Cleaned pool', 3, 5)
-,(2, '11-07-2020', '11-22-2020', 4, 'John Doe, Damon Albarn, Patrick Carney, Dan Aurbach', 'Pool Installation, counsultations, and 3 month supply of cleaning supplies.', 3, 28)
-,(3, '11-09-2020', '11-12-2020', 2, 'John Doe, Jack White', 'Water testing and leak detection performed', 3, 17)
-,(4, '11-15-2020', '11-25-2020', 3, 'Damon Albarn, Patrick Carney, Dan Aurbach', 'Linear installation, water testing, chemicals add, filter backwashed', 3, 83)
-,(5, '11-23-2020', '11-24-2020', 1, 'John Doe', 'Water testing, pool skimmed, chemicals added', 3, 52)
-,(6, '11-27-2020', '11-29-2020', 2, 'Patrick Carney, Dan Aurbach', 'Vacuumed, chemicals added, leak detection', 3, 93)
-,(7, '12-1-2020', '12-3-2020', 1, 'Damon Albarn', 'Water testing', 2, 73)
-,(8, '12-2-2020', '12-4-2020', 1, 'Dan Aurbach', 'Skimmed, chemicals added', 2, 45)
-,(9, '12-6-2020', '12-9-2020', 1, 'Jack White', 'Maintenence of pool. Most likely water testing and adding chemicals', 1, 104)
-,(10, '12-16-2020', '12-17-2020', 1, 'Jack White', 'Maintanence of pool. ', 1, 5)
+-- StartDate, EndDate, Description, Status, CustomerID
+(1, '6-01-2020', '6-03-2020', 'Maintanence performed. Cleaned pool', 3, 1)
+,(2, '6-02-2020', '6-10-2020', 'Pool Installation and consultaion.', 3, 2)
+,(3, '6-04-2020', '6-07-2020', 'Water testing and leak detection performed', 3, 3)
+,(4, '6-09-2020', '6-10-2020', 'Linear installation, water testing, chemicals add, filter backwashed', 3, 4)
+,(5, '6-11-2020', '6-13-2020', 'Water testing, pool skimmed, chemicals added', 3, 5)
+,(6, '6-13-2020', '6-15-2020', 'Vacuumed, chemicals added, leak detection', 3, 6)
+,(7, '6-15-2020', '6-16-2020', 'Water testing', 3, 7)
+,(8, '6-16-2020', '6-17-2020', 'Skimmed, chemicals added', 3, 8)
+,(9, '6-18-2020', '6-20-2020', 'Maintenence of pool. Water testing and adding chemicals.', 3, 9)
+,(10, '6-20-2020', '6-21-2020', 'Maintanence of pool.', 3, 10)
+,(11, '6-21-2020', '6-23-2020', 'Maintanence performed. Cleaned pool', 3, 11)
+,(12, '6-22-2020', '6-29-2020', 'Pool Installation and consultaion.', 3, 12)
+,(13, '6-24-2020', '6-26-2020', 'Water testing and leak detection performed', 3, 13)
+,(14, '6-27-2020', '6-28-2020', 'Linear installation, water testing, chemicals add, filter backwashed', 3, 14)
+,(15, '6-28-2020', '6-29-2020', 'Water testing, pool skimmed, chemicals added', 3, 15)
+,(16, '7-01-2020', '7-02-2020', 'Vacuumed, chemicals added, leak detection', 3, 16)
+,(17, '7-02-2020', '7-03-2020', 'Water testing', 3, 17)
+,(18, '7-03-2020', '7-05-2020', 'Skimmed, chemicals added', 3, 18)
+,(19, '7-05-2020', '7-08-2020', 'Maintenence of pool. Water testing and adding chemicals.', 3, 19)
+,(20, '7-07-2020', '7-08-2020', 'Maintanence of pool.', 3, 20)
+,(21, '7-09-2020', '7-10-2020', 'Maintanence performed. Cleaned pool', 3, 21)
+,(22, '7-11-2020', '7-12-2020', 'Pool Installation and consultaion.', 3, 22)
+,(23, '7-13-2020', '7-15-2020', 'Water testing and leak detection performed', 3, 23)
+,(24, '7-15-2020', '7-18-2020', 'Linear installation, water testing, chemicals add, filter backwashed', 3, 24)
+,(25, '7-17-2020', '7-19-2020', 'Water testing, pool skimmed, chemicals added', 3, 25)
+,(26, '7-20-2020', '7-21-2020', 'Vacuumed, chemicals added, leak detection', 3, 26)
+,(27, '7-21-2020', '7-22-2020', 'Water testing', 3, 27)
+,(28, '7-22-2020', '7-24-2020', 'Skimmed, chemicals added', 3, 28)
+,(29, '7-23-2020', '7-25-2020', 'Maintenence of pool. Water testing and adding chemicals.', 3, 29)
+,(30, '7-25-2020', '7-26-2020', 'Maintanence of pool.', 3, 30)
+,(31, '7-26-2020', '7-27-2020', 'Maintanence performed. Cleaned pool', 3, 31)
+,(32, '7-27-2020', '7-28-2020', 'Pool Installation and consultaion.', 3, 32)
+,(33, '7-28-2020', '7-29-2020', 'Water testing and leak detection performed', 3, 33)
+,(34, '7-29-2020', '7-30-2020', 'Linear installation, water testing, chemicals add, filter backwashed', 3, 34)
+,(35, '7-30-2020', '7-31-2020', 'Water testing, pool skimmed, chemicals added', 3, 35)
+,(36, '8-01-2020', '8-02-2020', 'Vacuumed, chemicals added, leak detection', 3, 36)
+,(37, '8-02-2020', '8-03-2020', 'Water testing', 3, 37)
+,(38, '8-03-2020', '8-05-2020', 'Skimmed, chemicals added', 3, 38)
+,(39, '8-05-2020', '8-08-2020', 'Maintenence of pool. Water testing and adding chemicals.', 3, 39)
+,(40, '8-07-2020', '8-08-2020', 'Maintanence of pool.', 3, 40)
+,(41, '8-09-2020', '8-10-2020', 'Maintanence performed. Cleaned pool', 3, 41)
+,(42, '8-11-2020', '8-12-2020', 'Pool Installation and consultaion.', 3, 42)
+,(43, '8-13-2020', '8-15-2020', 'Water testing and leak detection performed', 3, 43)
+,(44, '8-15-2020', '8-18-2020', 'Linear installation, water testing, chemicals add, filter backwashed', 3, 44)
+,(45, '8-17-2020', '8-19-2020', 'Water testing, pool skimmed, chemicals added', 3, 45)
+,(46, '8-20-2020', '8-21-2020', 'Vacuumed, chemicals added, leak detection', 3, 46)
+,(47, '8-21-2020', '8-22-2020', 'Water testing', 3, 47)
+,(48, '8-22-2020', '8-24-2020', 'Skimmed, chemicals added', 3, 48)
+,(49, '8-23-2020', '8-25-2020', 'Maintenence of pool. Water testing and adding chemicals.', 3, 49)
+,(50, '8-25-2020', '8-26-2020', 'Maintanence of pool.', 3, 50)
+,(51, '8-26-2020', '8-27-2020', 'Maintanence performed. Cleaned pool', 3, 51)
+,(52, '8-27-2020', '8-28-2020', 'Pool Installation and consultaion.', 3, 52)
+,(53, '8-28-2020', '8-29-2020', 'Water testing and leak detection performed', 3, 53)
+,(54, '8-29-2020', '8-30-2020', 'Linear installation, water testing, chemicals add, filter backwashed', 3, 54)
+,(55, '8-30-2020', '8-31-2020', 'Water testing, pool skimmed, chemicals added', 3, 55)
+,(56, '9-01-2020', '9-02-2020', 'Vacuumed, chemicals added, leak detection', 3, 56)
+,(57, '9-02-2020', '9-03-2020', 'Water testing', 3, 57)
+,(58, '9-03-2020', '9-05-2020', 'Skimmed, chemicals added', 3, 58)
+,(59, '9-05-2020', '9-08-2020', 'Maintenence of pool. Water testing and adding chemicals.', 3, 59)
+,(60, '9-07-2020', '9-08-2020', 'Maintanence of pool.', 3, 60)
+,(61, '9-09-2020', '9-10-2020', 'Maintanence performed. Cleaned pool', 3, 61)
+,(62, '9-11-2020', '9-12-2020', 'Pool Installation and consultaion.', 3, 62)
+,(63, '9-13-2020', '9-15-2020', 'Water testing and leak detection performed', 3, 63)
+,(64, '9-15-2020', '9-18-2020', 'Linear installation, water testing, chemicals add, filter backwashed', 3, 64)
+,(65, '9-17-2020', '9-19-2020', 'Water testing, pool skimmed, chemicals added', 3, 65)
+,(66, '9-20-2020', '9-21-2020', 'Vacuumed, chemicals added, leak detection', 3, 66)
+,(67, '9-21-2020', '9-22-2020', 'Water testing', 3, 67)
+,(68, '9-22-2020', '9-24-2020', 'Skimmed, chemicals added', 3, 68)
+,(69, '9-23-2020', '9-25-2020', 'Maintenence of pool. Water testing and adding chemicals.', 3, 69)
+,(70, '9-25-2020', '9-26-2020', 'Maintanence of pool.', 3, 70)
+,(71, '10-01-2020', '10-03-2020', 'Maintanence performed. Cleaned pool', 3, 71)
+,(72, '10-02-2020', '10-10-2020', 'Pool Installation and consultaion.', 3, 72)
+,(73, '10-04-2020', '10-07-2020', 'Water testing and leak detection performed', 3, 73)
+,(74, '10-09-2020', '10-10-2020', 'Linear installation, water testing, chemicals add, filter backwashed', 3, 74)
+,(75, '10-11-2020', '10-13-2020', 'Water testing, pool skimmed, chemicals added', 3, 75)
+,(76, '10-13-2020', '10-15-2020', 'Vacuumed, chemicals added, leak detection', 3, 76)
+,(77, '10-15-2020', '10-16-2020', 'Water testing', 3, 77)
+,(78, '10-16-2020', '10-17-2020', 'Skimmed, chemicals added', 3, 78)
+,(79, '10-18-2020', '10-20-2020', 'Maintenence of pool. Water testing and adding chemicals.', 3, 79)
+,(80, '10-20-2020', '10-21-2020', 'Maintanence of pool.', 3, 80)
+,(81, '10-21-2020', '10-23-2020', 'Maintanence performed. Cleaned pool', 3, 81)
+,(82, '10-22-2020', '10-29-2020', 'Pool Installation and consultaion.', 3, 82)
+,(83, '10-24-2020', '10-26-2020', 'Water testing and leak detection performed', 3, 83)
+,(84, '10-27-2020', '10-28-2020', 'Linear installation, water testing, chemicals add, filter backwashed', 3, 84)
+,(85, '10-28-2020', '10-29-2020', 'Water testing, pool skimmed, chemicals added', 3, 85)
+,(86, '11-01-2020', '11-02-2020', 'Vacuumed, chemicals added, leak detection', 3, 86)
+,(87, '11-02-2020', '11-03-2020', 'Water testing', 3, 87)
+,(88, '11-03-2020', '11-05-2020', 'Skimmed, chemicals added', 3, 88)
+,(89, '11-05-2020', '11-08-2020', 'Maintenence of pool. Water testing and adding chemicals.', 3, 89)
+,(90, '11-07-2020', '11-08-2020', 'Maintanence of pool.', 3, 90)
+,(91, '11-09-2020', '11-10-2020', 'Maintanence performed. Cleaned pool', 3, 91)
+,(92, '11-11-2020', '11-12-2020', 'Pool Installation and consultaion.', 3, 92)
+,(93, '11-13-2020', '11-15-2020', 'Water testing and leak detection performed', 3, 93)
+,(94, '11-15-2020', '11-18-2020', 'Linear installation, water testing, chemicals add, filter backwashed', 3, 94)
+,(95, '11-17-2020', '11-19-2020', 'Water testing, pool skimmed, chemicals added', 3, 95)
+,(96, '11-20-2020', '11-21-2020', 'Vacuumed, chemicals added, leak detection', 3, 96)
+,(97, '11-21-2020', '11-22-2020', 'Water testing', 3, 97)
+,(98, '11-22-2020', '11-24-2020', 'Skimmed, chemicals added', 3, 98)
+,(99, '11-23-2020', '11-25-2020', 'Maintenence of pool. Water testing and adding chemicals.', 3, 99)
+,(100, '11-25-2020', '11-26-2020', 'Maintanence of pool.', 3, 100)
+,(101, '12-01-2020', '12-03-2020', 'Maintanence performed. Cleaned pool', 3, 101)
+,(102, '12-02-2020', '12-10-2020', 'Pool Installation and consultaion.', 3, 102)
+,(103, '12-04-2020', '12-07-2020', 'Water testing and leak detection performed', 3, 103)
+,(104, '12-09-2020', '12-10-2020', 'Linear installation, water testing, chemicals add, filter backwashed', 3, 104)
+,(105, '12-11-2020', '12-13-2020', 'Water testing, pool skimmed, chemicals added', 2, 105)
+,(106, '12-13-2020', '12-15-2020', 'Vacuumed, chemicals added, leak detection', 2, 106)
+,(107, '12-15-2020', '12-16-2020', 'Water testing', 1, 107)
+,(108, '12-16-2020', '12-17-2020', 'Skimmed, chemicals added', 1, 108)
+
+INSERT INTO TInvoices VALUES
+-- intJobRecordID, DateDue, Jobcost, AmountPaid
+(1, 1, '6-30-2020', 215, 215)
+,(2, 2, '6-30-2020', 1250, 1250)
+,(3, 3, '6-30-2020', 345, 345)
+,(4, 4, '6-30-2020', 2060, 2060)
+,(5, 5, '6-30-2020', 125, 125)
+,(6, 6, '6-30-2020', 720, 720)
+,(7, 7, '6-30-2020', 85, 85)
+,(8, 8, '6-30-2020', 45, 45)
+,(9, 9, '6-30-2020', 345, 345)
+,(10, 10, '6-30-2020', 385, 385)
+,(11, 11, '6-30-2020', 215, 215)
+,(12, 12, '6-30-2020', 1250, 1250)
+,(13, 13, '6-30-2020', 345, 345)
+,(14, 14, '6-30-2020', 2060, 2060)
+,(15, 15, '6-30-2020', 125, 125)
+,(16, 16, '7-30-2020', 720, 720)
+,(17, 17, '7-30-2020', 85, 85)
+,(18, 18, '7-30-2020', 45, 45)
+,(19, 19, '7-30-2020', 345, 345)
+,(20, 20, '7-30-2020', 385, 385)
+,(21, 21, '7-30-2020', 215, 215)
+,(22, 22, '7-30-2020', 1250, 1250)
+,(23, 23, '7-30-2020', 345, 345)
+,(24, 24, '7-30-2020', 2060, 2060)
+,(25, 25, '7-30-2020', 125, 125)
+,(26, 26, '7-30-2020', 720, 720)
+,(27, 27, '7-30-2020', 85, 85)
+,(28, 28, '7-30-2020', 45, 45)
+,(29, 29, '7-30-2020', 345, 345)
+,(30, 30, '7-30-2020', 385, 385)
+,(31, 31, '7-30-2020', 215, 215)
+,(32, 32, '7-30-2020', 1250, 1250)
+,(33, 33, '7-30-2020', 345, 345)
+,(34, 34, '7-30-2020', 2060, 2060)
+,(35, 35, '7-30-2020', 125, 125)
+,(36, 36, '8-30-2020', 720, 720)
+,(37, 37, '8-30-2020', 85, 85)
+,(38, 38, '8-30-2020', 45, 45)
+,(39, 39, '8-30-2020', 345, 345)
+,(40, 40, '8-30-2020', 385, 385)
+,(41, 41, '8-30-2020', 215, 215)
+,(42, 42, '8-30-2020', 1250, 1250)
+,(43, 43, '8-30-2020', 345, 345)
+,(44, 44, '8-30-2020', 2060, 2060)
+,(45, 45, '8-30-2020', 125, 125)
+,(46, 46, '8-30-2020', 720, 720)
+,(47, 47, '8-30-2020', 85, 85)
+,(48, 48, '8-30-2020', 45, 45)
+,(49, 49, '8-30-2020', 345, 345)
+,(50, 50, '8-30-2020', 385, 385)
+,(51, 51, '8-30-2020', 215, 215)
+,(52, 52, '8-30-2020', 1250, 1250)
+,(53, 53, '8-30-2020', 345, 345)
+,(54, 54, '8-30-2020', 2060, 2060)
+,(55, 55, '8-30-2020', 125, 125)
+,(56, 56, '9-30-2020', 720, 720)
+,(57, 57, '9-30-2020', 85, 85)
+,(58, 58, '9-30-2020', 45, 45)
+,(59, 59, '9-30-2020', 345, 345)
+,(60, 60, '9-30-2020', 385, 385)
+,(61, 61, '9-30-2020', 215, 215)
+,(62, 62, '9-30-2020', 1250, 1250)
+,(63, 63, '9-30-2020', 345, 345)
+,(64, 64, '9-30-2020', 2060, 2060)
+,(65, 65, '9-30-2020', 125, 125)
+,(66, 66, '9-30-2020', 720, 720)
+,(67, 67, '9-30-2020', 85, 85)
+,(68, 68, '9-30-2020', 45, 45)
+,(69, 69, '9-30-2020', 345, 345)
+,(70, 70, '9-30-2020', 385, 385)
+,(71, 71, '10-30-2020', 215, 215)
+,(72, 72, '10-30-2020', 1250, 1250)
+,(73, 73, '10-30-2020', 345, 345)
+,(74, 74, '10-30-2020', 2060, 2060)
+,(75, 75, '10-30-2020', 125, 125)
+,(76, 76, '10-30-2020', 720, 720)
+,(77, 77, '10-30-2020', 85, 85)
+,(78, 78, '10-30-2020', 45, 45)
+,(79, 79, '10-30-2020', 345, 345)
+,(80, 80, '10-30-2020', 385, 385)
+,(81, 81, '10-30-2020', 215, 215)
+,(82, 82, '10-30-2020', 1250, 1250)
+,(83, 83, '10-30-2020', 345, 345)
+,(84, 84, '10-30-2020', 2060, 2060)
+,(85, 85, '10-30-2020', 125, 125)
+,(86, 86, '11-30-2020', 720, 720)
+,(87, 87, '11-30-2020', 85, 85)
+,(88, 88, '11-30-2020', 45, 45)
+,(89, 89, '11-30-2020', 345, 345)
+,(90, 90, '11-30-2020', 385, 385)
+,(91, 91, '11-30-2020', 215, 215)
+,(92, 92, '11-30-2020', 1250, 1250)
+,(93, 93, '11-30-2020', 345, 345)
+,(94, 94, '11-30-2020', 2060, 2060)
+,(95, 95, '11-30-2020', 125, 125)
+,(96, 96, '11-30-2020', 720, 720)
+,(97, 97, '11-30-2020', 85, 85)
+,(98, 98, '11-30-2020', 45, 45)
+,(99, 99, '11-30-2020', 345, 345)
+,(100, 100, '11-30-2020', 385, 385)
+,(101, 101, '12-30-2020', 215, 215)
+,(102, 102, '12-30-2020', 1250, 1250)
+,(103, 103, '12-30-2020', 345, 245)
+,(104, 104, '12-30-2020', 2060, 1030)
+
+INSERT INTO TJobServices VALUES
+--intServiceID, intJobRecordID, decServiceCost
+(1, 4, 1, 85)
+,(2, 5, 1, 35)
+,(3, 6, 1, 50)
+,(4, 7, 1, 45)
+,(5, 1, 2, 1200)
+,(6, 6, 2, 50)
+,(7, 2, 3, 45)
+,(8, 3, 3, 300)
+,(9, 1, 4, 1920)
+,(10, 2, 4, 45)
+,(11, 6, 4, 50)
+,(12, 7, 4, 45)
+,(13, 2, 5, 45)
+,(14, 5, 5, 35)
+,(15, 6, 5, 45)
+,(16, 3, 6, 500)
+,(17, 4, 6, 170)
+,(18, 6, 6, 50)
+,(19, 5, 7, 35)
+,(20, 6, 7, 50)
+,(21, 2, 8, 45)
+,(22, 2, 9, 45)
+,(23, 4, 9, 170)
+,(24, 5, 9, 35)
+,(25, 6, 9, 50)
+,(26, 7, 9, 45)
+,(27, 4, 10, 255)
+,(28, 5, 10, 35)
+,(29, 6, 10, 50)
+,(30, 7, 10, 45)
+,(31, 4, 11, 85)
+,(32, 5, 11, 35)
+,(33, 6, 11, 50)
+,(34, 7, 11, 45)
+,(35, 1, 12, 1200)
+,(36, 6, 12, 50)
+,(37, 2, 13, 45)
+,(38, 3, 13, 300)
+,(39, 1, 14, 1920)
+,(40, 2, 14, 45)
+,(41, 6, 14, 50)
+,(42, 7, 14, 45)
+,(43, 2, 15, 45)
+,(44, 5, 15, 35)
+,(45, 6, 15, 45)
+,(46, 3, 16, 500)
+,(47, 4, 16, 170)
+,(48, 6, 16, 50)
+,(49, 5, 17, 35)
+,(50, 6, 17, 50)
+,(51, 2, 18, 45)
+,(52, 2, 19, 45)
+,(53, 4, 19, 170)
+,(54, 5, 19, 35)
+,(55, 6, 19, 50)
+,(56, 7, 19, 45)
+,(57, 4, 20, 255)
+,(58, 5, 20, 35)
+,(59, 6, 20, 50)
+,(60, 7, 20, 45)
+,(61, 4, 21, 85)
+,(62, 5, 21, 35)
+,(63, 6, 21, 50)
+,(64, 7, 21, 45)
+,(65, 1, 22, 1200)
+,(66, 6, 22, 50)
+,(67, 2, 23, 45)
+,(68, 3, 23, 300)
+,(69, 1, 24, 1920)
+,(70, 2, 24, 45)
+,(71, 6, 24, 50)
+,(72, 7, 24, 45)
+,(73, 2, 25, 45)
+,(74, 5, 25, 35)
+,(75, 6, 25, 45)
+,(76, 3, 26, 500)
+,(77, 4, 26, 170)
+,(78, 6, 26, 50)
+,(79, 5, 27, 35)
+,(80, 6, 27, 50)
+,(81, 2, 28, 45)
+,(82, 2, 29, 45)
+,(83, 4, 29, 170)
+,(84, 5, 29, 35)
+,(85, 6, 29, 50)
+,(86, 7, 29, 45)
+,(87, 4, 30, 255)
+,(88, 5, 30, 35)
+,(89, 6, 30, 50)
+,(90, 7, 30, 45)
+,(91, 4, 31, 85)
+,(92, 5, 31, 35)
+,(93, 6, 31, 50)
+,(94, 7, 31, 45)
+,(95, 1, 32, 1200)
+,(96, 6, 32, 50)
+,(97, 2, 33, 45)
+,(98, 3, 33, 300)
+,(99, 1, 34, 1920)
+,(100, 2, 34, 45)
+,(101, 6, 34, 50)
+,(102, 7, 34, 45)
+,(103, 2, 35, 45)
+,(104, 5, 35, 35)
+,(105, 6, 35, 45)
+,(106, 3, 36, 500)
+,(107, 4, 36, 170)
+,(108, 6, 36, 50)
+,(109, 5, 37, 35)
+,(110, 6, 37, 50)
+,(111, 2, 38, 45)
+,(112, 2, 39, 45)
+,(113, 4, 39, 170)
+,(114, 5, 39, 35)
+,(115, 6, 39, 50)
+,(116, 7, 39, 45)
+,(117, 4, 40, 255)
+,(118, 5, 40, 35)
+,(119, 6, 40, 50)
+,(120, 7, 40, 45)
+,(121, 4, 41, 85)
+,(122, 5, 41, 35)
+,(123, 6, 41, 50)
+,(124, 7, 41, 45)
+,(125, 1, 42, 1200)
+,(126, 6, 42, 50)
+,(127, 2, 43, 45)
+,(128, 3, 43, 300)
+,(129, 1, 44, 1920)
+,(130, 2, 44, 45)
+,(131, 6, 44, 50)
+,(132, 7, 44, 45)
+,(133, 2, 45, 45)
+,(134, 5, 45, 35)
+,(135, 6, 45, 45)
+,(136, 3, 46, 500)
+,(137, 4, 46, 170)
+,(138, 6, 46, 50)
+,(139, 5, 47, 35)
+,(140, 6, 47, 50)
+,(141, 2, 48, 45)
+,(142, 2, 49, 45)
+,(143, 4, 49, 170)
+,(144, 5, 49, 35)
+,(145, 6, 49, 50)
+,(146, 7, 49, 45)
+,(147, 4, 50, 255)
+,(148, 5, 50, 35)
+,(149, 6, 50, 50)
+,(150, 7, 50, 45)
+,(151, 4, 51, 85)
+,(152, 5, 51, 35)
+,(153, 6, 51, 50)
+,(154, 7, 51, 45)
+,(155, 1, 52, 1200)
+,(156, 6, 52, 50)
+,(157, 2, 53, 45)
+,(158, 3, 53, 300)
+,(159, 1, 54, 1920)
+,(160, 2, 54, 45)
+,(161, 6, 54, 50)
+,(162, 7, 54, 45)
+,(163, 2, 55, 45)
+,(164, 5, 55, 35)
+,(165, 6, 55, 45)
+,(166, 3, 56, 500)
+,(167, 4, 56, 170)
+,(168, 6, 56, 50)
+,(169, 5, 57, 35)
+,(170, 6, 57, 50)
+,(171, 2, 58, 45)
+,(172, 2, 59, 45)
+,(173, 4, 59, 170)
+,(174, 5, 59, 35)
+,(175, 6, 59, 50)
+,(176, 7, 59, 45)
+,(177, 4, 60, 255)
+,(178, 5, 60, 35)
+,(179, 6, 60, 50)
+,(180, 7, 60, 45)
+,(181, 4, 61, 85)
+,(182, 5, 61, 35)
+,(183, 6, 61, 50)
+,(184, 7, 61, 45)
+,(185, 1, 62, 1200)
+,(186, 6, 62, 50)
+,(187, 2, 63, 45)
+,(188, 3, 63, 300)
+,(189, 1, 64, 1920)
+,(190, 2, 64, 45)
+,(191, 6, 64, 50)
+,(192, 7, 64, 45)
+,(193, 2, 65, 45)
+,(194, 5, 65, 35)
+,(195, 6, 65, 45)
+,(196, 3, 66, 500)
+,(197, 4, 66, 170)
+,(198, 6, 66, 50)
+,(199, 5, 67, 35)
+,(200, 6, 67, 50)
+,(201, 2, 68, 45)
+,(202, 2, 69, 45)
+,(203, 4, 69, 170)
+,(204, 5, 69, 35)
+,(205, 6, 69, 50)
+,(206, 7, 69, 45)
+,(207, 4, 70, 255)
+,(208, 5, 70, 35)
+,(209, 6, 70, 50)
+,(210, 7, 70, 45)
+,(211, 4, 71, 85)
+,(212, 5, 71, 35)
+,(213, 6, 71, 50)
+,(214, 7, 71, 45)
+,(215, 1, 72, 1200)
+,(216, 6, 72, 50)
+,(217, 2, 73, 45)
+,(218, 3, 73, 300)
+,(219, 1, 74, 1920)
+,(220, 2, 74, 45)
+,(221, 6, 74, 50)
+,(222, 7, 74, 45)
+,(223, 2, 75, 45)
+,(224, 5, 75, 35)
+,(225, 6, 75, 45)
+,(226, 3, 76, 500)
+,(227, 4, 76, 170)
+,(228, 6, 76, 50)
+,(229, 5, 77, 35)
+,(230, 6, 77, 50)
+,(231, 2, 78, 45)
+,(232, 2, 79, 45)
+,(233, 4, 79, 170)
+,(234, 5, 79, 35)
+,(235, 6, 79, 50)
+,(236, 7, 79, 45)
+,(237, 4, 80, 255)
+,(238, 5, 80, 35)
+,(239, 6, 80, 50)
+,(240, 7, 80, 45)
+,(241, 4, 81, 85)
+,(242, 5, 81, 35)
+,(243, 6, 81, 50)
+,(244, 7, 81, 45)
+,(245, 1, 82, 1200)
+,(246, 6, 82, 50)
+,(247, 2, 83, 45)
+,(248, 3, 83, 300)
+,(249, 1, 84, 1920)
+,(250, 2, 84, 45)
+,(251, 6, 84, 50)
+,(252, 7, 84, 45)
+,(253, 2, 85, 45)
+,(254, 5, 85, 35)
+,(255, 6, 85, 45)
+,(256, 3, 86, 500)
+,(257, 4, 86, 170)
+,(258, 6, 86, 50)
+,(259, 5, 87, 35)
+,(260, 6, 87, 50)
+,(261, 2, 88, 45)
+,(262, 2, 89, 45)
+,(263, 4, 89, 170)
+,(264, 5, 89, 35)
+,(265, 6, 89, 50)
+,(266, 7, 89, 45)
+,(267, 4, 90, 255)
+,(268, 5, 90, 35)
+,(269, 6, 90, 50)
+,(270, 7, 90, 45)
+,(271, 4, 91, 85)
+,(272, 5, 91, 35)
+,(273, 6, 91, 50)
+,(274, 7, 91, 45)
+,(275, 1, 92, 1200)
+,(276, 6, 92, 50)
+,(277, 2, 93, 45)
+,(278, 3, 93, 300)
+,(279, 1, 94, 1920)
+,(280, 2, 94, 45)
+,(281, 6, 94, 50)
+,(282, 7, 94, 45)
+,(283, 2, 95, 45)
+,(284, 5, 95, 35)
+,(285, 6, 95, 45)
+,(286, 3, 96, 500)
+,(287, 4, 96, 170)
+,(288, 6, 96, 50)
+,(289, 5, 97, 35)
+,(290, 6, 97, 50)
+,(291, 2, 98, 45)
+,(292, 2, 99, 45)
+,(293, 4, 99, 170)
+,(294, 5, 99, 35)
+,(295, 6, 99, 50)
+,(296, 7, 99, 45)
+,(297, 4, 100, 255)
+,(298, 5, 100, 35)
+,(299, 6, 100, 50)
+,(300, 7, 100, 45)
+,(301, 4, 101, 85)
+,(302, 5, 101, 35)
+,(303, 6, 101, 50)
+,(304, 7, 101, 45)
+,(305, 1, 102, 1200)
+,(306, 6, 102, 50)
+,(307, 2, 103, 45)
+,(308, 3, 103, 300)
+,(309, 1, 104, 1920)
+,(310, 2, 104, 45)
+,(311, 6, 104, 50)
+,(312, 7, 104, 45)
+,(313, 2, 105, 45)
+,(314, 5, 105, 35)
+,(315, 6, 105, 45)
+,(316, 3, 106, 500)
+,(317, 4, 106, 170)
+,(318, 6, 106, 50)
+,(319, 5, 107, 35)
+,(320, 6, 107, 50)
+,(321, 2, 108, 45)
 
 
 GO
@@ -1119,8 +1640,6 @@ SELECT
 	,TJ.JobNumber
 	,TJ.dtStartDate
 	,TJ.dtEndDate
-	,Tj.intEmployees
-	,TJ.strEmployeeNames
 	,TJ.strJobDesc
 	,TJ.intStatusID
 FROM
@@ -1141,11 +1660,12 @@ SELECT
 FROM
 	 TCustomers AS TC	
 	,TInvoices AS TI
-WHERE TI.intCustomerID = TC.intCustomerID
+	,TJobRecords AS TJR
+WHERE TJR.intCustomerID = TC.intCustomerID
 	AND EXISTS ( 
 				select * from TCustomers
-				LEFT JOIN TInvoices on TCustomers.intCustomerID = TInvoices.intCustomerID
-				WHERE TInvoices.intCustomerID IS NOT NULL
+				LEFT JOIN TJobRecords on TC.intCustomerID = TJR.intCustomerID
+				WHERE TJR.intCustomerID IS NOT NULL
 				)
 GO
 
@@ -1158,8 +1678,6 @@ SELECT
 	,TJ.JobNumber
 	,TJ.dtStartDate
 	,TJ.dtEndDate
-	,Tj.intEmployees
-	,TJ.strEmployeeNames
 	,TJ.strJobDesc
 	,TS.strStatus
 FROM
@@ -1171,6 +1689,7 @@ WHERE
 	AND TJ.intStatusID = TS.intStatusID
 GO
 
+GO
 
 CREATE VIEW vJobAndCustomerInfo
 AS
@@ -1179,8 +1698,6 @@ SELECT
 	,(TC.strFirstName + TC.strLastName) AS Name
 	,TJ.dtStartDate
 	,TJ.dtEndDate
-	,Tj.intEmployees
-	,TJ.strEmployeeNames
 	,TJ.strJobDesc
 	,TS.strStatus
 FROM
@@ -1192,24 +1709,8 @@ WHERE
 	AND TJ.intStatusID = TS.intStatusID
 GO
 
-
-GO
-CREATE VIEW vJobsAndNoInvoice
-AS
-SELECT
-	 Distinct TC.intCustomerID
-	,TC.strLastName + ', '+ TC.strFirstName AS FullName
-	--,TJ.intJobRecordID
-FROM
-	 TCustomers AS TC
-	,TJobRecords AS TJ
-WHERE
-	TJ.intCustomerID = TC.intCustomerID AND
-	NOT EXISTS(SELECT intJobRecordID FROM TInvoices WHERE TJ.intJobRecordID = TInvoices.intJobRecordID)
 GO
 
-
-GO
 CREATE VIEW vJobsWithoutInvoices
 AS
 SELECT
@@ -1222,10 +1723,54 @@ WHERE
 	NOT EXISTS(SELECT intJobRecordID FROM TInvoices WHERE TJ.intJobRecordID = TInvoices.intJobRecordID)
 GO
 
+GO
 
+CREATE VIEW vJobsAndNoInvoice
+AS
+SELECT
+	 distinct TC.intCustomerID
+	,TC.strLastName + ', '+ TC.strFirstName AS FullName
+	,TJ.intJobRecordID
+FROM
+	TCustomers AS TC
+	,TJobRecords AS TJ
+WHERE
+	TC.intCustomerID = TJ.intCustomerID AND
+	NOT EXISTS(SELECT intJobRecordID FROM TInvoices WHERE TJ.intJobRecordID = TInvoices.intJobRecordID)
+GO
 
---select * from vJobsAndNoInvoice
+GO
 
+CREATE VIEW vMonthlyRevenue
+AS
+SELECT
+	SUM(TI.decJobCost) AS Total
+	,SUM(TI.decAmountPaid) AS Paid
+	,MONTH(TI.dtDateDue) AS MonthDate
+FROM
+	TInvoices AS TI
+
+GROUP BY
+	MONTH(TI.dtDateDue)
+GO
+
+GO
+
+CREATE VIEW vYearlyRevenue
+AS
+SELECT
+	SUM(TI.decJobCost) AS Total
+	,SUM(TI.decAmountPaid) AS Paid
+	,YEAR(TI.dtDateDue) AS YearDate
+FROM
+	TInvoices AS TI
+
+GROUP BY
+	YEAR(TI.dtDateDue)
+GO
+
+--Select * from vMonthlyRevenue
+--Select * from vYearlyRevenue
 --Select * from vJobRecordStatus
 
 --SELECT * FROM vJobRecordCustomers ORDER BY FullName ASC
@@ -1296,5 +1841,3 @@ GO
 --select * from vCustomersWithJobs
 
 --select * from vJobsAndNoInvoice
-
---select * from tinvoicepayments
