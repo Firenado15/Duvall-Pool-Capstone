@@ -57,6 +57,7 @@ IF OBJECT_ID( 'vJobsAndNoInvoice' )				IS NOT NULL DROP VIEW vJobsAndNoInvoice
 IF OBJECT_ID( 'vJobsWithoutInvoices' )			IS NOT NULL DROP VIEW vJobsWithoutInvoices
 IF OBJECT_ID( 'vMonthlyRevenue' )				IS NOT NULL DROP VIEW vMonthlyRevenue
 IF OBJECT_ID( 'vYearlyRevenue' )				IS NOT NULL DROP VIEW vYearlyRevenue
+IF OBJECT_ID( 'vEmployeesOnJob' )				IS NOT NULL DROP VIEW vEmployeesOnJob
 
 -- --------------------------------------------------------------------------------
 -- Create Tables
@@ -310,7 +311,7 @@ CREATE TABLE TFinances
 	,decShopRental			DECIMAL(7,2)	NOT NULL
 	,decUtilitiesCost		DECIMAL(7,2)	NOT NULL
 	,decOtherCost			DECIMAL(7,2)	NOT NULL
-	,decRevenue				DECIMAL(7,2)	NOT NULL
+	--,decRevenue				DECIMAL(7,2)	NOT NULL
 	,CONSTRAINT TFinances_PK PRIMARY KEY (intFinanceID)
 )
 
@@ -827,36 +828,19 @@ INSERT INTO TYears VALUES
 (1, '2020')
 
 --INSERT INTO TFinances VALUES
---(1, 1, 1, 4100.92, 352.84, 1072.64, 342.46, 0, 82.40, 1245.72, 792.92, 108.46, 9842.73),
---(2, 2, 1, 3946.63, 304.71, 1072.64, 298.62, 105.82, 62.60, 1245.72, 823.92, 62.63, 7521.52),
---(3, 3, 1, 4512.73, 386.71, 1072.64, 375.96, 0, 152.61, 1245.72, 763.22, 72.64, 10231.29),
---(4, 4, 1, 4852.24, 525.24, 1072.64, 525.24, 0, 205.34, 1245.72, 725.24, 104.23, 12023.43),
---(5, 5, 1, 4924.64, 517.85, 1072.64, 574.67, 58.43, 264.64, 1245.72, 672.49, 135.83, 12632.84),
---(6, 6, 1, 5451.86, 601.14, 1072.64, 613.68, 61.96, 289.57, 1245.72, 703.15, 176.32, 14001.35),
---(7, 7, 1, 5524.34, 624.43, 1072.64, 681.96, 96.21, 305.21, 1245.72, 743.25, 115.74, 14835.22),
---(8, 8, 1, 5415.35, 621.14, 1072.64, 618.25, 81.58, 293.18, 1245.72, 752.73, 183.25, 14715.25),
---(9, 9, 1, 4921.25, 563.25, 1072.64, 539.53, 153.25, 252.56, 1245.72, 726.23, 91.53, 13158.63),
---(10, 10, 1, 4256.85, 475.21, 1072.64, 368.15, 78.83, 173.25, 1245.72, 731.52, 99.25, 10367.82),
---(11, 11, 1, 3315.32, 325.25, 1072.64, 253.25, 135.64, 91.75, 1245.72, 782.64, 116.75, 7375.24),
---(12, 12, 1, 3037.46, 301.53, 1072.64, 137.42, 1553.85, 82.68, 1245.72, 842.65, 101.53, 6928.42),
---(13, 1, 2, 4500.85, 382.32, 1208.84, 383.65, 53.32, 102.26, 1463.85, 832.56, 143.64, 11636.15),
---(14, 2, 2, 4246.63, 364.93, 1208.84, 343.53, 75.43, 93.83, 1463.85, 854.22, 35.63, 8968.24),
---(15, 3, 2, 4924.15, 402.65, 1208.84, 421.23, 0, 225.35, 1463.85, 802.25, 52.54, 11001.01),
---(16, 4, 2, 5123.27, 583.43, 1208.84, 515.35, 0, 247.75, 1463.85, 783.15, 91.25, 12853.28),
---(17, 5, 2, 5522.85, 598.99, 1208.84, 564.35, 158.43, 314.85, 1463.85, 753.16, 99.99, 13015.52),
---(18, 6, 2, 6014.53, 653.14, 1208.84, 623.36, 103.15, 353.15, 1463.85, 784.53, 102.53, 14729.89),
---(19, 7, 2, 6091.25, 701.25, 1208.84, 692.15, 80.25, 405.15, 1463.85, 801.53, 142.53, 15496.64),
---(20, 8, 2, 5947.54, 682.57, 1208.84, 715.63, 95.31, 371.53, 1463.85, 812.63, 171.64, 14932.64),
---(21, 9, 2, 5253.53, 601.35, 1208.84, 623.14, 253.74, 292.73, 1463.85, 785.52, 242.63, 13526.26),
---(22, 10, 2, 4636.15, 491.64, 1208.84, 427.62, 416.35, 182.52, 1463.85, 796.23, 52.13, 10528.63),
---(23, 11, 2, 3512.73, 294.42, 1208.84, 321.54, 86.34, 103.92, 1463.85, 824.47, 24.80, 8182.83)
+--(1, 6, 1, 5451.86, 601.14, 1072.64, 613.68, 61.96, 289.57, 1245.72, 703.15, 176.32),
+--(2, 7, 1, 5524.34, 624.43, 1072.64, 681.96, 96.21, 305.21, 1245.72, 743.25, 115.74),
+--(3, 8, 1, 5415.35, 621.14, 1072.64, 618.25, 81.58, 293.18, 1245.72, 752.73, 183.25),
+--(4, 9, 1, 4921.25, 563.25, 1072.64, 539.53, 153.25, 252.56, 1245.72, 726.23, 91.53),
+--(5, 10, 1, 4256.85, 475.21, 1072.64, 368.15, 78.83, 173.25, 1245.72, 731.52, 99.25),
+--(6, 11, 1, 3315.32, 325.25, 1072.64, 253.25, 135.64, 91.75, 1245.72, 782.64, 116.75)
 
 INSERT INTO TStatuses VALUES 
 (1, 'Scheduled'),
 (2, 'In Progress'),
 (3, 'Completed')
 
-INSERT INTO TServices VALUES
+INSERT INTO TServices VALUES 
  (1, 'Liner Installation')
 ,(2, 'Water Testing')
 ,(3, 'Leak Detection')
@@ -1407,6 +1391,168 @@ INSERT INTO TJobServices VALUES
 ,(320, 6, 107, 50)
 ,(321, 2, 108, 45)
 
+INSERT INTO TJobEmployees VALUES
+--intJobRecordID, intEmplyeeID
+(1, 1, 1)
+,(2, 2, 2)
+,(3, 2, 3)
+,(4, 2, 4)
+,(5, 3, 5)
+,(6, 4, 6)
+,(7, 4, 7)
+,(8, 4, 8)
+,(9, 5, 9)
+,(10, 6, 10)
+,(11, 7, 11)
+,(12, 8, 12)
+,(13, 9, 13)
+,(14, 9, 14)
+,(15, 10, 15)
+,(16, 11, 1)
+,(17, 12, 2)
+,(18, 12, 3)
+,(19, 12, 4)
+,(20, 13, 5)
+,(21, 14, 6)
+,(22, 14, 7)
+,(23, 14, 8)
+,(24, 15, 9)
+,(25, 16, 10)
+,(26, 17, 11)
+,(27, 18, 12)
+,(28, 19, 13)
+,(29, 19, 14)
+,(30, 20, 15)
+,(31, 21, 1)
+,(32, 22, 2)
+,(33, 22, 3)
+,(34, 22, 4)
+,(35, 23, 5)
+,(36, 24, 6)
+,(37, 24, 7)
+,(38, 24, 8)
+,(39, 25, 9)
+,(40, 26, 10)
+,(41, 27, 11)
+,(42, 28, 12)
+,(43, 29, 13)
+,(44, 29, 14)
+,(45, 30, 15)
+,(46, 31, 1)
+,(47, 32, 2)
+,(48, 32, 3)
+,(49, 32, 4)
+,(50, 33, 5)
+,(51, 34, 6)
+,(52, 34, 7)
+,(53, 34, 8)
+,(54, 35, 9)
+,(55, 36, 10)
+,(56, 37, 11)
+,(57, 38, 12)
+,(58, 39, 13)
+,(59, 39, 14)
+,(60, 40, 15)
+,(61, 41, 1)
+,(62, 42, 2)
+,(63, 42, 3)
+,(64, 42, 4)
+,(65, 43, 5)
+,(66, 44, 6)
+,(67, 44, 7)
+,(68, 44, 8)
+,(69, 45, 9)
+,(70, 46, 10)
+,(71, 47, 11)
+,(72, 48, 12)
+,(73, 49, 13)
+,(74, 49, 14)
+,(75, 50, 15)
+,(76, 51, 1)
+,(77, 52, 2)
+,(78, 52, 3)
+,(79, 52, 4)
+,(80, 53, 5)
+,(81, 54, 6)
+,(82, 54, 7)
+,(83, 54, 8)
+,(84, 55, 9)
+,(85, 56, 10)
+,(86, 57, 11)
+,(87, 58, 12)
+,(88, 59, 13)
+,(89, 59, 14)
+,(90, 60, 15)
+,(91, 61, 1)
+,(92, 62, 2)
+,(93, 62, 3)
+,(94, 62, 4)
+,(95, 63, 5)
+,(96, 64, 6)
+,(97, 64, 7)
+,(98, 64, 8)
+,(99, 65, 9)
+,(100, 66, 10)
+,(101, 67, 11)
+,(102, 68, 12)
+,(103, 69, 13)
+,(104, 69, 14)
+,(105, 70, 15)
+,(106, 71, 1)
+,(107, 72, 2)
+,(108, 72, 3)
+,(109, 72, 4)
+,(110, 73, 5)
+,(111, 74, 6)
+,(112, 74, 7)
+,(113, 74, 8)
+,(114, 75, 9)
+,(115, 76, 10)
+,(116, 77, 11)
+,(117, 78, 12)
+,(118, 79, 13)
+,(119, 79, 14)
+,(120, 80, 15)
+,(121, 81, 1)
+,(122, 82, 2)
+,(123, 82, 3)
+,(124, 82, 4)
+,(125, 83, 5)
+,(126, 84, 6)
+,(127, 84, 7)
+,(128, 84, 8)
+,(129, 85, 9)
+,(130, 86, 10)
+,(131, 87, 11)
+,(132, 88, 12)
+,(133, 89, 13)
+,(134, 89, 14)
+,(135, 90, 15)
+,(136, 91, 1)
+,(137, 92, 2)
+,(138, 92, 3)
+,(139, 92, 4)
+,(140, 93, 5)
+,(141, 94, 6)
+,(142, 94, 7)
+,(143, 94, 8)
+,(144, 95, 9)
+,(145, 96, 10)
+,(146, 97, 11)
+,(147, 98, 12)
+,(148, 99, 13)
+,(149, 99, 14)
+,(150, 100, 15)
+,(151, 101, 1)
+,(152, 102, 2)
+,(153, 102, 3)
+,(154, 102, 4)
+,(155, 103, 5)
+,(156, 104, 6)
+,(157, 104, 7)
+,(158, 104, 8)
+,(159, 105, 9)
+,(160, 106, 10)
 
 GO
 
@@ -1541,9 +1687,9 @@ SELECT
 	,TF.decUtilitiesCost
 	,TF.decOtherCost
 	,TF.decPayrollCost + TF.decInventoryCost + TF.decInsuranceCost + TF.decProjectCost + TF.decVehicleCost + TF.decFuelCost + TF.decShopRental + TF.decUtilitiesCost + TF.decOtherCost AS TotalCost
-	,TF.decRevenue
-	,str((decRevenue - (decPayrollCost + decInventoryCost + decInsuranceCost + decProjectCost + decVehicleCost + decFuelCost + decShopRental + decUtilitiesCost + decOtherCost)), 7, 2) AS GrossProfit
-	,str(((decRevenue - (decPayrollCost + decInventoryCost + decInsuranceCost + decProjectCost + decVehicleCost + decFuelCost + decShopRental + decUtilitiesCost + decOtherCost)) / decRevenue) * 100, 7, 2) + '%' AS ProfitMargin
+	--,TF.decRevenue
+	--,str((decRevenue - (decPayrollCost + decInventoryCost + decInsuranceCost + decProjectCost + decVehicleCost + decFuelCost + decShopRental + decUtilitiesCost + decOtherCost)), 7, 2) AS GrossProfit
+	--,str(((decRevenue - (decPayrollCost + decInventoryCost + decInsuranceCost + decProjectCost + decVehicleCost + decFuelCost + decShopRental + decUtilitiesCost + decOtherCost)) / decRevenue) * 100, 7, 2) + '%' AS ProfitMargin
 	
 FROM
 	TFinances AS TF
@@ -1572,9 +1718,9 @@ SELECT
 	,SUM(TFMonth.decShopRental) AS ShopYTD
 	,SUM(TFMonth.decUtilitiesCost) AS UtilityYTD
 	,SUM(TFMonth.decOtherCost) AS OtherYTD
-	,SUM(TFMonth.decRevenue) AS RevenueYTD
-	,((SUM(TFMonth.decRevenue) - (SUM(TFMonth.decPayrollCost + TFMonth.decInventoryCost + TFMonth.decInsuranceCost + TFMonth.decProjectCost + TFMonth.decVehicleCost + TFMonth.decFuelCost + TFMonth.decShopRental + TFMonth.decUtilitiesCost + TFMonth.decOtherCost)))) AS GrossProfitYTD
-	,str(((SUM(TFMonth.decRevenue)) - (SUM(TFMonth.decPayrollCost + TFMonth.decInventoryCost + TFMonth.decInsuranceCost + TFMonth.decProjectCost + TFMonth.decVehicleCost + TFMonth.decFuelCost + TFMonth.decShopRental + TFMonth.decUtilitiesCost + TFMonth.decOtherCost))) / (SUM(TFMonth.decRevenue)) * 100, 7, 2) + '%' AS ProfitMarginYTD
+	--,SUM(TFMonth.decRevenue) AS RevenueYTD
+	--,((SUM(TFMonth.decRevenue) - (SUM(TFMonth.decPayrollCost + TFMonth.decInventoryCost + TFMonth.decInsuranceCost + TFMonth.decProjectCost + TFMonth.decVehicleCost + TFMonth.decFuelCost + TFMonth.decShopRental + TFMonth.decUtilitiesCost + TFMonth.decOtherCost)))) AS GrossProfitYTD
+	--,str(((SUM(TFMonth.decRevenue)) - (SUM(TFMonth.decPayrollCost + TFMonth.decInventoryCost + TFMonth.decInsuranceCost + TFMonth.decProjectCost + TFMonth.decVehicleCost + TFMonth.decFuelCost + TFMonth.decShopRental + TFMonth.decUtilitiesCost + TFMonth.decOtherCost))) / (SUM(TFMonth.decRevenue)) * 100, 7, 2) + '%' AS ProfitMarginYTD
 FROM
 	TFinances AS TF
 	join TYears AS TY ON TY.intYearID = TF.intYearID
@@ -1769,6 +1915,22 @@ GROUP BY
 	YEAR(TI.dtDateDue)
 GO
 
+GO
+
+CREATE VIEW vEmployeesOnJob
+AS
+SELECT
+	TE.strLastName + ', ' + TE.strFirstName AS FullName
+	,TJE.intJobRecordID
+FROM
+	 TEmployees AS TE
+	,TJobEmployees AS TJE
+WHERE
+	TE.intEmployeeID = TJE.intEmployeeID
+	
+GO
+
+--Select * from vEmployeesOnJob WHERE intJobRecordID = 4
 --Select * from vMonthlyRevenue
 --Select * from vYearlyRevenue
 --Select * from vJobRecordStatus
