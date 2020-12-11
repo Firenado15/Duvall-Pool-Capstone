@@ -97,7 +97,7 @@ Public Class frmPreviousInvoices
 			cboInvoice.BeginUpdate()
 
 			'Create select
-			strSelect = "SELECT * FROM TInvoices WHERE intCustomerID = " & cboName.SelectedValue
+			strSelect = "SELECT * FROM vCustomerInvoices WHERE intCustomerID = " & cboName.SelectedValue
 
 			'Get records
 			cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
@@ -193,12 +193,12 @@ Public Class frmPreviousInvoices
 		dt.Load(drSourceTable)
 
 		'load related job id
-		intJobRecordID = dt.Rows(0).Item(2)
+		intJobRecordID = dt.Rows(0).Item(1)
 
 		'populate text boxes
-		lblDueDate.Text = dt.Rows(0).Item(3)
-		lblTotal.Text = "$" & dt.Rows(0).Item(5)
-		lblPaid.Text = "$" & dt.Rows(0).Item(6)
+		lblDueDate.Text = dt.Rows(0).Item(2)
+		lblTotal.Text = "$" & dt.Rows(0).Item(3)
+		lblPaid.Text = "$" & dt.Rows(0).Item(4)
 
 		' close the database connection
 		CloseDatabaseConnection()
@@ -227,7 +227,7 @@ Public Class frmPreviousInvoices
 		End If
 
 		'Create select
-		strSelect = "SELECT * FROM TJobServices WHERE intJobRecordID = " & intJobRecordID & " AND intInvoiceID = " & cboInvoice.SelectedValue
+		strSelect = "SELECT * FROM TJobServices WHERE intJobRecordID = " & intJobRecordID
 
 		'Retrieve records 
 		cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)

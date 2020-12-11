@@ -48,10 +48,8 @@
 		lblCustomerName.Text = dt.Rows(0).Item(1).ToString
 		lblStartDate.Text = dt.Rows(0).Item(2).ToString
 		lblEndDate.Text = dt.Rows(0).Item(3).ToString
-		lblNumberOfEmployees.Text = dt.Rows(0).Item(4).ToString
-		lblEmployeeNames.Text = dt.Rows(0).Item(5).ToString
-		lblDescription.Text = dt.Rows(0).Item(6).ToString
-		lblStatus.Text = dt.Rows(0).Item(7).ToString
+		lblDescription.Text = dt.Rows(0).Item(4).ToString
+		lblStatus.Text = dt.Rows(0).Item(5).ToString
 
 
 		'close connection

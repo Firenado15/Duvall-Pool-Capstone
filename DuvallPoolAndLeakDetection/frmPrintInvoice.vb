@@ -54,7 +54,7 @@ Public Class frmPrintInvoice
 		End If
 
 		'Select statement
-		strSelect = "SELECT * FROM TInvoices WHERE CIN = '" & receiveInvoiceNumber & "'"
+		strSelect = "SELECT * FROM vPrintableInvoice WHERE CIN = '" & receiveInvoiceNumber & "'"
 
 
 		'Retrieve records 
@@ -65,11 +65,10 @@ Public Class frmPrintInvoice
 		dt.Load(drSourceTable)
 
 		'populate labels
-		lblInvoiceNumber.Text = dt.Rows(0).Item(4).ToString
-		lblDate.Text = dt.Rows(0).Item(3).ToString
-		intCustomerID = dt.Rows(0).Item(1)
-		intJobRecordID = dt.Rows(0).Item(2)
-
+		lblInvoiceNumber.Text = dt.Rows(0).Item(1).ToString
+		lblDate.Text = dt.Rows(0).Item(2).ToString
+		intCustomerID = dt.Rows(0).Item(3)
+		intJobRecordID = dt.Rows(0).Item(4)
 		lblTotal.Text = dt.Rows(0).Item(5)
 
 		'close connection
@@ -114,7 +113,7 @@ Public Class frmPrintInvoice
 		'populate text boxes
 		lblName.Text = dt.Rows(0).Item(1).ToString & " " & dt.Rows(0).Item(2).ToString
 		lblAddress.Text = dt.Rows(0).Item(3).ToString
-		lblCity.Text = dt.Rows(0).Item(4).ToString & ", " & dt.Rows(0).Item(5).ToString & ", " & dt.Rows(0).Item(6).ToString
+		lblCity.Text = dt.Rows(0).Item(3).ToString & ", " & dt.Rows(0).Item(5).ToString & ", " & dt.Rows(0).Item(6).ToString
 		lblPhone.Text = dt.Rows(0).Item(7).ToString
 		lblEmail.Text = dt.Rows(0).Item(8).ToString
 
@@ -165,44 +164,44 @@ Public Class frmPrintInvoice
 			If dt.Rows(intIndex).Item(1) = 1 Then
 
 				lblServices.Text = lblServices.Text & "Liner Installation" & Environment.NewLine
-				lblBilling.Text = lblBilling.Text & dt.Rows(intIndex).Item(4) & Environment.NewLine
-				dblTotal += dt.Rows(intIndex).Item(4)
+				lblBilling.Text = lblBilling.Text & dt.Rows(intIndex).Item(3) & Environment.NewLine
+				dblTotal += dt.Rows(intIndex).Item(3)
 
 			ElseIf dt.Rows(intIndex).Item(1) = 2 Then
 
 				lblServices.Text = lblServices.Text & "Water Testing" & Environment.NewLine
-				lblBilling.Text = lblBilling.Text & dt.Rows(intIndex).Item(4) & Environment.NewLine
-				dblTotal += dt.Rows(intIndex).Item(4)
+				lblBilling.Text = lblBilling.Text & dt.Rows(intIndex).Item(3) & Environment.NewLine
+				dblTotal += dt.Rows(intIndex).Item(3)
 
 			ElseIf dt.Rows(intIndex).Item(1) = 3 Then
 
 				lblServices.Text = lblServices.Text & "Leak Detection" & Environment.NewLine
-				lblBilling.Text = lblBilling.Text & dt.Rows(intIndex).Item(4) & Environment.NewLine
-				dblTotal += dt.Rows(intIndex).Item(4)
+				lblBilling.Text = lblBilling.Text & dt.Rows(intIndex).Item(3) & Environment.NewLine
+				dblTotal += dt.Rows(intIndex).Item(3)
 
 			ElseIf dt.Rows(intIndex).Item(1) = 4 Then
 
 				lblServices.Text = lblServices.Text & "Vacuuming" & Environment.NewLine
-				lblBilling.Text = lblBilling.Text & dt.Rows(intIndex).Item(4) & Environment.NewLine
-				dblTotal += dt.Rows(intIndex).Item(4)
+				lblBilling.Text = lblBilling.Text & dt.Rows(intIndex).Item(3) & Environment.NewLine
+				dblTotal += dt.Rows(intIndex).Item(3)
 
 			ElseIf dt.Rows(intIndex).Item(1) = 5 Then
 
 				lblServices.Text = lblServices.Text & "Skimming" & Environment.NewLine
-				lblBilling.Text = lblBilling.Text & dt.Rows(intIndex).Item(4) & Environment.NewLine
-				dblTotal += dt.Rows(intIndex).Item(4)
+				lblBilling.Text = lblBilling.Text & dt.Rows(intIndex).Item(3) & Environment.NewLine
+				dblTotal += dt.Rows(intIndex).Item(3)
 
 			ElseIf dt.Rows(intIndex).Item(1) = 6 Then
 
 				lblServices.Text = lblServices.Text & "Chemicals Added" & Environment.NewLine
-				lblBilling.Text = lblBilling.Text & dt.Rows(intIndex).Item(4) & Environment.NewLine
-				dblTotal += dt.Rows(intIndex).Item(4)
+				lblBilling.Text = lblBilling.Text & dt.Rows(intIndex).Item(3) & Environment.NewLine
+				dblTotal += dt.Rows(intIndex).Item(3)
 
 			ElseIf dt.Rows(intIndex).Item(1) = 7 Then
 
 				lblServices.Text = lblServices.Text & "Filter Backwashed" & Environment.NewLine
-				lblBilling.Text = lblBilling.Text & dt.Rows(intIndex).Item(4) & Environment.NewLine
-				dblTotal += dt.Rows(intIndex).Item(4)
+				lblBilling.Text = lblBilling.Text & dt.Rows(intIndex).Item(3) & Environment.NewLine
+				dblTotal += dt.Rows(intIndex).Item(3)
 
 			End If
 

@@ -125,29 +125,29 @@
 			Return False
 		End If
 
-		' check if something is entered in employee names text box
-		If txtEmployeeNames.Text <> String.Empty Then
+		'' check if something is entered in employee names text box
+		'If txtEmployeeNames.Text <> String.Empty Then
 
-		Else
-			' text box is blank so tell user to enter employee names, change back color to yellow,
-			' put focus in text box and return false we don't want to continue
-			MessageBox.Show("Please enter employee names.")
-			txtEmployeeNames.BackColor = Color.Yellow
-			txtEmployeeNames.Focus()
-			Return False
-		End If
+		'Else
+		'	' text box is blank so tell user to enter employee names, change back color to yellow,
+		'	' put focus in text box and return false we don't want to continue
+		'	MessageBox.Show("Please enter employee names.")
+		'	txtEmployeeNames.BackColor = Color.Yellow
+		'	txtEmployeeNames.Focus()
+		'	Return False
+		'End If
 
-		' Check if there is the correct number of employees entered
-		intEmployeeNames = CountEmployees(txtEmployeeNames.Text)
-		If intEmployeeNames <> intEmployees Then
+		'' Check if there is the correct number of employees entered
+		'intEmployeeNames = CountEmployees(txtEmployeeNames.Text)
+		'If intEmployeeNames <> intEmployees Then
 
-			' Tell user to enter correct amount of names
-			' put focus in text box and return false we don't want to continue
-			MessageBox.Show("Please enter employee names. Format is First Last, First Last, First Last, ...")
-			txtEmployeeNames.BackColor = Color.Yellow
-			txtEmployeeNames.Focus()
-			Return False
-		End If
+		'	' Tell user to enter correct amount of names
+		'	' put focus in text box and return false we don't want to continue
+		'	MessageBox.Show("Please enter employee names. Format is First Last, First Last, First Last, ...")
+		'	txtEmployeeNames.BackColor = Color.Yellow
+		'	txtEmployeeNames.Focus()
+		'	Return False
+		'End If
 
 		' check if something is entered in description text box
 		If txtJobDescription.Text <> String.Empty Then
@@ -268,9 +268,8 @@
 				drSourceTable.Close()
 
 				'Create insert statement
-				strInsert = "Insert into TJobRecords (intJobRecordID, dtStartDate, dtEndDate, intEmployees, strEmployeeNames, strJobDesc, intStatusID, intCustomerID)" &
-					" Values (" & intNextHighestRecordID & ", '" & strStartDate & "', '" & strEndDate & "', " & intNumberEmployees & ", '" & strEmployeeNames &
-					"', '" & strJobDescription & "', " & intStatusID & ", " & cboName.SelectedValue & ")"
+				strInsert = "Insert into TJobRecords VALUES " &
+					" (" & intNextHighestRecordID & ", '" & strStartDate & "', '" & strEndDate & "', '" & strJobDescription & "', " & intStatusID & ", " & cboName.SelectedValue & ")"
 
 				cmdInsert = New OleDb.OleDbCommand(strInsert, m_conAdministrator)
 
@@ -461,47 +460,47 @@
 	End Sub
 
 
-	' Count Employees
-	Function CountEmployees(strEmployeeNames As String) As Integer
+	'' Count Employees
+	'Function CountEmployees(strEmployeeNames As String) As Integer
 
-		' Declare variables
-		Dim intEmployeeNames As Integer = 0
-		Dim intLength As Integer = 0
-		Dim intIndex As Integer = 0
-		Dim intCount As Integer = 0
+	'	' Declare variables
+	'	Dim intEmployeeNames As Integer = 0
+	'	Dim intLength As Integer = 0
+	'	Dim intIndex As Integer = 0
+	'	Dim intCount As Integer = 0
 
-		' Get length of string
-		intLength = strEmployeeNames.Length
+	'	' Get length of string
+	'	intLength = strEmployeeNames.Length
 
-		' Loop to find all strings
-		Do
-			' Look for first user
-			If intCount = 0 And strEmployeeNames.Chars(intIndex) <> "," And strEmployeeNames.Chars(intIndex) <> " " Then
+	'	' Loop to find all strings
+	'	Do
+	'		' Look for first user
+	'		If intCount = 0 And strEmployeeNames.Chars(intIndex) <> "," And strEmployeeNames.Chars(intIndex) <> " " Then
 
-				' Count first person
-				intEmployeeNames += 1
-				intCount = 1
+	'			' Count first person
+	'			intEmployeeNames += 1
+	'			intCount = 1
 
-			ElseIf strEmployeeNames.Chars(intIndex) = "," And intCount = 1 Then
+	'		ElseIf strEmployeeNames.Chars(intIndex) = "," And intCount = 1 Then
 
-				' Increase count
-				intCount = 2
+	'			' Increase count
+	'			intCount = 2
 
-			ElseIf intCount = 2 And strEmployeeNames.Chars(intIndex) <> "," And strEmployeeNames.Chars(intIndex) <> " " Then
+	'		ElseIf intCount = 2 And strEmployeeNames.Chars(intIndex) <> "," And strEmployeeNames.Chars(intIndex) <> " " Then
 
-				' Add one to employee name count
-				intEmployeeNames += 1
+	'			' Add one to employee name count
+	'			intEmployeeNames += 1
 
-				' Reset count
-				intCount = 1
-			End If
+	'			' Reset count
+	'			intCount = 1
+	'		End If
 
-			' Increase index
-			intIndex += 1
-		Loop While intIndex < intLength
+	'		' Increase index
+	'		intIndex += 1
+	'	Loop While intIndex < intLength
 
-		Return intEmployeeNames
-	End Function
+	'	Return intEmployeeNames
+	'End Function
 
 
 End Class

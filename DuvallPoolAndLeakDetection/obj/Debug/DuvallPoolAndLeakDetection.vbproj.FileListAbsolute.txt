@@ -101,3 +101,5 @@ C:\Users\admin\Documents\GitHub\Duvall-Pool-Capstone\DuvallPoolAndLeakDetection\
 C:\Users\admin\Documents\GitHub\Duvall-Pool-Capstone\DuvallPoolAndLeakDetection\obj\Debug\DuvallPoolAndLeakDetection.vbproj.CopyComplete
 C:\Users\admin\Downloads\capst\Duvall-Pool-Capstone-main\DuvallPoolAndLeakDetection\obj\Debug\DuvallPoolAndLeakDetection.frmEmployeeDispatch.resources
 C:\Users\admin\Downloads\capst\Duvall-Pool-Capstone-main\DuvallPoolAndLeakDetection\obj\Debug\DuvallPoolAndLeakDetection.frmMakeInvoicePayment.resources
+C:\Users\admin\Documents\GitHub\Duvall-Pool-Capstone\DuvallPoolAndLeakDetection\obj\Debug\DuvallPoolAndLeakDetection.frmEmployeeDispatch.resources
+C:\Users\admin\Documents\GitHub\Duvall-Pool-Capstone\DuvallPoolAndLeakDetection\obj\Debug\DuvallPoolAndLeakDetection.frmMakeInvoicePayment.resources

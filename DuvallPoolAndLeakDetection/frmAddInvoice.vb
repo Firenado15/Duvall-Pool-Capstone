@@ -278,7 +278,7 @@ Public Class frmAddInvoice
 		'populate text boxes
 		lblStartDate.Text = dt.Rows(0).Item(1).ToString
 		lblEndDate.Text = dt.Rows(0).Item(2).ToString
-		lblJobDesc.Text = dt.Rows(0).Item(5).ToString
+		lblJobDesc.Text = dt.Rows(0).Item(3).ToString
 
 		'close connection
 		CloseDatabaseConnection()
@@ -380,7 +380,6 @@ Public Class frmAddInvoice
 
 			'Create insert statement
 			strInsert = "Insert into TInvoices VALUES (" & intNextHighestRecordID &
-				", " & cboCustomer.SelectedValue &
 				", " & cboJob.SelectedValue &
 				", '" & strDate &
 				"', " & dblInvoiceCost &
@@ -455,7 +454,7 @@ Public Class frmAddInvoice
 		'Check Each check box for selection
 		If chkInstallation.Checked = True Then
 
-			strInsert = strInsert & " (" & intNextHighestRecordID & ", 1, " & cboJob.SelectedValue & ", " & intInvoiceNumber & ", " & txtLinerCost.Text & ")"
+			strInsert = strInsert & " (" & intNextHighestRecordID & ", 1, " & cboJob.SelectedValue & ", " & txtLinerCost.Text & ")"
 			intNextHighestRecordID += 1
 			blnFirstService = False
 
@@ -465,7 +464,7 @@ Public Class frmAddInvoice
 			If blnFirstService = False Then
 				strInsert = strInsert & ","
 			End If
-			strInsert = strInsert & " (" & intNextHighestRecordID & ", 2, " & cboJob.SelectedValue & ", " & intInvoiceNumber & ", " & txtTestingCost.Text & ")"
+			strInsert = strInsert & " (" & intNextHighestRecordID & ", 2, " & cboJob.SelectedValue & ", " & txtTestingCost.Text & ")"
 			intNextHighestRecordID += 1
 			blnFirstService = False
 
@@ -476,7 +475,7 @@ Public Class frmAddInvoice
 				strInsert = strInsert & ","
 
 			End If
-			strInsert = strInsert & " (" & intNextHighestRecordID & ", 3, " & cboJob.SelectedValue & ", " & intInvoiceNumber & ", " & txtLeakCost.Text & ")"
+			strInsert = strInsert & " (" & intNextHighestRecordID & ", 3, " & cboJob.SelectedValue & ", " & txtLeakCost.Text & ")"
 			intNextHighestRecordID += 1
 			blnFirstService = False
 
@@ -487,7 +486,7 @@ Public Class frmAddInvoice
 				strInsert = strInsert & ","
 
 			End If
-			strInsert = strInsert & " (" & intNextHighestRecordID & ", 4, " & cboJob.SelectedValue & ", " & intInvoiceNumber & ", " & txtVacuumCost.Text & ")"
+			strInsert = strInsert & " (" & intNextHighestRecordID & ", 4, " & cboJob.SelectedValue & ", " & txtVacuumCost.Text & ")"
 			intNextHighestRecordID += 1
 			blnFirstService = False
 
@@ -498,7 +497,7 @@ Public Class frmAddInvoice
 				strInsert = strInsert & ","
 
 			End If
-			strInsert = strInsert & " (" & intNextHighestRecordID & ", 5, " & cboJob.SelectedValue & ", " & intInvoiceNumber & ", " & txtSkimCost.Text & ")"
+			strInsert = strInsert & " (" & intNextHighestRecordID & ", 5, " & cboJob.SelectedValue & ", " & txtSkimCost.Text & ")"
 			intNextHighestRecordID += 1
 			blnFirstService = False
 
@@ -509,7 +508,7 @@ Public Class frmAddInvoice
 				strInsert = strInsert & ","
 
 			End If
-			strInsert = strInsert & " (" & intNextHighestRecordID & ", 6, " & cboJob.SelectedValue & ", " & intInvoiceNumber & ", " & txtChemCost.Text & ")"
+			strInsert = strInsert & " (" & intNextHighestRecordID & ", 6, " & cboJob.SelectedValue & ", " & txtChemCost.Text & ")"
 			intNextHighestRecordID += 1
 			blnFirstService = False
 
@@ -520,7 +519,7 @@ Public Class frmAddInvoice
 				strInsert = strInsert & ","
 
 			End If
-			strInsert = strInsert & " (" & intNextHighestRecordID & ", 7, " & cboJob.SelectedValue & ", " & intInvoiceNumber & ", " & txtFilterCost.Text & ")"
+			strInsert = strInsert & " (" & intNextHighestRecordID & ", 7, " & cboJob.SelectedValue & ", " & txtFilterCost.Text & ")"
 			intNextHighestRecordID += 1
 
 		End If

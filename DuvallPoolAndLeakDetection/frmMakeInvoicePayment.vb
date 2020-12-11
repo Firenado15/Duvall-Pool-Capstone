@@ -157,7 +157,6 @@
 		'Create insert statement
 		strInsert = "Insert into TInvoicePayments Values (" & intNextHighestRecordID &
 			", " & receivedInvoiceID &
-			", " & receivedCustomerID &
 			", " & dblCurrentPayment &
 			", '" & DateAndTime.Today &
 			"')"

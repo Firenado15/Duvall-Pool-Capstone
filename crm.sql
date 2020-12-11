@@ -58,6 +58,8 @@ IF OBJECT_ID( 'vJobsWithoutInvoices' )			IS NOT NULL DROP VIEW vJobsWithoutInvoi
 IF OBJECT_ID( 'vMonthlyRevenue' )				IS NOT NULL DROP VIEW vMonthlyRevenue
 IF OBJECT_ID( 'vYearlyRevenue' )				IS NOT NULL DROP VIEW vYearlyRevenue
 IF OBJECT_ID( 'vEmployeesOnJob' )				IS NOT NULL DROP VIEW vEmployeesOnJob
+IF OBJECT_ID( 'vCustomerInvoices' )				IS NOT NULL DROP VIEW vCustomerInvoices
+IF OBJECT_ID( 'vPrintableInvoice' )				IS NOT NULL DROP VIEW vPrintableInvoice
 
 -- --------------------------------------------------------------------------------
 -- Create Tables
@@ -1611,7 +1613,7 @@ SELECT
 	,TV.strPhoneNumber
 	,TV.strEmail
 FROM
-	TVendors AS TV
+	 TVendors AS TV
 	,TStates AS TS
 WHERE
 	TV.intStateID= TS.intStateID
@@ -1801,21 +1803,55 @@ GO
 CREATE VIEW vCustomersWithInvoices
 AS
 SELECT 
-		distinct TC.intCustomerID
-		,(tc.strLastName + ', ' + tc.strFirstName) AS FullName 
+		distinct TJR.intCustomerID
+		,(tc.strLastName + ', ' + tc.strFirstName) AS FullName
 FROM
 	 TCustomers AS TC	
 	,TInvoices AS TI
 	,TJobRecords AS TJR
 WHERE TJR.intCustomerID = TC.intCustomerID
-	AND EXISTS ( 
-				select * from TCustomers
-				LEFT JOIN TJobRecords on TC.intCustomerID = TJR.intCustomerID
-				WHERE TJR.intCustomerID IS NOT NULL
-				)
+	AND TJR.intJobRecordID = TI.intJobRecordID
 GO
 
+--select * from vCustomersWithInvoices
 
+
+GO
+CREATE VIEW vCustomerInvoices
+AS
+SELECT
+	 TI.intInvoiceID
+	,TI.CIN
+	,TC.intCustomerID
+FROM
+	TInvoices As TI
+	,TCustomers AS TC
+	,TJobRecords AS TJ
+WHERE TC.intCustomerID = TJ.intCustomerID AND
+	  TI.intJobRecordID = TJ.intJobRecordID
+GO	
+
+
+GO
+CREATE VIEW vPrintableInvoice
+AS
+SELECT
+	 TI.intInvoiceID
+	,TI.CIN
+	,TI.dtDateDue
+	,TC.intCustomerID
+	,TJ.intJobRecordID
+	,TI.decJobCost
+FROM
+	TInvoices As TI
+	,TCustomers AS TC
+	,TJobRecords AS TJ
+WHERE TC.intCustomerID = TJ.intCustomerID AND
+	  TI.intJobRecordID = TJ.intJobRecordID
+GO	
+
+
+GO
 CREATE VIEW vJobRecordStatus
 AS
 SELECT
@@ -2003,3 +2039,4 @@ GO
 --select * from vCustomersWithJobs
 
 --select * from vJobsAndNoInvoice
+

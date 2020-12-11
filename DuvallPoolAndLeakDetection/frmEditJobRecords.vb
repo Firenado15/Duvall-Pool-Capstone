@@ -89,13 +89,11 @@ Public Class frmEditJobRecords
 
 			' Add items
 			'intJobID = dt.Rows(0).Item(0)
-			lblJobNumber.Text = dt.Rows(0).Item(8).ToString
+			lblJobNumber.Text = dt.Rows(0).Item(6).ToString
 			dtStartDate.Value = dt.Rows(0).Item(1).ToString
 			dtEndDate.Value = dt.Rows(0).Item(2).ToString
-			txtNumberEmployees.Text = dt.Rows(0).Item(3).ToString
-			txtEmployeeNames.Text = dt.Rows(0).Item(4).ToString
-			txtJobDescription.Text = dt.Rows(0).Item(5).ToString
-			intStatus = dt.Rows(0).Item(6)
+			txtJobDescription.Text = dt.Rows(0).Item(3).ToString
+			intStatus = dt.Rows(0).Item(4)
 
 			'Set Progress
 			If intStatus = 1 Then
@@ -251,29 +249,29 @@ Public Class frmEditJobRecords
 			Return False
 		End If
 
-		' check if something is entered in employee names text box
-		If txtEmployeeNames.Text <> String.Empty Then
+		'' check if something is entered in employee names text box
+		'If txtEmployeeNames.Text <> String.Empty Then
 
-		Else
-			' text box is blank so tell user to enter employee names, change back color to yellow,
-			' put focus in text box and return false we don't want to continue
-			MessageBox.Show("Please enter employee names.")
-			txtEmployeeNames.BackColor = Color.Yellow
-			txtEmployeeNames.Focus()
-			Return False
-		End If
+		'Else
+		'	' text box is blank so tell user to enter employee names, change back color to yellow,
+		'	' put focus in text box and return false we don't want to continue
+		'	MessageBox.Show("Please enter employee names.")
+		'	txtEmployeeNames.BackColor = Color.Yellow
+		'	txtEmployeeNames.Focus()
+		'	Return False
+		'End If
 
-		' Check if there is the correct number of employees entered
-		intEmployeeNames = CountEmployees(txtEmployeeNames.Text)
-		If intEmployeeNames <> intEmployees Then
+		'' Check if there is the correct number of employees entered
+		'intEmployeeNames = CountEmployees(txtEmployeeNames.Text)
+		'If intEmployeeNames <> intEmployees Then
 
-			' Tell user to enter correct amount of names
-			' put focus in text box and return false we don't want to continue
-			MessageBox.Show("Please enter employee names. Format is First Last, First Last, First Last, ...")
-			txtEmployeeNames.BackColor = Color.Yellow
-			txtEmployeeNames.Focus()
-			Return False
-		End If
+		'	' Tell user to enter correct amount of names
+		'	' put focus in text box and return false we don't want to continue
+		'	MessageBox.Show("Please enter employee names. Format is First Last, First Last, First Last, ...")
+		'	txtEmployeeNames.BackColor = Color.Yellow
+		'	txtEmployeeNames.Focus()
+		'	Return False
+		'End If
 
 		' check if something is entered in description text box
 		If txtJobDescription.Text <> String.Empty Then
@@ -297,48 +295,6 @@ Public Class frmEditJobRecords
 
 		Return True ' all is well in the world
 
-	End Function
-
-	' Count Employees
-	Function CountEmployees(strEmployeeNames As String) As Integer
-
-		' Declare variables
-		Dim intEmployeeNames As Integer = 0
-		Dim intLength As Integer = 0
-		Dim intIndex As Integer = 0
-		Dim intCount As Integer = 0
-
-		' Get length of string
-		intLength = strEmployeeNames.Length
-
-		' Loop to find all strings
-		Do
-			' Look for first user
-			If intCount = 0 And strEmployeeNames.Chars(intIndex) <> "," And strEmployeeNames.Chars(intIndex) <> " " Then
-
-				' Count first person
-				intEmployeeNames += 1
-				intCount = 1
-
-			ElseIf strEmployeeNames.Chars(intIndex) = "," And intCount = 1 Then
-
-				' Increase count
-				intCount = 2
-
-			ElseIf intCount = 2 And strEmployeeNames.Chars(intIndex) <> "," And strEmployeeNames.Chars(intIndex) <> " " Then
-
-				' Add one to employee name count
-				intEmployeeNames += 1
-
-				' Reset count
-				intCount = 1
-			End If
-
-			' Increase index
-			intIndex += 1
-		Loop While intIndex < intLength
-
-		Return intEmployeeNames
 	End Function
 
 End Class
