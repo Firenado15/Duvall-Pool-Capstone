@@ -8,6 +8,7 @@ SET NOCOUNT ON; -- Report only errors
 -- Drop Tables
 -- --------------------------------------------------------------------------------
 IF OBJECT_ID( 'TInvoicePayments' )				IS NOT NULL DROP TABLE TInvoicePayments
+IF OBJECT_ID( 'TPartsOrders' )					IS NOT NULL DROP TABLE TPartsOrders
 IF OBJECT_ID( 'TBankAccounts' )					IS NOT NULL DROP TABLE TBankAccounts
 IF OBJECT_ID( 'TBankAccountTypes' )				IS NOT NULL DROP TABLE TBankAccountTypes
 IF OBJECT_ID( 'TCustomerPaymentTypes' )			IS NOT NULL DROP TABLE TCustomerPaymentTypes
@@ -60,6 +61,7 @@ IF OBJECT_ID( 'vYearlyRevenue' )				IS NOT NULL DROP VIEW vYearlyRevenue
 IF OBJECT_ID( 'vEmployeesOnJob' )				IS NOT NULL DROP VIEW vEmployeesOnJob
 IF OBJECT_ID( 'vCustomerInvoices' )				IS NOT NULL DROP VIEW vCustomerInvoices
 IF OBJECT_ID( 'vPrintableInvoice' )				IS NOT NULL DROP VIEW vPrintableInvoice
+IF OBJECT_ID( 'vPartsOrderedCost' )				IS NOT NULL DROP VIEW vPartsOrderedCost
 
 -- --------------------------------------------------------------------------------
 -- Create Tables
@@ -119,15 +121,16 @@ CREATE TABLE TStates
 
 CREATE TABLE TParts
 (
-	 intPartID				INTEGER			NOT NULL
-	,intVendorID			INTEGER			NOT NULL
-	,strSerialNumber		VARCHAR(50)		NOT NULL
-	,strPartDesc			VARCHAR(50)		NOT NULL
-	,intQuantity			INTEGER			NOT NULL
-	,decUnitPurchaseCost	DECIMAL(7,2)	NOT NULL
-	,decUniteSaleCost		DECIMAL(7,2)	NOT NULL
-	,intAmountSold			INTEGER			NOT NULL
-	,PONumber AS CASE len(intpartID)
+	 intPartID					INTEGER			NOT NULL
+	,intVendorID				INTEGER			NOT NULL
+	,strSerialNumber			VARCHAR(50)		NOT NULL
+	,strPartDesc				VARCHAR(50)		NOT NULL
+	,intQuantityBackordered		INTEGER			NOT NULL
+	,intQuantity				INTEGER			NOT NULL
+	,decUnitPurchaseCost		DECIMAL(7,2)	NOT NULL
+	,decUnitSaleCost			DECIMAL(7,2)	NOT NULL
+	--,intAmountSold				INTEGER			NOT NULL
+	,PNumber AS CASE len(intpartID)
 		when 1 then 'PO-'+'00000'+CONVERT(varchar, intPartID)
 		when 2 then 'PO-'+'0000'+CONVERT(varchar, intPartID)
 		when 3 then 'PO-'+'000'+CONVERT(varchar, intPartID)
@@ -145,6 +148,26 @@ CREATE TABLE TJobParts
 	,intPartID				INTEGER			NOT NULL
 	,intPartQuantity		INTEGER			NOT NULL
 	,CONSTRAINT TJobParts_PK PRIMARY KEY ( intJobPartID )
+)
+
+CREATE TABLE TPartsOrders
+(
+	 intPartOrderedID		INTEGER			NOT NULL
+	,intPartID				INTEGER			NOT NULL
+	,dtDateOrdered			DATE			NOT NULL
+	,dtDateArrived			DATE			NOT NULL
+	,blnArrived				BIT				NOT NULL
+	,intQuantity			INTEGER			NOT NULL
+	,decUnitPurchaseCost	DECIMAL(7,2)	NOT NULL
+	,PONumber AS CASE len(intPartOrderedID)
+		when 1 then 'PO-'+'00000'+CONVERT(varchar, intPartID)
+		when 2 then 'PO-'+'0000'+CONVERT(varchar, intPartID)
+		when 3 then 'PO-'+'000'+CONVERT(varchar, intPartID)
+		when 4 then 'PO-'+'00'+CONVERT(varchar, intPartID)
+		when 5 then 'PO-'+'0'+CONVERT(varchar, intPartID)
+		else'PO-'+CONVERT(varchar, intPartID)
+		end
+	,CONSTRAINT TPartsOrders_PK PRIMARY KEY ( intPartOrderedID )
 )
 
 CREATE TABLE TJobEmployees
@@ -176,7 +199,6 @@ CREATE TABLE TJobServices
 	 intJobServiceID		INTEGER			NOT NULL
 	,intServiceID			INTEGER			NOT NULL
 	,intJobRecordID			INTEGER			NOT NULL
-	--,intInvoiceID			INTEGER			NOT NULL
 	,decServiceCost			DECIMAL(7,2)	NOT NULL
 	,CONSTRAINT	TJobServices_PK PRIMARY KEY ( intJobServiceID )
 )
@@ -191,7 +213,6 @@ CREATE TABLE TServices
 CREATE TABLE TInvoices
 (
 	 intInvoiceID			INTEGER			NOT NULL
-	--,intCustomerID			INTEGER			NOT NULL
 	,intJobRecordID			INTEGER			NOT NULL
 	,dtDateDue				DATE			NOT NULL
 	,decJobCost				DECIMAL(7,2)	NOT NULL
@@ -211,7 +232,6 @@ CREATE TABLE TInvoicePayments
 (
 	 intInvoicePaymentID		INTEGER			NOT NULL
 	,intInvoiceID				INTEGER			NOT NULL
-	--,intCustomerID				INTEGER			NOT NULL
 	,decPaymentAmount			DECIMAL(7,2)	NOT NULL
 	,dtDateOfPayment			DATE			NOT NULL
 	CONSTRAINT TInvoicePayments_PK PRIMARY KEY ( intInvoicePaymentID )
@@ -305,7 +325,6 @@ CREATE TABLE TFinances
 	,intMonthID				INTEGER			NOT NULL
 	,intYearID				INTEGER			NOT NULL
 	,decPayrollCost			DECIMAL(7,2)	NOT NULL
-	,decInventoryCost		DECIMAL(7,2)	NOT NULL
 	,decInsuranceCost		DECIMAL(7,2)	NOT NULL
 	,decProjectCost			DECIMAL(7,2)	NOT NULL
 	,decVehicleCost			DECIMAL(7,2)	NOT NULL
@@ -313,7 +332,6 @@ CREATE TABLE TFinances
 	,decShopRental			DECIMAL(7,2)	NOT NULL
 	,decUtilitiesCost		DECIMAL(7,2)	NOT NULL
 	,decOtherCost			DECIMAL(7,2)	NOT NULL
-	--,decRevenue				DECIMAL(7,2)	NOT NULL
 	,CONSTRAINT TFinances_PK PRIMARY KEY (intFinanceID)
 )
 
@@ -372,6 +390,7 @@ CREATE TABLE TJobRecords
 -- 27	TJobRecords						TStatuses					intStatusID
 -- 28	TJobServices					TInvoices					intInvoiceID
 -- 29	TInvoicePayments				TInvoices					intInvoiceID
+-- 30	TPartsOrders					TParts						intPartID
 
 -- 1
 ALTER TABLE TCustomers ADD CONSTRAINT TCustomers_TStates_FK
@@ -488,6 +507,11 @@ FOREIGN KEY ( intStatusID ) REFERENCES TStatuses ( intStatusID )
 -- 29
 ALTER TABLE TInvoicePayments ADD CONSTRAINT TInvoicePayments_TInvoices_FK
 FOREIGN KEY ( intInvoiceID ) REFERENCES TInvoices ( intInvoiceID )
+
+-- 30
+ALTER TABLE TPartsOrders ADD CONSTRAINT TPartsOrders_TParts_FK
+FOREIGN KEY ( intPartID ) REFERENCES TParts ( intPartID )
+
 ---- --------------------------------------------------------------------------------
 ---- Add Necessary Data
 ---- --------------------------------------------------------------------------------
@@ -768,26 +792,50 @@ INSERT INTO TEmployees VALUES
 (15, 'Frederica', 'Blunk')
 
 INSERT INTO TParts VALUES
-(1,48, 'SN08242', 'Part 001',11,83.42,133.472,11),
-(2,13, 'SN03836', 'Part 002',0,55.04,88.064,7),
-(3,7, 'SN01418', 'Part 003',9,85.64,137.024,7),
-(4,15, 'SN0260', 'Part 004',58,54.33,86.928,19),
-(5,9, 'SN07948', 'Part 005',69,6.35,10.16,14),
-(6,20, 'SN06987', 'Part 006',53,1.88,3.008,17),
-(7,33, 'SN02196', 'Part 007',98,37.53,60.048,18),
-(8,49, 'SN01038', 'Part 008',9,61.76,98.816,12),
-(9,35, 'SN07918', 'Part 009',24,76.02,121.632,13),
-(10,43, 'SN06210', 'Part 010',13,37.33,59.728,9),
-(11,18, 'SN04580', 'Part 011',93,18.38,29.408,3),
-(12,33, 'SN01102', 'Part 012',56,20.35,32.56,6),
-(13,13, 'SN09042', 'Part 013',73,34.18,54.688,7),
-(14,43, 'SN01544', 'Part 014',42,96.16,153.856,9),
-(15,42, 'SN03825', 'Part 015',15,74.58,119.328,10),
-(16,18, 'SN08566', 'Part 016',41,87.64,140.224,7),
-(17,23, 'SN0621', 'Part 017',92,49.55,79.28,12),
-(18,23, 'SN06456', 'Part 018',40,55.58,88.928,13),
-(19,13, 'SN08936', 'Part 019',20,71.82,114.912,5),
-(20,41, 'SN06039', 'Part 020',97,54.97,87.952,1)
+-- intVendorID, strSerialNumber, strDesc, intQuantityBackordered, intQuantity, decUnitPurchaseCost, decUnitSaleCost
+(1,48, 'SN08242', 'Part 001', 0, 11,83.42,133.472),
+(2,13, 'SN03836', 'Part 002', 0, 0,55.04,88.064),
+(3,7, 'SN01418', 'Part 003', 0, 9,85.64,137.024),
+(4,15, 'SN0260', 'Part 004', 0, 18,54.33,86.928),
+(5,9, 'SN07948', 'Part 005', 0, 69,6.35,10.16),
+(6,20, 'SN06987', 'Part 006', 0, 53,1.88,3.008),
+(7,33, 'SN02196', 'Part 007', 0, 8,37.53,60.048),
+(8,49, 'SN01038', 'Part 008', 0, 9,61.76,98.816),
+(9,35, 'SN07918', 'Part 009', 0, 4,76.02,121.632),
+(10,43, 'SN06210', 'Part 010', 0, 13,37.33,59.728),
+(11,18, 'SN04580', 'Part 011', 0, 23,18.38,29.408),
+(12,33, 'SN01102', 'Part 012', 0, 16,20.35,32.56),
+(13,13, 'SN09042', 'Part 013', 0, 73,34.18,54.688),
+(14,43, 'SN01544', 'Part 014', 0, 42,96.16,153.856),
+(15,42, 'SN03825', 'Part 015', 0, 15,74.58,119.328),
+(16,18, 'SN08566', 'Part 016', 0, 41,87.64,140.224),
+(17,23, 'SN0621', 'Part 017', 0, 92,49.55,79.28),
+(18,23, 'SN06456', 'Part 018', 0, 40,55.58,88.928),
+(19,13, 'SN08936', 'Part 019', 0, 20,71.82,114.912),
+(20,41, 'SN06039', 'Part 020', 0, 97,54.97,87.952)
+
+INSERT INTO TPartsOrders VALUES
+--intPartID, dateOrdered, dateArrived, blnArrived, intQuantity, decUnitPurchaseCost
+(1, 1, '6-01-2020', '6-08-2020', 1, 15, 1251.30)
+,(2, 2, '6-05-2020', '6-12-2020', 1, 10, 550.40)
+,(3, 3, '6-18-2020', '6-26-2020', 1, 10, 856.40)
+,(4, 4, '7-05-2020', '7-12-2020', 1, 20, 1086.60)
+,(5, 5, '7-09-2020', '7-17-2020', 1, 100, 635.00)
+,(6, 6, '7-16-2020', '7-22-2020', 1, 90, 169.20)
+,(7, 7, '8-06-2020', '8-12-2020', 1, 10, 375.30)
+,(8, 8, '8-10-2020', '8-17-2020', 1, 10, 617.60)
+,(9, 9, '8-14-2020', '8-22-2020', 1, 6, 456.12)
+,(10, 10, '9-08-2020', '9-15-2020', 1, 15, 559.95)
+,(11, 11, '9-12-2020', '9-19-2020', 1, 30, 551.40)
+,(12, 12, '9-17-2020', '9-23-2020', 1, 30, 610.50)
+,(13, 13, '10-06-2020', '10-12-2020', 1, 8, 273.44)
+,(14, 14, '10-10-2020', '10-17-2020', 1, 5, 480.80)
+,(15, 15, '10-14-2020', '10-22-2020', 1, 3, 223.74)
+,(16, 16, '11-03-2020', '11-09-2020', 1, 4, 350.60)
+,(17, 17, '11-09-2020', '11-15-2020', 1, 10, 495.50)
+,(18, 18, '11-20-2020', '11-28-2020', 1, 6, 456.12)
+,(19, 19, '12-06-2020', '12-12-2020', 0, 4, 287.28)
+,(20, 20, '12-10-2020', '12-17-2020', 0, 2, 109.94)
 
 INSERT INTO TPaymentTypes VALUES
 (1, 'Cash'),
@@ -829,13 +877,14 @@ INSERT INTO TMonths VALUES
 INSERT INTO TYears VALUES
 (1, '2020')
 
---INSERT INTO TFinances VALUES
---(1, 6, 1, 5451.86, 601.14, 1072.64, 613.68, 61.96, 289.57, 1245.72, 703.15, 176.32),
---(2, 7, 1, 5524.34, 624.43, 1072.64, 681.96, 96.21, 305.21, 1245.72, 743.25, 115.74),
---(3, 8, 1, 5415.35, 621.14, 1072.64, 618.25, 81.58, 293.18, 1245.72, 752.73, 183.25),
---(4, 9, 1, 4921.25, 563.25, 1072.64, 539.53, 153.25, 252.56, 1245.72, 726.23, 91.53),
---(5, 10, 1, 4256.85, 475.21, 1072.64, 368.15, 78.83, 173.25, 1245.72, 731.52, 99.25),
---(6, 11, 1, 3315.32, 325.25, 1072.64, 253.25, 135.64, 91.75, 1245.72, 782.64, 116.75)
+INSERT INTO TFinances VALUES
+-- intMonthID, intYearID, decPayrollCost, decInsuranceCost, decProjectCost, decVehicleCost, decFuelCost, decShopRental, decUtilities, decOtherCost
+(1, 6, 1, 5451.86, 1072.64, 613.68, 61.96, 289.57, 1245.72, 703.15, 176.32),
+(2, 7, 1, 5524.34, 1072.64, 681.96, 96.21, 305.21, 1245.72, 743.25, 115.74),
+(3, 8, 1, 5415.35, 1072.64, 618.25, 81.58, 293.18, 1245.72, 752.73, 183.25),
+(4, 9, 1, 4921.25, 1072.64, 539.53, 153.25, 252.56, 1245.72, 726.23, 91.53),
+(5, 10, 1, 4256.85, 1072.64, 368.15, 78.83, 173.25, 1245.72, 731.52, 99.25),
+(6, 11, 1, 3315.32, 1072.64, 253.25, 135.64, 91.75, 1245.72, 782.64, 116.75)
 
 INSERT INTO TStatuses VALUES 
 (1, 'Scheduled'),
@@ -1630,10 +1679,11 @@ SELECT
 	,TP.intVendorID
 	,TP.strSerialNumber
 	,TP.strPartDesc
+	,TP.intQuantityBackordered	
 	,TP.intQuantity
 	,TP.decUnitPurchaseCost
-	,TP.decUniteSaleCost
-	,TP.intAmountSold
+	,TP.decUnitSaleCost
+	--,TP.intAmountSold
 	,TV.strVendorName
 	,TV.strContactName
 	,TV.strAddress
@@ -1680,7 +1730,6 @@ AS
 SELECT
 	TF.intFinanceID
 	,TF.decPayrollCost
-	,TF.decInventoryCost
 	,TF.decInsuranceCost
 	,TF.decProjectCost
 	,TF.decVehicleCost
@@ -1688,7 +1737,7 @@ SELECT
 	,TF.decShopRental
 	,TF.decUtilitiesCost
 	,TF.decOtherCost
-	,TF.decPayrollCost + TF.decInventoryCost + TF.decInsuranceCost + TF.decProjectCost + TF.decVehicleCost + TF.decFuelCost + TF.decShopRental + TF.decUtilitiesCost + TF.decOtherCost AS TotalCost
+	,TF.decPayrollCost + TF.decInsuranceCost + TF.decProjectCost + TF.decVehicleCost + TF.decFuelCost + TF.decShopRental + TF.decUtilitiesCost + TF.decOtherCost AS TotalCost
 	--,TF.decRevenue
 	--,str((decRevenue - (decPayrollCost + decInventoryCost + decInsuranceCost + decProjectCost + decVehicleCost + decFuelCost + decShopRental + decUtilitiesCost + decOtherCost)), 7, 2) AS GrossProfit
 	--,str(((decRevenue - (decPayrollCost + decInventoryCost + decInsuranceCost + decProjectCost + decVehicleCost + decFuelCost + decShopRental + decUtilitiesCost + decOtherCost)) / decRevenue) * 100, 7, 2) + '%' AS ProfitMargin
@@ -1712,7 +1761,6 @@ AS
 SELECT
 	TF.intFinanceID AS intFinanceID
 	,SUM(TFMonth.decPayrollCost) AS PayrollYTD
-	,SUM(TFMonth.decInventoryCost) AS InventoryYTD
 	,SUM(TFMonth.decInsuranceCost) AS InsuranceYTD
 	,SUM(TFMonth.decProjectCost) AS ProjectYTD
 	,SUM(TFMonth.decVehicleCost) AS VehicleYTD
@@ -1929,26 +1977,66 @@ SELECT
 	SUM(TI.decJobCost) AS Total
 	,SUM(TI.decAmountPaid) AS Paid
 	,MONTH(TI.dtDateDue) AS MonthDate
+	,YEAR(TI.dtDateDue) AS YearDate
 FROM
 	TInvoices AS TI
 
 GROUP BY
 	MONTH(TI.dtDateDue)
+	,YEAR(TI.dtDateDue)
 GO
+
 
 GO
 
 CREATE VIEW vYearlyRevenue
 AS
 SELECT
-	SUM(TI.decJobCost) AS Total
-	,SUM(TI.decAmountPaid) AS Paid
+	distinct str(MONTH(TI.dtDateDue)) + ', ' + str(YEAR(TI.dtDateDue)) AS MonthYear
+	,SUM(TI.decJobCost) OVER (ORDER BY MONTH(dtDateDue), YEAR(TI.dtDateDue)) AS YTDTotal
+	,SUM(TI.decAmountPaid) OVER (ORDER BY Month(dtDateDue), YEAR(TI.dtDateDue)) AS YTDPaid
 	,YEAR(TI.dtDateDue) AS YearDate
 FROM
 	TInvoices AS TI
+WHERE
+	YEAR(TI.dtDateDue) = YEAR(TI.dtDateDue)
+GO
+--GO
+
+--CREATE VIEW vYearlyRevenue
+--AS
+--SELECT
+--	SUM(TI.decJobCost) AS YTDTotal
+--	,SUM(TI.decAmountPaid) AS YTDPaid
+--	,MONTH(TI.dtDateDue) AS MonthDate
+--	,YEAR(TI.dtDateDue) AS YearDate
+--FROM
+--	TInvoices AS TI
+--WHERE
+--	dtDateDue BETWEEN (SELECT DATEADD(YY, DATEDIFF(YY, 0,GETDATE()), 0)) AND GETDATE()
+--GROUP BY
+--	YEAR(TI.dtDateDue)
+--	,MONTH(TI.dtDateDue)
+--GO
+--TFinances AS TF
+--	join TYears AS TY ON TY.intYearID = TF.intYearID
+--	inner join TFinances AS TFMonth ON TF.intMonthID >= TFMonth.intMonthID
+--	and TY.intYearID = TFMonth.intYearID
+--	join TMonths AS TM ON TM.intMonthID = TF.intMonthID
+GO
+
+CREATE VIEW vPartsOrderedCost
+AS
+SELECT
+	SUM(TPO.decUnitPurchaseCost) AS TotalCost
+	,MONTH(TPO.dtDateArrived) AS MonthDate
+	,YEAR(TPO.dtDateArrived) AS YearDate
+FROM
+	TPartsOrders AS TPO
 
 GROUP BY
-	YEAR(TI.dtDateDue)
+	MONTH(TPO.dtDateArrived)
+	,YEAR(TPO.dtDateArrived)
 GO
 
 GO
@@ -1968,7 +2056,9 @@ GO
 
 --Select * from vEmployeesOnJob WHERE intJobRecordID = 4
 --Select * from vMonthlyRevenue
---Select * from vYearlyRevenue
+--Select * from vPartsOrderedCost
+--Select * from vMonthlyRevenue where YearDate = 2020
+--Select * from vMonthlyRevenue where YearDate = 2020 and MonthDate <= 8
 --Select * from vJobRecordStatus
 
 --SELECT * FROM vJobRecordCustomers ORDER BY FullName ASC
