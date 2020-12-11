@@ -3,128 +3,373 @@
 ' Last modified by Matthew Estes
 
 Public Class frmDispatchOrders
-    Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
 
-        ' Close program
-        Close()
+	Private Sub frmDispatchOrders_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-    End Sub
-    
-    Private Sub btnSubmit_Click(sender As Object, e As EventArgs) Handles btnSubmit.Click
+		Try
 
-        Validation()
+			' Load names combo box
+			ComboBoxNameSearch()
 
-    End Sub
+		Catch ex As Exception
 
-    Function Validation() As Boolean
+			'Unhandled Exception
+			MessageBox.Show(ex.Message)
 
-        txtJobNumber.BackColor = Color.White
-        txtEstimatedDuration.BackColor = Color.White
-        txtFirstName.BackColor = Color.White
-        txtLastName.BackColor = Color.White
-        txtAddress.BackColor = Color.White
-        txtCity.BackColor = Color.White
-        txtZip.BackColor = Color.White
-        txtPhone.BackColor = Color.White
+		End Try
+
+	End Sub
 
 
-        ' check if something is entered in job number text box
-        If txtJobNumber.Text <> String.Empty Then
+	Private Sub cboName_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboName.SelectedIndexChanged
 
-        Else
-            ' text box is blank so tell user to enter job number, change back color to yellow,
-            ' put focus in text box and return false we don't want to continue
-            MessageBox.Show("Please enter job number.")
-            txtJobNumber.BackColor = Color.Yellow
-            txtJobNumber.Focus()
-            Return False
-        End If
+		Try
 
-        ' check if something is entered in estimated duration text box
-        If txtEstimatedDuration.Text <> String.Empty Then
+			LoadJobList()
 
-        Else
-            ' text box is blank so tell user to enter estimated duration, change back color to yellow,
-            ' put focus in text box and return false we don't want to continue
-            MessageBox.Show("Please enter estimated duration.")
-            txtEstimatedDuration.BackColor = Color.Yellow
-            txtEstimatedDuration.Focus()
-            Return False
-        End If
+		Catch ex As Exception
 
-        ' check if something is entered in first name text box
-        If txtFirstName.Text <> String.Empty Then
+			'Unhandled Exception
+			MessageBox.Show(ex.Message)
 
-        Else
-            ' text box is blank so tell user to enter first name, change back color to yellow,
-            ' put focus in text box and return false we don't want to continue
-            MessageBox.Show("Please enter Customer's first name.")
-            txtFirstName.BackColor = Color.Yellow
-            txtFirstName.Focus()
-            Return False
-        End If
+		End Try
 
-        ' check if something is entered in last name text box
-        If txtLastName.Text <> String.Empty Then
+	End Sub
 
-        Else
-            ' text box is blank so tell user to enter last name, change back color to yellow,
-            ' put focus in text box and return false we don't want to continue
-            MessageBox.Show("Please enter Customer's last name.")
-            txtLastName.BackColor = Color.Yellow
-            txtLastName.Focus()
-            Return False
-        End If
+	Private Sub ComboBoxNameSearch()
 
-        ' check if something is entered in street address text box
-        If txtAddress.Text <> String.Empty Then
+		Dim strSelect As String = ""
+		Dim cmdSelect As OleDb.OleDbCommand
+		Dim drSourceTable As OleDb.OleDbDataReader
+		Dim dt As DataTable = New DataTable
 
-        Else
-            ' text box is blank so tell user to enter street address, change back color to yellow,
-            ' put focus in text box and return false we don't want to continue
-            MessageBox.Show("Please enter Customer's street address.")
-            txtAddress.BackColor = Color.Yellow
-            txtAddress.Focus()
-            Return False
-        End If
+		'Open DB
+		If OpenDatabaseConnectionSQLServer() = False Then
 
-        ' check if something is entered in city text box
-        If txtCity.Text <> String.Empty Then
+			'If DB could not open
+			MessageBox.Show(Me, "Database connection error." & vbNewLine &
+								"The application will now close.",
+								Me.Text + " Error",
+								MessageBoxButtons.OK, MessageBoxIcon.Error)
+			Me.Close()
 
-        Else
-            ' text box is blank so tell user to enter city, change back color to yellow,
-            ' put focus in text box and return false we don't want to continue
-            MessageBox.Show("Please enter Customer's city.")
-            txtCity.BackColor = Color.Yellow
-            txtCity.Focus()
-            Return False
-        End If
+		End If
 
-        ' check if something is entered in zip text box
-        If txtZip.Text <> String.Empty Then
+		cboName.BeginUpdate()
 
-        Else
-            ' text box is blank so tell user to enter zip, change back color to yellow,
-            ' put focus in text box and return false we don't want to continue
-            MessageBox.Show("Please enter Customer's zip.")
-            txtZip.BackColor = Color.Yellow
-            txtZip.Focus()
-            Return False
-        End If
+		'Create select
+		strSelect = "SELECT * FROM  vJobRecordsSearch WHERE ( strLastName + ', ' + strFirstName ) LIKE '%" & cboName.Text &
+			"%' OR (strFirstName + ' ' + strLastName) like '%" & cboName.Text & "%' ORDER BY strLastName ASC"
 
-        ' check if something is entered in phone number text box
-        If txtPhone.Text <> String.Empty Then
+		'Get records
+		cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
+		drSourceTable = cmdSelect.ExecuteReader
 
-        Else
-            ' text box is blank so tell user to enter phone number, change back color to yellow,
-            ' put focus in text box and return false we don't want to continue
-            MessageBox.Show("Please enter Customer's phone number.")
-            txtPhone.BackColor = Color.Yellow
-            txtPhone.Focus()
-            Return False
-        End If
+		'Load Table
+		dt.Load(drSourceTable)
 
-        Return True ' all is well in the world
+		' Add items to combo box
+		cboName.ValueMember = "intCustomerID"
+		cboName.DisplayMember = "FullName"
+		cboName.DataSource = dt
 
-    End Function
+		' Select the first item in the list by default
+		If cboName.Items.Count > 0 Then cboName.SelectedIndex = 0
+
+		' Show changes
+		cboName.EndUpdate()
+
+		' Clean up
+		drSourceTable.Close()
+
+		' close the database connection
+		CloseDatabaseConnection()
+
+	End Sub
+
+	Private Sub LoadJobList()
+
+		Dim strSelect As String = ""
+		Dim cmdSelect As OleDb.OleDbCommand
+		Dim drSourceTable As OleDb.OleDbDataReader
+		Dim dt As DataTable = New DataTable
+
+		'Open DB
+		If OpenDatabaseConnectionSQLServer() = False Then
+
+			'If DB could not open
+			MessageBox.Show(Me, "Database connection error." & vbNewLine &
+								"The application will now close.",
+								Me.Text + " Error",
+								MessageBoxButtons.OK, MessageBoxIcon.Error)
+			Me.Close()
+
+		End If
+
+		cboJob.BeginUpdate()
+
+		'Create select
+		strSelect = "SELECT intJobRecordID, JobNumber FROM TJobRecords WHERE intCustomerID = " & cboName.SelectedValue
+
+		'Get records
+		cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
+		drSourceTable = cmdSelect.ExecuteReader
+
+		'Load Table
+		dt.Load(drSourceTable)
+
+		' Add items to combo box
+		cboJob.ValueMember = "intJobRecordID"
+		cboJob.DisplayMember = "JobNumber"
+		cboJob.DataSource = dt
+
+		' Select the first item in the list by default
+		If cboJob.Items.Count > 0 Then cboJob.SelectedIndex = 0
+
+		' Show changes
+		cboJob.EndUpdate()
+
+		' Clean up
+		drSourceTable.Close()
+
+		' close the database connection
+		CloseDatabaseConnection()
+
+	End Sub
+
+	Private Sub cboJob_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboJob.SelectedIndexChanged
+
+		Dim strSelect As String = ""
+		Dim cmdSelect As OleDb.OleDbCommand
+		Dim drSourceTable As OleDb.OleDbDataReader
+		Dim dt As DataTable = New DataTable
+
+		lstAvailable.ResetText()
+		lstAssigned.ResetText()
+
+		'Open DB
+		If OpenDatabaseConnectionSQLServer() = False Then
+
+			'No Connection
+			MessageBox.Show(Me, "Database connection error." & vbNewLine &
+								"The application will now close.",
+								Me.Text + " Error",
+								MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+			'Close Form
+			Me.Close()
+
+		End If
+
+		lstAvailable.BeginUpdate()
+
+		'Create Select
+		strSelect = "SELECT intEmployeeID, (strFirstName + ' ' + strLastName) AS FullName FROM TEmployees WHERE intEmployeeID NOT IN (SELECT intEmployeeID FROM TJobEmployees WHERE intJobRecordID = " & cboJob.SelectedValue.ToString & ")"
+
+		'Retrieve Records
+		cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
+		drSourceTable = cmdSelect.ExecuteReader
+
+		'Load Data
+		dt.Load(drSourceTable)
+
+		lstAvailable.ValueMember = "intEmployeeID"
+		lstAvailable.DisplayMember = "FullName"
+		lstAvailable.DataSource = dt
+
+		'Select First Item
+		If lstAvailable.Items.Count > 0 Then lstAvailable.SelectedIndex = 0
+
+		'Show Changes
+		lstAvailable.EndUpdate()
+
+		LoadAssigned()
+
+		' Clean up
+		drSourceTable.Close()
+
+		'Close DB
+		CloseDatabaseConnection()
+
+	End Sub
+
+	Private Sub LoadAssigned()
+		Dim strSelect As String = ""
+		Dim cmdSelect As OleDb.OleDbCommand
+		Dim drSourceTable As OleDb.OleDbDataReader
+		Dim dt As DataTable = New DataTable
+
+		'lstAvailable.ResetText()
+		lstAssigned.ResetText()
+
+		'Open DB
+		If OpenDatabaseConnectionSQLServer() = False Then
+
+			'No Connection
+			MessageBox.Show(Me, "Database connection error." & vbNewLine &
+									"The application will now close.",
+									Me.Text + " Error",
+									MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+			'Close Form
+			Me.Close()
+
+		End If
+
+		lstAssigned.BeginUpdate()
+
+		'Create Select
+		strSelect = "SELECT intEmployeeID, (strFirstName + ' ' + strLastName) AS FullName FROM TEmployees WHERE intEmployeeID IN (SELECT intEmployeeID FROM TJobEmployees WHERE intJobRecordID = " & cboJob.SelectedValue.ToString & ")"
+
+		'Retrieve Records
+		cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
+		drSourceTable = cmdSelect.ExecuteReader
+
+		'Load Data
+		dt.Load(drSourceTable)
+
+		lstAssigned.ValueMember = "intEmployeeID"
+		lstAssigned.DisplayMember = "FullName"
+		lstAssigned.DataSource = dt
+
+		'Select First Item
+		If lstAssigned.Items.Count > 0 Then lstAssigned.SelectedIndex = 0
+
+		'Show Changes
+		lstAssigned.EndUpdate()
+
+		' Clean up
+		drSourceTable.Close()
+
+		'Close DB
+		CloseDatabaseConnection()
+
+	End Sub
+
+	Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
+		Try
+
+			Dim strSelect As String = ""
+			Dim strInsert As String = ""
+			Dim cmdInsert As OleDb.OleDbCommand
+			Dim dt As DataTable = New DataTable
+			Dim intRowsAffected As Integer
+			Dim cmdSelect As OleDb.OleDbCommand
+			Dim drSourceTable As OleDb.OleDbDataReader
+			Dim intNextHighestRecordID As Integer
+
+			'Open DB
+			If OpenDatabaseConnectionSQLServer() = False Then
+
+				'No Connection
+				MessageBox.Show(Me, "Database connection error." & vbNewLine &
+									"The application will now close.",
+									Me.Text + " Error",
+									MessageBoxButtons.OK, MessageBoxIcon.Error)
+				'Close form
+				Me.Close()
+
+			End If
+
+			'Find max value and add 1
+			strSelect = "SELECT MAX(intJobEmployeeID) + 1 AS intNextHighestRecordID " &
+							" FROM TJobEmployees"
+
+			'Execute
+			cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
+			drSourceTable = cmdSelect.ExecuteReader
+
+			'Read
+			drSourceTable.Read()
+
+			'Check for empty table
+			If drSourceTable.IsDBNull(0) = True Then
+
+				'Start at 1 for empty table
+				intNextHighestRecordID = 1
+
+			Else
+
+				'Not empty, add 1
+				intNextHighestRecordID = CInt(drSourceTable.Item(0))
+
+			End If
+
+			'Create Select
+			strInsert = "INSERT INTO TJobEmployees VALUES (" & intNextHighestRecordID & ", " & cboJob.SelectedValue & ", " & lstAvailable.SelectedValue & ")"
+
+			'Retrieve data
+			cmdInsert = New OleDb.OleDbCommand(strInsert, m_conAdministrator)
+
+			intRowsAffected = cmdInsert.ExecuteNonQuery()
+
+			'Close DB
+			CloseDatabaseConnection()
+
+			'Reload lists
+			cboJob_SelectedIndexChanged(sender, e)
+
+		Catch ex As Exception
+
+			'Unhandled exception
+			MessageBox.Show(ex.Message)
+
+		End Try
+
+	End Sub
+
+	Private Sub btnRemoveFromJob_Click(sender As Object, e As EventArgs) Handles btnRemoveFromJob.Click
+
+		'Variables
+		Dim strDelete As String = ""
+		Dim strSelect As String = String.Empty
+		Dim intRowsAffected As Integer
+		Dim cmdDelete As OleDb.OleDbCommand 'Delete statement
+		Dim dt As DataTable = New DataTable 'Table
+
+		Try
+
+			'Open Database
+			If OpenDatabaseConnectionSQLServer() = False Then
+
+				'Check for connection
+				MessageBox.Show(Me, "Database connection error." & vbNewLine &
+									"The application will now close.",
+									Me.Text + " Error",
+									MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+				'Close form
+				Me.Close()
+
+			End If
+
+			'Delete from golfer event year sponsors
+			'Create delete statement
+			strDelete = "Delete FROM TJobEmployees Where intEmployeeID = " & lstAssigned.SelectedValue &
+				" AND intJobRecordID = " & cboJob.SelectedValue
+
+			' Delete the record
+			cmdDelete = New OleDb.OleDbCommand(strDelete, m_conAdministrator)
+			intRowsAffected = cmdDelete.ExecuteNonQuery()
+
+			'Close database
+			CloseDatabaseConnection()
+
+			'Reload lists
+			cboJob_SelectedIndexChanged(sender, e)
+
+		Catch ex As Exception
+			MessageBox.Show(ex.Message)
+		End Try
+
+	End Sub
+
+	Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
+
+		Me.Close()
+
+	End Sub
+
+
 End Class

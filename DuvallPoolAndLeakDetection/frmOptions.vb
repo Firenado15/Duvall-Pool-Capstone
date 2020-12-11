@@ -54,10 +54,10 @@ Public Class frmOptions
 
 	Private Sub btnDispatchOrders_Click_1(sender As Object, e As EventArgs) Handles btnDispatchOrders.Click
 
-		' create a new instance of the dispatch orders form
+		'create a New instance of the dispatch orders form
 		Dim DispatchOrders As New frmDispatchOrders
 
-		' show the new form so any past data is not still on the form
+		'Show the New form so any past data Is Not still on the form
 		DispatchOrders.ShowDialog()
 
 	End Sub
