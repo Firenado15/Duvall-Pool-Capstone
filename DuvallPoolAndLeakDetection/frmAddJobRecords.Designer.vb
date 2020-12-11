@@ -47,6 +47,8 @@ Partial Class frmAddJobRecords
 		Me.cboName = New System.Windows.Forms.ComboBox()
 		Me.Label38 = New System.Windows.Forms.Label()
 		Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+		Me.dtEndDate = New System.Windows.Forms.DateTimePicker()
+		Me.dtStartDate = New System.Windows.Forms.DateTimePicker()
 		Me.Label2 = New System.Windows.Forms.Label()
 		Me.Label3 = New System.Windows.Forms.Label()
 		Me.Label14 = New System.Windows.Forms.Label()
@@ -58,8 +60,6 @@ Partial Class frmAddJobRecords
 		Me.txtEmployeeNames = New System.Windows.Forms.TextBox()
 		Me.txtNumberEmployees = New System.Windows.Forms.TextBox()
 		Me.btnSearch = New System.Windows.Forms.Button()
-		Me.dtEndDate = New System.Windows.Forms.DateTimePicker()
-		Me.dtStartDate = New System.Windows.Forms.DateTimePicker()
 		Me.GroupBox3.SuspendLayout()
 		Me.GroupBox2.SuspendLayout()
 		Me.GroupBox1.SuspendLayout()
@@ -330,6 +330,28 @@ Partial Class frmAddJobRecords
 		Me.GroupBox1.TabStop = False
 		Me.GroupBox1.Text = "Job Information"
 		'
+		'dtEndDate
+		'
+		Me.dtEndDate.CustomFormat = "MM/dd/yyyy  hh:mm tt"
+		Me.dtEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+		Me.dtEndDate.Location = New System.Drawing.Point(180, 98)
+		Me.dtEndDate.Name = "dtEndDate"
+		Me.dtEndDate.ShowUpDown = True
+		Me.dtEndDate.Size = New System.Drawing.Size(244, 20)
+		Me.dtEndDate.TabIndex = 17
+		Me.dtEndDate.Value = New Date(2020, 12, 10, 12, 0, 0, 0)
+		'
+		'dtStartDate
+		'
+		Me.dtStartDate.CustomFormat = "MM/dd/yyyy  hh:mm tt"
+		Me.dtStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+		Me.dtStartDate.Location = New System.Drawing.Point(180, 59)
+		Me.dtStartDate.Name = "dtStartDate"
+		Me.dtStartDate.ShowUpDown = True
+		Me.dtStartDate.Size = New System.Drawing.Size(244, 20)
+		Me.dtStartDate.TabIndex = 16
+		Me.dtStartDate.Value = New Date(2020, 12, 10, 12, 0, 0, 0)
+		'
 		'Label2
 		'
 		Me.Label2.AutoSize = True
@@ -431,20 +453,6 @@ Partial Class frmAddJobRecords
 		Me.btnSearch.Text = "Search for Customer"
 		Me.btnSearch.UseVisualStyleBackColor = True
 		'
-		'dtEndDate
-		'
-		Me.dtEndDate.Location = New System.Drawing.Point(180, 98)
-		Me.dtEndDate.Name = "dtEndDate"
-		Me.dtEndDate.Size = New System.Drawing.Size(244, 20)
-		Me.dtEndDate.TabIndex = 17
-		'
-		'dtStartDate
-		'
-		Me.dtStartDate.Location = New System.Drawing.Point(180, 59)
-		Me.dtStartDate.Name = "dtStartDate"
-		Me.dtStartDate.Size = New System.Drawing.Size(244, 20)
-		Me.dtStartDate.TabIndex = 16
-		'
 		'frmAddJobRecords
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -458,7 +466,7 @@ Partial Class frmAddJobRecords
 		Me.Controls.Add(Me.GroupBox2)
 		Me.Controls.Add(Me.GroupBox1)
 		Me.Name = "frmAddJobRecords"
-		Me.Text = "frmAddJobRecords"
+		Me.Text = "Schedule Job"
 		Me.GroupBox3.ResumeLayout(False)
 		Me.GroupBox3.PerformLayout()
 		Me.GroupBox2.ResumeLayout(False)

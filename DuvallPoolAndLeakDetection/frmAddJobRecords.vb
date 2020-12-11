@@ -269,7 +269,7 @@
 
 				'Create insert statement
 				strInsert = "Insert into TJobRecords VALUES " &
-					" (" & intNextHighestRecordID & ", '" & strStartDate & "', '" & strEndDate & "', '" & strJobDescription & "', " & intStatusID & ", " & cboName.SelectedValue & ")"
+					" (" & intNextHighestRecordID & ", '" & dtStartDate.Value & "', '" & dtEndDate.Value & "', '" & strJobDescription & "', " & intStatusID & ", " & cboName.SelectedValue & ")"
 
 				cmdInsert = New OleDb.OleDbCommand(strInsert, m_conAdministrator)
 
