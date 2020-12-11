@@ -205,10 +205,10 @@
     <Compile Include="frmUpdateVendorInfo.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmViewAndUpdateDispatchedOrders.Designer.vb">
-      <DependentUpon>frmViewAndUpdateDispatchedOrders.vb</DependentUpon>
+    <Compile Include="frmEmployeeInfo.Designer.vb">
+      <DependentUpon>frmEmployeeInfo.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmViewAndUpdateDispatchedOrders.vb">
+    <Compile Include="frmEmployeeInfo.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmPreviousOrders.Designer.vb">
@@ -310,8 +310,8 @@
     <EmbeddedResource Include="frmUpdateVendorInfo.resx">
       <DependentUpon>frmUpdateVendorInfo.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmViewAndUpdateDispatchedOrders.resx">
-      <DependentUpon>frmViewAndUpdateDispatchedOrders.vb</DependentUpon>
+    <EmbeddedResource Include="frmEmployeeInfo.resx">
+      <DependentUpon>frmEmployeeInfo.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmPreviousOrders.resx">
       <DependentUpon>frmPreviousOrders.vb</DependentUpon>

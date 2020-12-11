@@ -65,7 +65,7 @@ Public Class frmOptions
 	Private Sub btnViewOrders_Click(sender As Object, e As EventArgs) Handles btnViewOrders.Click
 
 		' create a new instance of the view and update dispatched orders form
-		Dim ViewAndUpdateDispatchedOrders As New frmViewAndUpdateDispatchedOrders
+		Dim ViewAndUpdateDispatchedOrders As New frmEmployeeInfo
 
 		' show the new form so any past data is not still on the form
 		ViewAndUpdateDispatchedOrders.ShowDialog()

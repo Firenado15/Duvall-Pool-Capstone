@@ -185,7 +185,7 @@ Partial Class frmOptions
 		Me.btnViewOrders.Name = "btnViewOrders"
 		Me.btnViewOrders.Size = New System.Drawing.Size(136, 23)
 		Me.btnViewOrders.TabIndex = 29
-		Me.btnViewOrders.Text = "View/Update Orders"
+		Me.btnViewOrders.Text = "Employee Info"
 		Me.btnViewOrders.UseVisualStyleBackColor = True
 		'
 		'GroupBox4
