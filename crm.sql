@@ -153,8 +153,8 @@ CREATE TABLE TPartsOrders
 (
 	 intPartOrderedID		INTEGER			NOT NULL
 	,intPartID				INTEGER			NOT NULL
-	,dtDateOrdered			DATE			NOT NULL
-	,dtDateArrived			DATE			NOT NULL
+	,dtDateOrdered			DATETIME		NOT NULL
+	,dtDateArrived			DATETIME		NOT NULL
 	,blnArrived				BIT				NOT NULL
 	,intQuantity			INTEGER			NOT NULL
 	,decUnitPurchaseCost	DECIMAL(7,2)	NOT NULL
@@ -213,7 +213,7 @@ CREATE TABLE TInvoices
 (
 	 intInvoiceID			INTEGER			NOT NULL
 	,intJobRecordID			INTEGER			NOT NULL
-	,dtDateDue				DATE			NOT NULL
+	,dtDateDue				DATETIME		NOT NULL
 	,decJobCost				DECIMAL(7,2)	NOT NULL
 	,decAmountPaid			DECIMAL(7,2)	NOT NULL
 	,CIN AS CASE len(intInvoiceID)
@@ -325,7 +325,6 @@ CREATE TABLE TFinances
 	,intYearID				INTEGER			NOT NULL
 	,decPayrollCost			DECIMAL(7,2)	NOT NULL
 	,decInsuranceCost		DECIMAL(7,2)	NOT NULL
-	,decProjectCost			DECIMAL(7,2)	NOT NULL
 	,decVehicleCost			DECIMAL(7,2)	NOT NULL
 	,decFuelCost			DECIMAL(7,2)	NOT NULL
 	,decShopRental			DECIMAL(7,2)	NOT NULL
@@ -337,8 +336,8 @@ CREATE TABLE TFinances
 CREATE TABLE TJobRecords
 (
 	 intJobRecordID			INTEGER			NOT NULL
-	,dtStartDate			DATE			NOT NULL
-	,dtEndDate				DATE			NOT NULL
+	,dtStartDate			DATETIME		NOT NULL
+	,dtEndDate				DATETIME		NOT NULL
 	,strJobDesc				VARCHAR(500)	NOT NULL
 	,intStatusID			INTEGER			NOT NULL
 	,intCustomerID			INTEGER			NOT NULL
@@ -877,13 +876,13 @@ INSERT INTO TYears VALUES
 (1, '2020')
 
 INSERT INTO TFinances VALUES
--- intMonthID, intYearID, decPayrollCost, decInsuranceCost, decProjectCost, decVehicleCost, decFuelCost, decShopRental, decUtilities, decOtherCost
-(1, 6, 1, 3451.86, 1072.64, 613.68, 61.96, 289.57, 1245.72, 703.15, 176.32),
-(2, 7, 1, 3524.34, 1072.64, 681.96, 96.21, 305.21, 1245.72, 743.25, 115.74),
-(3, 8, 1, 3415.35, 1072.64, 618.25, 81.58, 293.18, 1245.72, 752.73, 183.25),
-(4, 9, 1, 3921.25, 1072.64, 539.53, 153.25, 252.56, 1245.72, 726.23, 91.53),
-(5, 10, 1, 2656.85, 1072.64, 368.15, 78.83, 173.25, 1245.72, 731.52, 99.25),
-(6, 11, 1, 2015.32, 1072.64, 253.25, 135.64, 91.75, 1245.72, 782.64, 116.75)
+-- intMonthID, intYearID, decPayrollCost, decInsuranceCost, decVehicleCost, decFuelCost, decShopRental, decUtilities, decOtherCost
+(1, 6, 1, 3451.86, 1072.64, 61.96, 289.57, 1245.72, 703.15, 176.32),
+(2, 7, 1, 3524.34, 1072.64, 96.21, 305.21, 1245.72, 743.25, 115.74),
+(3, 8, 1, 3415.35, 1072.64, 81.58, 293.18, 1245.72, 752.73, 183.25),
+(4, 9, 1, 3921.25, 1072.64, 153.25, 252.56, 1245.72, 726.23, 91.53),
+(5, 10, 1, 2656.85, 1072.64, 78.83, 173.25, 1245.72, 731.52, 99.25),
+(6, 11, 1, 2015.32, 1072.64, 135.64, 91.75, 1245.72, 782.64, 116.75)
 
 INSERT INTO TStatuses VALUES 
 (1, 'Scheduled'),
@@ -1730,13 +1729,12 @@ SELECT
 	distinct TF.intFinanceID
 	,TF.decPayrollCost
 	,TF.decInsuranceCost
-	,TF.decProjectCost
 	,TF.decVehicleCost
 	,TF.decFuelCost
 	,TF.decShopRental
 	,TF.decUtilitiesCost
 	,TF.decOtherCost
-	,TF.decPayrollCost + TF.decInsuranceCost + TF.decProjectCost + TF.decVehicleCost + TF.decFuelCost + TF.decShopRental + TF.decUtilitiesCost + TF.decOtherCost AS TotalCost
+	,TF.decPayrollCost + TF.decInsuranceCost + TF.decVehicleCost + TF.decFuelCost + TF.decShopRental + TF.decUtilitiesCost + TF.decOtherCost AS TotalCost
 	,TM.intMonthID
 	,TY.strYear
 	--,str((decRevenue - (decPayrollCost + decInventoryCost + decInsuranceCost + decProjectCost + decVehicleCost + decFuelCost + decShopRental + decUtilitiesCost + decOtherCost)), 7, 2) AS GrossProfit
@@ -1762,16 +1760,13 @@ SELECT
 	TF.intFinanceID AS intFinanceID
 	,SUM(TFMonth.decPayrollCost) AS PayrollYTD
 	,SUM(TFMonth.decInsuranceCost) AS InsuranceYTD
-	,SUM(TFMonth.decProjectCost) AS ProjectYTD
 	,SUM(TFMonth.decVehicleCost) AS VehicleYTD
 	,SUM(TFMonth.decFuelCost) AS FuelYTD
 	,SUM(TFMonth.decShopRental) AS ShopYTD
 	,SUM(TFMonth.decUtilitiesCost) AS UtilityYTD
 	,SUM(TFMonth.decOtherCost) AS OtherYTD
-	,SUM(TFMonth.decPayrollCost + TFMonth.decInsuranceCost + TFMonth.decProjectCost + TFMonth.decVehicleCost + TFMonth.decFuelCost + TFMonth.decShopRental + TFMonth.decUtilitiesCost +TFMonth.decOtherCost) AS TotalCostYTD
-	--,SUM(TFMonth.decRevenue) AS RevenueYTD
-	--,((SUM(TFMonth.decRevenue) - (SUM(TFMonth.decPayrollCost + TFMonth.decInventoryCost + TFMonth.decInsuranceCost + TFMonth.decProjectCost + TFMonth.decVehicleCost + TFMonth.decFuelCost + TFMonth.decShopRental + TFMonth.decUtilitiesCost + TFMonth.decOtherCost)))) AS GrossProfitYTD
-	--,str(((SUM(TFMonth.decRevenue)) - (SUM(TFMonth.decPayrollCost + TFMonth.decInventoryCost + TFMonth.decInsuranceCost + TFMonth.decProjectCost + TFMonth.decVehicleCost + TFMonth.decFuelCost + TFMonth.decShopRental + TFMonth.decUtilitiesCost + TFMonth.decOtherCost))) / (SUM(TFMonth.decRevenue)) * 100, 7, 2) + '%' AS ProfitMarginYTD
+	,SUM(TFMonth.decPayrollCost + TFMonth.decInsuranceCost + TFMonth.decVehicleCost + TFMonth.decFuelCost + TFMonth.decShopRental + TFMonth.decUtilitiesCost +TFMonth.decOtherCost) AS TotalCostYTD
+
 FROM
 	TFinances AS TF
 	join TYears AS TY ON TY.intYearID = TF.intYearID
@@ -2019,7 +2014,7 @@ WHERE
 GO
 
 --Select * from vEmployeesOnJob WHERE intJobRecordID = 4
-Select * from vPartsOrderedCost where YearDate = 2020
+--Select * from vPartsOrderedCost where YearDate = 2020
 --Select * from vPartsOrderedCost
 --Select * from vMonthlyFinances
 Select * from vMonthlyRevenue where YearDate = 2020 
