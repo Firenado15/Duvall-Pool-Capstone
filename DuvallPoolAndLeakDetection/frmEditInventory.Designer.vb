@@ -44,6 +44,11 @@ Partial Class frmEditInventory
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.txtPartCostCust = New System.Windows.Forms.TextBox()
+        Me.txtPartCostBus = New System.Windows.Forms.TextBox()
+        Me.txtQuantity = New System.Windows.Forms.TextBox()
+        Me.txtQuantityBackordered = New System.Windows.Forms.TextBox()
+        Me.txtPartDescription = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.cboPartName = New System.Windows.Forms.ComboBox()
         Me.Label16 = New System.Windows.Forms.Label()
@@ -53,11 +58,8 @@ Partial Class frmEditInventory
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.btnUpdate = New System.Windows.Forms.Button()
         Me.btnClose = New System.Windows.Forms.Button()
-        Me.txtPartDescription = New System.Windows.Forms.TextBox()
-        Me.txtQuantityBackordered = New System.Windows.Forms.TextBox()
-        Me.txtPartCostBus = New System.Windows.Forms.TextBox()
-        Me.txtPartCostCust = New System.Windows.Forms.TextBox()
-        Me.txtQuantity = New System.Windows.Forms.TextBox()
+        Me.PartName = New System.Windows.Forms.Label()
+        Me.txtPartName = New System.Windows.Forms.TextBox()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -145,7 +147,7 @@ Partial Class frmEditInventory
         '
         Me.Label20.AutoSize = True
         Me.Label20.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label20.Location = New System.Drawing.Point(16, 227)
+        Me.Label20.Location = New System.Drawing.Point(16, 268)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(187, 17)
         Me.Label20.TabIndex = 6
@@ -181,7 +183,7 @@ Partial Class frmEditInventory
         '
         Me.Label12.AutoSize = True
         Me.Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label12.Location = New System.Drawing.Point(16, 185)
+        Me.Label12.Location = New System.Drawing.Point(16, 226)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(133, 17)
         Me.Label12.TabIndex = 6
@@ -201,7 +203,7 @@ Partial Class frmEditInventory
         '
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(16, 98)
+        Me.Label11.Location = New System.Drawing.Point(16, 139)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(61, 17)
         Me.Label11.TabIndex = 6
@@ -231,7 +233,7 @@ Partial Class frmEditInventory
         '
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.Location = New System.Drawing.Point(16, 141)
+        Me.Label13.Location = New System.Drawing.Point(16, 182)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(146, 17)
         Me.Label13.TabIndex = 9
@@ -259,28 +261,66 @@ Partial Class frmEditInventory
         '
         'GroupBox3
         '
+        Me.GroupBox3.Controls.Add(Me.txtPartName)
         Me.GroupBox3.Controls.Add(Me.txtPartCostCust)
         Me.GroupBox3.Controls.Add(Me.txtPartCostBus)
         Me.GroupBox3.Controls.Add(Me.txtQuantity)
         Me.GroupBox3.Controls.Add(Me.txtQuantityBackordered)
         Me.GroupBox3.Controls.Add(Me.txtPartDescription)
+        Me.GroupBox3.Controls.Add(Me.PartName)
         Me.GroupBox3.Controls.Add(Me.Label13)
         Me.GroupBox3.Controls.Add(Me.Label20)
         Me.GroupBox3.Controls.Add(Me.Label10)
         Me.GroupBox3.Controls.Add(Me.Label12)
         Me.GroupBox3.Controls.Add(Me.Label11)
-        Me.GroupBox3.Location = New System.Drawing.Point(26, 182)
+        Me.GroupBox3.Location = New System.Drawing.Point(26, 162)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(427, 274)
+        Me.GroupBox3.Size = New System.Drawing.Size(427, 294)
         Me.GroupBox3.TabIndex = 1
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Part Details"
+        '
+        'txtPartCostCust
+        '
+        Me.txtPartCostCust.Location = New System.Drawing.Point(207, 267)
+        Me.txtPartCostCust.Name = "txtPartCostCust"
+        Me.txtPartCostCust.Size = New System.Drawing.Size(201, 20)
+        Me.txtPartCostCust.TabIndex = 4
+        '
+        'txtPartCostBus
+        '
+        Me.txtPartCostBus.Location = New System.Drawing.Point(207, 225)
+        Me.txtPartCostBus.Name = "txtPartCostBus"
+        Me.txtPartCostBus.Size = New System.Drawing.Size(201, 20)
+        Me.txtPartCostBus.TabIndex = 3
+        '
+        'txtQuantity
+        '
+        Me.txtQuantity.Location = New System.Drawing.Point(207, 138)
+        Me.txtQuantity.Name = "txtQuantity"
+        Me.txtQuantity.Size = New System.Drawing.Size(201, 20)
+        Me.txtQuantity.TabIndex = 1
+        '
+        'txtQuantityBackordered
+        '
+        Me.txtQuantityBackordered.Location = New System.Drawing.Point(207, 181)
+        Me.txtQuantityBackordered.Name = "txtQuantityBackordered"
+        Me.txtQuantityBackordered.Size = New System.Drawing.Size(201, 20)
+        Me.txtQuantityBackordered.TabIndex = 2
+        '
+        'txtPartDescription
+        '
+        Me.txtPartDescription.Location = New System.Drawing.Point(207, 63)
+        Me.txtPartDescription.Multiline = True
+        Me.txtPartDescription.Name = "txtPartDescription"
+        Me.txtPartDescription.Size = New System.Drawing.Size(201, 59)
+        Me.txtPartDescription.TabIndex = 0
         '
         'Label10
         '
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(16, 17)
+        Me.Label10.Location = New System.Drawing.Point(16, 75)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(109, 17)
         Me.Label10.TabIndex = 9
@@ -377,41 +417,22 @@ Partial Class frmEditInventory
         Me.btnClose.Text = "Close"
         Me.btnClose.UseVisualStyleBackColor = True
         '
-        'txtPartDescription
+        'PartName
         '
-        Me.txtPartDescription.Location = New System.Drawing.Point(207, 17)
-        Me.txtPartDescription.Multiline = True
-        Me.txtPartDescription.Name = "txtPartDescription"
-        Me.txtPartDescription.Size = New System.Drawing.Size(201, 64)
-        Me.txtPartDescription.TabIndex = 0
+        Me.PartName.AutoSize = True
+        Me.PartName.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PartName.Location = New System.Drawing.Point(16, 28)
+        Me.PartName.Name = "PartName"
+        Me.PartName.Size = New System.Drawing.Size(75, 17)
+        Me.PartName.TabIndex = 6
+        Me.PartName.Text = "Part Name"
         '
-        'txtQuantityBackordered
+        'txtPartName
         '
-        Me.txtQuantityBackordered.Location = New System.Drawing.Point(207, 140)
-        Me.txtQuantityBackordered.Name = "txtQuantityBackordered"
-        Me.txtQuantityBackordered.Size = New System.Drawing.Size(201, 20)
-        Me.txtQuantityBackordered.TabIndex = 2
-        '
-        'txtPartCostBus
-        '
-        Me.txtPartCostBus.Location = New System.Drawing.Point(207, 184)
-        Me.txtPartCostBus.Name = "txtPartCostBus"
-        Me.txtPartCostBus.Size = New System.Drawing.Size(201, 20)
-        Me.txtPartCostBus.TabIndex = 3
-        '
-        'txtPartCostCust
-        '
-        Me.txtPartCostCust.Location = New System.Drawing.Point(207, 226)
-        Me.txtPartCostCust.Name = "txtPartCostCust"
-        Me.txtPartCostCust.Size = New System.Drawing.Size(201, 20)
-        Me.txtPartCostCust.TabIndex = 4
-        '
-        'txtQuantity
-        '
-        Me.txtQuantity.Location = New System.Drawing.Point(207, 97)
-        Me.txtQuantity.Name = "txtQuantity"
-        Me.txtQuantity.Size = New System.Drawing.Size(201, 20)
-        Me.txtQuantity.TabIndex = 1
+        Me.txtPartName.Location = New System.Drawing.Point(207, 27)
+        Me.txtPartName.Name = "txtPartName"
+        Me.txtPartName.Size = New System.Drawing.Size(201, 20)
+        Me.txtPartName.TabIndex = 4
         '
         'frmEditInventory
         '
@@ -472,4 +493,6 @@ Partial Class frmEditInventory
     Friend WithEvents txtPartCostBus As TextBox
     Friend WithEvents txtQuantity As TextBox
     Friend WithEvents txtQuantityBackordered As TextBox
+    Friend WithEvents txtPartName As TextBox
+    Friend WithEvents PartName As Label
 End Class

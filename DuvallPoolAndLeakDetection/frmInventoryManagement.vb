@@ -40,7 +40,7 @@ Public Class frmInventoryManagement
 			cboPartName.BeginUpdate()
 
 			'Create SELECT statement
-			strSelect = "SELECT intPartID, (strPartDesc) AS PartName FROM TParts ORDER BY PartName ASC"
+			strSelect = "SELECT intPartID, strPartName FROM TParts ORDER BY strPartName ASC"
 
 			'Get RECORDS
 			cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
@@ -51,7 +51,7 @@ Public Class frmInventoryManagement
 
 			'Add to CBO
 			cboPartName.ValueMember = "intPartID"
-			cboPartName.DisplayMember = "PartName"
+			cboPartName.DisplayMember = "strPartName"
 			cboPartName.DataSource = dt
 
 			'Select first index
