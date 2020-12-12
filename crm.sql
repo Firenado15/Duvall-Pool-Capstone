@@ -57,7 +57,6 @@ IF OBJECT_ID( 'vJobAndCustomerInfo' )			IS NOT NULL DROP VIEW vJobAndCustomerInf
 IF OBJECT_ID( 'vJobsAndNoInvoice' )				IS NOT NULL DROP VIEW vJobsAndNoInvoice
 IF OBJECT_ID( 'vJobsWithoutInvoices' )			IS NOT NULL DROP VIEW vJobsWithoutInvoices
 IF OBJECT_ID( 'vMonthlyRevenue' )				IS NOT NULL DROP VIEW vMonthlyRevenue
-IF OBJECT_ID( 'vYearlyRevenue' )				IS NOT NULL DROP VIEW vYearlyRevenue
 IF OBJECT_ID( 'vEmployeesOnJob' )				IS NOT NULL DROP VIEW vEmployeesOnJob
 IF OBJECT_ID( 'vCustomerInvoices' )				IS NOT NULL DROP VIEW vCustomerInvoices
 IF OBJECT_ID( 'vPrintableInvoice' )				IS NOT NULL DROP VIEW vPrintableInvoice
@@ -879,12 +878,12 @@ INSERT INTO TYears VALUES
 
 INSERT INTO TFinances VALUES
 -- intMonthID, intYearID, decPayrollCost, decInsuranceCost, decProjectCost, decVehicleCost, decFuelCost, decShopRental, decUtilities, decOtherCost
-(1, 6, 1, 5451.86, 1072.64, 613.68, 61.96, 289.57, 1245.72, 703.15, 176.32),
-(2, 7, 1, 5524.34, 1072.64, 681.96, 96.21, 305.21, 1245.72, 743.25, 115.74),
-(3, 8, 1, 5415.35, 1072.64, 618.25, 81.58, 293.18, 1245.72, 752.73, 183.25),
-(4, 9, 1, 4921.25, 1072.64, 539.53, 153.25, 252.56, 1245.72, 726.23, 91.53),
-(5, 10, 1, 4256.85, 1072.64, 368.15, 78.83, 173.25, 1245.72, 731.52, 99.25),
-(6, 11, 1, 3315.32, 1072.64, 253.25, 135.64, 91.75, 1245.72, 782.64, 116.75)
+(1, 6, 1, 3451.86, 1072.64, 613.68, 61.96, 289.57, 1245.72, 703.15, 176.32),
+(2, 7, 1, 3524.34, 1072.64, 681.96, 96.21, 305.21, 1245.72, 743.25, 115.74),
+(3, 8, 1, 3415.35, 1072.64, 618.25, 81.58, 293.18, 1245.72, 752.73, 183.25),
+(4, 9, 1, 3921.25, 1072.64, 539.53, 153.25, 252.56, 1245.72, 726.23, 91.53),
+(5, 10, 1, 2656.85, 1072.64, 368.15, 78.83, 173.25, 1245.72, 731.52, 99.25),
+(6, 11, 1, 2015.32, 1072.64, 253.25, 135.64, 91.75, 1245.72, 782.64, 116.75)
 
 INSERT INTO TStatuses VALUES 
 (1, 'Scheduled'),
@@ -1728,7 +1727,7 @@ GO
 CREATE VIEW vMonthlyFinances
 AS
 SELECT
-	TF.intFinanceID
+	distinct TF.intFinanceID
 	,TF.decPayrollCost
 	,TF.decInsuranceCost
 	,TF.decProjectCost
@@ -1738,7 +1737,8 @@ SELECT
 	,TF.decUtilitiesCost
 	,TF.decOtherCost
 	,TF.decPayrollCost + TF.decInsuranceCost + TF.decProjectCost + TF.decVehicleCost + TF.decFuelCost + TF.decShopRental + TF.decUtilitiesCost + TF.decOtherCost AS TotalCost
-	--,TF.decRevenue
+	,TM.intMonthID
+	,TY.strYear
 	--,str((decRevenue - (decPayrollCost + decInventoryCost + decInsuranceCost + decProjectCost + decVehicleCost + decFuelCost + decShopRental + decUtilitiesCost + decOtherCost)), 7, 2) AS GrossProfit
 	--,str(((decRevenue - (decPayrollCost + decInventoryCost + decInsuranceCost + decProjectCost + decVehicleCost + decFuelCost + decShopRental + decUtilitiesCost + decOtherCost)) / decRevenue) * 100, 7, 2) + '%' AS ProfitMargin
 	
@@ -1768,6 +1768,7 @@ SELECT
 	,SUM(TFMonth.decShopRental) AS ShopYTD
 	,SUM(TFMonth.decUtilitiesCost) AS UtilityYTD
 	,SUM(TFMonth.decOtherCost) AS OtherYTD
+	,SUM(TFMonth.decPayrollCost + TFMonth.decInsuranceCost + TFMonth.decProjectCost + TFMonth.decVehicleCost + TFMonth.decFuelCost + TFMonth.decShopRental + TFMonth.decUtilitiesCost +TFMonth.decOtherCost) AS TotalCostYTD
 	--,SUM(TFMonth.decRevenue) AS RevenueYTD
 	--,((SUM(TFMonth.decRevenue) - (SUM(TFMonth.decPayrollCost + TFMonth.decInventoryCost + TFMonth.decInsuranceCost + TFMonth.decProjectCost + TFMonth.decVehicleCost + TFMonth.decFuelCost + TFMonth.decShopRental + TFMonth.decUtilitiesCost + TFMonth.decOtherCost)))) AS GrossProfitYTD
 	--,str(((SUM(TFMonth.decRevenue)) - (SUM(TFMonth.decPayrollCost + TFMonth.decInventoryCost + TFMonth.decInsuranceCost + TFMonth.decProjectCost + TFMonth.decVehicleCost + TFMonth.decFuelCost + TFMonth.decShopRental + TFMonth.decUtilitiesCost + TFMonth.decOtherCost))) / (SUM(TFMonth.decRevenue)) * 100, 7, 2) + '%' AS ProfitMarginYTD
@@ -1986,43 +1987,6 @@ GROUP BY
 	,YEAR(TI.dtDateDue)
 GO
 
-
-GO
-
-CREATE VIEW vYearlyRevenue
-AS
-SELECT
-	distinct str(MONTH(TI.dtDateDue)) + ', ' + str(YEAR(TI.dtDateDue)) AS MonthYear
-	,SUM(TI.decJobCost) OVER (ORDER BY MONTH(dtDateDue), YEAR(TI.dtDateDue)) AS YTDTotal
-	,SUM(TI.decAmountPaid) OVER (ORDER BY Month(dtDateDue), YEAR(TI.dtDateDue)) AS YTDPaid
-	,YEAR(TI.dtDateDue) AS YearDate
-FROM
-	TInvoices AS TI
-WHERE
-	YEAR(TI.dtDateDue) = YEAR(TI.dtDateDue)
-GO
---GO
-
---CREATE VIEW vYearlyRevenue
---AS
---SELECT
---	SUM(TI.decJobCost) AS YTDTotal
---	,SUM(TI.decAmountPaid) AS YTDPaid
---	,MONTH(TI.dtDateDue) AS MonthDate
---	,YEAR(TI.dtDateDue) AS YearDate
---FROM
---	TInvoices AS TI
---WHERE
---	dtDateDue BETWEEN (SELECT DATEADD(YY, DATEDIFF(YY, 0,GETDATE()), 0)) AND GETDATE()
---GROUP BY
---	YEAR(TI.dtDateDue)
---	,MONTH(TI.dtDateDue)
---GO
---TFinances AS TF
---	join TYears AS TY ON TY.intYearID = TF.intYearID
---	inner join TFinances AS TFMonth ON TF.intMonthID >= TFMonth.intMonthID
---	and TY.intYearID = TFMonth.intYearID
---	join TMonths AS TM ON TM.intMonthID = TF.intMonthID
 GO
 
 CREATE VIEW vPartsOrderedCost
@@ -2055,10 +2019,11 @@ WHERE
 GO
 
 --Select * from vEmployeesOnJob WHERE intJobRecordID = 4
---Select * from vMonthlyRevenue
+Select * from vPartsOrderedCost where YearDate = 2020
 --Select * from vPartsOrderedCost
---Select * from vMonthlyRevenue where YearDate = 2020
---Select * from vMonthlyRevenue where YearDate = 2020 and MonthDate <= 8
+--Select * from vMonthlyFinances
+Select * from vMonthlyRevenue where YearDate = 2020 
+--Select SUM(Total), SUM(Paid) from vMonthlyRevenue where YearDate = 2020 and MonthDate = 8
 --Select * from vJobRecordStatus
 
 --SELECT * FROM vJobRecordCustomers ORDER BY FullName ASC
@@ -2066,8 +2031,8 @@ GO
 --SELECT * FROM vJobRecords ORDER BY intJobRecordID DESC
 
 
---SELECT * FROM vMonthlyFinances
---SELECT * FROM vYTDFinances 
+SELECT * FROM vYTDFinances
+--SELECT * FROM vYTDFinances WHERE intFinanceID = 4
 
 ---- Validate credit card insert data
 --SELECT TOP 1 * From TCustomers ORDER BY intcustomerID DESC
