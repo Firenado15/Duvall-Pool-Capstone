@@ -121,9 +121,10 @@ CREATE TABLE TStates
 CREATE TABLE TParts
 (
 	 intPartID					INTEGER			NOT NULL
-	,intVendorID				INTEGER			NOT NULL
+	,intVendorID				INTEGER			NOT NULL	
 	,strSerialNumber			VARCHAR(50)		NOT NULL
-	,strPartDesc				VARCHAR(50)		NOT NULL
+	,strPartName				VARCHAR(100)	NOT NULL
+	,strPartDesc				VARCHAR(500)	NOT NULL
 	,intQuantityBackordered		INTEGER			NOT NULL
 	,intQuantity				INTEGER			NOT NULL
 	,decUnitPurchaseCost		DECIMAL(7,2)	NOT NULL
@@ -790,27 +791,27 @@ INSERT INTO TEmployees VALUES
 (15, 'Frederica', 'Blunk')
 
 INSERT INTO TParts VALUES
--- intVendorID, strSerialNumber, strDesc, intQuantityBackordered, intQuantity, decUnitPurchaseCost, decUnitSaleCost
-(1,48, 'SN08242', 'Part 001', 0, 11,83.42,133.472),
-(2,13, 'SN03836', 'Part 002', 0, 0,55.04,88.064),
-(3,7, 'SN01418', 'Part 003', 0, 9,85.64,137.024),
-(4,15, 'SN0260', 'Part 004', 0, 18,54.33,86.928),
-(5,9, 'SN07948', 'Part 005', 0, 69,6.35,10.16),
-(6,20, 'SN06987', 'Part 006', 0, 53,1.88,3.008),
-(7,33, 'SN02196', 'Part 007', 0, 8,37.53,60.048),
-(8,49, 'SN01038', 'Part 008', 0, 9,61.76,98.816),
-(9,35, 'SN07918', 'Part 009', 0, 4,76.02,121.632),
-(10,43, 'SN06210', 'Part 010', 0, 13,37.33,59.728),
-(11,18, 'SN04580', 'Part 011', 0, 23,18.38,29.408),
-(12,33, 'SN01102', 'Part 012', 0, 16,20.35,32.56),
-(13,13, 'SN09042', 'Part 013', 0, 73,34.18,54.688),
-(14,43, 'SN01544', 'Part 014', 0, 42,96.16,153.856),
-(15,42, 'SN03825', 'Part 015', 0, 15,74.58,119.328),
-(16,18, 'SN08566', 'Part 016', 0, 41,87.64,140.224),
-(17,23, 'SN0621', 'Part 017', 0, 92,49.55,79.28),
-(18,23, 'SN06456', 'Part 018', 0, 40,55.58,88.928),
-(19,13, 'SN08936', 'Part 019', 4, 6,71.82,114.912),
-(20,41, 'SN06039', 'Part 020', 2, 10,54.97,87.952)
+-- intVendorID, strSerialNumber, strPartName, strDesc, intQuantityBackordered, intQuantity, decUnitPurchaseCost, decUnitSaleCost
+(1,48, 'SN08242', 'Chlorinator Model 430 Feeder', 'Replacement parts for liquid chemical pumps, and chlorine tablet feeders. Frog ground model', 0, 11,83.42,133.472),
+(2,13, 'SN03836', 'Chlorinator Model 600 Feeder', 'Replacement parts for liquid chemical pumps, and chlorine tablet feeders. Frog ground model', 0, 0,55.04,88.064),
+(3,7, 'SN01418', 'Chlorine Cells', 'Replacement parts for chlorine tablet feeders.', 0, 9,85.64,137.024),
+(4,15, 'SN0260', 'AquaSwitch & Pool Control', 'Replacement parts for pool system controller.',  0, 18,54.33,86.928),
+(5,9, 'SN07948', 'EOS Personalized Automated Control', 'Replacement parts for pool system controller.', 0, 69,6.35,10.16),
+(6,20, 'SN06987', 'PVC pipe connector', 'Connector for fitting pipes together.', 0, 53,1.88,3.008),
+(7,33, 'SN02196', 'Pro Logic', 'Replacement parts for pool system controllers.', 0, 8,37.53,60.048),
+(8,49, 'SN01038', 'CAT Control Replacement Parts', 'Replacement parts for pool system controllers - chemical controllers, and pool equipment controls.', 0, 9,61.76,98.816),
+(9,35, 'SN07918', 'CPS Model 520-1820-PG', 'Pool heater part.', 0, 4,76.02,121.632),
+(10,43, 'SN06210', 'Heatmaster HM2 model 150-400', 'Pool heater part.', 0, 13,37.33,59.728),
+(11,18, 'SN04580', 'Micro-Clean', 'Filtration kit.', 0, 23,18.38,29.408),
+(12,33, 'SN01102', 'C2000 Duralon', 'Filtration kit.', 0, 16,20.35,32.56),
+(13,13, 'SN09042', 'Avalanche AV60', 'Stainless steel filtration kit.', 0, 73,34.18,54.688),
+(14,43, 'SN01544', 'Swimquip Underwater Pool Lights', 'Underwater pool lighting kit.', 0, 42,96.16,153.856),
+(15,42, 'SN03825', 'SP-500 Sealed Beam', 'Lighting kit.', 0, 15,74.58,119.328),
+(16,18, 'SN08566', 'SP-1600X Super Pump', 'Water pump kit.', 0, 41,87.64,140.224),
+(17,23, 'SN0621', 'Sp-4000 Series NorthStar', 'Plastic water pump.', 0, 92,49.55,79.28),
+(18,23, 'SN06456', 'Magnum Force Pump', 'Water pump.', 0, 40,55.58,88.928),
+(19,13, 'SN08936', 'Intermatic Timer Motors', 'Timer for water pumping or lights', 4, 6,71.82,114.912),
+(20,41, 'SN06039', 'Century A.O. Smith Motor', 'Water pump motor.', 2, 10,54.97,87.952)
 
 INSERT INTO TPartsOrders VALUES
 --intPartID, dateOrdered, dateArrived, blnArrived, intQuantity, decUnitPurchaseCost
@@ -1689,6 +1690,7 @@ SELECT
 	,TV.strZip
 	,TV.strEmail
 	,TV.strPhoneNumber
+	,TP.strPartName
 FROM
 	TParts AS TP
 	,TVendors AS TV
