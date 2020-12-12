@@ -128,7 +128,6 @@ CREATE TABLE TParts
 	,intQuantity				INTEGER			NOT NULL
 	,decUnitPurchaseCost		DECIMAL(7,2)	NOT NULL
 	,decUnitSaleCost			DECIMAL(7,2)	NOT NULL
-	--,intAmountSold				INTEGER			NOT NULL
 	,PNumber AS CASE len(intpartID)
 		when 1 then 'PO-'+'00000'+CONVERT(varchar, intPartID)
 		when 2 then 'PO-'+'0000'+CONVERT(varchar, intPartID)
@@ -810,8 +809,8 @@ INSERT INTO TParts VALUES
 (16,18, 'SN08566', 'Part 016', 0, 41,87.64,140.224),
 (17,23, 'SN0621', 'Part 017', 0, 92,49.55,79.28),
 (18,23, 'SN06456', 'Part 018', 0, 40,55.58,88.928),
-(19,13, 'SN08936', 'Part 019', 0, 20,71.82,114.912),
-(20,41, 'SN06039', 'Part 020', 0, 97,54.97,87.952)
+(19,13, 'SN08936', 'Part 019', 4, 6,71.82,114.912),
+(20,41, 'SN06039', 'Part 020', 2, 10,54.97,87.952)
 
 INSERT INTO TPartsOrders VALUES
 --intPartID, dateOrdered, dateArrived, blnArrived, intQuantity, decUnitPurchaseCost
@@ -1678,11 +1677,10 @@ SELECT
 	,TP.intVendorID
 	,TP.strSerialNumber
 	,TP.strPartDesc
-	,TP.intQuantityBackordered	
-	,TP.intQuantity
+	,TP.intQuantity	
+	,TP.intQuantityBackordered
 	,TP.decUnitPurchaseCost
 	,TP.decUnitSaleCost
-	--,TP.intAmountSold
 	,TV.strVendorName
 	,TV.strContactName
 	,TV.strAddress
@@ -2023,7 +2021,7 @@ Select * from vPartsOrderedCost where YearDate = 2020
 --Select * from vPartsOrderedCost
 --Select * from vMonthlyFinances
 Select * from vMonthlyRevenue where YearDate = 2020 
---Select SUM(Total), SUM(Paid) from vMonthlyRevenue where YearDate = 2020 and MonthDate = 8
+Select SUM(Total), SUM(Paid) from vMonthlyRevenue where YearDate = 2020 and MonthDate <= 8
 --Select * from vJobRecordStatus
 
 --SELECT * FROM vJobRecordCustomers ORDER BY FullName ASC
