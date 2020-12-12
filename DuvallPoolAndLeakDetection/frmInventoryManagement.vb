@@ -5,7 +5,7 @@
 Public Class frmInventoryManagement
 	Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
 
-		' Close program
+		' Close form
 		Close()
 
 	End Sub
@@ -110,9 +110,9 @@ Public Class frmInventoryManagement
 			lblSerialNumber.Text = dt.Rows(0).Item(2).ToString
 			lblPartDescription.Text = dt.Rows(0).Item(3).ToString
 			lblQuantity.Text = dt.Rows(0).Item(4).ToString
-			lblPartCostBus.Text = "$" & dt.Rows(0).Item(5).ToString
-			lblPartCostCust.Text = "$" & dt.Rows(0).Item(6).ToString
-			lblYTDSold.Text = dt.Rows(0).Item(7).ToString
+			lblBackorderedQuantity.Text = dt.Rows(0).Item(5).ToString
+			lblPartCostBus.Text = "$" & dt.Rows(0).Item(6).ToString
+			lblPartCostCust.Text = "$" & dt.Rows(0).Item(7).ToString
 			lblVendorName.Text = dt.Rows(0).Item(8).ToString
 			lblContactName.Text = dt.Rows(0).Item(9).ToString
 			lblAddress.Text = dt.Rows(0).Item(10).ToString
@@ -129,6 +129,18 @@ Public Class frmInventoryManagement
 
 		End Try
 
+	End Sub
+
+	Private Sub btnEditInventory_Click(sender As Object, e As EventArgs) Handles btnEditInventory.Click
+
+		' create a new instance of the edit inventory form
+		Dim EditInventory As New frmEditInventory
+
+		' show the new form so any past data is not still on the form
+		EditInventory.ShowDialog()
+
+		'Reload inventory info after update
+		cboPartName_SelectedIndexChanged(sender, e)
 	End Sub
 
 End Class

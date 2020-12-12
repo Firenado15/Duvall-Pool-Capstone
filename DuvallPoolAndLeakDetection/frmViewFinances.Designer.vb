@@ -62,7 +62,15 @@ Partial Class frmViewFinances
         Me.Label36 = New System.Windows.Forms.Label()
         Me.Label37 = New System.Windows.Forms.Label()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.lblMonthlyOutstandingRevenue = New System.Windows.Forms.Label()
+        Me.lblMonthlyPaidRevenue = New System.Windows.Forms.Label()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Label55 = New System.Windows.Forms.Label()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.lblYearlyOutstandingRevenue = New System.Windows.Forms.Label()
+        Me.lblYearlyRevenuePaid = New System.Windows.Forms.Label()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.Label16 = New System.Windows.Forms.Label()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
         Me.lblMonthlyMargin = New System.Windows.Forms.Label()
         Me.Label43 = New System.Windows.Forms.Label()
@@ -79,14 +87,6 @@ Partial Class frmViewFinances
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.btnEditFinances = New System.Windows.Forms.Button()
-        Me.lblMonthlyOutstandingRevenue = New System.Windows.Forms.Label()
-        Me.lblMonthlyPaidRevenue = New System.Windows.Forms.Label()
-        Me.Label12 = New System.Windows.Forms.Label()
-        Me.Label55 = New System.Windows.Forms.Label()
-        Me.lblYearlyOutstandingRevenue = New System.Windows.Forms.Label()
-        Me.lblYearlyRevenuePaid = New System.Windows.Forms.Label()
-        Me.Label15 = New System.Windows.Forms.Label()
-        Me.Label16 = New System.Windows.Forms.Label()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -487,6 +487,42 @@ Partial Class frmViewFinances
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Revenue for Month"
         '
+        'lblMonthlyOutstandingRevenue
+        '
+        Me.lblMonthlyOutstandingRevenue.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.lblMonthlyOutstandingRevenue.Location = New System.Drawing.Point(180, 61)
+        Me.lblMonthlyOutstandingRevenue.Name = "lblMonthlyOutstandingRevenue"
+        Me.lblMonthlyOutstandingRevenue.Size = New System.Drawing.Size(244, 23)
+        Me.lblMonthlyOutstandingRevenue.TabIndex = 50
+        '
+        'lblMonthlyPaidRevenue
+        '
+        Me.lblMonthlyPaidRevenue.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.lblMonthlyPaidRevenue.Location = New System.Drawing.Point(180, 20)
+        Me.lblMonthlyPaidRevenue.Name = "lblMonthlyPaidRevenue"
+        Me.lblMonthlyPaidRevenue.Size = New System.Drawing.Size(244, 23)
+        Me.lblMonthlyPaidRevenue.TabIndex = 51
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label12.Location = New System.Drawing.Point(16, 67)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(85, 17)
+        Me.Label12.TabIndex = 48
+        Me.Label12.Text = "Outstanding"
+        '
+        'Label55
+        '
+        Me.Label55.AutoSize = True
+        Me.Label55.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label55.Location = New System.Drawing.Point(16, 26)
+        Me.Label55.Name = "Label55"
+        Me.Label55.Size = New System.Drawing.Size(124, 17)
+        Me.Label55.TabIndex = 49
+        Me.Label55.Text = "Total Amount Paid"
+        '
         'GroupBox4
         '
         Me.GroupBox4.Controls.Add(Me.lblYearlyOutstandingRevenue)
@@ -499,6 +535,42 @@ Partial Class frmViewFinances
         Me.GroupBox4.TabIndex = 36
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Revenue YTD"
+        '
+        'lblYearlyOutstandingRevenue
+        '
+        Me.lblYearlyOutstandingRevenue.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.lblYearlyOutstandingRevenue.Location = New System.Drawing.Point(180, 59)
+        Me.lblYearlyOutstandingRevenue.Name = "lblYearlyOutstandingRevenue"
+        Me.lblYearlyOutstandingRevenue.Size = New System.Drawing.Size(244, 23)
+        Me.lblYearlyOutstandingRevenue.TabIndex = 54
+        '
+        'lblYearlyRevenuePaid
+        '
+        Me.lblYearlyRevenuePaid.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.lblYearlyRevenuePaid.Location = New System.Drawing.Point(180, 16)
+        Me.lblYearlyRevenuePaid.Name = "lblYearlyRevenuePaid"
+        Me.lblYearlyRevenuePaid.Size = New System.Drawing.Size(244, 23)
+        Me.lblYearlyRevenuePaid.TabIndex = 55
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label15.Location = New System.Drawing.Point(18, 63)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(85, 17)
+        Me.Label15.TabIndex = 52
+        Me.Label15.Text = "Outstanding"
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label16.Location = New System.Drawing.Point(18, 22)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(124, 17)
+        Me.Label16.TabIndex = 53
+        Me.Label16.Text = "Total Amount Paid"
         '
         'GroupBox5
         '
@@ -603,7 +675,7 @@ Partial Class frmViewFinances
         Me.btnClose.Location = New System.Drawing.Point(551, 668)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Size = New System.Drawing.Size(109, 44)
-        Me.btnClose.TabIndex = 39
+        Me.btnClose.TabIndex = 2
         Me.btnClose.Text = "Close"
         Me.btnClose.UseVisualStyleBackColor = True
         '
@@ -623,7 +695,7 @@ Partial Class frmViewFinances
         Me.cboDate.Location = New System.Drawing.Point(178, 21)
         Me.cboDate.Name = "cboDate"
         Me.cboDate.Size = New System.Drawing.Size(244, 21)
-        Me.cboDate.TabIndex = 40
+        Me.cboDate.TabIndex = 0
         '
         'GroupBox7
         '
@@ -632,7 +704,7 @@ Partial Class frmViewFinances
         Me.GroupBox7.Location = New System.Drawing.Point(44, 43)
         Me.GroupBox7.Name = "GroupBox7"
         Me.GroupBox7.Size = New System.Drawing.Size(443, 61)
-        Me.GroupBox7.TabIndex = 41
+        Me.GroupBox7.TabIndex = 0
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "Search for month"
         '
@@ -651,81 +723,9 @@ Partial Class frmViewFinances
         Me.btnEditFinances.Location = New System.Drawing.Point(847, 668)
         Me.btnEditFinances.Name = "btnEditFinances"
         Me.btnEditFinances.Size = New System.Drawing.Size(109, 44)
-        Me.btnEditFinances.TabIndex = 39
+        Me.btnEditFinances.TabIndex = 1
         Me.btnEditFinances.Text = "Edit Finances"
         Me.btnEditFinances.UseVisualStyleBackColor = True
-        '
-        'lblMonthlyOutstandingRevenue
-        '
-        Me.lblMonthlyOutstandingRevenue.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.lblMonthlyOutstandingRevenue.Location = New System.Drawing.Point(180, 61)
-        Me.lblMonthlyOutstandingRevenue.Name = "lblMonthlyOutstandingRevenue"
-        Me.lblMonthlyOutstandingRevenue.Size = New System.Drawing.Size(244, 23)
-        Me.lblMonthlyOutstandingRevenue.TabIndex = 50
-        '
-        'lblMonthlyPaidRevenue
-        '
-        Me.lblMonthlyPaidRevenue.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.lblMonthlyPaidRevenue.Location = New System.Drawing.Point(180, 20)
-        Me.lblMonthlyPaidRevenue.Name = "lblMonthlyPaidRevenue"
-        Me.lblMonthlyPaidRevenue.Size = New System.Drawing.Size(244, 23)
-        Me.lblMonthlyPaidRevenue.TabIndex = 51
-        '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label12.Location = New System.Drawing.Point(16, 67)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(85, 17)
-        Me.Label12.TabIndex = 48
-        Me.Label12.Text = "Outstanding"
-        '
-        'Label55
-        '
-        Me.Label55.AutoSize = True
-        Me.Label55.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label55.Location = New System.Drawing.Point(16, 26)
-        Me.Label55.Name = "Label55"
-        Me.Label55.Size = New System.Drawing.Size(124, 17)
-        Me.Label55.TabIndex = 49
-        Me.Label55.Text = "Total Amount Paid"
-        '
-        'lblYearlyOutstandingRevenue
-        '
-        Me.lblYearlyOutstandingRevenue.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.lblYearlyOutstandingRevenue.Location = New System.Drawing.Point(180, 59)
-        Me.lblYearlyOutstandingRevenue.Name = "lblYearlyOutstandingRevenue"
-        Me.lblYearlyOutstandingRevenue.Size = New System.Drawing.Size(244, 23)
-        Me.lblYearlyOutstandingRevenue.TabIndex = 54
-        '
-        'lblYearlyRevenuePaid
-        '
-        Me.lblYearlyRevenuePaid.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.lblYearlyRevenuePaid.Location = New System.Drawing.Point(180, 16)
-        Me.lblYearlyRevenuePaid.Name = "lblYearlyRevenuePaid"
-        Me.lblYearlyRevenuePaid.Size = New System.Drawing.Size(244, 23)
-        Me.lblYearlyRevenuePaid.TabIndex = 55
-        '
-        'Label15
-        '
-        Me.Label15.AutoSize = True
-        Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label15.Location = New System.Drawing.Point(18, 63)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(85, 17)
-        Me.Label15.TabIndex = 52
-        Me.Label15.Text = "Outstanding"
-        '
-        'Label16
-        '
-        Me.Label16.AutoSize = True
-        Me.Label16.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label16.Location = New System.Drawing.Point(18, 22)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(124, 17)
-        Me.Label16.TabIndex = 53
-        Me.Label16.Text = "Total Amount Paid"
         '
         'frmViewFinances
         '
