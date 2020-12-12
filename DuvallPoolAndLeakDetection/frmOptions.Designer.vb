@@ -46,6 +46,7 @@ Partial Class frmOptions
 		Me.btnAddJobRecord = New System.Windows.Forms.Button()
 		Me.btnViewJobRecords = New System.Windows.Forms.Button()
 		Me.btnClose = New System.Windows.Forms.Button()
+		Me.btnJobParts = New System.Windows.Forms.Button()
 		Me.GroupBox1.SuspendLayout()
 		Me.GroupBox2.SuspendLayout()
 		Me.GroupBox3.SuspendLayout()
@@ -103,7 +104,7 @@ Partial Class frmOptions
 		'
 		'btnInventoryManagement
 		'
-		Me.btnInventoryManagement.Location = New System.Drawing.Point(94, 19)
+		Me.btnInventoryManagement.Location = New System.Drawing.Point(14, 19)
 		Me.btnInventoryManagement.Name = "btnInventoryManagement"
 		Me.btnInventoryManagement.Size = New System.Drawing.Size(136, 23)
 		Me.btnInventoryManagement.TabIndex = 9
@@ -190,6 +191,7 @@ Partial Class frmOptions
 		'
 		'GroupBox4
 		'
+		Me.GroupBox4.Controls.Add(Me.btnJobParts)
 		Me.GroupBox4.Controls.Add(Me.btnInventoryManagement)
 		Me.GroupBox4.Location = New System.Drawing.Point(123, 216)
 		Me.GroupBox4.Name = "GroupBox4"
@@ -276,6 +278,15 @@ Partial Class frmOptions
 		Me.btnClose.Text = "Close"
 		Me.btnClose.UseVisualStyleBackColor = True
 		'
+		'btnJobParts
+		'
+		Me.btnJobParts.Location = New System.Drawing.Point(177, 19)
+		Me.btnJobParts.Name = "btnJobParts"
+		Me.btnJobParts.Size = New System.Drawing.Size(136, 23)
+		Me.btnJobParts.TabIndex = 10
+		Me.btnJobParts.Text = "Assign parts to Job"
+		Me.btnJobParts.UseVisualStyleBackColor = True
+		'
 		'frmOptions
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -329,4 +340,5 @@ Partial Class frmOptions
     Friend WithEvents btnViewJobRecords As Button
     Friend WithEvents btnClose As Button
     Friend WithEvents btnAddJobRecord As Button
+	Friend WithEvents btnJobParts As Button
 End Class

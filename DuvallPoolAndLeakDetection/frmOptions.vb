@@ -149,5 +149,13 @@ Public Class frmOptions
 
 	End Sub
 
+	Private Sub btnJobParts_Click(sender As Object, e As EventArgs) Handles btnJobParts.Click
 
+		' create a new instance of the add job records form
+		Dim AddPartsToJob As New frmEditJobParts
+
+		' show the new form so any past data is not still on the form
+		AddPartsToJob.ShowDialog()
+
+	End Sub
 End Class
