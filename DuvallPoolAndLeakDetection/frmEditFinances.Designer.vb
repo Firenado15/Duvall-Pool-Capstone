@@ -28,8 +28,6 @@ Partial Class frmEditFinances
         Me.btnSubmit = New System.Windows.Forms.Button()
         Me.btnClose = New System.Windows.Forms.Button()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
-        Me.txtRevenue = New System.Windows.Forms.TextBox()
-        Me.Label55 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.txtOther = New System.Windows.Forms.TextBox()
@@ -39,7 +37,6 @@ Partial Class frmEditFinances
         Me.txtVehicle = New System.Windows.Forms.TextBox()
         Me.txtProject = New System.Windows.Forms.TextBox()
         Me.txtInsurance = New System.Windows.Forms.TextBox()
-        Me.txtInventory = New System.Windows.Forms.TextBox()
         Me.txtPayroll = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -50,6 +47,11 @@ Partial Class frmEditFinances
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
+        Me.lblOutstandingRevenue = New System.Windows.Forms.Label()
+        Me.lblPaidRevenue = New System.Windows.Forms.Label()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Label55 = New System.Windows.Forms.Label()
+        Me.lblInventory = New System.Windows.Forms.Label()
         Me.GroupBox7.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -86,7 +88,7 @@ Partial Class frmEditFinances
         '
         'btnSubmit
         '
-        Me.btnSubmit.Location = New System.Drawing.Point(366, 629)
+        Me.btnSubmit.Location = New System.Drawing.Point(366, 662)
         Me.btnSubmit.Name = "btnSubmit"
         Me.btnSubmit.Size = New System.Drawing.Size(109, 44)
         Me.btnSubmit.TabIndex = 51
@@ -95,7 +97,7 @@ Partial Class frmEditFinances
         '
         'btnClose
         '
-        Me.btnClose.Location = New System.Drawing.Point(73, 629)
+        Me.btnClose.Location = New System.Drawing.Point(73, 662)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Size = New System.Drawing.Size(109, 44)
         Me.btnClose.TabIndex = 52
@@ -104,31 +106,16 @@ Partial Class frmEditFinances
         '
         'GroupBox3
         '
-        Me.GroupBox3.Controls.Add(Me.txtRevenue)
+        Me.GroupBox3.Controls.Add(Me.lblOutstandingRevenue)
+        Me.GroupBox3.Controls.Add(Me.lblPaidRevenue)
+        Me.GroupBox3.Controls.Add(Me.Label12)
         Me.GroupBox3.Controls.Add(Me.Label55)
         Me.GroupBox3.Location = New System.Drawing.Point(55, 537)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(444, 66)
+        Me.GroupBox3.Size = New System.Drawing.Size(444, 86)
         Me.GroupBox3.TabIndex = 50
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Revenue for Month"
-        '
-        'txtRevenue
-        '
-        Me.txtRevenue.Location = New System.Drawing.Point(176, 16)
-        Me.txtRevenue.Name = "txtRevenue"
-        Me.txtRevenue.Size = New System.Drawing.Size(244, 20)
-        Me.txtRevenue.TabIndex = 0
-        '
-        'Label55
-        '
-        Me.Label55.AutoSize = True
-        Me.Label55.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label55.Location = New System.Drawing.Point(16, 17)
-        Me.Label55.Name = "Label55"
-        Me.Label55.Size = New System.Drawing.Size(65, 17)
-        Me.Label55.TabIndex = 6
-        Me.Label55.Text = "Revenue"
         '
         'Label8
         '
@@ -142,6 +129,7 @@ Partial Class frmEditFinances
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.lblInventory)
         Me.GroupBox2.Controls.Add(Me.txtOther)
         Me.GroupBox2.Controls.Add(Me.txtUtilities)
         Me.GroupBox2.Controls.Add(Me.txtRent)
@@ -149,7 +137,6 @@ Partial Class frmEditFinances
         Me.GroupBox2.Controls.Add(Me.txtVehicle)
         Me.GroupBox2.Controls.Add(Me.txtProject)
         Me.GroupBox2.Controls.Add(Me.txtInsurance)
-        Me.GroupBox2.Controls.Add(Me.txtInventory)
         Me.GroupBox2.Controls.Add(Me.txtPayroll)
         Me.GroupBox2.Controls.Add(Me.Label3)
         Me.GroupBox2.Controls.Add(Me.Label2)
@@ -215,13 +202,6 @@ Partial Class frmEditFinances
         Me.txtInsurance.Name = "txtInsurance"
         Me.txtInsurance.Size = New System.Drawing.Size(244, 20)
         Me.txtInsurance.TabIndex = 2
-        '
-        'txtInventory
-        '
-        Me.txtInventory.Location = New System.Drawing.Point(175, 58)
-        Me.txtInventory.Name = "txtInventory"
-        Me.txtInventory.Size = New System.Drawing.Size(244, 20)
-        Me.txtInventory.TabIndex = 1
         '
         'txtPayroll
         '
@@ -320,11 +300,55 @@ Partial Class frmEditFinances
         Me.Label10.TabIndex = 6
         Me.Label10.Text = "Payroll"
         '
+        'lblOutstandingRevenue
+        '
+        Me.lblOutstandingRevenue.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.lblOutstandingRevenue.Location = New System.Drawing.Point(176, 57)
+        Me.lblOutstandingRevenue.Name = "lblOutstandingRevenue"
+        Me.lblOutstandingRevenue.Size = New System.Drawing.Size(244, 23)
+        Me.lblOutstandingRevenue.TabIndex = 54
+        '
+        'lblPaidRevenue
+        '
+        Me.lblPaidRevenue.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.lblPaidRevenue.Location = New System.Drawing.Point(176, 16)
+        Me.lblPaidRevenue.Name = "lblPaidRevenue"
+        Me.lblPaidRevenue.Size = New System.Drawing.Size(244, 23)
+        Me.lblPaidRevenue.TabIndex = 55
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label12.Location = New System.Drawing.Point(17, 57)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(85, 17)
+        Me.Label12.TabIndex = 52
+        Me.Label12.Text = "Outstanding"
+        '
+        'Label55
+        '
+        Me.Label55.AutoSize = True
+        Me.Label55.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label55.Location = New System.Drawing.Point(15, 22)
+        Me.Label55.Name = "Label55"
+        Me.Label55.Size = New System.Drawing.Size(124, 17)
+        Me.Label55.TabIndex = 53
+        Me.Label55.Text = "Total Amount Paid"
+        '
+        'lblInventory
+        '
+        Me.lblInventory.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.lblInventory.Location = New System.Drawing.Point(175, 53)
+        Me.lblInventory.Name = "lblInventory"
+        Me.lblInventory.Size = New System.Drawing.Size(244, 23)
+        Me.lblInventory.TabIndex = 47
+        '
         'frmEditFinances
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(567, 696)
+        Me.ClientSize = New System.Drawing.Size(567, 718)
         Me.Controls.Add(Me.GroupBox7)
         Me.Controls.Add(Me.btnSubmit)
         Me.Controls.Add(Me.btnClose)
@@ -350,8 +374,6 @@ Partial Class frmEditFinances
     Friend WithEvents btnSubmit As Button
     Friend WithEvents btnClose As Button
     Friend WithEvents GroupBox3 As GroupBox
-    Friend WithEvents txtRevenue As TextBox
-    Friend WithEvents Label55 As Label
     Friend WithEvents Label8 As Label
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents txtOther As TextBox
@@ -361,7 +383,6 @@ Partial Class frmEditFinances
     Friend WithEvents txtVehicle As TextBox
     Friend WithEvents txtProject As TextBox
     Friend WithEvents txtInsurance As TextBox
-    Friend WithEvents txtInventory As TextBox
     Friend WithEvents txtPayroll As TextBox
     Friend WithEvents Label3 As Label
     Friend WithEvents Label2 As Label
@@ -372,4 +393,9 @@ Partial Class frmEditFinances
     Friend WithEvents Label4 As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents Label10 As Label
+    Friend WithEvents lblOutstandingRevenue As Label
+    Friend WithEvents lblPaidRevenue As Label
+    Friend WithEvents Label12 As Label
+    Friend WithEvents Label55 As Label
+    Friend WithEvents lblInventory As Label
 End Class

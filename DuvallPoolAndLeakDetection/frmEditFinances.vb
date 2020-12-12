@@ -89,13 +89,19 @@ Public Class frmEditFinances
 	Private Sub cboDate_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboDate.SelectedIndexChanged
 
 		' Declare variables
+		Dim intYear As Integer = 0
+		Dim intMonth As Integer = 0
+		Dim dblOutstandingRevenue As Double = 0
 		Dim strYear As String = ""
 		Dim strSelect As String = ""
 		Dim strName As String = ""
 		Dim cmdSelect As OleDb.OleDbCommand 'select
+		Dim cmdSelect2 As OleDb.OleDbCommand 'select
+		Dim cmdSelect3 As OleDb.OleDbCommand 'select
 		Dim drSourceTable As OleDb.OleDbDataReader 'retrieved data
+		Dim drSourceTable2 As OleDb.OleDbDataReader 'retrieved data
+		Dim drSourceTable3 As OleDb.OleDbDataReader 'retrieved data
 		Dim dt As DataTable = New DataTable 'reader
-		Dim dt2 As DataTable = New DataTable 'reader
 
 		'open the database
 		If OpenDatabaseConnectionSQLServer() = False Then
@@ -124,15 +130,47 @@ Public Class frmEditFinances
 
 		'populate monthly text boxes
 		txtPayroll.Text = dt.Rows(0).Item(1).ToString
-		txtInventory.Text = dt.Rows(0).Item(2).ToString
-		txtInsurance.Text = dt.Rows(0).Item(3).ToString
-		txtProject.Text = dt.Rows(0).Item(4).ToString
-		txtVehicle.Text = dt.Rows(0).Item(5).ToString
-		txtFuel.Text = dt.Rows(0).Item(6).ToString
-		txtRent.Text = dt.Rows(0).Item(7).ToString
-		txtUtilities.Text = dt.Rows(0).Item(8).ToString
-		txtOther.Text = dt.Rows(0).Item(9).ToString
-		txtRevenue.Text = dt.Rows(0).Item(10).ToString
+		txtInsurance.Text = dt.Rows(0).Item(2).ToString
+		txtProject.Text = dt.Rows(0).Item(3).ToString
+		txtVehicle.Text = dt.Rows(0).Item(4).ToString
+		txtFuel.Text = dt.Rows(0).Item(5).ToString
+		txtRent.Text = dt.Rows(0).Item(6).ToString
+		txtUtilities.Text = dt.Rows(0).Item(7).ToString
+		txtOther.Text = dt.Rows(0).Item(8).ToString
+		intMonth = dt.Rows(0).Item(10)
+		intYear = CInt(dt.Rows(0).Item(11))
+
+		' Build the select statement
+		strSelect = "SELECT Total, Paid FROM vMonthlyRevenue WHERE MonthDate = " & intMonth & " and YearDate = " & intYear
+
+		'Execute
+		cmdSelect2 = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
+		drSourceTable2 = cmdSelect2.ExecuteReader
+
+		'load the data table from the reader
+		drSourceTable2.Read()
+
+		'Check for empty table
+		If drSourceTable2.IsDBNull(0) = False Then
+			lblPaidRevenue.Text = "$" & drSourceTable2.Item(1)
+			dblOutstandingRevenue = CDbl((drSourceTable2.Item(0)) - (drSourceTable2.Item(1)))
+			lblOutstandingRevenue.Text = "$" & dblOutstandingRevenue.ToString("F2")
+		End If
+
+		' Build the select statement
+		strSelect = "SELECT TotalCost FROM vPartsOrderedCost WHERE MonthDate = " & intMonth & " and YearDate = " & intYear
+
+		'Execute
+		cmdSelect3 = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
+		drSourceTable3 = cmdSelect3.ExecuteReader
+
+		'load the data table from the reader
+		drSourceTable3.Read()
+
+		'Check for empty table
+		If drSourceTable3.IsDBNull(0) = False Then
+			lblInventory.Text = "$" & drSourceTable3.Item(0).ToString
+		End If
 
 		'close connection
 		CloseDatabaseConnection()
@@ -171,7 +209,6 @@ Public Class frmEditFinances
 
 				' Set values
 				strPayroll = txtPayroll.Text
-				strInventory = txtInventory.Text
 				strInsurance = txtInsurance.Text
 				strProject = txtProject.Text
 				strVehicle = txtVehicle.Text
@@ -179,7 +216,6 @@ Public Class frmEditFinances
 				strRent = txtRent.Text
 				strUtilities = txtUtilities.Text
 				strOther = txtOther.Text
-				strRevenue = txtRevenue.Text
 
 				If OpenDatabaseConnectionSQLServer() = False Then
 
@@ -217,15 +253,13 @@ Public Class frmEditFinances
 				'Create update statement
 				strUpdate = "UPDATE TFinances " &
 					"SET decPayrollCost = " & strPayroll & ", " &
-						"decInventoryCost = " & strInventory & ", " &
 						"decInsuranceCost = " & strInsurance & ", " &
 						"decProjectCost = " & strProject & ", " &
 						"decVehicleCost = " & strVehicle & ", " &
 						"decFuelCost = " & strFuel & ", " &
 						"decShopRental = " & strRent & ", " &
 						"decUtilitiesCost = " & strUtilities & ", " &
-						"decOtherCost = " & strOther & ", " &
-						"decRevenue = " & strRevenue &
+						"decOtherCost = " & strOther &
 					" WHERE intFinanceID = " & intFinanceID
 
 				cmdUpdate = New OleDb.OleDbCommand(strUpdate, m_conAdministrator)
@@ -253,7 +287,6 @@ Public Class frmEditFinances
 	Function Validation() As Boolean
 
 		txtPayroll.BackColor = Color.White
-		txtInventory.BackColor = Color.White
 		txtInsurance.BackColor = Color.White
 		txtProject.BackColor = Color.White
 		txtVehicle.BackColor = Color.White
@@ -261,7 +294,6 @@ Public Class frmEditFinances
 		txtRent.BackColor = Color.White
 		txtUtilities.BackColor = Color.White
 		txtOther.BackColor = Color.White
-		txtRevenue.BackColor = Color.White
 
 		' check if something is entered in Payroll text box
 		If txtPayroll.Text <> String.Empty And IsNumeric(txtPayroll.Text) Then
@@ -272,18 +304,6 @@ Public Class frmEditFinances
 			MessageBox.Show("Please enter payroll expense.")
 			txtPayroll.BackColor = Color.Yellow
 			txtPayroll.Focus()
-			Return False
-		End If
-
-		' check if something is entered in Inventory text box
-		If txtInventory.Text <> String.Empty And IsNumeric(txtInventory.Text) Then
-
-		Else
-			' text box is blank so tell user to enter Inventory, change back color to yellow,
-			' put focus in text box and return false we don't want to continue
-			MessageBox.Show("Please enter inventory expense.")
-			txtInventory.BackColor = Color.Yellow
-			txtInventory.Focus()
 			Return False
 		End If
 
@@ -368,18 +388,6 @@ Public Class frmEditFinances
 			MessageBox.Show("Please enter other expenses.")
 			txtOther.BackColor = Color.Yellow
 			txtOther.Focus()
-			Return False
-		End If
-
-		' check if something is entered in Revenue text box
-		If txtRevenue.Text <> String.Empty And IsNumeric(txtRevenue.Text) Then
-
-		Else
-			' text box is blank so tell user to enter revenue, change back color to yellow,
-			' put focus in text box and return false we don't want to continue
-			MessageBox.Show("Please enter revenue.")
-			txtRevenue.BackColor = Color.Yellow
-			txtRevenue.Focus()
 			Return False
 		End If
 

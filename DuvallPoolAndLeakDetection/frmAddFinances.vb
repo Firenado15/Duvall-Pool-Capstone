@@ -13,6 +13,147 @@ Public Class frmAddFinances
 
 
 
+	' Load in the Revenue and parts cost
+	Private Sub frmAddFinances_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+		'Variables
+		Dim strSelect As String
+		Dim dblOutstanding As Double = 0
+		Dim intYear As Integer = 0
+		Dim intYearNumber As Integer = 0
+		Dim cmdSelect As OleDb.OleDbCommand
+		Dim drSourceTable As OleDb.OleDbDataReader
+		Dim cmdSelect2 As OleDb.OleDbCommand
+		Dim drSourceTable2 As OleDb.OleDbDataReader
+		Dim cmdSelect3 As OleDb.OleDbCommand
+		Dim drSourceTable3 As OleDb.OleDbDataReader
+		Dim cmdSelect4 As OleDb.OleDbCommand
+		Dim drSourceTable4 As OleDb.OleDbDataReader
+		Dim intNextHighestRecordID As Integer
+		Dim intNextMonth As Integer
+		Dim intYearHighest As Integer
+
+		Try
+
+
+			' Connect to database
+			If OpenDatabaseConnectionSQLServer() = False Then
+
+				'Alert if no connection
+				MessageBox.Show(Me, "Database connection error." & vbNewLine &
+										"The application will now close.",
+										Me.Text + " Error",
+										MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+				'Close Form
+				Me.Close()
+
+			End If
+
+			' Build the select statement
+			strSelect = "SELECT MAX(intFinanceID) + 1 AS intNextHighestRecordID " &
+						" FROM TFinances"
+
+			'Execute
+			cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
+			drSourceTable = cmdSelect.ExecuteReader
+
+			'Read
+			drSourceTable.Read()
+
+			'Check for empty table
+			If drSourceTable.IsDBNull(0) = True Then
+
+				'Start at 1 for empty table
+				intNextHighestRecordID = 1
+
+			Else
+
+				'Not empty, add 1 to next line
+				intNextHighestRecordID = CInt(drSourceTable.Item(0))
+
+			End If
+
+			' Close the reader
+			drSourceTable.Close()
+
+			' Build the select statement
+			strSelect = "SELECT intMonthID, Tfinances.intYearID, strYear FROM TFinances, TYears WHERE TFinances.intYearID = TYears.intYearID and intFinanceID = " & intNextHighestRecordID - 1
+
+			'Execute
+			cmdSelect2 = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
+			drSourceTable2 = cmdSelect2.ExecuteReader
+
+			'load the data table from the reader
+			drSourceTable2.Read()
+
+			'Check for empty table
+			If drSourceTable2.IsDBNull(0) = True Then
+
+				'Start at 1 for empty table
+				intNextMonth = 1
+			Else
+
+				'Not empty, add 1 to next line
+				intNextMonth = CInt(drSourceTable2.Item(0)) + 1
+				intYearHighest = CInt(drSourceTable2.Item(1))
+				intYearNumber = CInt(drSourceTable2.Item(2))
+
+			End If
+
+			' Close the reader
+			drSourceTable2.Close()
+
+			' If month is now 13, add one to year and set month to 1 for january
+			If intNextMonth >= 13 Then
+
+				' Set variables
+				intYearHighest += 1
+				intNextMonth = 1
+				intYearNumber += 1
+
+			End If
+
+			' Build the select statement
+			strSelect = "SELECT Total, Paid FROM vMonthlyRevenue WHERE MonthDate = " & intNextMonth & " and YearDate = " & intYearNumber
+
+			'Execute
+			cmdSelect3 = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
+			drSourceTable3 = cmdSelect3.ExecuteReader
+
+			'load the data table from the reader
+			drSourceTable3.Read()
+
+			'Check for empty table
+			If drSourceTable3.IsDBNull(0) = False Then
+				lblPaidRevenue.Text = "$" & (drSourceTable3.Item(1))
+				dblOutstanding = (drSourceTable3.Item(0)) - (drSourceTable3.Item(1))
+				lblOutstandingRevenue.Text = "$" & dblOutstanding.ToString
+			End If
+
+			' Build the select statement
+			strSelect = "SELECT TotalCost FROM vPartsOrderedCost WHERE MonthDate = " & intNextMonth & " and YearDate = " & intYearNumber
+
+			'Execute
+			cmdSelect4 = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
+			drSourceTable4 = cmdSelect4.ExecuteReader
+
+			'load the data table from the reader
+			drSourceTable4.Read()
+
+			'Check for empty table
+			If drSourceTable4.IsDBNull(0) = False Then
+				lblInventoryCost.Text = "$" & (drSourceTable4.Item(0))
+			End If
+
+			' Close database
+			CloseDatabaseConnection()
+
+		Catch ex As Exception
+			'unhandled exception
+			MessageBox.Show(ex.Message)
+		End Try
+	End Sub
+
 	' Submit the addition of a financial month
 	Private Sub btnSubmit_Click(sender As Object, e As EventArgs) Handles btnSubmit.Click
 
@@ -28,7 +169,6 @@ Public Class frmAddFinances
 		Dim strRent As String = ""
 		Dim strUtilities As String = ""
 		Dim strOther As String = ""
-		Dim strRevenue As String = ""
 		Dim intYearNumber As Integer = 0
 		Dim cmdSelect As OleDb.OleDbCommand
 		Dim cmdInsert As OleDb.OleDbCommand
@@ -47,7 +187,6 @@ Public Class frmAddFinances
 
 				' Set values
 				strPayroll = txtPayroll.Text
-				strInventory = txtInventory.Text
 				strInsurance = txtInsurance.Text
 				strProject = txtProject.Text
 				strVehicle = txtVehicle.Text
@@ -55,7 +194,6 @@ Public Class frmAddFinances
 				strRent = txtRent.Text
 				strUtilities = txtUtilities.Text
 				strOther = txtOther.Text
-				strRevenue = txtRevenue.Text
 
 				' Connect to database
 				If OpenDatabaseConnectionSQLServer() = False Then
@@ -150,10 +288,10 @@ Public Class frmAddFinances
 				End If
 
 				'Create insert statement
-				strInsert = "Insert into TFinances (intFinanceID, intMonthID, intYearID, decPayrollCost, decInventoryCost, decInsuranceCost, decProjectCost, decVehicleCost, decFuelCost, decShopRental, decUtilitiesCost, decOtherCost, decRevenue)" &
-					" Values (" & intNextHighestRecordID & ", " & intNextMonth & ", " & intYearHighest & ", " & strPayroll & ", " & strInventory &
+				strInsert = "Insert into TFinances (intFinanceID, intMonthID, intYearID, decPayrollCost, decInsuranceCost, decProjectCost, decVehicleCost, decFuelCost, decShopRental, decUtilitiesCost, decOtherCost)" &
+					" Values (" & intNextHighestRecordID & ", " & intNextMonth & ", " & intYearHighest & ", " & strPayroll &
 					", " & strInsurance & ", " & strProject & ", " & strVehicle & ", " & strFuel & ", " & strRent & ", " &
-					strUtilities & ", " & strOther & ", " & strRevenue & ")"
+					strUtilities & ", " & strOther & ")"
 
 				cmdInsert = New OleDb.OleDbCommand(strInsert, m_conAdministrator)
 
@@ -176,12 +314,10 @@ Public Class frmAddFinances
 	End Sub
 
 
-
 	' Validates whether all text fiels are filled and are numeric
 	Function Validation() As Boolean
 
 		txtPayroll.BackColor = Color.White
-		txtInventory.BackColor = Color.White
 		txtInsurance.BackColor = Color.White
 		txtProject.BackColor = Color.White
 		txtVehicle.BackColor = Color.White
@@ -189,7 +325,6 @@ Public Class frmAddFinances
 		txtRent.BackColor = Color.White
 		txtUtilities.BackColor = Color.White
 		txtOther.BackColor = Color.White
-		txtRevenue.BackColor = Color.White
 
 		' check if something is entered in Payroll text box
 		If txtPayroll.Text <> String.Empty And IsNumeric(txtPayroll.Text) Then
@@ -200,18 +335,6 @@ Public Class frmAddFinances
 			MessageBox.Show("Please enter payroll expense.")
 			txtPayroll.BackColor = Color.Yellow
 			txtPayroll.Focus()
-			Return False
-		End If
-
-		' check if something is entered in Inventory text box
-		If txtInventory.Text <> String.Empty And IsNumeric(txtInventory.Text) Then
-
-		Else
-			' text box is blank so tell user to enter Inventory, change back color to yellow,
-			' put focus in text box and return false we don't want to continue
-			MessageBox.Show("Please enter inventory expense.")
-			txtInventory.BackColor = Color.Yellow
-			txtInventory.Focus()
 			Return False
 		End If
 
@@ -299,18 +422,6 @@ Public Class frmAddFinances
 			Return False
 		End If
 
-		' check if something is entered in Revenue text box
-		If txtRevenue.Text <> String.Empty And IsNumeric(txtRevenue.Text) Then
-
-		Else
-			' text box is blank so tell user to enter revenue, change back color to yellow,
-			' put focus in text box and return false we don't want to continue
-			MessageBox.Show("Please enter revenue.")
-			txtRevenue.BackColor = Color.Yellow
-			txtRevenue.Focus()
-			Return False
-		End If
-
 		Return True ' all is well in the world
 
 	End Function
@@ -327,4 +438,5 @@ Public Class frmAddFinances
 		EditFinances.ShowDialog()
 
 	End Sub
+
 End Class
