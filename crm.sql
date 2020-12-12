@@ -232,7 +232,7 @@ CREATE TABLE TInvoicePayments
 	 intInvoicePaymentID		INTEGER			NOT NULL
 	,intInvoiceID				INTEGER			NOT NULL
 	,decPaymentAmount			DECIMAL(7,2)	NOT NULL
-	,dtDateOfPayment			DATE			NOT NULL
+	,dtDateOfPayment			DATETIME		NOT NULL
 	CONSTRAINT TInvoicePayments_PK PRIMARY KEY ( intInvoicePaymentID )
 )
 
