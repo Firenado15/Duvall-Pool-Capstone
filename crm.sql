@@ -2013,80 +2013,9 @@ WHERE
 	
 GO
 
---Select * from vEmployeesOnJob WHERE intJobRecordID = 4
---Select * from vPartsOrderedCost where YearDate = 2020
---Select * from vPartsOrderedCost
---Select * from vMonthlyFinances
-Select * from vMonthlyRevenue where YearDate = 2020 
-Select SUM(Total), SUM(Paid) from vMonthlyRevenue where YearDate = 2020 and MonthDate <= 8
---Select * from vJobRecordStatus
 
---SELECT * FROM vJobRecordCustomers ORDER BY FullName ASC
---SELECT * FROM vJobRecordNumber WHERE intCustomerID = 5 ORDER BY strJobNumber DESC 
---SELECT * FROM vJobRecords ORDER BY intJobRecordID DESC
+--Select * from vMonthlyRevenue where YearDate = 2020 
+--Select SUM(Total), SUM(Paid) from vMonthlyRevenue where YearDate = 2020 and MonthDate <= 8
+--SELECT * FROM vYTDFinances
 
-
-SELECT * FROM vYTDFinances
---SELECT * FROM vYTDFinances WHERE intFinanceID = 4
-
----- Validate credit card insert data
---SELECT TOP 1 * From TCustomers ORDER BY intcustomerID DESC
---SELECT * FROM TCustomerPaymentTypes
---SELECT * FROM TCreditCards
-
-
----- Validate bank account insert data
---SELECT TOP 1 * From TCustomers ORDER BY intcustomerID DESC
---SELECT * FROM TCustomerPaymentTypes
---SELECT * FROM TBankAccounts
-
-
----- Test Select for Customer Search
---SELECT intCustomerID, ( strLastName + ', ' + strFirstName ) AS FullName 
---FROM TCustomers 
---WHERE ( strLastName + ', ' + strFirstName ) like '%asdasd%' OR (strFirstName + ' ' + strLastName) like '%scarlet cartan%'
---ORDER BY FullName ASC
-
-
----- Test update commands
---SELECT * FROM TCustomers WHERE intCustomerID = 119
-
-
---UPDATE TCustomers Test
---SET strFirstName = '', strLastName = '', strAddress = '', strCity = '', intStateID = 1, strZip = '',strPhoneNumber = '', strEmail = ''
---WHERE intCustomerID = 119
---SELECT * FROM TCustomers WHERE intCustomerID = 119
-
-
--- Log in Test
---SELECT * FROM TUserLogin WHERE strUsername = 'test'
-
-
----- Add Vendor Test
---select * from tvendors
-
-
-
-
-
-
-
-
-
---select * from TParts
-
-
-
-
---insert into TInvoices VALUES (1,4,1, '1/1/1990')
---select * from TInvoices
-
-
---SELECT TInvoices.intCustomerID FROM TInvoices
---LEFT JOIN TCustomers on TCustomers.intCustomerID = TInvoices.intCustomerID
---WHERE TCustomers.intCustomerID IS NOT NULL
-
---select * from vCustomersWithJobs
-
---select * from vJobsAndNoInvoice
 

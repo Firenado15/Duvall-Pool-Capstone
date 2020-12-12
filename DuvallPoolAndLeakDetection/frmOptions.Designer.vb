@@ -38,6 +38,7 @@ Partial Class frmOptions
 		Me.GroupBox3 = New System.Windows.Forms.GroupBox()
 		Me.btnViewOrders = New System.Windows.Forms.Button()
 		Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+		Me.btnJobParts = New System.Windows.Forms.Button()
 		Me.GroupBox5 = New System.Windows.Forms.GroupBox()
 		Me.btnPreviousInvoices = New System.Windows.Forms.Button()
 		Me.GroupBox6 = New System.Windows.Forms.GroupBox()
@@ -46,7 +47,6 @@ Partial Class frmOptions
 		Me.btnAddJobRecord = New System.Windows.Forms.Button()
 		Me.btnViewJobRecords = New System.Windows.Forms.Button()
 		Me.btnClose = New System.Windows.Forms.Button()
-		Me.btnJobParts = New System.Windows.Forms.Button()
 		Me.GroupBox1.SuspendLayout()
 		Me.GroupBox2.SuspendLayout()
 		Me.GroupBox3.SuspendLayout()
@@ -200,6 +200,15 @@ Partial Class frmOptions
 		Me.GroupBox4.TabStop = False
 		Me.GroupBox4.Text = "Inventory"
 		'
+		'btnJobParts
+		'
+		Me.btnJobParts.Location = New System.Drawing.Point(177, 19)
+		Me.btnJobParts.Name = "btnJobParts"
+		Me.btnJobParts.Size = New System.Drawing.Size(136, 23)
+		Me.btnJobParts.TabIndex = 10
+		Me.btnJobParts.Text = "Assign Parts to Job"
+		Me.btnJobParts.UseVisualStyleBackColor = True
+		'
 		'GroupBox5
 		'
 		Me.GroupBox5.Controls.Add(Me.btnPreviousInvoices)
@@ -277,15 +286,6 @@ Partial Class frmOptions
 		Me.btnClose.TabIndex = 13
 		Me.btnClose.Text = "Close"
 		Me.btnClose.UseVisualStyleBackColor = True
-		'
-		'btnJobParts
-		'
-		Me.btnJobParts.Location = New System.Drawing.Point(177, 19)
-		Me.btnJobParts.Name = "btnJobParts"
-		Me.btnJobParts.Size = New System.Drawing.Size(136, 23)
-		Me.btnJobParts.TabIndex = 10
-		Me.btnJobParts.Text = "Assign parts to Job"
-		Me.btnJobParts.UseVisualStyleBackColor = True
 		'
 		'frmOptions
 		'
