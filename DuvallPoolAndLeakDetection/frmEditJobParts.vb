@@ -171,10 +171,12 @@
 			txtRemoveQnty.BackColor = Color.White
 
 			'Determine how many are left assigned
-			Dim intItemQuantityLeft As Integer = dgvAssignedParts.CurrentRow.Cells(2).Value - txtRemoveQnty.Text
+			Dim intItemQuantityLeft As Integer
 
 			' Check for numeric value in remove text box
-			If txtRemoveQnty.Text <> String.Empty And IsNumeric(txtAddQnty.Text) Then
+			If txtRemoveQnty.Text <> String.Empty And IsNumeric(txtRemoveQnty.Text) Then
+
+				intItemQuantityLeft = dgvAssignedParts.CurrentRow.Cells(2).Value - txtRemoveQnty.Text
 
 				'Check for remaining qnty...
 				If intItemQuantityLeft <= 0 Then
