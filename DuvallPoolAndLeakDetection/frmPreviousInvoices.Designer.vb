@@ -47,11 +47,12 @@ Partial Class frmPreviousInvoices
 		Me.prfrmInvoice = New Microsoft.VisualBasic.PowerPacks.Printing.PrintForm(Me.components)
 		Me.prdiaInvoice = New System.Windows.Forms.PrintDialog()
 		Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-		Me.lblTotal = New System.Windows.Forms.Label()
-		Me.Label3 = New System.Windows.Forms.Label()
 		Me.lblPaid = New System.Windows.Forms.Label()
 		Me.Label5 = New System.Windows.Forms.Label()
+		Me.lblTotal = New System.Windows.Forms.Label()
+		Me.Label3 = New System.Windows.Forms.Label()
 		Me.btnPayment = New System.Windows.Forms.Button()
+		Me.btnDeleteInvoice = New System.Windows.Forms.Button()
 		Me.GroupBox5.SuspendLayout()
 		Me.GroupBox4.SuspendLayout()
 		Me.GroupBox7.SuspendLayout()
@@ -60,7 +61,7 @@ Partial Class frmPreviousInvoices
 		'
 		'btnClose
 		'
-		Me.btnClose.Location = New System.Drawing.Point(221, 333)
+		Me.btnClose.Location = New System.Drawing.Point(107, 333)
 		Me.btnClose.Name = "btnClose"
 		Me.btnClose.Size = New System.Drawing.Size(109, 44)
 		Me.btnClose.TabIndex = 34
@@ -69,7 +70,7 @@ Partial Class frmPreviousInvoices
 		'
 		'btnSearch
 		'
-		Me.btnSearch.Location = New System.Drawing.Point(569, 333)
+		Me.btnSearch.Location = New System.Drawing.Point(567, 333)
 		Me.btnSearch.Name = "btnSearch"
 		Me.btnSearch.Size = New System.Drawing.Size(109, 44)
 		Me.btnSearch.TabIndex = 35
@@ -252,7 +253,7 @@ Partial Class frmPreviousInvoices
 		'
 		'Button1
 		'
-		Me.Button1.Location = New System.Drawing.Point(453, 333)
+		Me.Button1.Location = New System.Drawing.Point(452, 333)
 		Me.Button1.Name = "Button1"
 		Me.Button1.Size = New System.Drawing.Size(109, 44)
 		Me.Button1.TabIndex = 53
@@ -284,24 +285,6 @@ Partial Class frmPreviousInvoices
 		Me.GroupBox1.TabStop = False
 		Me.GroupBox1.Text = "Payment"
 		'
-		'lblTotal
-		'
-		Me.lblTotal.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-		Me.lblTotal.Location = New System.Drawing.Point(173, 16)
-		Me.lblTotal.Name = "lblTotal"
-		Me.lblTotal.Size = New System.Drawing.Size(215, 23)
-		Me.lblTotal.TabIndex = 45
-		'
-		'Label3
-		'
-		Me.Label3.AutoSize = True
-		Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.Label3.Location = New System.Drawing.Point(10, 22)
-		Me.Label3.Name = "Label3"
-		Me.Label3.Size = New System.Drawing.Size(88, 17)
-		Me.Label3.TabIndex = 44
-		Me.Label3.Text = "Invoice Total"
-		'
 		'lblPaid
 		'
 		Me.lblPaid.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
@@ -320,6 +303,24 @@ Partial Class frmPreviousInvoices
 		Me.Label5.TabIndex = 46
 		Me.Label5.Text = "Amount Paid"
 		'
+		'lblTotal
+		'
+		Me.lblTotal.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+		Me.lblTotal.Location = New System.Drawing.Point(173, 16)
+		Me.lblTotal.Name = "lblTotal"
+		Me.lblTotal.Size = New System.Drawing.Size(215, 23)
+		Me.lblTotal.TabIndex = 45
+		'
+		'Label3
+		'
+		Me.Label3.AutoSize = True
+		Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+		Me.Label3.Location = New System.Drawing.Point(10, 22)
+		Me.Label3.Name = "Label3"
+		Me.Label3.Size = New System.Drawing.Size(88, 17)
+		Me.Label3.TabIndex = 44
+		Me.Label3.Text = "Invoice Total"
+		'
 		'btnPayment
 		'
 		Me.btnPayment.Location = New System.Drawing.Point(337, 333)
@@ -329,11 +330,21 @@ Partial Class frmPreviousInvoices
 		Me.btnPayment.Text = "Make Payment"
 		Me.btnPayment.UseVisualStyleBackColor = True
 		'
+		'btnDeleteInvoice
+		'
+		Me.btnDeleteInvoice.Location = New System.Drawing.Point(222, 332)
+		Me.btnDeleteInvoice.Name = "btnDeleteInvoice"
+		Me.btnDeleteInvoice.Size = New System.Drawing.Size(109, 44)
+		Me.btnDeleteInvoice.TabIndex = 56
+		Me.btnDeleteInvoice.Text = "Delete Invoice"
+		Me.btnDeleteInvoice.UseVisualStyleBackColor = True
+		'
 		'frmPreviousInvoices
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
 		Me.ClientSize = New System.Drawing.Size(700, 388)
+		Me.Controls.Add(Me.btnDeleteInvoice)
 		Me.Controls.Add(Me.btnPayment)
 		Me.Controls.Add(Me.GroupBox1)
 		Me.Controls.Add(Me.Button1)
@@ -389,4 +400,5 @@ Partial Class frmPreviousInvoices
 	Friend WithEvents lblTotal As Label
 	Friend WithEvents Label3 As Label
 	Friend WithEvents btnPayment As Button
+	Friend WithEvents btnDeleteInvoice As Button
 End Class

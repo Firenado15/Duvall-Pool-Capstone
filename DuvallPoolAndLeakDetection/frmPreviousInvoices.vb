@@ -7,6 +7,7 @@ Imports Microsoft.VisualBasic.PowerPacks.Printing
 Public Class frmPreviousInvoices
 
 	Dim intJobRecordID As Integer
+	Dim intJobServiceID As Integer
 
 	Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
 
@@ -371,6 +372,89 @@ Public Class frmPreviousInvoices
 			End If
 
 		End If
+
+	End Sub
+
+	Private Sub Button2_Click(sender As Object, e As EventArgs) Handles btnDeleteInvoice.Click
+
+		Try
+
+			ResetCheckBoxes()
+
+			DeleteInvoice()
+
+		Catch ex As Exception
+
+			'Unhandled Exception
+			MessageBox.Show(ex.Message)
+
+		End Try
+
+	End Sub
+
+	Private Sub DeleteInvoice()
+
+		Dim strDeleteServices As String = ""
+		Dim strDeleteInvoice As String = ""
+		Dim cmdDeleteServices As OleDb.OleDbCommand 'Select
+		Dim cmdDeleteInvoices As OleDb.OleDbCommand 'Select
+		Dim intRowsAffected As Integer
+
+		' ----------------------------------------------------------------------------
+		'open the database -----------------------------------------------------------
+		' ----------------------------------------------------------------------------
+
+		If OpenDatabaseConnectionSQLServer() = False Then
+
+			' No connection error
+			MessageBox.Show(Me, "Database connection error." & vbNewLine &
+								"The application will now close.",
+								Me.Text + " Error",
+								MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+			'close the form
+			Me.Close()
+
+		End If
+
+		' ----------------------------------------------------------------------------
+		' Remove job services --------------------------------------------------------
+		' ----------------------------------------------------------------------------
+
+		'Delete statement
+		strDeleteServices = "DELETE FROM TJobServices WHERE intJobRecordID =" & intJobRecordID
+
+		'Delete records 
+		cmdDeleteServices = New OleDb.OleDbCommand(strDeleteServices, m_conAdministrator)
+
+		intRowsAffected = cmdDeleteServices.ExecuteNonQuery()
+
+		'If intRowsAffected > 0 Then
+		'	MessageBox.Show("Services have been removed")
+		'	Me.Close()
+		'End If
+
+		' ----------------------------------------------------------------------------
+		' Remove job invoice ---------------------------------------------------------
+		' ----------------------------------------------------------------------------
+
+		intRowsAffected = 0
+
+		'Delete statement
+		strDeleteInvoice = "DELETE FROM TInvoices WHERE intInvoiceID =" & cboInvoice.SelectedValue
+
+		'Delete records
+		cmdDeleteInvoices = New OleDb.OleDbCommand(strDeleteInvoice, m_conAdministrator)
+
+		intRowsAffected = cmdDeleteInvoices.ExecuteNonQuery()
+
+		If intRowsAffected > 0 Then
+			MessageBox.Show("Invoice has been removed")
+			Me.Close()
+		End If
+
+		'close connection
+		CloseDatabaseConnection()
 
 	End Sub
 End Class

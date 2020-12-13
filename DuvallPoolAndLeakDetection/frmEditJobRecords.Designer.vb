@@ -31,18 +31,13 @@ Partial Class frmEditJobRecords
 		Me.btnSubmit = New System.Windows.Forms.Button()
 		Me.lblJobNumber = New System.Windows.Forms.Label()
 		Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+		Me.dtEndDate = New System.Windows.Forms.DateTimePicker()
+		Me.dtStartDate = New System.Windows.Forms.DateTimePicker()
 		Me.Label2 = New System.Windows.Forms.Label()
 		Me.Label3 = New System.Windows.Forms.Label()
 		Me.Label14 = New System.Windows.Forms.Label()
-		Me.Label15 = New System.Windows.Forms.Label()
-		Me.Label13 = New System.Windows.Forms.Label()
-		Me.Label12 = New System.Windows.Forms.Label()
 		Me.Label11 = New System.Windows.Forms.Label()
 		Me.txtJobDescription = New System.Windows.Forms.TextBox()
-		Me.txtEmployeeNames = New System.Windows.Forms.TextBox()
-		Me.txtNumberEmployees = New System.Windows.Forms.TextBox()
-		Me.dtEndDate = New System.Windows.Forms.DateTimePicker()
-		Me.dtStartDate = New System.Windows.Forms.DateTimePicker()
 		Me.GroupBox3.SuspendLayout()
 		Me.GroupBox1.SuspendLayout()
 		Me.SuspendLayout()
@@ -52,7 +47,7 @@ Partial Class frmEditJobRecords
 		Me.GroupBox3.Controls.Add(Me.radCompleted)
 		Me.GroupBox3.Controls.Add(Me.radInProgress)
 		Me.GroupBox3.Controls.Add(Me.radScheduled)
-		Me.GroupBox3.Location = New System.Drawing.Point(12, 331)
+		Me.GroupBox3.Location = New System.Drawing.Point(12, 258)
 		Me.GroupBox3.Name = "GroupBox3"
 		Me.GroupBox3.Size = New System.Drawing.Size(444, 59)
 		Me.GroupBox3.TabIndex = 47
@@ -95,7 +90,7 @@ Partial Class frmEditJobRecords
 		'btnClose
 		'
 		Me.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel
-		Me.btnClose.Location = New System.Drawing.Point(192, 414)
+		Me.btnClose.Location = New System.Drawing.Point(192, 341)
 		Me.btnClose.Name = "btnClose"
 		Me.btnClose.Size = New System.Drawing.Size(109, 44)
 		Me.btnClose.TabIndex = 51
@@ -104,7 +99,7 @@ Partial Class frmEditJobRecords
 		'
 		'btnSubmit
 		'
-		Me.btnSubmit.Location = New System.Drawing.Point(335, 414)
+		Me.btnSubmit.Location = New System.Drawing.Point(335, 341)
 		Me.btnSubmit.Name = "btnSubmit"
 		Me.btnSubmit.Size = New System.Drawing.Size(109, 44)
 		Me.btnSubmit.TabIndex = 49
@@ -127,19 +122,36 @@ Partial Class frmEditJobRecords
 		Me.GroupBox1.Controls.Add(Me.Label3)
 		Me.GroupBox1.Controls.Add(Me.Label14)
 		Me.GroupBox1.Controls.Add(Me.lblJobNumber)
-		Me.GroupBox1.Controls.Add(Me.Label15)
-		Me.GroupBox1.Controls.Add(Me.Label13)
-		Me.GroupBox1.Controls.Add(Me.Label12)
 		Me.GroupBox1.Controls.Add(Me.Label11)
 		Me.GroupBox1.Controls.Add(Me.txtJobDescription)
-		Me.GroupBox1.Controls.Add(Me.txtEmployeeNames)
-		Me.GroupBox1.Controls.Add(Me.txtNumberEmployees)
 		Me.GroupBox1.Location = New System.Drawing.Point(12, 12)
 		Me.GroupBox1.Name = "GroupBox1"
-		Me.GroupBox1.Size = New System.Drawing.Size(444, 313)
+		Me.GroupBox1.Size = New System.Drawing.Size(444, 240)
 		Me.GroupBox1.TabIndex = 46
 		Me.GroupBox1.TabStop = False
 		Me.GroupBox1.Text = "Job Information"
+		'
+		'dtEndDate
+		'
+		Me.dtEndDate.CustomFormat = "MM/dd/yyyy  hh:mm tt"
+		Me.dtEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+		Me.dtEndDate.Location = New System.Drawing.Point(180, 95)
+		Me.dtEndDate.Name = "dtEndDate"
+		Me.dtEndDate.ShowUpDown = True
+		Me.dtEndDate.Size = New System.Drawing.Size(244, 20)
+		Me.dtEndDate.TabIndex = 19
+		Me.dtEndDate.Value = New Date(2020, 12, 10, 12, 0, 0, 0)
+		'
+		'dtStartDate
+		'
+		Me.dtStartDate.CustomFormat = "MM/dd/yyyy  hh:mm tt"
+		Me.dtStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+		Me.dtStartDate.Location = New System.Drawing.Point(180, 56)
+		Me.dtStartDate.Name = "dtStartDate"
+		Me.dtStartDate.ShowUpDown = True
+		Me.dtStartDate.Size = New System.Drawing.Size(244, 20)
+		Me.dtStartDate.TabIndex = 18
+		Me.dtStartDate.Value = New Date(2020, 12, 10, 12, 0, 0, 0)
 		'
 		'Label2
 		'
@@ -165,95 +177,29 @@ Partial Class frmEditJobRecords
 		'
 		Me.Label14.AutoSize = True
 		Me.Label14.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.Label14.Location = New System.Drawing.Point(16, 239)
+		Me.Label14.Location = New System.Drawing.Point(56, 139)
 		Me.Label14.Name = "Label14"
 		Me.Label14.Size = New System.Drawing.Size(106, 17)
 		Me.Label14.TabIndex = 11
 		Me.Label14.Text = "Job Description"
 		'
-		'Label15
-		'
-		Me.Label15.AutoSize = True
-		Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.Label15.Location = New System.Drawing.Point(16, 193)
-		Me.Label15.Name = "Label15"
-		Me.Label15.Size = New System.Drawing.Size(142, 17)
-		Me.Label15.TabIndex = 11
-		Me.Label15.Text = "(First Last, First Last)"
-		'
-		'Label13
-		'
-		Me.Label13.AutoSize = True
-		Me.Label13.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.Label13.Location = New System.Drawing.Point(16, 176)
-		Me.Label13.Name = "Label13"
-		Me.Label13.Size = New System.Drawing.Size(118, 17)
-		Me.Label13.TabIndex = 11
-		Me.Label13.Text = "Employee Names"
-		'
-		'Label12
-		'
-		Me.Label12.AutoSize = True
-		Me.Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.Label12.Location = New System.Drawing.Point(16, 139)
-		Me.Label12.Name = "Label12"
-		Me.Label12.Size = New System.Drawing.Size(147, 17)
-		Me.Label12.TabIndex = 11
-		Me.Label12.Text = "Number of Employees"
-		'
 		'Label11
 		'
 		Me.Label11.AutoSize = True
 		Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.Label11.Location = New System.Drawing.Point(16, 100)
+		Me.Label11.Location = New System.Drawing.Point(21, 99)
 		Me.Label11.Name = "Label11"
-		Me.Label11.Size = New System.Drawing.Size(146, 17)
+		Me.Label11.Size = New System.Drawing.Size(142, 17)
 		Me.Label11.TabIndex = 9
-		Me.Label11.Text = "End Date (estimated) "
+		Me.Label11.Text = "End Date (estimated)"
 		'
 		'txtJobDescription
 		'
-		Me.txtJobDescription.Location = New System.Drawing.Point(180, 221)
+		Me.txtJobDescription.Location = New System.Drawing.Point(180, 138)
 		Me.txtJobDescription.Multiline = True
 		Me.txtJobDescription.Name = "txtJobDescription"
 		Me.txtJobDescription.Size = New System.Drawing.Size(244, 71)
 		Me.txtJobDescription.TabIndex = 4
-		'
-		'txtEmployeeNames
-		'
-		Me.txtEmployeeNames.Location = New System.Drawing.Point(180, 173)
-		Me.txtEmployeeNames.Name = "txtEmployeeNames"
-		Me.txtEmployeeNames.Size = New System.Drawing.Size(244, 20)
-		Me.txtEmployeeNames.TabIndex = 3
-		'
-		'txtNumberEmployees
-		'
-		Me.txtNumberEmployees.Location = New System.Drawing.Point(180, 135)
-		Me.txtNumberEmployees.Name = "txtNumberEmployees"
-		Me.txtNumberEmployees.Size = New System.Drawing.Size(244, 20)
-		Me.txtNumberEmployees.TabIndex = 2
-		'
-		'dtEndDate
-		'
-		Me.dtEndDate.CustomFormat = "MM/dd/yyyy  hh:mm tt"
-		Me.dtEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-		Me.dtEndDate.Location = New System.Drawing.Point(180, 95)
-		Me.dtEndDate.Name = "dtEndDate"
-		Me.dtEndDate.ShowUpDown = True
-		Me.dtEndDate.Size = New System.Drawing.Size(244, 20)
-		Me.dtEndDate.TabIndex = 19
-		Me.dtEndDate.Value = New Date(2020, 12, 10, 12, 0, 0, 0)
-		'
-		'dtStartDate
-		'
-		Me.dtStartDate.CustomFormat = "MM/dd/yyyy  hh:mm tt"
-		Me.dtStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-		Me.dtStartDate.Location = New System.Drawing.Point(180, 56)
-		Me.dtStartDate.Name = "dtStartDate"
-		Me.dtStartDate.ShowUpDown = True
-		Me.dtStartDate.Size = New System.Drawing.Size(244, 20)
-		Me.dtStartDate.TabIndex = 18
-		Me.dtStartDate.Value = New Date(2020, 12, 10, 12, 0, 0, 0)
 		'
 		'frmEditJobRecords
 		'
@@ -261,7 +207,7 @@ Partial Class frmEditJobRecords
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
 		Me.CancelButton = Me.btnClose
-		Me.ClientSize = New System.Drawing.Size(480, 483)
+		Me.ClientSize = New System.Drawing.Size(473, 408)
 		Me.Controls.Add(Me.GroupBox3)
 		Me.Controls.Add(Me.btnClose)
 		Me.Controls.Add(Me.btnSubmit)
@@ -288,13 +234,8 @@ Partial Class frmEditJobRecords
 	Friend WithEvents GroupBox1 As GroupBox
 	Friend WithEvents Label3 As Label
 	Friend WithEvents Label14 As Label
-	Friend WithEvents Label15 As Label
-	Friend WithEvents Label13 As Label
-	Friend WithEvents Label12 As Label
 	Friend WithEvents Label11 As Label
 	Friend WithEvents txtJobDescription As TextBox
-	Friend WithEvents txtEmployeeNames As TextBox
-	Friend WithEvents txtNumberEmployees As TextBox
 	Friend WithEvents Label2 As Label
 	Friend WithEvents dtEndDate As DateTimePicker
 	Friend WithEvents dtStartDate As DateTimePicker

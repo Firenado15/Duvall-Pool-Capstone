@@ -293,8 +293,8 @@
 		cboName.BeginUpdate()
 
 		'Create select
-		strSelect = "SELECT * FROM  vJobRecordsSearch WHERE ( strLastName + ', ' + strFirstName ) LIKE '%" & cboName.Text &
-			"%' OR (strFirstName + ' ' + strLastName) like '%" & cboName.Text & "%' ORDER BY strLastName ASC"
+		strSelect = "SELECT * FROM vJobsAndNoInvoice WHERE FullName LIKE '%" & cboName.Text &
+			"%' ORDER BY FullName ASC"
 
 		'Get records
 		cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
@@ -344,7 +344,7 @@
 		cboJob.BeginUpdate()
 
 		'Create select
-		strSelect = "SELECT intJobRecordID, JobNumber FROM TJobRecords WHERE intCustomerID = " & cboName.SelectedValue
+		strSelect = "SELECT intJobRecordID, JobNumber FROM vJobsWithoutInvoices WHERE intCustomerID = " & cboName.SelectedValue
 
 		'Get records
 		cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)

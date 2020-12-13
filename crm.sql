@@ -62,6 +62,8 @@ IF OBJECT_ID( 'vCustomerInvoices' )				IS NOT NULL DROP VIEW vCustomerInvoices
 IF OBJECT_ID( 'vPrintableInvoice' )				IS NOT NULL DROP VIEW vPrintableInvoice
 IF OBJECT_ID( 'vPartsOrderedCost' )				IS NOT NULL DROP VIEW vPartsOrderedCost
 IF OBJECT_ID( 'vPartOrders' )					IS NOT NULL DROP VIEW vPartOrders
+IF OBJECT_ID( 'vEmployeeNames' )				IS NOT NULL DROP VIEW vEmployeeNames
+
 
 -- --------------------------------------------------------------------------------
 -- Create Tables
@@ -1948,17 +1950,18 @@ WHERE
 	AND TJ.intStatusID = TS.intStatusID
 GO
 
-GO
 
+GO
 CREATE VIEW vJobAndCustomerInfo
 AS
 SELECT
 	 TJ.JobNumber
-	,(TC.strFirstName + TC.strLastName) AS Name
+	,(TC.strFirstName + ' ' + TC.strLastName) AS Name
 	,TJ.dtStartDate
 	,TJ.dtEndDate
 	,TJ.strJobDesc
 	,TS.strStatus
+	,TJ.intJobRecordID
 FROM
 	 TCustomers AS TC
 	,TJobRecords AS TJ
@@ -1968,22 +1971,36 @@ WHERE
 	AND TJ.intStatusID = TS.intStatusID
 GO
 
-GO
 
+GO
 CREATE VIEW vJobsWithoutInvoices
 AS
 SELECT
 	 Distinct TJ.intJobRecordID
 	,TJ.JobNumber
 	,TJ.intCustomerID
+	,TJ.intStatusID
 FROM
 	 TJobRecords AS TJ
 WHERE
 	NOT EXISTS(SELECT intJobRecordID FROM TInvoices WHERE TJ.intJobRecordID = TInvoices.intJobRecordID)
 GO
 
+
+GO
+CREATE VIEW vEmployeeNames
+AS
+SELECT
+	(TE.strFirstName + ' ' + TE.strLastName) AS EmpName
+	,TJE.intJobRecordID
+FROM
+	 TEmployees AS TE
+	,TJobEmployees AS TJE
+WHERE TE.intEmployeeID = TJE.intEmployeeID
 GO
 
+
+GO
 CREATE VIEW vJobsAndNoInvoice
 AS
 SELECT
@@ -1995,6 +2012,7 @@ FROM
 	,TJobRecords AS TJ
 WHERE
 	TC.intCustomerID = TJ.intCustomerID AND
+	TJ.intStatusID = 3 AND
 	NOT EXISTS(SELECT intJobRecordID FROM TInvoices WHERE TJ.intJobRecordID = TInvoices.intJobRecordID)
 GO
 
@@ -2052,3 +2070,18 @@ GO
 --SELECT * FROM vYTDFinances
 
 
+--SELECT
+--	('$' + CONVERT(VARCHAR, SUM(TP.decUnitSaleCost * TJP.intPartQuantity))) AS Cost
+--From
+--	 TParts AS TP
+--	,TJobParts AS TJP
+--	,TJobRecords AS TJ
+--WHERE TJP.intPartID = TP.intPartID
+--AND TJP.intJobRecordID = TJ.intJobRecordID
+--AND TJ.intJobRecordID = 109
+
+--select * from vPrintableInvoice
+
+--SELECT * FROM vJobsAndNoInvoice ORDER BY FullName ASC
+
+--select * from vEmployeeNames where intjobrecordID = 72

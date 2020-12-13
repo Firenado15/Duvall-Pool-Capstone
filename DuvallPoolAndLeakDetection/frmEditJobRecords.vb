@@ -126,8 +126,6 @@ Public Class frmEditJobRecords
 		Dim strupdate As String = ""
 		Dim strStartDate As String = ""
 		Dim strEndDate As String = ""
-		Dim intNumberEmployees As Integer = 0
-		Dim strEmployeeNames As String = ""
 		Dim strJobDescription As String = ""
 		Dim strJobNumber As String = ""
 		Dim intStatusID As Integer = 0
@@ -142,8 +140,6 @@ Public Class frmEditJobRecords
 				' Set values
 				strStartDate = dtStartDate.Value.Date.ToString()
 				strEndDate = dtEndDate.Value.Date.ToString()
-				intNumberEmployees = txtNumberEmployees.Text
-				strEmployeeNames = txtEmployeeNames.Text
 				strJobDescription = txtJobDescription.Text
 
 				' Set status ID
@@ -173,8 +169,6 @@ Public Class frmEditJobRecords
 				strupdate = "UPDATE TJobRecords " &
 					"SET dtStartDate = '" & strStartDate & "', " &
 						"dtEndDate = '" & strEndDate & "', " &
-						"intEmployees = " & intNumberEmployees & ", " &
-						"strEmployeeNames = '" & strEmployeeNames & "', " &
 						"strJobDesc = '" & strJobDescription & "', " &
 						"intStatusID = " & intStatusID &
 					" WHERE JobNumber = " & lblJobNumber.Text
@@ -207,71 +201,7 @@ Public Class frmEditJobRecords
 		Dim intEmployeeNames As Integer = 0
 
 		' Reset backcolor
-		'txtStartDate.BackColor = Color.White
-		'txtEndDate.BackColor = Color.White
-		txtNumberEmployees.BackColor = Color.White
-		txtEmployeeNames.BackColor = Color.White
 		txtJobDescription.BackColor = Color.White
-
-		'' check if something is entered in date started text box
-		'If txtStartDate.Text <> String.Empty And IsDate(txtStartDate.Text) Then
-
-		'Else
-		'	' text box is blank so tell user to enter date started, change back color to yellow,
-		'	' put focus in text box and return false we don't want to continue
-		'	MessageBox.Show("Please enter start date.")
-		'	txtStartDate.BackColor = Color.Yellow
-		'	txtStartDate.Focus()
-		'	Return False
-		'End If
-
-		'' check if something is entered in date ended text box
-		'If txtEndDate.Text <> String.Empty And IsDate(txtEndDate.Text) Then
-
-		'Else
-		'	' text box is blank so tell user to enter date ended, change back color to yellow,
-		'	' put focus in text box and return false we don't want to continue
-		'	MessageBox.Show("Please enter end date.")
-		'	txtEndDate.BackColor = Color.Yellow
-		'	txtEndDate.Focus()
-		'	Return False
-		'End If
-
-		' check if something is entered in number of employees text box
-		If txtNumberEmployees.Text <> String.Empty And IsNumeric(txtNumberEmployees.Text) Then
-			intEmployees = txtNumberEmployees.Text
-		Else
-			' text box is blank so tell user to enter number of employees, change back color to yellow,
-			' put focus in text box and return false we don't want to continue
-			MessageBox.Show("Please enter number of employees.")
-			txtNumberEmployees.BackColor = Color.Yellow
-			txtNumberEmployees.Focus()
-			Return False
-		End If
-
-		'' check if something is entered in employee names text box
-		'If txtEmployeeNames.Text <> String.Empty Then
-
-		'Else
-		'	' text box is blank so tell user to enter employee names, change back color to yellow,
-		'	' put focus in text box and return false we don't want to continue
-		'	MessageBox.Show("Please enter employee names.")
-		'	txtEmployeeNames.BackColor = Color.Yellow
-		'	txtEmployeeNames.Focus()
-		'	Return False
-		'End If
-
-		'' Check if there is the correct number of employees entered
-		'intEmployeeNames = CountEmployees(txtEmployeeNames.Text)
-		'If intEmployeeNames <> intEmployees Then
-
-		'	' Tell user to enter correct amount of names
-		'	' put focus in text box and return false we don't want to continue
-		'	MessageBox.Show("Please enter employee names. Format is First Last, First Last, First Last, ...")
-		'	txtEmployeeNames.BackColor = Color.Yellow
-		'	txtEmployeeNames.Focus()
-		'	Return False
-		'End If
 
 		' check if something is entered in description text box
 		If txtJobDescription.Text <> String.Empty Then
@@ -285,7 +215,6 @@ Public Class frmEditJobRecords
 			Return False
 		End If
 
-
 		' Check if a radio button is chosen
 		If radCompleted.Checked = False And radInProgress.Checked = False And radScheduled.Checked = False Then
 			' Tell user to selct a radio button
@@ -296,5 +225,6 @@ Public Class frmEditJobRecords
 		Return True ' all is well in the world
 
 	End Function
+
 
 End Class

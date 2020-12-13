@@ -25,6 +25,7 @@ Public Class frmPrintInvoice
 		LoadInvoiceInfo()
 		LoadCustomerInfo()
 		LoadServices()
+		LoadPartsCost()
 		LoadJobInfo()
 
 	End Sub
@@ -69,7 +70,7 @@ Public Class frmPrintInvoice
 		lblDate.Text = dt.Rows(0).Item(2).ToString
 		intCustomerID = dt.Rows(0).Item(3)
 		intJobRecordID = dt.Rows(0).Item(4)
-		lblTotal.Text = dt.Rows(0).Item(5)
+		'lblTotal.Text = dt.Rows(0).Item(5).ToString
 
 		'close connection
 		CloseDatabaseConnection()
@@ -156,8 +157,6 @@ Public Class frmPrintInvoice
 
 		intRowCount = dt.Rows.Count
 
-
-
 		For intIndex As Integer = 0 To (intRowCount - 1)
 
 			'Check related check boxes
@@ -207,10 +206,69 @@ Public Class frmPrintInvoice
 
 		Next
 
+		' close the database connection
+		CloseDatabaseConnection()
 
+	End Sub
+
+	Private Sub LoadPartsCost()
+
+		Dim strPartsTotal As String
+		Dim intRowCount As Integer
+		Dim strSelect As String = ""
+		Dim cmdSelect As OleDb.OleDbCommand
+		Dim drSourceTable As OleDb.OleDbDataReader
+		Dim dt As DataTable = New DataTable
+
+		'Open DB
+		If OpenDatabaseConnectionSQLServer() = False Then
+
+			'If DB could not open
+			MessageBox.Show(Me, "Database connection error." & vbNewLine &
+							"The application will now close.",
+							Me.Text + " Error",
+							MessageBoxButtons.OK, MessageBoxIcon.Error)
+			Me.Close()
+
+		End If
+
+		'Create select
+		strSelect = "SELECT " &
+						"CONVERT(VARCHAR, SUM(TP.decUnitSaleCost * TJP.intPartQuantity)) " &
+					 "From " &
+						 "TParts AS TP " &
+						",TJobParts AS TJP " &
+						",TJobRecords AS TJ " &
+					 "WHERE TJP.intPartID = TP.intPartID " &
+					 "AND TJP.intJobRecordID = TJ.intJobRecordID " &
+					 "AND TJ.intJobRecordID = " & intJobRecordID
+
+		'Retrieve records 
+		cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
+		drSourceTable = cmdSelect.ExecuteReader
+
+		'load the data table from the reader
+		dt.Load(drSourceTable)
+
+		intRowCount = dt.Rows.Count
+
+		'Check for any parts
+		If intRowCount > 0 Then
+
+			strPartsTotal = dt.Rows(0).Item(0).ToString
+
+			lblServices.Text = lblServices.Text & "Part Cost"
+			lblBilling.Text = lblBilling.Text & strPartsTotal
+			dblTotal += dt.Rows(0).Item(0)
+
+			lblTotal.Text = "$" & dblTotal.ToString
+
+		End If
 
 		' close the database connection
 		CloseDatabaseConnection()
+
+
 
 	End Sub
 

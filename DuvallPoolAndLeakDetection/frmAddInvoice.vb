@@ -206,7 +206,7 @@ Public Class frmAddInvoice
 			cboJob.BeginUpdate()
 
 			'Create select
-			strSelect = "SELECT intJobRecordID, JobNumber FROM vJobsWithoutInvoices WHERE intCustomerID = " & cboCustomer.SelectedValue
+			strSelect = "SELECT intJobRecordID, JobNumber FROM vJobsWithoutInvoices WHERE intStatusID = 3 AND intCustomerID = " & cboCustomer.SelectedValue
 
 			'Get records
 			cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
