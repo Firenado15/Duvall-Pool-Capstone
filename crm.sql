@@ -61,6 +61,7 @@ IF OBJECT_ID( 'vEmployeesOnJob' )				IS NOT NULL DROP VIEW vEmployeesOnJob
 IF OBJECT_ID( 'vCustomerInvoices' )				IS NOT NULL DROP VIEW vCustomerInvoices
 IF OBJECT_ID( 'vPrintableInvoice' )				IS NOT NULL DROP VIEW vPrintableInvoice
 IF OBJECT_ID( 'vPartsOrderedCost' )				IS NOT NULL DROP VIEW vPartsOrderedCost
+IF OBJECT_ID( 'vPartOrders' )					IS NOT NULL DROP VIEW vPartOrders
 
 -- --------------------------------------------------------------------------------
 -- Create Tables
@@ -1699,6 +1700,38 @@ WHERE
 	and TV.intStateID = TS.intStateID
 GO
 
+
+GO
+
+CREATE VIEW vPartOrders
+AS
+SELECT
+	TPO.intPartOrderedID
+	,TP.strSerialNumber
+	,TP.strPartDesc
+	,TPO.intQuantity	
+	,TPO.decUnitPurchaseCost
+	,TV.strVendorName
+	,TV.strContactName
+	,TV.strAddress
+	,TV.strCity
+	,TS.strState
+	,TV.strZip
+	,TV.strEmail
+	,TV.strPhoneNumber
+	,TPO.dtDateOrdered
+	,TPO.dtDateArrived
+	,TPO.blnArrived
+FROM
+	TParts AS TP
+	,TVendors AS TV
+	,TStates AS TS
+	,TPartsOrders AS TPO
+WHERE
+	TP.intVendorID = TV.intVendorID
+	and TV.intStateID = TS.intStateID
+	and TP.intPartID = TPO.intPartID
+GO
 
 --SELECT * FROM vParts
 
