@@ -147,15 +147,14 @@ Public Class frmViewFinances
 		'populate monthly text boxes
 		lblMonthlyPayroll.Text = "$" & dt.Rows(0).Item(1).ToString
 		lblMonthlyInsurance.Text = "$" & dt.Rows(0).Item(2).ToString
-		lblMonthlyProject.Text = "$" & dt.Rows(0).Item(3).ToString
-		lblMonthlyVehicle.Text = "$" & dt.Rows(0).Item(4).ToString
-		lblMonthlyFuel.Text = "$" & dt.Rows(0).Item(5).ToString
-		lblMonthlyRent.Text = "$" & dt.Rows(0).Item(6).ToString
-		lblMonthlyUtilities.Text = "$" & dt.Rows(0).Item(7).ToString
-		lblMonthlyOther.Text = "$" & dt.Rows(0).Item(8).ToString
-		dblTotalCostMonthly = CDbl(dt.Rows(0).Item(9))
-		intMonth = dt.Rows(0).Item(10)
-		intYear = CInt(dt.Rows(0).Item(11))
+		lblMonthlyVehicle.Text = "$" & dt.Rows(0).Item(3).ToString
+		lblMonthlyFuel.Text = "$" & dt.Rows(0).Item(4).ToString
+		lblMonthlyRent.Text = "$" & dt.Rows(0).Item(5).ToString
+		lblMonthlyUtilities.Text = "$" & dt.Rows(0).Item(6).ToString
+		lblMonthlyOther.Text = "$" & dt.Rows(0).Item(7).ToString
+		dblTotalCostMonthly = CDbl(dt.Rows(0).Item(8))
+		intMonth = dt.Rows(0).Item(9)
+		intYear = CInt(dt.Rows(0).Item(10))
 
 
 		'Select statement
@@ -171,13 +170,12 @@ Public Class frmViewFinances
 		'populate YTD text boxes
 		lblYTDPayroll.Text = "$" & dt2.Rows(0).Item(1).ToString
 		lblYTDInsurance.Text = "$" & dt2.Rows(0).Item(2).ToString
-		lblYTDProject.Text = "$" & dt2.Rows(0).Item(3).ToString
-		lblYTDVehicle.Text = "$" & dt2.Rows(0).Item(4).ToString
-		lblYTDFuel.Text = "$" & dt2.Rows(0).Item(5).ToString
-		lblYTDRent.Text = "$" & dt2.Rows(0).Item(6).ToString
-		lblYTDUtilities.Text = "$" & dt2.Rows(0).Item(7).ToString
-		lblYTDOther.Text = "$" & dt2.Rows(0).Item(8).ToString
-		dblTotalCostYTD = CDbl(dt2.Rows(0).Item(9))
+		lblYTDVehicle.Text = "$" & dt2.Rows(0).Item(3).ToString
+		lblYTDFuel.Text = "$" & dt2.Rows(0).Item(4).ToString
+		lblYTDRent.Text = "$" & dt2.Rows(0).Item(5).ToString
+		lblYTDUtilities.Text = "$" & dt2.Rows(0).Item(6).ToString
+		lblYTDOther.Text = "$" & dt2.Rows(0).Item(7).ToString
+		dblTotalCostYTD = CDbl(dt2.Rows(0).Item(8))
 
 		' Build the select statement
 		strSelect = "SELECT Total, Paid FROM vMonthlyRevenue WHERE MonthDate = " & intMonth & " and YearDate = " & intYear

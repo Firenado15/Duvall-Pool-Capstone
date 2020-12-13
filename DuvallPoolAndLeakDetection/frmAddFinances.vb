@@ -163,7 +163,6 @@ Public Class frmAddFinances
 		Dim strPayroll As String = ""
 		Dim strInventory As String = ""
 		Dim strInsurance As String = ""
-		Dim strProject As String = ""
 		Dim strVehicle As String = ""
 		Dim strFuel As String = ""
 		Dim strRent As String = ""
@@ -188,7 +187,6 @@ Public Class frmAddFinances
 				' Set values
 				strPayroll = txtPayroll.Text
 				strInsurance = txtInsurance.Text
-				strProject = txtProject.Text
 				strVehicle = txtVehicle.Text
 				strFuel = txtFuel.Text
 				strRent = txtRent.Text
@@ -288,9 +286,9 @@ Public Class frmAddFinances
 				End If
 
 				'Create insert statement
-				strInsert = "Insert into TFinances (intFinanceID, intMonthID, intYearID, decPayrollCost, decInsuranceCost, decProjectCost, decVehicleCost, decFuelCost, decShopRental, decUtilitiesCost, decOtherCost)" &
+				strInsert = "Insert into TFinances (intFinanceID, intMonthID, intYearID, decPayrollCost, decInsuranceCost, decVehicleCost, decFuelCost, decShopRental, decUtilitiesCost, decOtherCost)" &
 					" Values (" & intNextHighestRecordID & ", " & intNextMonth & ", " & intYearHighest & ", " & strPayroll &
-					", " & strInsurance & ", " & strProject & ", " & strVehicle & ", " & strFuel & ", " & strRent & ", " &
+					", " & strInsurance & ", " & strVehicle & ", " & strFuel & ", " & strRent & ", " &
 					strUtilities & ", " & strOther & ")"
 
 				cmdInsert = New OleDb.OleDbCommand(strInsert, m_conAdministrator)
@@ -319,7 +317,6 @@ Public Class frmAddFinances
 
 		txtPayroll.BackColor = Color.White
 		txtInsurance.BackColor = Color.White
-		txtProject.BackColor = Color.White
 		txtVehicle.BackColor = Color.White
 		txtFuel.BackColor = Color.White
 		txtRent.BackColor = Color.White
@@ -347,18 +344,6 @@ Public Class frmAddFinances
 			MessageBox.Show("Please enter insurance expense.")
 			txtInsurance.BackColor = Color.Yellow
 			txtInsurance.Focus()
-			Return False
-		End If
-
-		' check if something is entered in Project text box
-		If txtProject.Text <> String.Empty And IsNumeric(txtProject.Text) Then
-
-		Else
-			' text box is blank so tell user to enter project, change back color to yellow,
-			' put focus in text box and return false we don't want to continue
-			MessageBox.Show("Please enter project expenses.")
-			txtProject.BackColor = Color.Yellow
-			txtProject.Focus()
 			Return False
 		End If
 

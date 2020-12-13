@@ -131,14 +131,13 @@ Public Class frmEditFinances
 		'populate monthly text boxes
 		txtPayroll.Text = dt.Rows(0).Item(1).ToString
 		txtInsurance.Text = dt.Rows(0).Item(2).ToString
-		txtProject.Text = dt.Rows(0).Item(3).ToString
-		txtVehicle.Text = dt.Rows(0).Item(4).ToString
-		txtFuel.Text = dt.Rows(0).Item(5).ToString
-		txtRent.Text = dt.Rows(0).Item(6).ToString
-		txtUtilities.Text = dt.Rows(0).Item(7).ToString
-		txtOther.Text = dt.Rows(0).Item(8).ToString
-		intMonth = dt.Rows(0).Item(10)
-		intYear = CInt(dt.Rows(0).Item(11))
+		txtVehicle.Text = dt.Rows(0).Item(3).ToString
+		txtFuel.Text = dt.Rows(0).Item(4).ToString
+		txtRent.Text = dt.Rows(0).Item(5).ToString
+		txtUtilities.Text = dt.Rows(0).Item(6).ToString
+		txtOther.Text = dt.Rows(0).Item(7).ToString
+		intMonth = dt.Rows(0).Item(9)
+		intYear = CInt(dt.Rows(0).Item(10))
 
 		' Build the select statement
 		strSelect = "SELECT Total, Paid FROM vMonthlyRevenue WHERE MonthDate = " & intMonth & " and YearDate = " & intYear
@@ -187,7 +186,6 @@ Public Class frmEditFinances
 		Dim strPayroll As String = ""
 		Dim strInventory As String = ""
 		Dim strInsurance As String = ""
-		Dim strProject As String = ""
 		Dim strVehicle As String = ""
 		Dim strFuel As String = ""
 		Dim strRent As String = ""
@@ -210,7 +208,6 @@ Public Class frmEditFinances
 				' Set values
 				strPayroll = txtPayroll.Text
 				strInsurance = txtInsurance.Text
-				strProject = txtProject.Text
 				strVehicle = txtVehicle.Text
 				strFuel = txtFuel.Text
 				strRent = txtRent.Text
@@ -254,7 +251,6 @@ Public Class frmEditFinances
 				strUpdate = "UPDATE TFinances " &
 					"SET decPayrollCost = " & strPayroll & ", " &
 						"decInsuranceCost = " & strInsurance & ", " &
-						"decProjectCost = " & strProject & ", " &
 						"decVehicleCost = " & strVehicle & ", " &
 						"decFuelCost = " & strFuel & ", " &
 						"decShopRental = " & strRent & ", " &
@@ -288,7 +284,6 @@ Public Class frmEditFinances
 
 		txtPayroll.BackColor = Color.White
 		txtInsurance.BackColor = Color.White
-		txtProject.BackColor = Color.White
 		txtVehicle.BackColor = Color.White
 		txtFuel.BackColor = Color.White
 		txtRent.BackColor = Color.White
@@ -316,18 +311,6 @@ Public Class frmEditFinances
 			MessageBox.Show("Please enter insurance expense.")
 			txtInsurance.BackColor = Color.Yellow
 			txtInsurance.Focus()
-			Return False
-		End If
-
-		' check if something is entered in Project text box
-		If txtProject.Text <> String.Empty And IsNumeric(txtProject.Text) Then
-
-		Else
-			' text box is blank so tell user to enter project, change back color to yellow,
-			' put focus in text box and return false we don't want to continue
-			MessageBox.Show("Please enter project expenses.")
-			txtProject.BackColor = Color.Yellow
-			txtProject.Focus()
 			Return False
 		End If
 

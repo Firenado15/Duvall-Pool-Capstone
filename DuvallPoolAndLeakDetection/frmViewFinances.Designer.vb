@@ -30,7 +30,6 @@ Partial Class frmViewFinances
         Me.lblMonthlyUtilities = New System.Windows.Forms.Label()
         Me.lblMonthlyFuel = New System.Windows.Forms.Label()
         Me.lblMonthlyVehicle = New System.Windows.Forms.Label()
-        Me.lblMonthlyProject = New System.Windows.Forms.Label()
         Me.lblMonthlyInsurance = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.lblMonthlyInventory = New System.Windows.Forms.Label()
@@ -38,7 +37,6 @@ Partial Class frmViewFinances
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
@@ -49,7 +47,6 @@ Partial Class frmViewFinances
         Me.lblYTDUtilities = New System.Windows.Forms.Label()
         Me.lblYTDFuel = New System.Windows.Forms.Label()
         Me.lblYTDVehicle = New System.Windows.Forms.Label()
-        Me.lblYTDProject = New System.Windows.Forms.Label()
         Me.lblYTDInsurance = New System.Windows.Forms.Label()
         Me.Label28 = New System.Windows.Forms.Label()
         Me.lblYTDInventory = New System.Windows.Forms.Label()
@@ -57,7 +54,6 @@ Partial Class frmViewFinances
         Me.Label31 = New System.Windows.Forms.Label()
         Me.Label32 = New System.Windows.Forms.Label()
         Me.Label33 = New System.Windows.Forms.Label()
-        Me.Label34 = New System.Windows.Forms.Label()
         Me.Label35 = New System.Windows.Forms.Label()
         Me.Label36 = New System.Windows.Forms.Label()
         Me.Label37 = New System.Windows.Forms.Label()
@@ -104,7 +100,6 @@ Partial Class frmViewFinances
         Me.GroupBox2.Controls.Add(Me.lblMonthlyUtilities)
         Me.GroupBox2.Controls.Add(Me.lblMonthlyFuel)
         Me.GroupBox2.Controls.Add(Me.lblMonthlyVehicle)
-        Me.GroupBox2.Controls.Add(Me.lblMonthlyProject)
         Me.GroupBox2.Controls.Add(Me.lblMonthlyInsurance)
         Me.GroupBox2.Controls.Add(Me.Label3)
         Me.GroupBox2.Controls.Add(Me.lblMonthlyInventory)
@@ -112,13 +107,12 @@ Partial Class frmViewFinances
         Me.GroupBox2.Controls.Add(Me.Label9)
         Me.GroupBox2.Controls.Add(Me.Label7)
         Me.GroupBox2.Controls.Add(Me.Label6)
-        Me.GroupBox2.Controls.Add(Me.Label5)
         Me.GroupBox2.Controls.Add(Me.Label4)
         Me.GroupBox2.Controls.Add(Me.Label1)
         Me.GroupBox2.Controls.Add(Me.Label10)
         Me.GroupBox2.Location = New System.Drawing.Point(44, 127)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(444, 379)
+        Me.GroupBox2.Size = New System.Drawing.Size(444, 354)
         Me.GroupBox2.TabIndex = 33
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Expenses for Month"
@@ -134,7 +128,7 @@ Partial Class frmViewFinances
         'lblMonthlyOther
         '
         Me.lblMonthlyOther.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.lblMonthlyOther.Location = New System.Drawing.Point(180, 346)
+        Me.lblMonthlyOther.Location = New System.Drawing.Point(180, 316)
         Me.lblMonthlyOther.Name = "lblMonthlyOther"
         Me.lblMonthlyOther.Size = New System.Drawing.Size(244, 23)
         Me.lblMonthlyOther.TabIndex = 46
@@ -142,7 +136,7 @@ Partial Class frmViewFinances
         'lblMonthlyRent
         '
         Me.lblMonthlyRent.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.lblMonthlyRent.Location = New System.Drawing.Point(180, 262)
+        Me.lblMonthlyRent.Location = New System.Drawing.Point(180, 232)
         Me.lblMonthlyRent.Name = "lblMonthlyRent"
         Me.lblMonthlyRent.Size = New System.Drawing.Size(244, 23)
         Me.lblMonthlyRent.TabIndex = 46
@@ -150,7 +144,7 @@ Partial Class frmViewFinances
         'lblMonthlyUtilities
         '
         Me.lblMonthlyUtilities.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.lblMonthlyUtilities.Location = New System.Drawing.Point(180, 302)
+        Me.lblMonthlyUtilities.Location = New System.Drawing.Point(180, 272)
         Me.lblMonthlyUtilities.Name = "lblMonthlyUtilities"
         Me.lblMonthlyUtilities.Size = New System.Drawing.Size(244, 23)
         Me.lblMonthlyUtilities.TabIndex = 46
@@ -158,7 +152,7 @@ Partial Class frmViewFinances
         'lblMonthlyFuel
         '
         Me.lblMonthlyFuel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.lblMonthlyFuel.Location = New System.Drawing.Point(180, 218)
+        Me.lblMonthlyFuel.Location = New System.Drawing.Point(180, 188)
         Me.lblMonthlyFuel.Name = "lblMonthlyFuel"
         Me.lblMonthlyFuel.Size = New System.Drawing.Size(244, 23)
         Me.lblMonthlyFuel.TabIndex = 46
@@ -166,18 +160,10 @@ Partial Class frmViewFinances
         'lblMonthlyVehicle
         '
         Me.lblMonthlyVehicle.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.lblMonthlyVehicle.Location = New System.Drawing.Point(180, 175)
+        Me.lblMonthlyVehicle.Location = New System.Drawing.Point(180, 145)
         Me.lblMonthlyVehicle.Name = "lblMonthlyVehicle"
         Me.lblMonthlyVehicle.Size = New System.Drawing.Size(244, 23)
         Me.lblMonthlyVehicle.TabIndex = 46
-        '
-        'lblMonthlyProject
-        '
-        Me.lblMonthlyProject.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.lblMonthlyProject.Location = New System.Drawing.Point(180, 139)
-        Me.lblMonthlyProject.Name = "lblMonthlyProject"
-        Me.lblMonthlyProject.Size = New System.Drawing.Size(244, 23)
-        Me.lblMonthlyProject.TabIndex = 46
         '
         'lblMonthlyInsurance
         '
@@ -191,7 +177,7 @@ Partial Class frmViewFinances
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(16, 345)
+        Me.Label3.Location = New System.Drawing.Point(16, 315)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(44, 17)
         Me.Label3.TabIndex = 11
@@ -209,7 +195,7 @@ Partial Class frmViewFinances
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(16, 301)
+        Me.Label2.Location = New System.Drawing.Point(16, 271)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(53, 17)
         Me.Label2.TabIndex = 11
@@ -219,7 +205,7 @@ Partial Class frmViewFinances
         '
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(16, 261)
+        Me.Label9.Location = New System.Drawing.Point(16, 231)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(75, 17)
         Me.Label9.TabIndex = 11
@@ -229,7 +215,7 @@ Partial Class frmViewFinances
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(16, 217)
+        Me.Label7.Location = New System.Drawing.Point(16, 187)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(35, 17)
         Me.Label7.TabIndex = 11
@@ -239,21 +225,11 @@ Partial Class frmViewFinances
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(16, 174)
+        Me.Label6.Location = New System.Drawing.Point(16, 144)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(139, 17)
         Me.Label6.TabIndex = 11
         Me.Label6.Text = "Vehicle Maintenance"
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(16, 138)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(91, 17)
-        Me.Label5.TabIndex = 11
-        Me.Label5.Text = "Project Costs"
         '
         'Label4
         '
@@ -293,7 +269,6 @@ Partial Class frmViewFinances
         Me.GroupBox1.Controls.Add(Me.lblYTDUtilities)
         Me.GroupBox1.Controls.Add(Me.lblYTDFuel)
         Me.GroupBox1.Controls.Add(Me.lblYTDVehicle)
-        Me.GroupBox1.Controls.Add(Me.lblYTDProject)
         Me.GroupBox1.Controls.Add(Me.lblYTDInsurance)
         Me.GroupBox1.Controls.Add(Me.Label28)
         Me.GroupBox1.Controls.Add(Me.lblYTDInventory)
@@ -301,13 +276,12 @@ Partial Class frmViewFinances
         Me.GroupBox1.Controls.Add(Me.Label31)
         Me.GroupBox1.Controls.Add(Me.Label32)
         Me.GroupBox1.Controls.Add(Me.Label33)
-        Me.GroupBox1.Controls.Add(Me.Label34)
         Me.GroupBox1.Controls.Add(Me.Label35)
         Me.GroupBox1.Controls.Add(Me.Label36)
         Me.GroupBox1.Controls.Add(Me.Label37)
         Me.GroupBox1.Location = New System.Drawing.Point(532, 43)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(444, 379)
+        Me.GroupBox1.Size = New System.Drawing.Size(444, 354)
         Me.GroupBox1.TabIndex = 35
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Expenses YTD"
@@ -323,7 +297,7 @@ Partial Class frmViewFinances
         'lblYTDOther
         '
         Me.lblYTDOther.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.lblYTDOther.Location = New System.Drawing.Point(180, 346)
+        Me.lblYTDOther.Location = New System.Drawing.Point(180, 315)
         Me.lblYTDOther.Name = "lblYTDOther"
         Me.lblYTDOther.Size = New System.Drawing.Size(244, 23)
         Me.lblYTDOther.TabIndex = 46
@@ -331,7 +305,7 @@ Partial Class frmViewFinances
         'lblYTDRent
         '
         Me.lblYTDRent.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.lblYTDRent.Location = New System.Drawing.Point(180, 262)
+        Me.lblYTDRent.Location = New System.Drawing.Point(180, 231)
         Me.lblYTDRent.Name = "lblYTDRent"
         Me.lblYTDRent.Size = New System.Drawing.Size(244, 23)
         Me.lblYTDRent.TabIndex = 46
@@ -339,7 +313,7 @@ Partial Class frmViewFinances
         'lblYTDUtilities
         '
         Me.lblYTDUtilities.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.lblYTDUtilities.Location = New System.Drawing.Point(180, 302)
+        Me.lblYTDUtilities.Location = New System.Drawing.Point(180, 271)
         Me.lblYTDUtilities.Name = "lblYTDUtilities"
         Me.lblYTDUtilities.Size = New System.Drawing.Size(244, 23)
         Me.lblYTDUtilities.TabIndex = 46
@@ -347,7 +321,7 @@ Partial Class frmViewFinances
         'lblYTDFuel
         '
         Me.lblYTDFuel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.lblYTDFuel.Location = New System.Drawing.Point(180, 218)
+        Me.lblYTDFuel.Location = New System.Drawing.Point(180, 187)
         Me.lblYTDFuel.Name = "lblYTDFuel"
         Me.lblYTDFuel.Size = New System.Drawing.Size(244, 23)
         Me.lblYTDFuel.TabIndex = 46
@@ -355,18 +329,10 @@ Partial Class frmViewFinances
         'lblYTDVehicle
         '
         Me.lblYTDVehicle.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.lblYTDVehicle.Location = New System.Drawing.Point(180, 175)
+        Me.lblYTDVehicle.Location = New System.Drawing.Point(180, 144)
         Me.lblYTDVehicle.Name = "lblYTDVehicle"
         Me.lblYTDVehicle.Size = New System.Drawing.Size(244, 23)
         Me.lblYTDVehicle.TabIndex = 46
-        '
-        'lblYTDProject
-        '
-        Me.lblYTDProject.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.lblYTDProject.Location = New System.Drawing.Point(180, 139)
-        Me.lblYTDProject.Name = "lblYTDProject"
-        Me.lblYTDProject.Size = New System.Drawing.Size(244, 23)
-        Me.lblYTDProject.TabIndex = 46
         '
         'lblYTDInsurance
         '
@@ -380,7 +346,7 @@ Partial Class frmViewFinances
         '
         Me.Label28.AutoSize = True
         Me.Label28.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label28.Location = New System.Drawing.Point(16, 345)
+        Me.Label28.Location = New System.Drawing.Point(16, 314)
         Me.Label28.Name = "Label28"
         Me.Label28.Size = New System.Drawing.Size(44, 17)
         Me.Label28.TabIndex = 11
@@ -398,7 +364,7 @@ Partial Class frmViewFinances
         '
         Me.Label30.AutoSize = True
         Me.Label30.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label30.Location = New System.Drawing.Point(16, 301)
+        Me.Label30.Location = New System.Drawing.Point(16, 270)
         Me.Label30.Name = "Label30"
         Me.Label30.Size = New System.Drawing.Size(53, 17)
         Me.Label30.TabIndex = 11
@@ -408,7 +374,7 @@ Partial Class frmViewFinances
         '
         Me.Label31.AutoSize = True
         Me.Label31.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label31.Location = New System.Drawing.Point(16, 261)
+        Me.Label31.Location = New System.Drawing.Point(16, 230)
         Me.Label31.Name = "Label31"
         Me.Label31.Size = New System.Drawing.Size(75, 17)
         Me.Label31.TabIndex = 11
@@ -418,7 +384,7 @@ Partial Class frmViewFinances
         '
         Me.Label32.AutoSize = True
         Me.Label32.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label32.Location = New System.Drawing.Point(16, 217)
+        Me.Label32.Location = New System.Drawing.Point(16, 186)
         Me.Label32.Name = "Label32"
         Me.Label32.Size = New System.Drawing.Size(35, 17)
         Me.Label32.TabIndex = 11
@@ -428,21 +394,11 @@ Partial Class frmViewFinances
         '
         Me.Label33.AutoSize = True
         Me.Label33.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label33.Location = New System.Drawing.Point(16, 174)
+        Me.Label33.Location = New System.Drawing.Point(16, 143)
         Me.Label33.Name = "Label33"
         Me.Label33.Size = New System.Drawing.Size(139, 17)
         Me.Label33.TabIndex = 11
         Me.Label33.Text = "Vehicle Maintenance"
-        '
-        'Label34
-        '
-        Me.Label34.AutoSize = True
-        Me.Label34.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label34.Location = New System.Drawing.Point(16, 138)
-        Me.Label34.Name = "Label34"
-        Me.Label34.Size = New System.Drawing.Size(91, 17)
-        Me.Label34.TabIndex = 11
-        Me.Label34.Text = "Project Costs"
         '
         'Label35
         '
@@ -480,7 +436,7 @@ Partial Class frmViewFinances
         Me.GroupBox3.Controls.Add(Me.lblMonthlyPaidRevenue)
         Me.GroupBox3.Controls.Add(Me.Label12)
         Me.GroupBox3.Controls.Add(Me.Label55)
-        Me.GroupBox3.Location = New System.Drawing.Point(44, 512)
+        Me.GroupBox3.Location = New System.Drawing.Point(44, 492)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(444, 105)
         Me.GroupBox3.TabIndex = 36
@@ -529,7 +485,7 @@ Partial Class frmViewFinances
         Me.GroupBox4.Controls.Add(Me.lblYearlyRevenuePaid)
         Me.GroupBox4.Controls.Add(Me.Label15)
         Me.GroupBox4.Controls.Add(Me.Label16)
-        Me.GroupBox4.Location = New System.Drawing.Point(532, 429)
+        Me.GroupBox4.Location = New System.Drawing.Point(532, 413)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(444, 97)
         Me.GroupBox4.TabIndex = 36
@@ -578,7 +534,7 @@ Partial Class frmViewFinances
         Me.GroupBox5.Controls.Add(Me.Label43)
         Me.GroupBox5.Controls.Add(Me.lblMonthlyGross)
         Me.GroupBox5.Controls.Add(Me.Label42)
-        Me.GroupBox5.Location = New System.Drawing.Point(44, 621)
+        Me.GroupBox5.Location = New System.Drawing.Point(44, 601)
         Me.GroupBox5.Name = "GroupBox5"
         Me.GroupBox5.Size = New System.Drawing.Size(444, 110)
         Me.GroupBox5.TabIndex = 37
@@ -627,7 +583,7 @@ Partial Class frmViewFinances
         Me.GroupBox6.Controls.Add(Me.Label46)
         Me.GroupBox6.Controls.Add(Me.lblYTDGross)
         Me.GroupBox6.Controls.Add(Me.Label48)
-        Me.GroupBox6.Location = New System.Drawing.Point(532, 532)
+        Me.GroupBox6.Location = New System.Drawing.Point(532, 516)
         Me.GroupBox6.Name = "GroupBox6"
         Me.GroupBox6.Size = New System.Drawing.Size(444, 110)
         Me.GroupBox6.TabIndex = 37
@@ -672,7 +628,7 @@ Partial Class frmViewFinances
         '
         'btnClose
         '
-        Me.btnClose.Location = New System.Drawing.Point(551, 668)
+        Me.btnClose.Location = New System.Drawing.Point(551, 648)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Size = New System.Drawing.Size(109, 44)
         Me.btnClose.TabIndex = 2
@@ -720,7 +676,7 @@ Partial Class frmViewFinances
         '
         'btnEditFinances
         '
-        Me.btnEditFinances.Location = New System.Drawing.Point(847, 668)
+        Me.btnEditFinances.Location = New System.Drawing.Point(847, 648)
         Me.btnEditFinances.Name = "btnEditFinances"
         Me.btnEditFinances.Size = New System.Drawing.Size(109, 44)
         Me.btnEditFinances.TabIndex = 1
@@ -731,7 +687,7 @@ Partial Class frmViewFinances
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1022, 754)
+        Me.ClientSize = New System.Drawing.Size(1022, 731)
         Me.Controls.Add(Me.Label11)
         Me.Controls.Add(Me.GroupBox7)
         Me.Controls.Add(Me.btnEditFinances)
@@ -771,13 +727,11 @@ Partial Class frmViewFinances
     Friend WithEvents lblMonthlyRent As Label
     Friend WithEvents lblMonthlyFuel As Label
     Friend WithEvents lblMonthlyVehicle As Label
-    Friend WithEvents lblMonthlyProject As Label
     Friend WithEvents lblMonthlyInsurance As Label
     Friend WithEvents lblMonthlyInventory As Label
     Friend WithEvents Label9 As Label
     Friend WithEvents Label7 As Label
     Friend WithEvents Label6 As Label
-    Friend WithEvents Label5 As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents Label10 As Label
@@ -785,24 +739,22 @@ Partial Class frmViewFinances
     Friend WithEvents lblMonthlyUtilities As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents Label2 As Label
-	Friend WithEvents GroupBox1 As GroupBox
-	Friend WithEvents lblYTDPayroll As Label
-	Friend WithEvents lblYTDOther As Label
-	Friend WithEvents lblYTDRent As Label
-	Friend WithEvents lblYTDUtilities As Label
-	Friend WithEvents lblYTDFuel As Label
-	Friend WithEvents lblYTDVehicle As Label
-	Friend WithEvents lblYTDProject As Label
-	Friend WithEvents lblYTDInsurance As Label
-	Friend WithEvents Label28 As Label
-	Friend WithEvents lblYTDInventory As Label
-	Friend WithEvents Label30 As Label
-	Friend WithEvents Label31 As Label
-	Friend WithEvents Label32 As Label
-	Friend WithEvents Label33 As Label
-	Friend WithEvents Label34 As Label
-	Friend WithEvents Label35 As Label
-	Friend WithEvents Label36 As Label
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents lblYTDPayroll As Label
+    Friend WithEvents lblYTDOther As Label
+    Friend WithEvents lblYTDRent As Label
+    Friend WithEvents lblYTDUtilities As Label
+    Friend WithEvents lblYTDFuel As Label
+    Friend WithEvents lblYTDVehicle As Label
+    Friend WithEvents lblYTDInsurance As Label
+    Friend WithEvents Label28 As Label
+    Friend WithEvents lblYTDInventory As Label
+    Friend WithEvents Label30 As Label
+    Friend WithEvents Label31 As Label
+    Friend WithEvents Label32 As Label
+    Friend WithEvents Label33 As Label
+    Friend WithEvents Label35 As Label
+    Friend WithEvents Label36 As Label
 	Friend WithEvents Label37 As Label
 	Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents GroupBox4 As GroupBox
