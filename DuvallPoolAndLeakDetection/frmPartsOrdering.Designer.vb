@@ -64,17 +64,17 @@ Partial Class frmPartsOrdering
         Me.Label18 = New System.Windows.Forms.Label()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Label17 = New System.Windows.Forms.Label()
-        Me.txtSerialNumber = New System.Windows.Forms.TextBox()
-        Me.cboPartName = New System.Windows.Forms.ComboBox()
         Me.txtQuantity = New System.Windows.Forms.TextBox()
         Me.txtUnitCostBus = New System.Windows.Forms.TextBox()
         Me.txtUnitCostCust = New System.Windows.Forms.TextBox()
-        Me.txtPartDescription = New System.Windows.Forms.TextBox()
-        Me.txtPartName = New System.Windows.Forms.TextBox()
-        Me.lblPartDescription = New System.Windows.Forms.Label()
-        Me.lblSerialNumber = New System.Windows.Forms.Label()
         Me.lblCostPerUnitBus = New System.Windows.Forms.Label()
         Me.lblCostPerUnitCust = New System.Windows.Forms.Label()
+        Me.txtPartDescription = New System.Windows.Forms.TextBox()
+        Me.lblPartDescription = New System.Windows.Forms.Label()
+        Me.txtSerialNumber = New System.Windows.Forms.TextBox()
+        Me.lblSerialNumber = New System.Windows.Forms.Label()
+        Me.txtPartName = New System.Windows.Forms.TextBox()
+        Me.cboPartName = New System.Windows.Forms.ComboBox()
         Me.btnClose = New System.Windows.Forms.Button()
         Me.btnSubmit = New System.Windows.Forms.Button()
         Me.btnEditVendorInfo = New System.Windows.Forms.Button()
@@ -125,7 +125,7 @@ Partial Class frmPartsOrdering
         Me.GroupBox1.Location = New System.Drawing.Point(13, 29)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(397, 380)
-        Me.GroupBox1.TabIndex = 14
+        Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Vendor Information"
         '
@@ -136,7 +136,7 @@ Partial Class frmPartsOrdering
         Me.radNo.Location = New System.Drawing.Point(282, 19)
         Me.radNo.Name = "radNo"
         Me.radNo.Size = New System.Drawing.Size(39, 17)
-        Me.radNo.TabIndex = 30
+        Me.radNo.TabIndex = 1
         Me.radNo.TabStop = True
         Me.radNo.Text = "No"
         Me.radNo.UseVisualStyleBackColor = True
@@ -147,7 +147,7 @@ Partial Class frmPartsOrdering
         Me.cboState.Location = New System.Drawing.Point(147, 216)
         Me.cboState.Name = "cboState"
         Me.cboState.Size = New System.Drawing.Size(244, 21)
-        Me.cboState.TabIndex = 5
+        Me.cboState.TabIndex = 6
         '
         'radYes
         '
@@ -155,7 +155,7 @@ Partial Class frmPartsOrdering
         Me.radYes.Location = New System.Drawing.Point(187, 19)
         Me.radYes.Name = "radYes"
         Me.radYes.Size = New System.Drawing.Size(43, 17)
-        Me.radYes.TabIndex = 29
+        Me.radYes.TabIndex = 0
         Me.radYes.Text = "Yes"
         Me.radYes.UseVisualStyleBackColor = True
         '
@@ -241,28 +241,28 @@ Partial Class frmPartsOrdering
         Me.txtEmail.Location = New System.Drawing.Point(146, 336)
         Me.txtEmail.Name = "txtEmail"
         Me.txtEmail.Size = New System.Drawing.Size(244, 20)
-        Me.txtEmail.TabIndex = 7
+        Me.txtEmail.TabIndex = 9
         '
         'txtZip
         '
         Me.txtZip.Location = New System.Drawing.Point(147, 257)
         Me.txtZip.Name = "txtZip"
         Me.txtZip.Size = New System.Drawing.Size(244, 20)
-        Me.txtZip.TabIndex = 6
+        Me.txtZip.TabIndex = 7
         '
         'txtCity
         '
         Me.txtCity.Location = New System.Drawing.Point(147, 176)
         Me.txtCity.Name = "txtCity"
         Me.txtCity.Size = New System.Drawing.Size(244, 20)
-        Me.txtCity.TabIndex = 4
+        Me.txtCity.TabIndex = 5
         '
         'txtAddress
         '
         Me.txtAddress.Location = New System.Drawing.Point(147, 136)
         Me.txtAddress.Name = "txtAddress"
         Me.txtAddress.Size = New System.Drawing.Size(244, 20)
-        Me.txtAddress.TabIndex = 3
+        Me.txtAddress.TabIndex = 4
         '
         'Label3
         '
@@ -279,7 +279,7 @@ Partial Class frmPartsOrdering
         Me.txtContactName.Location = New System.Drawing.Point(147, 96)
         Me.txtContactName.Name = "txtContactName"
         Me.txtContactName.Size = New System.Drawing.Size(244, 20)
-        Me.txtContactName.TabIndex = 2
+        Me.txtContactName.TabIndex = 3
         '
         'Label2
         '
@@ -296,7 +296,7 @@ Partial Class frmPartsOrdering
         Me.txtVendorName.Location = New System.Drawing.Point(147, 56)
         Me.txtVendorName.Name = "txtVendorName"
         Me.txtVendorName.Size = New System.Drawing.Size(244, 20)
-        Me.txtVendorName.TabIndex = 1
+        Me.txtVendorName.TabIndex = 2
         '
         'lblContactName
         '
@@ -396,18 +396,18 @@ Partial Class frmPartsOrdering
         Me.GroupBox2.Controls.Add(Me.txtQuantity)
         Me.GroupBox2.Controls.Add(Me.txtUnitCostBus)
         Me.GroupBox2.Controls.Add(Me.txtUnitCostCust)
-        Me.GroupBox2.Controls.Add(Me.txtPartName)
         Me.GroupBox2.Controls.Add(Me.lblCostPerUnitBus)
         Me.GroupBox2.Controls.Add(Me.lblCostPerUnitCust)
         Me.GroupBox2.Controls.Add(Me.txtPartDescription)
         Me.GroupBox2.Controls.Add(Me.lblPartDescription)
-        Me.GroupBox2.Controls.Add(Me.cboPartName)
         Me.GroupBox2.Controls.Add(Me.txtSerialNumber)
         Me.GroupBox2.Controls.Add(Me.lblSerialNumber)
+        Me.GroupBox2.Controls.Add(Me.txtPartName)
+        Me.GroupBox2.Controls.Add(Me.cboPartName)
         Me.GroupBox2.Location = New System.Drawing.Point(437, 29)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(408, 368)
-        Me.GroupBox2.TabIndex = 16
+        Me.GroupBox2.TabIndex = 2
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Part Information"
         '
@@ -428,7 +428,7 @@ Partial Class frmPartsOrdering
         Me.radPartNo.Location = New System.Drawing.Point(265, 19)
         Me.radPartNo.Name = "radPartNo"
         Me.radPartNo.Size = New System.Drawing.Size(39, 17)
-        Me.radPartNo.TabIndex = 30
+        Me.radPartNo.TabIndex = 1
         Me.radPartNo.TabStop = True
         Me.radPartNo.Text = "No"
         Me.radPartNo.UseVisualStyleBackColor = True
@@ -439,7 +439,7 @@ Partial Class frmPartsOrdering
         Me.radPartYes.Location = New System.Drawing.Point(170, 19)
         Me.radPartYes.Name = "radPartYes"
         Me.radPartYes.Size = New System.Drawing.Size(43, 17)
-        Me.radPartYes.TabIndex = 29
+        Me.radPartYes.TabIndex = 0
         Me.radPartYes.Text = "Yes"
         Me.radPartYes.UseVisualStyleBackColor = True
         '
@@ -523,75 +523,26 @@ Partial Class frmPartsOrdering
         Me.Label17.TabIndex = 9
         Me.Label17.Text = "Serial Number"
         '
-        'txtSerialNumber
-        '
-        Me.txtSerialNumber.Location = New System.Drawing.Point(173, 96)
-        Me.txtSerialNumber.Name = "txtSerialNumber"
-        Me.txtSerialNumber.Size = New System.Drawing.Size(210, 20)
-        Me.txtSerialNumber.TabIndex = 9
-        '
-        'cboPartName
-        '
-        Me.cboPartName.FormattingEnabled = True
-        Me.cboPartName.Location = New System.Drawing.Point(173, 57)
-        Me.cboPartName.Name = "cboPartName"
-        Me.cboPartName.Size = New System.Drawing.Size(210, 21)
-        Me.cboPartName.TabIndex = 35
-        Me.cboPartName.Visible = False
-        '
         'txtQuantity
         '
         Me.txtQuantity.Location = New System.Drawing.Point(173, 213)
         Me.txtQuantity.Name = "txtQuantity"
         Me.txtQuantity.Size = New System.Drawing.Size(210, 20)
-        Me.txtQuantity.TabIndex = 11
+        Me.txtQuantity.TabIndex = 5
         '
         'txtUnitCostBus
         '
         Me.txtUnitCostBus.Location = New System.Drawing.Point(173, 253)
         Me.txtUnitCostBus.Name = "txtUnitCostBus"
         Me.txtUnitCostBus.Size = New System.Drawing.Size(210, 20)
-        Me.txtUnitCostBus.TabIndex = 12
+        Me.txtUnitCostBus.TabIndex = 6
         '
         'txtUnitCostCust
         '
         Me.txtUnitCostCust.Location = New System.Drawing.Point(173, 296)
         Me.txtUnitCostCust.Name = "txtUnitCostCust"
         Me.txtUnitCostCust.Size = New System.Drawing.Size(210, 20)
-        Me.txtUnitCostCust.TabIndex = 12
-        '
-        'txtPartDescription
-        '
-        Me.txtPartDescription.Location = New System.Drawing.Point(173, 135)
-        Me.txtPartDescription.Multiline = True
-        Me.txtPartDescription.Name = "txtPartDescription"
-        Me.txtPartDescription.Size = New System.Drawing.Size(210, 60)
-        Me.txtPartDescription.TabIndex = 20
-        '
-        'txtPartName
-        '
-        Me.txtPartName.Location = New System.Drawing.Point(173, 58)
-        Me.txtPartName.Name = "txtPartName"
-        Me.txtPartName.Size = New System.Drawing.Size(210, 20)
-        Me.txtPartName.TabIndex = 10
-        '
-        'lblPartDescription
-        '
-        Me.lblPartDescription.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.lblPartDescription.Location = New System.Drawing.Point(173, 136)
-        Me.lblPartDescription.Name = "lblPartDescription"
-        Me.lblPartDescription.Size = New System.Drawing.Size(210, 59)
-        Me.lblPartDescription.TabIndex = 34
-        Me.lblPartDescription.Visible = False
-        '
-        'lblSerialNumber
-        '
-        Me.lblSerialNumber.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.lblSerialNumber.Location = New System.Drawing.Point(173, 97)
-        Me.lblSerialNumber.Name = "lblSerialNumber"
-        Me.lblSerialNumber.Size = New System.Drawing.Size(210, 19)
-        Me.lblSerialNumber.TabIndex = 33
-        Me.lblSerialNumber.Visible = False
+        Me.txtUnitCostCust.TabIndex = 7
         '
         'lblCostPerUnitBus
         '
@@ -611,12 +562,61 @@ Partial Class frmPartsOrdering
         Me.lblCostPerUnitCust.TabIndex = 33
         Me.lblCostPerUnitCust.Visible = False
         '
+        'txtPartDescription
+        '
+        Me.txtPartDescription.Location = New System.Drawing.Point(173, 135)
+        Me.txtPartDescription.Multiline = True
+        Me.txtPartDescription.Name = "txtPartDescription"
+        Me.txtPartDescription.Size = New System.Drawing.Size(210, 60)
+        Me.txtPartDescription.TabIndex = 4
+        '
+        'lblPartDescription
+        '
+        Me.lblPartDescription.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.lblPartDescription.Location = New System.Drawing.Point(173, 136)
+        Me.lblPartDescription.Name = "lblPartDescription"
+        Me.lblPartDescription.Size = New System.Drawing.Size(210, 59)
+        Me.lblPartDescription.TabIndex = 34
+        Me.lblPartDescription.Visible = False
+        '
+        'txtSerialNumber
+        '
+        Me.txtSerialNumber.Location = New System.Drawing.Point(173, 96)
+        Me.txtSerialNumber.Name = "txtSerialNumber"
+        Me.txtSerialNumber.Size = New System.Drawing.Size(210, 20)
+        Me.txtSerialNumber.TabIndex = 3
+        '
+        'lblSerialNumber
+        '
+        Me.lblSerialNumber.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.lblSerialNumber.Location = New System.Drawing.Point(173, 97)
+        Me.lblSerialNumber.Name = "lblSerialNumber"
+        Me.lblSerialNumber.Size = New System.Drawing.Size(210, 19)
+        Me.lblSerialNumber.TabIndex = 33
+        Me.lblSerialNumber.Visible = False
+        '
+        'txtPartName
+        '
+        Me.txtPartName.Location = New System.Drawing.Point(173, 58)
+        Me.txtPartName.Name = "txtPartName"
+        Me.txtPartName.Size = New System.Drawing.Size(210, 20)
+        Me.txtPartName.TabIndex = 2
+        '
+        'cboPartName
+        '
+        Me.cboPartName.FormattingEnabled = True
+        Me.cboPartName.Location = New System.Drawing.Point(173, 57)
+        Me.cboPartName.Name = "cboPartName"
+        Me.cboPartName.Size = New System.Drawing.Size(210, 21)
+        Me.cboPartName.TabIndex = 35
+        Me.cboPartName.Visible = False
+        '
         'btnClose
         '
         Me.btnClose.Location = New System.Drawing.Point(711, 500)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Size = New System.Drawing.Size(109, 44)
-        Me.btnClose.TabIndex = 14
+        Me.btnClose.TabIndex = 4
         Me.btnClose.Text = "Close"
         Me.btnClose.UseVisualStyleBackColor = True
         '
@@ -625,7 +625,7 @@ Partial Class frmPartsOrdering
         Me.btnSubmit.Location = New System.Drawing.Point(711, 435)
         Me.btnSubmit.Name = "btnSubmit"
         Me.btnSubmit.Size = New System.Drawing.Size(109, 44)
-        Me.btnSubmit.TabIndex = 13
+        Me.btnSubmit.TabIndex = 3
         Me.btnSubmit.Text = "Submit"
         Me.btnSubmit.UseVisualStyleBackColor = True
         '
@@ -634,7 +634,7 @@ Partial Class frmPartsOrdering
         Me.btnEditVendorInfo.Location = New System.Drawing.Point(447, 435)
         Me.btnEditVendorInfo.Name = "btnEditVendorInfo"
         Me.btnEditVendorInfo.Size = New System.Drawing.Size(109, 44)
-        Me.btnEditVendorInfo.TabIndex = 15
+        Me.btnEditVendorInfo.TabIndex = 6
         Me.btnEditVendorInfo.Text = "Edit Vendor"
         Me.btnEditVendorInfo.UseVisualStyleBackColor = True
         Me.btnEditVendorInfo.Visible = False
@@ -665,7 +665,7 @@ Partial Class frmPartsOrdering
         Me.radDelivered.Location = New System.Drawing.Point(320, 99)
         Me.radDelivered.Name = "radDelivered"
         Me.radDelivered.Size = New System.Drawing.Size(70, 17)
-        Me.radDelivered.TabIndex = 13
+        Me.radDelivered.TabIndex = 3
         Me.radDelivered.Text = "Delivered"
         Me.radDelivered.UseVisualStyleBackColor = True
         '
@@ -675,7 +675,7 @@ Partial Class frmPartsOrdering
         Me.radTransit.Location = New System.Drawing.Point(171, 99)
         Me.radTransit.Name = "radTransit"
         Me.radTransit.Size = New System.Drawing.Size(69, 17)
-        Me.radTransit.TabIndex = 14
+        Me.radTransit.TabIndex = 2
         Me.radTransit.Text = "In-Transit"
         Me.radTransit.UseVisualStyleBackColor = True
         '
@@ -697,7 +697,7 @@ Partial Class frmPartsOrdering
         Me.dtDateDelivered.Name = "dtDateDelivered"
         Me.dtDateDelivered.ShowUpDown = True
         Me.dtDateDelivered.Size = New System.Drawing.Size(219, 20)
-        Me.dtDateDelivered.TabIndex = 19
+        Me.dtDateDelivered.TabIndex = 1
         Me.dtDateDelivered.Value = New Date(2020, 12, 10, 12, 0, 0, 0)
         '
         'dtDateOrdered
@@ -708,7 +708,7 @@ Partial Class frmPartsOrdering
         Me.dtDateOrdered.Name = "dtDateOrdered"
         Me.dtDateOrdered.ShowUpDown = True
         Me.dtDateOrdered.Size = New System.Drawing.Size(219, 20)
-        Me.dtDateOrdered.TabIndex = 18
+        Me.dtDateOrdered.TabIndex = 0
         Me.dtDateOrdered.Value = New Date(2020, 12, 10, 12, 0, 0, 0)
         '
         'GroupBox3
@@ -723,7 +723,7 @@ Partial Class frmPartsOrdering
         Me.GroupBox3.Location = New System.Drawing.Point(12, 415)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(398, 126)
-        Me.GroupBox3.TabIndex = 20
+        Me.GroupBox3.TabIndex = 1
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Delivery Information"
         '
@@ -732,7 +732,7 @@ Partial Class frmPartsOrdering
         Me.btnEditPart.Location = New System.Drawing.Point(447, 500)
         Me.btnEditPart.Name = "btnEditPart"
         Me.btnEditPart.Size = New System.Drawing.Size(109, 44)
-        Me.btnEditPart.TabIndex = 21
+        Me.btnEditPart.TabIndex = 7
         Me.btnEditPart.Text = "Edit Part"
         Me.btnEditPart.UseVisualStyleBackColor = True
         '
@@ -741,7 +741,7 @@ Partial Class frmPartsOrdering
         Me.btnReset.Location = New System.Drawing.Point(584, 500)
         Me.btnReset.Name = "btnReset"
         Me.btnReset.Size = New System.Drawing.Size(109, 44)
-        Me.btnReset.TabIndex = 14
+        Me.btnReset.TabIndex = 5
         Me.btnReset.Text = "Reset"
         Me.btnReset.UseVisualStyleBackColor = True
         '

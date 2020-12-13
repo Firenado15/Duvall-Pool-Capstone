@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class frmPreviousOrders
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+Partial Class frmEditPartOrders
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()>
+    <System.Diagnostics.DebuggerNonUserCode()> _
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,26 +20,39 @@ Partial Class frmPreviousOrders
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()>
+    <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPreviousOrders))
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.dtDateOrdered = New System.Windows.Forms.DateTimePicker()
+        Me.dtDateDelivered = New System.Windows.Forms.DateTimePicker()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.radDelivered = New System.Windows.Forms.RadioButton()
+        Me.radTransit = New System.Windows.Forms.RadioButton()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.cboPartName = New System.Windows.Forms.ComboBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.cboOrderNumber = New System.Windows.Forms.ComboBox()
         Me.btnClose = New System.Windows.Forms.Button()
+        Me.btnSubmit = New System.Windows.Forms.Button()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.txtQuantity = New System.Windows.Forms.TextBox()
         Me.Label26 = New System.Windows.Forms.Label()
         Me.lblTotalPurchaseCost = New System.Windows.Forms.Label()
-        Me.lblQuantity = New System.Windows.Forms.Label()
         Me.lblPartDescription = New System.Windows.Forms.Label()
         Me.lblSerialNumber = New System.Windows.Forms.Label()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.Label16 = New System.Windows.Forms.Label()
-        Me.lblVendorName = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.lblPhone = New System.Windows.Forms.Label()
         Me.lblEmail = New System.Windows.Forms.Label()
         Me.lblZip = New System.Windows.Forms.Label()
         Me.lblState = New System.Windows.Forms.Label()
+        Me.lblVendorName = New System.Windows.Forms.Label()
         Me.lblCity = New System.Windows.Forms.Label()
         Me.lblAddress = New System.Windows.Forms.Label()
         Me.lblContactName = New System.Windows.Forms.Label()
@@ -51,51 +64,190 @@ Partial Class frmPreviousOrders
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
-        Me.Label12 = New System.Windows.Forms.Label()
-        Me.cboPartName = New System.Windows.Forms.ComboBox()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.cboOrderNumber = New System.Windows.Forms.ComboBox()
-        Me.btnEditPartOrders = New System.Windows.Forms.Button()
-        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.Label17 = New System.Windows.Forms.Label()
-        Me.lblDateArrived = New System.Windows.Forms.Label()
-        Me.Label18 = New System.Windows.Forms.Label()
-        Me.lblDateOrdered = New System.Windows.Forms.Label()
-        Me.radDelivered = New System.Windows.Forms.RadioButton()
-        Me.radTransit = New System.Windows.Forms.RadioButton()
+        Me.GroupBox4.SuspendLayout()
+        Me.GroupBox3.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
-        Me.GroupBox3.SuspendLayout()
-        Me.GroupBox4.SuspendLayout()
         Me.SuspendLayout()
+        '
+        'GroupBox4
+        '
+        Me.GroupBox4.Controls.Add(Me.dtDateOrdered)
+        Me.GroupBox4.Controls.Add(Me.dtDateDelivered)
+        Me.GroupBox4.Controls.Add(Me.Label11)
+        Me.GroupBox4.Controls.Add(Me.Label17)
+        Me.GroupBox4.Controls.Add(Me.Label18)
+        Me.GroupBox4.Controls.Add(Me.radDelivered)
+        Me.GroupBox4.Controls.Add(Me.radTransit)
+        Me.GroupBox4.Location = New System.Drawing.Point(15, 403)
+        Me.GroupBox4.Name = "GroupBox4"
+        Me.GroupBox4.Size = New System.Drawing.Size(462, 126)
+        Me.GroupBox4.TabIndex = 42
+        Me.GroupBox4.TabStop = False
+        Me.GroupBox4.Text = "Delivery Information"
+        '
+        'dtDateOrdered
+        '
+        Me.dtDateOrdered.CustomFormat = "MM/dd/yyyy  hh:mm tt"
+        Me.dtDateOrdered.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtDateOrdered.Location = New System.Drawing.Point(212, 23)
+        Me.dtDateOrdered.Name = "dtDateOrdered"
+        Me.dtDateOrdered.ShowUpDown = True
+        Me.dtDateOrdered.Size = New System.Drawing.Size(226, 20)
+        Me.dtDateOrdered.TabIndex = 15
+        Me.dtDateOrdered.Value = New Date(2020, 12, 10, 12, 0, 0, 0)
+        '
+        'dtDateDelivered
+        '
+        Me.dtDateDelivered.CustomFormat = "MM/dd/yyyy  hh:mm tt"
+        Me.dtDateDelivered.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtDateDelivered.Location = New System.Drawing.Point(212, 62)
+        Me.dtDateDelivered.Name = "dtDateDelivered"
+        Me.dtDateDelivered.ShowUpDown = True
+        Me.dtDateDelivered.Size = New System.Drawing.Size(226, 20)
+        Me.dtDateDelivered.TabIndex = 16
+        Me.dtDateDelivered.Value = New Date(2020, 12, 10, 12, 0, 0, 0)
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label11.Location = New System.Drawing.Point(28, 65)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(149, 17)
+        Me.Label11.TabIndex = 11
+        Me.Label11.Text = "Date Expected/Arrived"
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label17.Location = New System.Drawing.Point(28, 99)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(63, 17)
+        Me.Label17.TabIndex = 11
+        Me.Label17.Text = "Shipping"
+        '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label18.Location = New System.Drawing.Point(28, 27)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(95, 17)
+        Me.Label18.TabIndex = 11
+        Me.Label18.Text = "Date Ordered"
+        '
+        'radDelivered
+        '
+        Me.radDelivered.AutoSize = True
+        Me.radDelivered.Location = New System.Drawing.Point(368, 99)
+        Me.radDelivered.Name = "radDelivered"
+        Me.radDelivered.Size = New System.Drawing.Size(70, 17)
+        Me.radDelivered.TabIndex = 13
+        Me.radDelivered.Text = "Delivered"
+        Me.radDelivered.UseVisualStyleBackColor = True
+        '
+        'radTransit
+        '
+        Me.radTransit.AutoSize = True
+        Me.radTransit.Location = New System.Drawing.Point(212, 99)
+        Me.radTransit.Name = "radTransit"
+        Me.radTransit.Size = New System.Drawing.Size(69, 17)
+        Me.radTransit.TabIndex = 14
+        Me.radTransit.Text = "In-Transit"
+        Me.radTransit.UseVisualStyleBackColor = True
+        '
+        'GroupBox3
+        '
+        Me.GroupBox3.Controls.Add(Me.Label12)
+        Me.GroupBox3.Controls.Add(Me.cboPartName)
+        Me.GroupBox3.Controls.Add(Me.Label10)
+        Me.GroupBox3.Controls.Add(Me.cboOrderNumber)
+        Me.GroupBox3.Location = New System.Drawing.Point(498, 63)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(465, 92)
+        Me.GroupBox3.TabIndex = 41
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "Search Information"
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label12.Location = New System.Drawing.Point(28, 20)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(75, 17)
+        Me.Label12.TabIndex = 36
+        Me.Label12.Text = "Part Name"
+        '
+        'cboPartName
+        '
+        Me.cboPartName.FormattingEnabled = True
+        Me.cboPartName.Location = New System.Drawing.Point(212, 19)
+        Me.cboPartName.Name = "cboPartName"
+        Me.cboPartName.Size = New System.Drawing.Size(226, 21)
+        Me.cboPartName.TabIndex = 37
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label10.Location = New System.Drawing.Point(28, 59)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(163, 17)
+        Me.Label10.TabIndex = 13
+        Me.Label10.Text = "Purchase Order Number"
+        '
+        'cboOrderNumber
+        '
+        Me.cboOrderNumber.FormattingEnabled = True
+        Me.cboOrderNumber.Location = New System.Drawing.Point(212, 58)
+        Me.cboOrderNumber.Name = "cboOrderNumber"
+        Me.cboOrderNumber.Size = New System.Drawing.Size(226, 21)
+        Me.cboOrderNumber.TabIndex = 12
         '
         'btnClose
         '
-        Me.btnClose.Location = New System.Drawing.Point(549, 430)
+        Me.btnClose.Location = New System.Drawing.Point(529, 431)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Size = New System.Drawing.Size(109, 44)
-        Me.btnClose.TabIndex = 31
+        Me.btnClose.TabIndex = 39
         Me.btnClose.Text = "Close"
         Me.btnClose.UseVisualStyleBackColor = True
         '
+        'btnSubmit
+        '
+        Me.btnSubmit.Location = New System.Drawing.Point(827, 431)
+        Me.btnSubmit.Name = "btnSubmit"
+        Me.btnSubmit.Size = New System.Drawing.Size(109, 44)
+        Me.btnSubmit.TabIndex = 40
+        Me.btnSubmit.Text = "Submit"
+        Me.btnSubmit.UseVisualStyleBackColor = True
+        '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.txtQuantity)
         Me.GroupBox2.Controls.Add(Me.Label26)
         Me.GroupBox2.Controls.Add(Me.lblTotalPurchaseCost)
-        Me.GroupBox2.Controls.Add(Me.lblQuantity)
         Me.GroupBox2.Controls.Add(Me.lblPartDescription)
         Me.GroupBox2.Controls.Add(Me.lblSerialNumber)
         Me.GroupBox2.Controls.Add(Me.Label14)
         Me.GroupBox2.Controls.Add(Me.Label15)
         Me.GroupBox2.Controls.Add(Me.Label16)
-        Me.GroupBox2.Location = New System.Drawing.Point(518, 173)
+        Me.GroupBox2.Location = New System.Drawing.Point(498, 174)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(465, 222)
-        Me.GroupBox2.TabIndex = 30
+        Me.GroupBox2.TabIndex = 38
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Part Information"
+        '
+        'txtQuantity
+        '
+        Me.txtQuantity.Location = New System.Drawing.Point(212, 134)
+        Me.txtQuantity.Name = "txtQuantity"
+        Me.txtQuantity.Size = New System.Drawing.Size(226, 20)
+        Me.txtQuantity.TabIndex = 47
         '
         'Label26
         '
@@ -114,14 +266,6 @@ Partial Class frmPreviousOrders
         Me.lblTotalPurchaseCost.Name = "lblTotalPurchaseCost"
         Me.lblTotalPurchaseCost.Size = New System.Drawing.Size(226, 23)
         Me.lblTotalPurchaseCost.TabIndex = 44
-        '
-        'lblQuantity
-        '
-        Me.lblQuantity.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.lblQuantity.Location = New System.Drawing.Point(212, 136)
-        Me.lblQuantity.Name = "lblQuantity"
-        Me.lblQuantity.Size = New System.Drawing.Size(226, 23)
-        Me.lblQuantity.TabIndex = 43
         '
         'lblPartDescription
         '
@@ -169,23 +313,15 @@ Partial Class frmPreviousOrders
         Me.Label16.TabIndex = 11
         Me.Label16.Text = "Part Description"
         '
-        'lblVendorName
-        '
-        Me.lblVendorName.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.lblVendorName.Location = New System.Drawing.Point(212, 21)
-        Me.lblVendorName.Name = "lblVendorName"
-        Me.lblVendorName.Size = New System.Drawing.Size(226, 23)
-        Me.lblVendorName.TabIndex = 43
-        '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(346, 21)
+        Me.Label1.Location = New System.Drawing.Point(356, 18)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(191, 17)
-        Me.Label1.TabIndex = 29
-        Me.Label1.Text = "Look up previous part orders"
+        Me.Label1.Size = New System.Drawing.Size(128, 17)
+        Me.Label1.TabIndex = 37
+        Me.Label1.Text = "Update part orders"
         '
         'GroupBox1
         '
@@ -205,10 +341,10 @@ Partial Class frmPreviousOrders
         Me.GroupBox1.Controls.Add(Me.Label4)
         Me.GroupBox1.Controls.Add(Me.Label3)
         Me.GroupBox1.Controls.Add(Me.Label2)
-        Me.GroupBox1.Location = New System.Drawing.Point(35, 62)
+        Me.GroupBox1.Location = New System.Drawing.Point(15, 63)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(462, 333)
-        Me.GroupBox1.TabIndex = 28
+        Me.GroupBox1.TabIndex = 36
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Vendor Information"
         '
@@ -243,6 +379,14 @@ Partial Class frmPreviousOrders
         Me.lblState.Name = "lblState"
         Me.lblState.Size = New System.Drawing.Size(226, 23)
         Me.lblState.TabIndex = 43
+        '
+        'lblVendorName
+        '
+        Me.lblVendorName.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.lblVendorName.Location = New System.Drawing.Point(212, 21)
+        Me.lblVendorName.Name = "lblVendorName"
+        Me.lblVendorName.Size = New System.Drawing.Size(226, 23)
+        Me.lblVendorName.TabIndex = 43
         '
         'lblCity
         '
@@ -348,183 +492,64 @@ Partial Class frmPreviousOrders
         Me.Label2.TabIndex = 6
         Me.Label2.Text = "Vendor Name"
         '
-        'GroupBox3
-        '
-        Me.GroupBox3.Controls.Add(Me.Label12)
-        Me.GroupBox3.Controls.Add(Me.cboPartName)
-        Me.GroupBox3.Controls.Add(Me.Label10)
-        Me.GroupBox3.Controls.Add(Me.cboOrderNumber)
-        Me.GroupBox3.Location = New System.Drawing.Point(518, 62)
-        Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(465, 92)
-        Me.GroupBox3.TabIndex = 33
-        Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "Search Information"
-        '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label12.Location = New System.Drawing.Point(28, 20)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(75, 17)
-        Me.Label12.TabIndex = 36
-        Me.Label12.Text = "Part Name"
-        '
-        'cboPartName
-        '
-        Me.cboPartName.FormattingEnabled = True
-        Me.cboPartName.Location = New System.Drawing.Point(212, 19)
-        Me.cboPartName.Name = "cboPartName"
-        Me.cboPartName.Size = New System.Drawing.Size(226, 21)
-        Me.cboPartName.TabIndex = 37
-        '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(28, 59)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(163, 17)
-        Me.Label10.TabIndex = 13
-        Me.Label10.Text = "Purchase Order Number"
-        '
-        'cboOrderNumber
-        '
-        Me.cboOrderNumber.FormattingEnabled = True
-        Me.cboOrderNumber.Location = New System.Drawing.Point(212, 58)
-        Me.cboOrderNumber.Name = "cboOrderNumber"
-        Me.cboOrderNumber.Size = New System.Drawing.Size(226, 21)
-        Me.cboOrderNumber.TabIndex = 12
-        '
-        'btnEditPartOrders
-        '
-        Me.btnEditPartOrders.Location = New System.Drawing.Point(847, 430)
-        Me.btnEditPartOrders.Name = "btnEditPartOrders"
-        Me.btnEditPartOrders.Size = New System.Drawing.Size(109, 44)
-        Me.btnEditPartOrders.TabIndex = 16
-        Me.btnEditPartOrders.Text = "Edit Part Orders"
-        Me.btnEditPartOrders.UseVisualStyleBackColor = True
-        '
-        'GroupBox4
-        '
-        Me.GroupBox4.Controls.Add(Me.Label11)
-        Me.GroupBox4.Controls.Add(Me.Label17)
-        Me.GroupBox4.Controls.Add(Me.lblDateArrived)
-        Me.GroupBox4.Controls.Add(Me.Label18)
-        Me.GroupBox4.Controls.Add(Me.lblDateOrdered)
-        Me.GroupBox4.Controls.Add(Me.radDelivered)
-        Me.GroupBox4.Controls.Add(Me.radTransit)
-        Me.GroupBox4.Location = New System.Drawing.Point(35, 402)
-        Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(462, 126)
-        Me.GroupBox4.TabIndex = 34
-        Me.GroupBox4.TabStop = False
-        Me.GroupBox4.Text = "Delivery Information"
-        '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(28, 65)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(149, 17)
-        Me.Label11.TabIndex = 11
-        Me.Label11.Text = "Date Expected/Arrived"
-        '
-        'Label17
-        '
-        Me.Label17.AutoSize = True
-        Me.Label17.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label17.Location = New System.Drawing.Point(28, 99)
-        Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(63, 17)
-        Me.Label17.TabIndex = 11
-        Me.Label17.Text = "Shipping"
-        '
-        'lblDateArrived
-        '
-        Me.lblDateArrived.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.lblDateArrived.Location = New System.Drawing.Point(212, 64)
-        Me.lblDateArrived.Name = "lblDateArrived"
-        Me.lblDateArrived.Size = New System.Drawing.Size(226, 23)
-        Me.lblDateArrived.TabIndex = 44
-        '
-        'Label18
-        '
-        Me.Label18.AutoSize = True
-        Me.Label18.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label18.Location = New System.Drawing.Point(28, 27)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(95, 17)
-        Me.Label18.TabIndex = 11
-        Me.Label18.Text = "Date Ordered"
-        '
-        'lblDateOrdered
-        '
-        Me.lblDateOrdered.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.lblDateOrdered.Location = New System.Drawing.Point(212, 28)
-        Me.lblDateOrdered.Name = "lblDateOrdered"
-        Me.lblDateOrdered.Size = New System.Drawing.Size(226, 23)
-        Me.lblDateOrdered.TabIndex = 43
-        '
-        'radDelivered
-        '
-        Me.radDelivered.AutoSize = True
-        Me.radDelivered.Location = New System.Drawing.Point(368, 99)
-        Me.radDelivered.Name = "radDelivered"
-        Me.radDelivered.Size = New System.Drawing.Size(70, 17)
-        Me.radDelivered.TabIndex = 13
-        Me.radDelivered.Text = "Delivered"
-        Me.radDelivered.UseVisualStyleBackColor = True
-        '
-        'radTransit
-        '
-        Me.radTransit.AutoSize = True
-        Me.radTransit.Location = New System.Drawing.Point(212, 99)
-        Me.radTransit.Name = "radTransit"
-        Me.radTransit.Size = New System.Drawing.Size(69, 17)
-        Me.radTransit.TabIndex = 14
-        Me.radTransit.Text = "In-Transit"
-        Me.radTransit.UseVisualStyleBackColor = True
-        '
-        'frmPreviousOrders
+        'frmEditPartOrders
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1014, 556)
+        Me.ClientSize = New System.Drawing.Size(981, 555)
         Me.Controls.Add(Me.GroupBox4)
-        Me.Controls.Add(Me.btnEditPartOrders)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.btnClose)
+        Me.Controls.Add(Me.btnSubmit)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.MaximizeBox = False
-        Me.MinimizeBox = False
-        Me.Name = "frmPreviousOrders"
-        Me.Text = "Previous Part Orders"
+        Me.Name = "frmEditPartOrders"
+        Me.Text = "Edit Part Orders"
+        Me.GroupBox4.ResumeLayout(False)
+        Me.GroupBox4.PerformLayout()
+        Me.GroupBox3.ResumeLayout(False)
+        Me.GroupBox3.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
-        Me.GroupBox3.ResumeLayout(False)
-        Me.GroupBox3.PerformLayout()
-        Me.GroupBox4.ResumeLayout(False)
-        Me.GroupBox4.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
 
+    Friend WithEvents GroupBox4 As GroupBox
+    Friend WithEvents Label11 As Label
+    Friend WithEvents Label17 As Label
+    Friend WithEvents Label18 As Label
+    Friend WithEvents radDelivered As RadioButton
+    Friend WithEvents radTransit As RadioButton
+    Friend WithEvents GroupBox3 As GroupBox
+    Friend WithEvents Label12 As Label
+    Friend WithEvents cboPartName As ComboBox
+    Friend WithEvents Label10 As Label
+    Friend WithEvents cboOrderNumber As ComboBox
     Friend WithEvents btnClose As Button
+    Friend WithEvents btnSubmit As Button
     Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents Label26 As Label
+    Friend WithEvents lblTotalPurchaseCost As Label
+    Friend WithEvents lblPartDescription As Label
+    Friend WithEvents lblSerialNumber As Label
     Friend WithEvents Label14 As Label
     Friend WithEvents Label15 As Label
     Friend WithEvents Label16 As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents lblPhone As Label
+    Friend WithEvents lblEmail As Label
+    Friend WithEvents lblZip As Label
+    Friend WithEvents lblState As Label
+    Friend WithEvents lblVendorName As Label
+    Friend WithEvents lblCity As Label
+    Friend WithEvents lblAddress As Label
+    Friend WithEvents lblContactName As Label
     Friend WithEvents Label9 As Label
     Friend WithEvents Label8 As Label
     Friend WithEvents Label7 As Label
@@ -533,31 +558,7 @@ Partial Class frmPreviousOrders
     Friend WithEvents Label4 As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents Label2 As Label
-    Friend WithEvents GroupBox3 As GroupBox
-    Friend WithEvents cboOrderNumber As ComboBox
-    Friend WithEvents Label10 As Label
-    Friend WithEvents lblTotalPurchaseCost As Label
-    Friend WithEvents lblQuantity As Label
-    Friend WithEvents lblPartDescription As Label
-    Friend WithEvents lblPhone As Label
-    Friend WithEvents lblEmail As Label
-    Friend WithEvents lblZip As Label
-    Friend WithEvents lblState As Label
-    Friend WithEvents lblCity As Label
-    Friend WithEvents lblAddress As Label
-    Friend WithEvents lblContactName As Label
-    Friend WithEvents lblSerialNumber As Label
-    Friend WithEvents Label26 As Label
-    Friend WithEvents lblVendorName As Label
-    Friend WithEvents btnEditPartOrders As Button
-    Friend WithEvents Label12 As Label
-    Friend WithEvents cboPartName As ComboBox
-    Friend WithEvents GroupBox4 As GroupBox
-    Friend WithEvents Label11 As Label
-    Friend WithEvents Label17 As Label
-    Friend WithEvents lblDateArrived As Label
-    Friend WithEvents Label18 As Label
-    Friend WithEvents lblDateOrdered As Label
-    Friend WithEvents radDelivered As RadioButton
-    Friend WithEvents radTransit As RadioButton
+    Friend WithEvents dtDateOrdered As DateTimePicker
+    Friend WithEvents dtDateDelivered As DateTimePicker
+    Friend WithEvents txtQuantity As TextBox
 End Class

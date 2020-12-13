@@ -793,7 +793,7 @@ Public Class frmPartsOrdering
 	Private Sub LoadParts()
 
 		Try
-
+			' Declare variables
 			Dim strSelect As String = ""
 			Dim cmdSelect As OleDb.OleDbCommand
 			Dim drSourceTable As OleDb.OleDbDataReader
