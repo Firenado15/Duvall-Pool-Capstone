@@ -2018,3 +2018,25 @@ GO
 --Select SUM(Total), SUM(Paid) from vMonthlyRevenue where YearDate = 2020 and MonthDate <= 8
 --SELECT * FROM vYTDFinances
 
+--SELECT
+--	 TP.strPartName AS PartName
+--	,TP.strSerialNumber AS Serial
+--	,TJP.intPartQuantity AS Quantity
+--	,('$' + CONVERT(VARCHAR, TP.decUnitSaleCost)) AS Cost
+--From
+--	 TParts AS TP
+--	,TJobParts AS TJP
+--	,TJobRecords AS TJ
+--WHERE TJP.intPartID = TP.intPartID
+--AND TJP.intJobRecordID = TJ.intJobRecordID
+--AND TJ.JobNumber LIKE '%72%'
+
+--SELECT
+--	('$' + CONVERT(VARCHAR, SUM(TP.decUnitSaleCost))) AS Cost
+--From
+--	 TParts AS TP
+--	,TJobParts AS TJP
+--	,TJobRecords AS TJ
+--WHERE TJP.intPartID = TP.intPartID
+--AND TJP.intJobRecordID = TJ.intJobRecordID
+--AND TJ.JobNumber LIKE '%72%'

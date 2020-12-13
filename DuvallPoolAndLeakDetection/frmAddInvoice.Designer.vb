@@ -73,9 +73,14 @@ Partial Class frmAddInvoice
 		Me.lblJobDesc = New System.Windows.Forms.Label()
 		Me.Label3 = New System.Windows.Forms.Label()
 		Me.btnTotal = New System.Windows.Forms.Button()
+		Me.dgvAssignedParts = New System.Windows.Forms.DataGridView()
+		Me.lblTotalPartCost = New System.Windows.Forms.Label()
+		Me.Label18 = New System.Windows.Forms.Label()
+		Me.Label17 = New System.Windows.Forms.Label()
 		Me.GroupBox1.SuspendLayout()
 		Me.GroupBox4.SuspendLayout()
 		Me.GroupBox5.SuspendLayout()
+		CType(Me.dgvAssignedParts, System.ComponentModel.ISupportInitialize).BeginInit()
 		Me.SuspendLayout()
 		'
 		'GroupBox1
@@ -538,7 +543,7 @@ Partial Class frmAddInvoice
 		'btnClose
 		'
 		Me.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel
-		Me.btnClose.Location = New System.Drawing.Point(444, 518)
+		Me.btnClose.Location = New System.Drawing.Point(445, 521)
 		Me.btnClose.Name = "btnClose"
 		Me.btnClose.Size = New System.Drawing.Size(81, 44)
 		Me.btnClose.TabIndex = 26
@@ -547,7 +552,7 @@ Partial Class frmAddInvoice
 		'
 		'btnSubmit
 		'
-		Me.btnSubmit.Location = New System.Drawing.Point(620, 518)
+		Me.btnSubmit.Location = New System.Drawing.Point(621, 521)
 		Me.btnSubmit.Name = "btnSubmit"
 		Me.btnSubmit.Size = New System.Drawing.Size(81, 44)
 		Me.btnSubmit.TabIndex = 27
@@ -557,15 +562,15 @@ Partial Class frmAddInvoice
 		'lblJobDesc
 		'
 		Me.lblJobDesc.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-		Me.lblJobDesc.Location = New System.Drawing.Point(27, 291)
+		Me.lblJobDesc.Location = New System.Drawing.Point(27, 267)
 		Me.lblJobDesc.Name = "lblJobDesc"
-		Me.lblJobDesc.Size = New System.Drawing.Size(395, 258)
+		Me.lblJobDesc.Size = New System.Drawing.Size(395, 99)
 		Me.lblJobDesc.TabIndex = 43
 		'
 		'Label3
 		'
 		Me.Label3.AutoSize = True
-		Me.Label3.Location = New System.Drawing.Point(24, 278)
+		Me.Label3.Location = New System.Drawing.Point(24, 254)
 		Me.Label3.Name = "Label3"
 		Me.Label3.Size = New System.Drawing.Size(80, 13)
 		Me.Label3.TabIndex = 44
@@ -573,18 +578,62 @@ Partial Class frmAddInvoice
 		'
 		'btnTotal
 		'
-		Me.btnTotal.Location = New System.Drawing.Point(532, 518)
+		Me.btnTotal.Location = New System.Drawing.Point(533, 521)
 		Me.btnTotal.Name = "btnTotal"
 		Me.btnTotal.Size = New System.Drawing.Size(81, 44)
 		Me.btnTotal.TabIndex = 45
 		Me.btnTotal.Text = "Total"
 		Me.btnTotal.UseVisualStyleBackColor = True
 		'
+		'dgvAssignedParts
+		'
+		Me.dgvAssignedParts.AllowUserToAddRows = False
+		Me.dgvAssignedParts.AllowUserToDeleteRows = False
+		Me.dgvAssignedParts.AllowUserToResizeColumns = False
+		Me.dgvAssignedParts.AllowUserToResizeRows = False
+		Me.dgvAssignedParts.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+		Me.dgvAssignedParts.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllHeaders
+		Me.dgvAssignedParts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+		Me.dgvAssignedParts.Location = New System.Drawing.Point(27, 389)
+		Me.dgvAssignedParts.Name = "dgvAssignedParts"
+		Me.dgvAssignedParts.Size = New System.Drawing.Size(395, 150)
+		Me.dgvAssignedParts.TabIndex = 46
+		'
+		'lblTotalPartCost
+		'
+		Me.lblTotalPartCost.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+		Me.lblTotalPartCost.Location = New System.Drawing.Point(292, 548)
+		Me.lblTotalPartCost.Name = "lblTotalPartCost"
+		Me.lblTotalPartCost.Size = New System.Drawing.Size(130, 17)
+		Me.lblTotalPartCost.TabIndex = 47
+		'
+		'Label18
+		'
+		Me.Label18.AutoSize = True
+		Me.Label18.Location = New System.Drawing.Point(203, 549)
+		Me.Label18.Name = "Label18"
+		Me.Label18.Size = New System.Drawing.Size(83, 13)
+		Me.Label18.TabIndex = 48
+		Me.Label18.Text = "Total Part Cost :"
+		'
+		'Label17
+		'
+		Me.Label17.AutoSize = True
+		Me.Label17.Location = New System.Drawing.Point(24, 373)
+		Me.Label17.Name = "Label17"
+		Me.Label17.Size = New System.Drawing.Size(51, 13)
+		Me.Label17.TabIndex = 49
+		Me.Label17.Text = "Job Parts"
+		'
 		'frmAddInvoice
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
 		Me.ClientSize = New System.Drawing.Size(721, 574)
+		Me.Controls.Add(Me.Label17)
+		Me.Controls.Add(Me.Label18)
+		Me.Controls.Add(Me.lblTotalPartCost)
+		Me.Controls.Add(Me.dgvAssignedParts)
 		Me.Controls.Add(Me.btnTotal)
 		Me.Controls.Add(Me.Label3)
 		Me.Controls.Add(Me.lblJobDesc)
@@ -605,6 +654,7 @@ Partial Class frmAddInvoice
 		Me.GroupBox4.PerformLayout()
 		Me.GroupBox5.ResumeLayout(False)
 		Me.GroupBox5.PerformLayout()
+		CType(Me.dgvAssignedParts, System.ComponentModel.ISupportInitialize).EndInit()
 		Me.ResumeLayout(False)
 		Me.PerformLayout()
 
@@ -660,4 +710,8 @@ Partial Class frmAddInvoice
 	Friend WithEvents Label7 As Label
 	Friend WithEvents lblEndDate As Label
 	Friend WithEvents lblStartDate As Label
+	Friend WithEvents dgvAssignedParts As DataGridView
+	Friend WithEvents lblTotalPartCost As Label
+	Friend WithEvents Label18 As Label
+	Friend WithEvents Label17 As Label
 End Class

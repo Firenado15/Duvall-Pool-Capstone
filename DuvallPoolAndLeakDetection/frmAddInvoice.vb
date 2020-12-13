@@ -243,6 +243,25 @@ Public Class frmAddInvoice
 
 	Private Sub cboJob_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboJob.SelectedIndexChanged
 
+		Try
+
+			LoadJobDetails()
+
+			LoadJobParts()
+
+			CalculatePartsCost()
+
+		Catch ex As Exception
+
+			'Unhandled Exception
+			MessageBox.Show(ex.Message)
+
+		End Try
+
+	End Sub
+
+	Private Sub LoadJobDetails()
+
 		Dim strSelect As String = ""
 		Dim strName As String = ""
 		Dim cmdSelect As OleDb.OleDbCommand 'Select
@@ -285,6 +304,79 @@ Public Class frmAddInvoice
 
 	End Sub
 
+	Private Sub LoadJobParts()
+
+		Dim strSelect As String = ""
+		Dim cmdSelect As OleDb.OleDbCommand
+		Dim drSourceTable As OleDb.OleDbDataReader
+		Dim dt As DataTable = New DataTable
+
+		'Open DB
+		If OpenDatabaseConnectionSQLServer() = False Then
+
+			'If DB could not open
+			MessageBox.Show(Me, "Database connection error." & vbNewLine &
+									"The application will now close.",
+									Me.Text + " Error",
+									MessageBoxButtons.OK, MessageBoxIcon.Error)
+			Me.Close()
+
+		End If
+
+		'Create select
+		strSelect = "SELECT " &
+							"TP.strPartName AS Name " &
+							",TP.strSerialNumber AS Serial " &
+							",TJP.intPartQuantity AS Quantity " &
+							", ('$' + CONVERT(VARCHAR, TP.decUnitSaleCost)) AS UnitCost " &
+					"From " &
+							"TParts AS TP " &
+							",TJobParts AS TJP " &
+							",TJobRecords AS TJ " &
+					"WHERE TJP.intPartID = TP.intPartID " &
+					"AND TJP.intJobRecordID = TJ.intJobRecordID " &
+					"AND TJ.intJobRecordID = " & cboJob.SelectedValue
+
+		'Get records
+		cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)
+		drSourceTable = cmdSelect.ExecuteReader
+
+		'Load Table
+		dt.Load(drSourceTable)
+
+		dgvAssignedParts.DataSource = dt
+
+		'dgvAssignedParts.Columns(3).Visible = False
+
+		' Clean up
+		drSourceTable.Close()
+
+		' close the database connection
+		CloseDatabaseConnection()
+
+	End Sub
+
+	Private Sub CalculatePartsCost()
+
+		Dim dblTotalCost As Double = 0.00
+
+		If dgvAssignedParts.RowCount > 0 Then
+
+			Dim intRowCount As Integer = dgvAssignedParts.RowCount
+
+
+			For intIndex As Integer = 0 To (intRowCount - 1)
+
+				dblTotalCost += (dgvAssignedParts.Rows(intIndex).Cells(3).Value * dgvAssignedParts.Rows(intIndex).Cells(2).Value)
+
+			Next
+
+		End If
+
+		lblTotalPartCost.Text = "$" & dblTotalCost
+
+	End Sub
+
 	Private Sub CalculateTotalCost()
 
 		'reset total
@@ -320,12 +412,12 @@ Public Class frmAddInvoice
 			dblInvoiceCost += txtFilterCost.Text
 		End If
 
+		'Add Part cost total
+		dblInvoiceCost += lblTotalPartCost.Text
 
 		txtTotalCost.Text = dblInvoiceCost
 
 	End Sub
-
-
 
 	Private Sub InsertInvoice()
 
