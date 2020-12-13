@@ -39,6 +39,7 @@ Partial Class frmEditJobParts
 		Me.txtRemoveQnty = New System.Windows.Forms.TextBox()
 		Me.Label5 = New System.Windows.Forms.Label()
 		Me.Label6 = New System.Windows.Forms.Label()
+		Me.lblDescription = New System.Windows.Forms.Label()
 		CType(Me.dgvAvailableParts, System.ComponentModel.ISupportInitialize).BeginInit()
 		CType(Me.dgvAssignedParts, System.ComponentModel.ISupportInitialize).BeginInit()
 		Me.SuspendLayout()
@@ -199,11 +200,20 @@ Partial Class frmEditJobParts
 		Me.Label6.TabIndex = 36
 		Me.Label6.Text = "Amnt To Remove"
 		'
+		'lblDescription
+		'
+		Me.lblDescription.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+		Me.lblDescription.Location = New System.Drawing.Point(466, 15)
+		Me.lblDescription.Name = "lblDescription"
+		Me.lblDescription.Size = New System.Drawing.Size(351, 68)
+		Me.lblDescription.TabIndex = 37
+		'
 		'frmEditJobParts
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
 		Me.ClientSize = New System.Drawing.Size(829, 398)
+		Me.Controls.Add(Me.lblDescription)
 		Me.Controls.Add(Me.Label6)
 		Me.Controls.Add(Me.Label5)
 		Me.Controls.Add(Me.txtRemoveQnty)
@@ -247,4 +257,5 @@ Partial Class frmEditJobParts
 	Friend WithEvents txtRemoveQnty As TextBox
 	Friend WithEvents Label5 As Label
 	Friend WithEvents Label6 As Label
+	Friend WithEvents lblDescription As Label
 End Class

@@ -2018,4 +2018,3 @@ GO
 --Select SUM(Total), SUM(Paid) from vMonthlyRevenue where YearDate = 2020 and MonthDate <= 8
 --SELECT * FROM vYTDFinances
 
-
