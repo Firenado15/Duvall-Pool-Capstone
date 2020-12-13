@@ -52,13 +52,8 @@ Partial Class frmAddJobRecords
 		Me.Label2 = New System.Windows.Forms.Label()
 		Me.Label3 = New System.Windows.Forms.Label()
 		Me.Label14 = New System.Windows.Forms.Label()
-		Me.Label15 = New System.Windows.Forms.Label()
-		Me.Label13 = New System.Windows.Forms.Label()
-		Me.Label12 = New System.Windows.Forms.Label()
 		Me.Label11 = New System.Windows.Forms.Label()
 		Me.txtJobDescription = New System.Windows.Forms.TextBox()
-		Me.txtEmployeeNames = New System.Windows.Forms.TextBox()
-		Me.txtNumberEmployees = New System.Windows.Forms.TextBox()
 		Me.btnSearch = New System.Windows.Forms.Button()
 		Me.GroupBox3.SuspendLayout()
 		Me.GroupBox2.SuspendLayout()
@@ -112,7 +107,7 @@ Partial Class frmAddJobRecords
 		'
 		'btnClose
 		'
-		Me.btnClose.Location = New System.Drawing.Point(42, 428)
+		Me.btnClose.Location = New System.Drawing.Point(585, 376)
 		Me.btnClose.Name = "btnClose"
 		Me.btnClose.Size = New System.Drawing.Size(109, 44)
 		Me.btnClose.TabIndex = 5
@@ -121,7 +116,7 @@ Partial Class frmAddJobRecords
 		'
 		'btnSubmit
 		'
-		Me.btnSubmit.Location = New System.Drawing.Point(841, 428)
+		Me.btnSubmit.Location = New System.Drawing.Point(849, 376)
 		Me.btnSubmit.Name = "btnSubmit"
 		Me.btnSubmit.Size = New System.Drawing.Size(109, 44)
 		Me.btnSubmit.TabIndex = 3
@@ -132,7 +127,7 @@ Partial Class frmAddJobRecords
 		'
 		Me.Label8.AutoSize = True
 		Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.Label8.Location = New System.Drawing.Point(389, 20)
+		Me.Label8.Location = New System.Drawing.Point(143, 29)
 		Me.Label8.Name = "Label8"
 		Me.Label8.Size = New System.Drawing.Size(195, 17)
 		Me.Label8.TabIndex = 45
@@ -156,7 +151,7 @@ Partial Class frmAddJobRecords
 		Me.GroupBox2.Controls.Add(Me.Label4)
 		Me.GroupBox2.Controls.Add(Me.cboName)
 		Me.GroupBox2.Controls.Add(Me.Label38)
-		Me.GroupBox2.Location = New System.Drawing.Point(526, 64)
+		Me.GroupBox2.Location = New System.Drawing.Point(534, 12)
 		Me.GroupBox2.Name = "GroupBox2"
 		Me.GroupBox2.Size = New System.Drawing.Size(444, 344)
 		Me.GroupBox2.TabIndex = 2
@@ -316,13 +311,8 @@ Partial Class frmAddJobRecords
 		Me.GroupBox1.Controls.Add(Me.Label2)
 		Me.GroupBox1.Controls.Add(Me.Label3)
 		Me.GroupBox1.Controls.Add(Me.Label14)
-		Me.GroupBox1.Controls.Add(Me.Label15)
-		Me.GroupBox1.Controls.Add(Me.Label13)
-		Me.GroupBox1.Controls.Add(Me.Label12)
 		Me.GroupBox1.Controls.Add(Me.Label11)
 		Me.GroupBox1.Controls.Add(Me.txtJobDescription)
-		Me.GroupBox1.Controls.Add(Me.txtEmployeeNames)
-		Me.GroupBox1.Controls.Add(Me.txtNumberEmployees)
 		Me.GroupBox1.Location = New System.Drawing.Point(23, 64)
 		Me.GroupBox1.Name = "GroupBox1"
 		Me.GroupBox1.Size = New System.Drawing.Size(444, 293)
@@ -376,47 +366,17 @@ Partial Class frmAddJobRecords
 		'
 		Me.Label14.AutoSize = True
 		Me.Label14.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.Label14.Location = New System.Drawing.Point(16, 241)
+		Me.Label14.Location = New System.Drawing.Point(56, 140)
 		Me.Label14.Name = "Label14"
 		Me.Label14.Size = New System.Drawing.Size(106, 17)
 		Me.Label14.TabIndex = 11
 		Me.Label14.Text = "Job Description"
 		'
-		'Label15
-		'
-		Me.Label15.AutoSize = True
-		Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.Label15.Location = New System.Drawing.Point(16, 193)
-		Me.Label15.Name = "Label15"
-		Me.Label15.Size = New System.Drawing.Size(142, 17)
-		Me.Label15.TabIndex = 11
-		Me.Label15.Text = "(First Last, First Last)"
-		'
-		'Label13
-		'
-		Me.Label13.AutoSize = True
-		Me.Label13.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.Label13.Location = New System.Drawing.Point(16, 176)
-		Me.Label13.Name = "Label13"
-		Me.Label13.Size = New System.Drawing.Size(118, 17)
-		Me.Label13.TabIndex = 11
-		Me.Label13.Text = "Employee Names"
-		'
-		'Label12
-		'
-		Me.Label12.AutoSize = True
-		Me.Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.Label12.Location = New System.Drawing.Point(16, 139)
-		Me.Label12.Name = "Label12"
-		Me.Label12.Size = New System.Drawing.Size(147, 17)
-		Me.Label12.TabIndex = 11
-		Me.Label12.Text = "Number of Employees"
-		'
 		'Label11
 		'
 		Me.Label11.AutoSize = True
 		Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.Label11.Location = New System.Drawing.Point(16, 100)
+		Me.Label11.Location = New System.Drawing.Point(16, 101)
 		Me.Label11.Name = "Label11"
 		Me.Label11.Size = New System.Drawing.Size(146, 17)
 		Me.Label11.TabIndex = 9
@@ -424,29 +384,15 @@ Partial Class frmAddJobRecords
 		'
 		'txtJobDescription
 		'
-		Me.txtJobDescription.Location = New System.Drawing.Point(180, 215)
+		Me.txtJobDescription.Location = New System.Drawing.Point(180, 139)
 		Me.txtJobDescription.Multiline = True
 		Me.txtJobDescription.Name = "txtJobDescription"
-		Me.txtJobDescription.Size = New System.Drawing.Size(244, 64)
+		Me.txtJobDescription.Size = New System.Drawing.Size(244, 105)
 		Me.txtJobDescription.TabIndex = 4
-		'
-		'txtEmployeeNames
-		'
-		Me.txtEmployeeNames.Location = New System.Drawing.Point(180, 176)
-		Me.txtEmployeeNames.Name = "txtEmployeeNames"
-		Me.txtEmployeeNames.Size = New System.Drawing.Size(244, 20)
-		Me.txtEmployeeNames.TabIndex = 3
-		'
-		'txtNumberEmployees
-		'
-		Me.txtNumberEmployees.Location = New System.Drawing.Point(180, 137)
-		Me.txtNumberEmployees.Name = "txtNumberEmployees"
-		Me.txtNumberEmployees.Size = New System.Drawing.Size(244, 20)
-		Me.txtNumberEmployees.TabIndex = 2
 		'
 		'btnSearch
 		'
-		Me.btnSearch.Location = New System.Drawing.Point(705, 428)
+		Me.btnSearch.Location = New System.Drawing.Point(717, 376)
 		Me.btnSearch.Name = "btnSearch"
 		Me.btnSearch.Size = New System.Drawing.Size(109, 44)
 		Me.btnSearch.TabIndex = 4
@@ -457,7 +403,7 @@ Partial Class frmAddJobRecords
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-		Me.ClientSize = New System.Drawing.Size(990, 484)
+		Me.ClientSize = New System.Drawing.Size(990, 435)
 		Me.Controls.Add(Me.btnSearch)
 		Me.Controls.Add(Me.GroupBox3)
 		Me.Controls.Add(Me.btnClose)
@@ -502,18 +448,13 @@ Partial Class frmAddJobRecords
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents Label2 As Label
 	Friend WithEvents Label3 As Label
-	Friend WithEvents Label13 As Label
-	Friend WithEvents Label12 As Label
-    Friend WithEvents Label11 As Label
-    Friend WithEvents txtEmployeeNames As TextBox
-    Friend WithEvents txtNumberEmployees As TextBox
-    Friend WithEvents radCompleted As RadioButton
-    Friend WithEvents radInProgress As RadioButton
-    Friend WithEvents radScheduled As RadioButton
-    Friend WithEvents btnSearch As Button
-    Friend WithEvents Label14 As Label
-    Friend WithEvents txtJobDescription As TextBox
-    Friend WithEvents Label15 As Label
+	Friend WithEvents Label11 As Label
+	Friend WithEvents radCompleted As RadioButton
+	Friend WithEvents radInProgress As RadioButton
+	Friend WithEvents radScheduled As RadioButton
+	Friend WithEvents btnSearch As Button
+	Friend WithEvents Label14 As Label
+	Friend WithEvents txtJobDescription As TextBox
 	Friend WithEvents dtEndDate As DateTimePicker
 	Friend WithEvents dtStartDate As DateTimePicker
 End Class

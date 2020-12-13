@@ -85,9 +85,17 @@
 		' Reset backcolor
 		'txtStartDate.BackColor = Color.White
 		'txtEndDate.BackColor = Color.White
-		txtNumberEmployees.BackColor = Color.White
-		txtEmployeeNames.BackColor = Color.White
+		'txtNumberEmployees.BackColor = Color.White
+		'txtEmployeeNames.BackColor = Color.White
 		txtJobDescription.BackColor = Color.White
+
+		If dtStartDate.Value >= dtEndDate.Value Then
+
+			MessageBox.Show("Start date/time must occur before end date/time.")
+			Return False
+
+		End If
+
 
 		'' check if something is entered in date started text box
 		'If txtStartDate.Text <> String.Empty And IsDate(txtStartDate.Text) Then
@@ -113,17 +121,17 @@
 		'	Return False
 		'End If
 
-		' check if something is entered in number of employees text box
-		If txtNumberEmployees.Text <> String.Empty And IsNumeric(txtNumberEmployees.Text) Then
-			intEmployees = txtNumberEmployees.Text
-		Else
-			' text box is blank so tell user to enter number of employees, change back color to yellow,
-			' put focus in text box and return false we don't want to continue
-			MessageBox.Show("Please enter number of employees.")
-			txtNumberEmployees.BackColor = Color.Yellow
-			txtNumberEmployees.Focus()
-			Return False
-		End If
+		'' check if something is entered in number of employees text box
+		'If txtNumberEmployees.Text <> String.Empty And IsNumeric(txtNumberEmployees.Text) Then
+		'	intEmployees = txtNumberEmployees.Text
+		'Else
+		'	' text box is blank so tell user to enter number of employees, change back color to yellow,
+		'	' put focus in text box and return false we don't want to continue
+		'	MessageBox.Show("Please enter number of employees.")
+		'	txtNumberEmployees.BackColor = Color.Yellow
+		'	txtNumberEmployees.Focus()
+		'	Return False
+		'End If
 
 		'' check if something is entered in employee names text box
 		'If txtEmployeeNames.Text <> String.Empty Then
@@ -210,8 +218,8 @@
 				' Set values
 				strStartDate = dtStartDate.Value.Date.ToString()
 				strEndDate = dtEndDate.Value.Date.ToString()
-				intNumberEmployees = txtNumberEmployees.Text
-				strEmployeeNames = txtEmployeeNames.Text
+				'intNumberEmployees = txtNumberEmployees.Text
+				'strEmployeeNames = txtEmployeeNames.Text
 				strJobDescription = txtJobDescription.Text
 
 				' Set status ID
