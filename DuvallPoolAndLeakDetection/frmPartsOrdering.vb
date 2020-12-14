@@ -467,7 +467,6 @@ Public Class frmPartsOrdering
 		End Try
 	End Sub
 
-
 	' Runs validation on text boxes and radio buttons
 	Function Validation() As Boolean
 
@@ -687,6 +686,7 @@ Public Class frmPartsOrdering
 			Else
 				' Tell user to pick a vendor
 				MessageBox.Show("Please enter a valid vendor.")
+				Return False
 			End If
 
 		End If
@@ -701,6 +701,7 @@ Public Class frmPartsOrdering
 			Else
 				' Tell user to enter valid part
 				MessageBox.Show("Please enter a valid part.")
+				Return False
 			End If
 		End If
 
@@ -909,6 +910,7 @@ Public Class frmPartsOrdering
 				cboPartName.DataSource = dt
 
 				If dt.Rows.Count = 0 Then
+					radPartNo.Checked = True
 					lblSerialNumber.Text = ""
 					lblPartDescription.Text = ""
 				End If
@@ -1038,6 +1040,7 @@ Public Class frmPartsOrdering
 				cboVendor.DataSource = dt
 
 				If dt.Rows.Count = 0 Then
+					radNo.Checked = True
 					lblAddress.Text = ""
 					lblCity.Text = ""
 					lblContactName.Text = ""

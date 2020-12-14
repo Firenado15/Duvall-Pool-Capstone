@@ -449,9 +449,9 @@ Partial Class frmPartsOrdering
         Me.Label19.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label19.Location = New System.Drawing.Point(7, 19)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(113, 17)
+        Me.Label19.Size = New System.Drawing.Size(93, 17)
         Me.Label19.TabIndex = 28
-        Me.Label19.Text = "Previous Vendor"
+        Me.Label19.Text = "Previous Part"
         '
         'Label21
         '
