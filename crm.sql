@@ -158,7 +158,7 @@ CREATE TABLE TPartsOrders
 	,intPartID				INTEGER			NOT NULL
 	,dtDateOrdered			DATETIME		NOT NULL
 	,dtDateArrived			DATETIME		NOT NULL
-	,blnArrived				BIT				NOT NULL
+	,blnArrived				INTEGER			NOT NULL
 	,intQuantity			INTEGER			NOT NULL
 	,decUnitPurchaseCost	DECIMAL(7,2)	NOT NULL
 	,PONumber AS CASE len(intPartOrderedID)
