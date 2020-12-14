@@ -213,6 +213,10 @@ Public Class frmPrintInvoice
 
 	Private Sub LoadPartsCost()
 
+		Dim strSelectRowCount As String
+		Dim cmdSelectRowCount As OleDb.OleDbCommand
+		Dim dtSelectRowCount As DataTable = New DataTable
+
 		Dim strPartsTotal As String
 		Dim intRowCount As Integer
 		Dim strSelect As String = ""
@@ -232,6 +236,16 @@ Public Class frmPrintInvoice
 
 		End If
 
+		strSelectRowCount = "SELECT COUNT(intJobRecordID) From TJobParts Where intJobRecordID = " & intJobRecordID
+
+		cmdSelectRowCount = New OleDb.OleDbCommand(strSelectRowCount, m_conAdministrator)
+		drSourceTable = cmdSelectRowCount.ExecuteReader
+
+		dtSelectRowCount.Load(drSourceTable)
+
+		intRowCount = dtSelectRowCount.Rows(0).Item(0)
+
+
 		'Create select
 		strSelect = "SELECT " &
 						"CONVERT(VARCHAR, SUM(TP.decUnitSaleCost * TJP.intPartQuantity)) " &
@@ -250,7 +264,6 @@ Public Class frmPrintInvoice
 		'load the data table from the reader
 		dt.Load(drSourceTable)
 
-		intRowCount = dt.Rows.Count
 
 		'Check for any parts
 		If intRowCount > 0 Then
@@ -259,11 +272,12 @@ Public Class frmPrintInvoice
 
 			lblServices.Text = lblServices.Text & "Part Cost"
 			lblBilling.Text = lblBilling.Text & strPartsTotal
-			dblTotal += dt.Rows(0).Item(0)
+			dblTotal += dt.Rows(0).Item(0).tos
 
-			lblTotal.Text = "$" & dblTotal.ToString
 
 		End If
+
+		lblTotal.Text = "$" & dblTotal.ToString
 
 		' close the database connection
 		CloseDatabaseConnection()
