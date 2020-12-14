@@ -97,8 +97,6 @@
 
 
 
-
-
 		'Open DB
 		If OpenDatabaseConnectionSQLServer() = False Then
 
@@ -246,7 +244,7 @@
 
 				CloseDatabaseConnection()
 
-
+				Me.Close()
 			End If
 
 
@@ -256,8 +254,6 @@
 			'unhandled exception
 			MessageBox.Show(ex.Message)
 		End Try
-
-		Me.Close()
 
 	End Sub
 End Class

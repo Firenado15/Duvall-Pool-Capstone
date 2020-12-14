@@ -161,14 +161,13 @@
 
 				CloseDatabaseConnection()
 
+				Me.Close()
 			End If
 
 		Catch ex As Exception
 			'unhandled exception
 			MessageBox.Show(ex.Message)
 		End Try
-
-		Me.Close()
 
 	End Sub
 
