@@ -131,4 +131,18 @@ Public Class frmEmployeeInfo
 
 	End Sub
 
+	Private Sub dgvJobs_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvJobs.CellDoubleClick
+
+		'Check to make sure it is not a DBNull value
+		If IsDBNull(dgvJobs.CurrentRow.Cells(0).Value) = False Then
+
+			' create a new instance of the job information form, passing current job ID
+			Dim JobDetails As New frmJobDetails(dgvJobs.CurrentRow.Cells(0).Value)
+
+			' show the new form so any past data is not still on the form
+			JobDetails.ShowDialog()
+
+		End If
+
+	End Sub
 End Class

@@ -104,3 +104,4 @@ C:\Users\admin\Documents\GitHub\Duvall-Pool-Capstone\DuvallPoolAndLeakDetection\
 C:\Users\admin\Documents\GitHub\Duvall-Pool-Capstone\DuvallPoolAndLeakDetection\obj\Debug\DuvallPoolAndLeakDetection.frmEmployeeInfo.resources
 C:\Users\admin\Documents\GitHub\Duvall-Pool-Capstone\DuvallPoolAndLeakDetection\obj\Debug\DuvallPoolAndLeakDetection.frmEditInventory.resources
 C:\Users\admin\Documents\GitHub\Duvall-Pool-Capstone\DuvallPoolAndLeakDetection\obj\Debug\DuvallPoolAndLeakDetection.frmEditJobParts.resources
+C:\Users\admin\Documents\GitHub\Duvall-Pool-Capstone\DuvallPoolAndLeakDetection\obj\Debug\DuvallPoolAndLeakDetection.frmEditPartOrders.resources

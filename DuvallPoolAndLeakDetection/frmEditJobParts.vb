@@ -344,7 +344,8 @@
 		cboJob.BeginUpdate()
 
 		'Create select
-		strSelect = "SELECT intJobRecordID, JobNumber FROM vJobsWithoutInvoices WHERE intCustomerID = " & cboName.SelectedValue
+		strSelect = "SELECT intJobRecordID, JobNumber FROM vJobsWithoutInvoices WHERE intCustomerID = " & cboName.SelectedValue &
+					" ORDER BY JobNumber DESC"
 
 		'Get records
 		cmdSelect = New OleDb.OleDbCommand(strSelect, m_conAdministrator)

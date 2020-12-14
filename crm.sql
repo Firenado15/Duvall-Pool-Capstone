@@ -2012,7 +2012,6 @@ FROM
 	,TJobRecords AS TJ
 WHERE
 	TC.intCustomerID = TJ.intCustomerID AND
-	TJ.intStatusID = 3 AND
 	NOT EXISTS(SELECT intJobRecordID FROM TInvoices WHERE TJ.intJobRecordID = TInvoices.intJobRecordID)
 GO
 

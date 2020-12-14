@@ -90,6 +90,12 @@
     <Compile Include="frmEditJobParts.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmEditPartOrders.Designer.vb">
+      <DependentUpon>frmEditPartOrders.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmEditPartOrders.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmMakeInvoicePayment.Designer.vb">
       <DependentUpon>frmMakeInvoicePayment.vb</DependentUpon>
     </Compile>
@@ -264,6 +270,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmEditJobParts.resx">
       <DependentUpon>frmEditJobParts.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmEditPartOrders.resx">
+      <DependentUpon>frmEditPartOrders.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmJobDetails.resx">
       <DependentUpon>frmJobDetails.vb</DependentUpon>

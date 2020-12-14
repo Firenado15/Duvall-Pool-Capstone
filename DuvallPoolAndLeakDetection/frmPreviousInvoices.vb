@@ -396,8 +396,10 @@ Public Class frmPreviousInvoices
 
 		Dim strDeleteServices As String = ""
 		Dim strDeleteInvoice As String = ""
+		Dim strDeleteInvoicePayments As String = ""
 		Dim cmdDeleteServices As OleDb.OleDbCommand 'Select
 		Dim cmdDeleteInvoices As OleDb.OleDbCommand 'Select
+		Dim cmdDeletePayments As OleDb.OleDbCommand
 		Dim intRowsAffected As Integer
 
 		' ----------------------------------------------------------------------------
@@ -433,6 +435,24 @@ Public Class frmPreviousInvoices
 		'	MessageBox.Show("Services have been removed")
 		'	Me.Close()
 		'End If
+
+		' ----------------------------------------------------------------------------
+		' Remove invoice payments-----------------------------------------------------
+		' ----------------------------------------------------------------------------
+
+		'Delete statement
+		strDeleteInvoicePayments = "DELETE FROM TInvoicePayments WHERE intInvoiceID =" & cboInvoice.SelectedValue
+
+		'Delete records 
+		cmdDeletePayments = New OleDb.OleDbCommand(strDeleteInvoicePayments, m_conAdministrator)
+
+		intRowsAffected = cmdDeletePayments.ExecuteNonQuery()
+
+		'If intRowsAffected > 0 Then
+		'	MessageBox.Show("Services have been removed")
+		'	Me.Close()
+		'End If
+
 
 		' ----------------------------------------------------------------------------
 		' Remove job invoice ---------------------------------------------------------
