@@ -162,12 +162,12 @@ CREATE TABLE TPartsOrders
 	,intQuantity			INTEGER			NOT NULL
 	,decUnitPurchaseCost	DECIMAL(7,2)	NOT NULL
 	,PONumber AS CASE len(intPartOrderedID)
-		when 1 then 'PO-'+'00000'+CONVERT(varchar, intPartID)
-		when 2 then 'PO-'+'0000'+CONVERT(varchar, intPartID)
-		when 3 then 'PO-'+'000'+CONVERT(varchar, intPartID)
-		when 4 then 'PO-'+'00'+CONVERT(varchar, intPartID)
-		when 5 then 'PO-'+'0'+CONVERT(varchar, intPartID)
-		else'PO-'+CONVERT(varchar, intPartID)
+		when 1 then 'PO-'+'00000'+CONVERT(varchar, intPartOrderedID)
+		when 2 then 'PO-'+'0000'+CONVERT(varchar, intPartOrderedID)
+		when 3 then 'PO-'+'000'+CONVERT(varchar, intPartOrderedID)
+		when 4 then 'PO-'+'00'+CONVERT(varchar, intPartOrderedID)
+		when 5 then 'PO-'+'0'+CONVERT(varchar, intPartOrderedID)
+		else'PO-'+CONVERT(varchar, intPartOrderedID)
 		end
 	,CONSTRAINT TPartsOrders_PK PRIMARY KEY ( intPartOrderedID )
 )
